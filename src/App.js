@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './Components/Header';
+import Navbar from './Components/Navbar';
+import Creatures from './Components/Creatures';
+import Fossils from './Components/Fossils';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends React.Component {
+  state = {
+    activeItem: 'fish',
+    fish: [],
+    bugs: [],
+    fossils: [],
+    songs: []
+  }
+  changeType = (newType) => {
+    this.setState({activeItem: newType})
+  }
+  populateData = dataType => {
+    if(this.state[dataType].length === 0){
+      fetch(`./${dataType}.json`)
+        .then(data => data.json())
+        .then(results => {
+          const itemList = Object.keys(results).map(key => results[key]);
+          this.setState({[dataType]: itemList})
+        })
+    }else{
+      console.log(this.state[dataType]);
+    }
+  }
+
+  render() {
+    const activeItem = this.state.activeItem;
+    this.populateData(activeItem);
+    let displayArea;
+    if(activeItem === 'fish'){
+      displayArea = <Creatures activeItem={this.state.activeItem} fish={this.state.fish} populateData={this.populateData}/>
+    }else if(activeItem === 'bugs'){
+      displayArea = <Creatures activeItem={this.state.activeItem} bugs={this.state.bugs} populateData={this.populateData}/>
+    }
+    else if(activeItem === 'fossils'){
+      displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} populateData={this.populateData}/>
+    }
+    return (
+      <div className="App">
+      <Header />
+      <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
+      {displayArea}
     </div>
-  );
+    );
+  }
 }
 
 export default App;
