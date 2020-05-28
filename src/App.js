@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Creatures from './Components/Creatures';
@@ -20,7 +20,9 @@ class App extends React.Component {
       fetch(`./${dataType}.json`)
         .then(data => data.json())
         .then(results => {
+          console.log(Object.keys(results))
           const itemList = Object.keys(results).map(key => results[key]);
+          console.log(itemList)
           this.setState({[dataType]: itemList})
         })
     }else{

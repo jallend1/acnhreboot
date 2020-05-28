@@ -1,13 +1,17 @@
-import React from 'react';
+ import React from 'react';
 
 class Creatures extends React.Component{
-    
+    showmeCreatures(){
+        console.log(this.props.fish[0])
+    }
+
     render(){
         return (
             <>
                 <p>I am creatures</p>
-                {this.props.fish.forEach(fish => <p>{fish}</p>)}
-                {/* {this.props[this.props.activeItem]} */}
+                {this.props.fish.map(fish => <p>{fish}</p>)}
+                {/* <p>{this.props[this.props.activeItem][0]}</p> */}
+                {this.showmeCreatures()}
             </>
         )
     }
