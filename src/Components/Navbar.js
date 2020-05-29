@@ -3,9 +3,7 @@ import React from 'react';
 class Navbar extends React.Component{
     handleClick = (clickedType) => {
         const newType = clickedType.target.textContent.toLowerCase();
-        console.log(newType)
         this.props.changeType(newType);
-        
     }
     render() { 
         return(

@@ -9,9 +9,7 @@ class Creatures extends React.Component{
         return (
             <>
                 <p>I am creatures</p>
-                {this.props.fish.map(fish => <p>{fish}</p>)}
-                {/* <p>{this.props[this.props.activeItem][0]}</p> */}
-                {this.showmeCreatures()}
+        <p>{this.props[this.props.activeItem][0]["file-name"]}</p>
             </>
         )
     }

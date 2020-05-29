@@ -6,7 +6,7 @@ import Fossils from './Components/Fossils';
 
 class App extends React.Component {
   state = {
-    activeItem: 'fish',
+    activeItem: '',
     fish: [],
     bugs: [],
     fossils: [],
@@ -14,15 +14,15 @@ class App extends React.Component {
   }
   changeType = (newType) => {
     this.setState({activeItem: newType})
+    this.populateData(newType);
   }
   populateData = dataType => {
+    console.log('running populate data')
     if(this.state[dataType].length === 0){
       fetch(`./${dataType}.json`)
         .then(data => data.json())
         .then(results => {
-          console.log(Object.keys(results))
           const itemList = Object.keys(results).map(key => results[key]);
-          console.log(itemList)
           this.setState({[dataType]: itemList})
         })
     }else{
@@ -32,15 +32,14 @@ class App extends React.Component {
 
   render() {
     const activeItem = this.state.activeItem;
-    this.populateData(activeItem);
     let displayArea;
     if(activeItem === 'fish'){
-      displayArea = <Creatures activeItem={this.state.activeItem} fish={this.state.fish} populateData={this.populateData}/>
+      displayArea = <Creatures activeItem={this.state.activeItem} fish={this.state.fish} />
     }else if(activeItem === 'bugs'){
-      displayArea = <Creatures activeItem={this.state.activeItem} bugs={this.state.bugs} populateData={this.populateData}/>
+      displayArea = <Creatures activeItem={this.state.activeItem} bugs={this.state.bugs} />
     }
     else if(activeItem === 'fossils'){
-      displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} populateData={this.populateData}/>
+      displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} />
     }
     return (
       <div className="App">
