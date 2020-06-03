@@ -1,4 +1,4 @@
- import React from 'react';
+  import React from 'react';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Creatures from './Components/Creatures';
@@ -6,16 +6,21 @@ import Fossils from './Components/Fossils';
 
 class App extends React.Component {
   state = {
-    activeItem: '',
+    activeItem: 'fish',
     fish: [],
     bugs: [],
     fossils: [],
     songs: []
   }
+  componentDidMount(){
+    this.populateData(this.state.activeItem)
+  }
+
   changeType = (newType) => {
     this.setState({activeItem: newType})
     this.populateData(newType);
   }
+
   populateData = dataType => {
     console.log('running populate data')
     if(this.state[dataType].length === 0){
@@ -41,8 +46,8 @@ class App extends React.Component {
     else if(activeItem === 'fossils'){
       displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} />
     }
-    return (
-      <div className="App">
+    return (  
+    <div className="App">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
       {displayArea}
