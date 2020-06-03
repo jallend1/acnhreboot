@@ -1,4 +1,4 @@
- import React from 'react';
+  import React from 'react';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Creatures from './Components/Creatures';
@@ -11,6 +11,9 @@ class App extends React.Component {
     bugs: [],
     fossils: [],
     songs: []
+  }
+  componentDidMount(){
+    this.populateData(this.state.activeItem)
   }
   changeType = (newType) => {
     this.setState({activeItem: newType})
@@ -32,7 +35,6 @@ class App extends React.Component {
 
   render() {
     const activeItem = this.state.activeItem;
-    this.populateData(activeItem);
     let displayArea;
     if(activeItem === 'fish'){
       displayArea = <Creatures activeItem={this.state.activeItem} fish={this.state.fish} populateData={this.populateData}/>
@@ -42,8 +44,8 @@ class App extends React.Component {
     else if(activeItem === 'fossils'){
       displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} populateData={this.populateData}/>
     }
-    return (
-      <div className="App">
+    return (  
+    <div className="App">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
       {displayArea}
