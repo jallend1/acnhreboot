@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return (
         <>
-        <h1>ACNH</h1>
+        <h1>Animal Crossing: New Horizons</h1>
         </>
     )
 }

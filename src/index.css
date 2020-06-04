@@ -30,8 +30,15 @@ li{
 .creature{
   width: 30%;
   margin: auto;
+  text-align: center;
 }
 
 .creature img{
   max-width: 400px;
+}
+
+.song{
+  max-width: 50%;
+  margin: auto;
+  text-align: center;
 }

@@ -2,6 +2,7 @@
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Creatures from './Components/Creatures';
+import Music from './Components/Music'
 
 class App extends React.Component {
   state = {
@@ -9,7 +10,7 @@ class App extends React.Component {
     fish: [],
     bugs: [],
     fossils: [],
-    songs: []
+    music: []
   }
   componentDidMount(){
     this.populateData(this.state.activeItem)
@@ -44,6 +45,9 @@ class App extends React.Component {
     }
     else if(activeItem === 'fossils'){
       displayArea = <Creatures activeItem={this.state.activeItem} fossils={this.state.fossils} />
+    }
+    else if(activeItem === 'music'){
+      displayArea = <Music activeItem={this.state.activeItem} music={this.state.music} />
     }
     return (  
     <div className="container">
