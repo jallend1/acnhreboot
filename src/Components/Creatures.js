@@ -1,4 +1,5 @@
  import React from 'react';
+ import { properCase } from '../utils';
 
 class Creatures extends React.Component{
     displayItems = item => {
@@ -9,10 +10,12 @@ class Creatures extends React.Component{
                 "file-name": fileName
                 } = item;
         return (
-            <div key={fileName}>
-                <h2>{name}</h2>
-                <h3>Nook's Value: {price} bells</h3>
-                <img src={`./images/${this.props.activeItem}/${fileName}.png`} />
+            <div className="creature" key={fileName}>
+                <h3>{properCase(name)}</h3>
+                <h4>Nook's Value: {price} bells</h4>
+                <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
+                <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>
+                <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                 <p>{catchPhrase}</p>
                 <p>Blathers' Take: {museumPhrase}</p>
             </div>
@@ -23,9 +26,8 @@ class Creatures extends React.Component{
         const activeItem = this.props.activeItem;
         return (
             <>
-                <h1>{activeItem.toUpperCase()}</h1>
+                <h2>{activeItem.toUpperCase()}</h2>
                 {this.props[activeItem].map(item => this.displayItems(item))}
-
             </>
         )
     }

@@ -14,7 +14,6 @@ class Navbar extends React.Component{
                 <li onClick={this.handleClick}>Fossils</li>
                 <li onClick={this.handleClick}>Songs</li>
                 <li onClick={this.handleClick}>Villagers</li>
-                <li onClick={this.handleClick}>{this.props.activeItem}</li>
             </ul>
             </>
         )

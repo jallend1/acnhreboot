@@ -47,7 +47,7 @@ class App extends React.Component {
       displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} />
     }
     return (  
-    <div className="App">
+    <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
       {displayArea}
