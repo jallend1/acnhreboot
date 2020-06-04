@@ -2,7 +2,6 @@
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Creatures from './Components/Creatures';
-import Fossils from './Components/Fossils';
 
 class App extends React.Component {
   state = {
@@ -44,7 +43,7 @@ class App extends React.Component {
       displayArea = <Creatures activeItem={this.state.activeItem} bugs={this.state.bugs} />
     }
     else if(activeItem === 'fossils'){
-      displayArea = <Fossils activeItem={this.state.activeItem} bugs={this.state.fossils} />
+      displayArea = <Creatures activeItem={this.state.activeItem} fossils={this.state.fossils} />
     }
     return (  
     <div className="container">

@@ -12,7 +12,7 @@ class Navbar extends React.Component{
                 <li onClick={this.handleClick}>Fish</li>
                 <li onClick={this.handleClick}>Bugs</li>
                 <li onClick={this.handleClick}>Fossils</li>
-                <li onClick={this.handleClick}>Songs</li>
+                <li onClick={this.handleClick}>Music</li>
                 <li onClick={this.handleClick}>Villagers</li>
             </ul>
             </>

@@ -12,7 +12,7 @@ class Creatures extends React.Component{
         return (
             <div className="creature" key={fileName}>
                 <h3>{properCase(name)}</h3>
-                <h4>Nook's Value: {price} bells</h4>
+                <h4>Nook's Price: {price || item.price} bells</h4>
                 <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
                 <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>
                 <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
