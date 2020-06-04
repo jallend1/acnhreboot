@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  background-image: url("./grass.png");
+  /* Image credit: https://www.deviantart.com/thenewhylton/art/Animal-Crossing-Grass-Remake-Spring-HD-439882381 */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,6 +12,13 @@ body {
 .container{
   margin: auto;
   width: 80%;
+  background: white;
+}
+
+header{
+  background-image: url('./wood.jpg');
+  /* Image credit: https://pngtree.com/freebackground/wood-panels-banner-background-flat-cartoon-style_1155264.html */
+  padding: 3em;
 }
 
 h1, h2, h3{
@@ -27,18 +36,12 @@ li{
   margin: 2em;
 }
 
-.creature{
-  width: 30%;
+.item{
+  width: 50%;
   margin: auto;
   text-align: center;
 }
 
-.creature img{
+.item img{
   max-width: 400px;
-}
-
-.song{
-  max-width: 50%;
-  margin: auto;
-  text-align: center;
 }

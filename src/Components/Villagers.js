@@ -10,10 +10,9 @@ class Villagers extends React.Component{
             species,
             name: {"name-en": name},
             "birthday-string": birthday
-        } = villager;
-        console.log(villager)
+            } = villager;
         return(
-            <div className="creature" key={fileName}>
+            <div className="item" key={fileName}>
                 <h3>{name}</h3>
                 <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                 <h4>Catchphrase: {catchPhrase}</h4>

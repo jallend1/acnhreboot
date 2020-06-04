@@ -9,16 +9,15 @@ class Art extends React.Component{
             "buy-price": buyPrice,
             "sell-price": sellPrice,
             hasFake
-        } = art;
-        console.log(art);
+            } = art;
         return(
-            <div className="creature" key={name}>
+            <div className="item" key={name}>
                 <h3>{properCase(name)}</h3>
-                <img src={`./images/${this.props.activeItem}/${fileName}.png`} />
+                <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
                 <div className="details">
-        <p>Purchase Price: {buyPrice}</p>
-        <p>Sell Price: {buyPrice}</p>
-        <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
+                    <p>Purchase Price: {buyPrice}</p>
+                    <p>Sell Price: {sellPrice}</p>
+                    <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
                 </div>
             </div>
         )

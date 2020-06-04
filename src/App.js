@@ -26,7 +26,6 @@ class App extends React.Component {
   }
 
   populateData = dataType => {
-    console.log('running populate data')
     if(this.state[dataType].length === 0){
       fetch(`./${dataType}.json`)
         .then(data => data.json())
