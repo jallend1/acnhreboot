@@ -14,8 +14,11 @@ class Creatures extends React.Component{
                 <div className="item" key={fileName}>
                     <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
                         <h3>{properCase(name)}</h3>
-                        <h4>Nook's Price: {price || item.price} bells</h4> 
-                        <img src={this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
+                        <h4>{price || item.price} bells</h4> 
+                        <img src={
+                            this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
+                            : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
+                        />
                     </header>
                     <div className={collapsed ? "collapsed details" : "details"}>
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
