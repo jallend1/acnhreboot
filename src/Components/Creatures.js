@@ -2,6 +2,13 @@
  import { properCase } from '../utils';
 
 class Creatures extends React.Component{
+    alternateBuyer = item => {
+        if(this.props.activeItem === 'bugs'){
+            return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
+        }else if(item["price-cj"]){
+            return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>
+        }
+    }
     displayItems = item => {
         const { price, 
             name: {"name-en": name},
@@ -23,8 +30,7 @@ class Creatures extends React.Component{
                     </header>
                     <div className={collapsed ? "collapsed details" : "details"}>
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
-                        <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
-                        <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>
+                        {this.alternateBuyer(item)}
                         <p>{catchPhrase}</p>
                         <p>Blathers' Take: {museumPhrase}</p>
                     </div>

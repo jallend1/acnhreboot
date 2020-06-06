@@ -11,12 +11,14 @@ class Art extends React.Component{
             hasFake
             } = art;
         return(
-            <div className="item" key={name}>
-                <h3>{properCase(name)}</h3>
-                <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
+            <div className="item" id="artwork" key={name}>
+                <header>
+                    <h3>{properCase(name)}</h3>
+                    <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
+                </header>
                 <div className="details">
-                    <p>Purchase Price: {buyPrice}</p>
-                    <p>Sell Price: {sellPrice}</p>
+                    <p>Redd's Selling Price: {buyPrice}</p>
+                    <p>Nook's Buying Price: {sellPrice}</p>
                     <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
                 </div>
             </div>

@@ -67,3 +67,8 @@ li{
   max-height: 30px;
   padding-top: 1em;
 }
+
+#artwork{
+  display: flex;
+  justify-content: space-between;
+}
