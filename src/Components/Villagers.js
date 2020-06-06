@@ -9,14 +9,18 @@ class Villagers extends React.Component{
             personality,
             species,
             name: {"name-en": name},
-            "birthday-string": birthday
+            "birthday-string": birthday,
+            collapsed
             } = villager;
         return(
             <div className="item" key={fileName}>
-                <h3>{name}</h3>
-                <h4>Catchphrase: {catchPhrase}</h4>
-                <img src={`./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
-                <div className="details collapsed">
+                <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
+                    <h3>{name}</h3>
+                    <img src={`./images/icons/${this.props.activeItem}/${fileName}.png`} alt={name} />
+                    <h4>{catchPhrase}</h4>
+                    <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} />
+                </header>
+                <div className={collapsed ? "details collapsed" : "details"}>
                     <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                     <p>Personality: {personality}</p>
                     <p>Gender: {gender}</p>

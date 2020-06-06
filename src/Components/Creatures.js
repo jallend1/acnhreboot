@@ -19,6 +19,7 @@ class Creatures extends React.Component{
                             this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
                             : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
                         />
+                        <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle"/>
                     </header>
                     <div className={collapsed ? "collapsed details" : "details"}>
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />

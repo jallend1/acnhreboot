@@ -62,3 +62,8 @@ li{
 .collapsed{
   display: none;
 }
+
+#expandtoggle{
+  max-height: 30px;
+  padding-top: 1em;
+}
