@@ -14,9 +14,10 @@ class Villagers extends React.Component{
         return(
             <div className="item" key={fileName}>
                 <h3>{name}</h3>
-                <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                 <h4>Catchphrase: {catchPhrase}</h4>
-                <div className="details">
+                <img src={`./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
+                <div className="details collapsed">
+                    <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                     <p>Personality: {personality}</p>
                     <p>Gender: {gender}</p>
                     <p>Species: {species}</p>
