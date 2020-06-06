@@ -1,5 +1,6 @@
  import React from 'react';
  import { properCase } from '../utils';
+ import Sort from './Sort';
 
 class Creatures extends React.Component{
     alternateBuyer = item => {
@@ -33,7 +34,9 @@ class Creatures extends React.Component{
                         {this.alternateBuyer(item)}
                         <p>{catchPhrase}</p>
                         <div>        
-                            <p>🦉 Blathers' Take 🦉</p>
+                            <p>
+                                <span role="img" aria-label="owl emoji">🦉</span> Blathers' Take <span role="img" aria-label="owl emoji">🦉</span>
+                            </p>
                             <p>{museumPhrase}</p>
                         </div>
                     </div>
@@ -46,6 +49,7 @@ class Creatures extends React.Component{
         return (
             <>
                 <h2>{activeItem.toUpperCase()}</h2>
+                <Sort changeSort={this.props.changeSort}  />
                 {this.props[activeItem].map(item => this.displayItems(item))}
             </>
         )

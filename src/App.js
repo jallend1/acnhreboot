@@ -15,6 +15,7 @@ class App extends React.Component {
     music: [],
     villagers: [],
     art: [],
+    sortBy: 'alpha'
   }
   componentDidMount(){
     this.populateData(this.state.activeItem)
@@ -32,11 +33,26 @@ class App extends React.Component {
         .then(results => {
           const itemList = Object.values(results);
           itemList.forEach(item => item.collapsed = true);
-          this.setState({[dataType]: itemList})
+          this.setState({[dataType]: itemList}, () => this.sortItems())
         })
     }else{
       console.log(this.state[dataType]);
     }
+  }
+
+  changeSort = change => {
+    this.setState({sortBy: change.target.value}, () => this.sortItems())
+  }
+
+  sortItems = () => {
+    const oldState = this.state[this.state.activeItem];
+    let sortedState = [];
+    if(this.state.sortBy === 'alpha'){
+      sortedState = oldState.sort((a, b) => a.name["name-en"].toLowerCase() > b.name["name-en"].toLowerCase() ? 1 : -1);
+    }else if(this.state.sortBy === 'nook'){
+      sortedState = oldState.sort((a, b) => a.price - b.price);
+    }
+    this.setState({oldState: sortedState})
   }
 
   toggleCollapse = item => {
@@ -55,18 +71,26 @@ class App extends React.Component {
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
         fish={this.state.fish} 
-        toggleCollapse = {this.toggleCollapse} />
+        toggleCollapse = {this.toggleCollapse}
+        sortBy = {this.state.sortBy}
+        sortAlpha = {this.state.sortAlpha}
+        changeSort = {this.changeSort} />
     }else if(activeItem === 'bugs'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
         bugs={this.state.bugs} 
-        toggleCollapse = {this.toggleCollapse} />
+        toggleCollapse = {this.toggleCollapse} 
+        sortBy = {this.state.sortBy}
+        sortAlpha = {this.state.sortAlpha}
+        changeSort = {this.changeSort} />
     }
     else if(activeItem === 'fossils'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
         fossils={this.state.fossils} 
-        toggleCollapse = {this.toggleCollapse} />
+        toggleCollapse = {this.toggleCollapse}
+        sortBy = {this.state.sortBy}
+        changeSort = {this.changeSort} />
     }
     else if(activeItem === 'music'){
       displayArea = <Music 
