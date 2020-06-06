@@ -9,11 +9,11 @@ class Music extends React.Component{
             name:{"name-en": name}
             } = song;
         return (
-            <div className="item" key={fileName}>
+            <div className="item song" key={fileName}>
                 <h3>{name}</h3>
                 <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                 <p>Purchase Price: {buyPrice ? `${buyPrice} bells` : 'Not available for purchase.'}</p>
-                <p>Sale Price: {sellPrice} bells</p>
+                <p>Sell Value: {sellPrice} bells</p>
             </div>
         )
     }
@@ -21,7 +21,9 @@ class Music extends React.Component{
         return ( 
             <>
                 <h2>{this.props.activeItem.toUpperCase()}</h2>
-                {this.props.music.map(song => this.displaySongs(song))}
+                <div id="songdisplay">
+                    {this.props.music.map(song => this.displaySongs(song))}
+                </div>
             </>
         )
     }

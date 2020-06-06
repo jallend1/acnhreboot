@@ -30,8 +30,8 @@ class App extends React.Component {
       fetch(`./${dataType}.json`)
         .then(data => data.json())
         .then(results => {
-          const itemList = Object.values(results)
-          itemList.forEach(item => item.collapsed = true)
+          const itemList = Object.values(results);
+          itemList.forEach(item => item.collapsed = true);
           this.setState({[dataType]: itemList})
         })
     }else{

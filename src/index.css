@@ -70,5 +70,24 @@ li{
 
 #artwork{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+
+#songdisplay{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.song{
+  width: 200px;
+}
+
+.song img{
+  max-width: 150px;
+  transition: transform .3s;
+}
+
+.song img:hover{
+  transform: scale(1.5);
 }

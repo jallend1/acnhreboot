@@ -21,7 +21,7 @@ class Villagers extends React.Component{
                     <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} />
                 </header>
                 <div className={collapsed ? "details collapsed" : "details"}>
-                    <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
+                    <img src={collapsed ? 'null' : `./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                     <p>Personality: {personality}</p>
                     <p>Gender: {gender}</p>
                     <p>Species: {species}</p>

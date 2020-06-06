@@ -32,7 +32,10 @@ class Creatures extends React.Component{
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
                         {this.alternateBuyer(item)}
                         <p>{catchPhrase}</p>
-                        <p>Blathers' Take: {museumPhrase}</p>
+                        <div>        
+                            <p>🦉 Blathers' Take 🦉</p>
+                            <p>{museumPhrase}</p>
+                        </div>
                     </div>
                 </div>
         )

@@ -28,7 +28,9 @@ class Art extends React.Component{
         return (
             <>
                 <h2>Art</h2>
-                {this.props[this.props.activeItem].map(art => this.displayArt(art))}
+                <div id="artdisplay">
+                    {this.props[this.props.activeItem].map(art => this.displayArt(art))}
+                </div>
             </>
         )
     }
