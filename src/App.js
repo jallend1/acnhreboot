@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Creatures from './Components/Creatures';
@@ -33,23 +33,24 @@ class App extends React.Component {
         .then(results => {
           const itemList = Object.values(results);
           itemList.forEach(item => item.collapsed = true);
-          this.setState({[dataType]: itemList}, () => this.sortItems())
+          this.setState({[dataType]: itemList}, () => this.sortItems(this.state.sortBy))
         })
     }else{
+      this.sortItems(this.state.sortBy);
       console.log(this.state[dataType]);
     }
   }
 
   changeSort = change => {
-    this.setState({sortBy: change.target.value}, () => this.sortItems())
+    this.setState({sortBy: change.target.value}, () => this.sortItems(this.state.sortBy))
   }
 
-  sortItems = () => {
+  sortItems = (sortMethod) => {
     const oldState = this.state[this.state.activeItem];
     let sortedState = [];
-    if(this.state.sortBy === 'alpha'){
+    if(sortMethod === 'alpha'){
       sortedState = oldState.sort((a, b) => a.name["name-en"].toLowerCase() > b.name["name-en"].toLowerCase() ? 1 : -1);
-    }else if(this.state.sortBy === 'nook'){
+    }else if(sortMethod === 'nook'){
       sortedState = oldState.sort((a, b) => a.price - b.price);
     }
     this.setState({oldState: sortedState})
@@ -72,16 +73,12 @@ class App extends React.Component {
         activeItem={this.state.activeItem} 
         fish={this.state.fish} 
         toggleCollapse = {this.toggleCollapse}
-        sortBy = {this.state.sortBy}
-        sortAlpha = {this.state.sortAlpha}
         changeSort = {this.changeSort} />
     }else if(activeItem === 'bugs'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
         bugs={this.state.bugs} 
         toggleCollapse = {this.toggleCollapse} 
-        sortBy = {this.state.sortBy}
-        sortAlpha = {this.state.sortAlpha}
         changeSort = {this.changeSort} />
     }
     else if(activeItem === 'fossils'){
@@ -89,7 +86,6 @@ class App extends React.Component {
         activeItem={this.state.activeItem} 
         fossils={this.state.fossils} 
         toggleCollapse = {this.toggleCollapse}
-        sortBy = {this.state.sortBy}
         changeSort = {this.changeSort} />
     }
     else if(activeItem === 'music'){
