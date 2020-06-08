@@ -3,7 +3,7 @@
  import Sort from './Sort';
 
 class Creatures extends React.Component{
-    alternateBuyer = item => {
+    alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
         if(this.props.activeItem === 'bugs'){
             return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
         }else if(item["price-cj"]){
@@ -50,7 +50,7 @@ class Creatures extends React.Component{
             <>
                 <h2>{activeItem.toUpperCase()}</h2>
                 <Sort changeSort={this.props.changeSort}  />
-                {this.props[activeItem].map(item => this.displayItems(item))}
+                {this.props.creatures.map(item => this.displayItems(item))}
             </>
         )
     }
