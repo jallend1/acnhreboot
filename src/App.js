@@ -5,6 +5,7 @@ import Creatures from './Components/Creatures';
 import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
+import Filter from './Components/Filter';
 
 class App extends React.Component {
   state = {
@@ -95,6 +96,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
+      <Filter changeSort={this.changeSort} />
       {displayArea}
     </div>
     );

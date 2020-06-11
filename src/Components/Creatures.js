@@ -1,6 +1,5 @@
  import React from 'react';
  import { properCase } from '../utils';
- import Sort from './Sort';
 
 class Creatures extends React.Component{
     alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
@@ -49,7 +48,6 @@ class Creatures extends React.Component{
         return (
             <>
                 <h2>{activeItem.toUpperCase()}</h2>
-                <Sort changeSort={this.props.changeSort}  />
                 {this.props.creatures.map(item => this.displayItems(item))}
             </>
         )
