@@ -17,6 +17,7 @@ class App extends React.Component {
     villagers: [],
     art: [],
     sortBy: 'alpha',
+    order: 'ascending',
     types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art']
   }
   componentDidMount(){
@@ -38,16 +39,26 @@ class App extends React.Component {
   }
 
   changeSort = change => {
-    this.setState({sortBy: change.target.value}, () => this.sortItems(this.state.sortBy))
+    if(change.target.id === 'nook' || change.target.id === 'alpha'){
+      this.setState({sortBy: change.target.id}, () => this.sortItems(this.state.sortBy))
+    }
+    else if(change.target.id === 'ascending' || change.target.id === 'descending'){
+      this.setState({order: change.target.id}, () => this.sortItems(this.state.sortBy))
+    }
+    console.dir(change.target.id)
   }
 
   sortItems = () => {
     const unsortedState = this.state[this.state.activeItem];
     let sortedState = [];
-    if(this.state.sortBy === 'alpha'){
+    if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.name["name-en"].toLowerCase() > b.name["name-en"].toLowerCase() ? 1 : -1);
-    }else if(this.state.sortBy === 'nook'){
+    }else if(this.state.sortBy === 'alpha' && this.state.order === 'descending'){
+        sortedState = unsortedState.sort((a, b) => a.name["name-en"].toLowerCase() < b.name["name-en"].toLowerCase() ? 1 : -1);
+    }else if(this.state.sortBy === 'nook' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.price - b.price);
+    }else if(this.state.sortBy === 'nook' && this.state.order === 'descending'){
+    sortedState = unsortedState.sort((a, b) => b.price - a.price);
     }
     this.setState({[unsortedState]: sortedState})
   }
@@ -94,7 +105,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      <Filter changeSort={this.changeSort} />
+      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem}/>
       {displayArea}
     </div>
     );

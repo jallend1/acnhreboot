@@ -26,6 +26,11 @@ h1, h2, h3{
   text-align: center;
 }
 
+#filters{
+  display: flex;
+  justify-content: space-between;
+}
+
 ul{
   margin-top: 0;
   background-color: #bcf8cb;
