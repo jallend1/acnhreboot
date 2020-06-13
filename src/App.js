@@ -45,7 +45,10 @@ class App extends React.Component {
     else if(change.target.id === 'ascending' || change.target.id === 'descending'){
       this.setState({order: change.target.id}, () => this.sortItems(this.state.sortBy))
     }
-    console.dir(change.target.id)
+  }
+
+  playSong = e => {
+    console.log(e.target.dataset.song);
   }
 
   sortItems = () => {
@@ -87,6 +90,7 @@ class App extends React.Component {
       displayArea = <Music 
         activeItem={this.state.activeItem} 
         music={this.state.music} 
+        playSong = {this.playSong}
         toggleCollapse = {this.toggleCollapse} />
     }
     else if(activeItem === 'villagers'){

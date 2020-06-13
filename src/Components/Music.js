@@ -11,7 +11,10 @@ class Music extends React.Component{
         return (
             <div className="item song" key={fileName}>
                 <h3>{name}</h3>
-                <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
+                <img src={`./images/${this.props.activeItem}/${fileName}.png`} data-song={fileName} alt={name} onClick={this.props.playSong}/>
+                <audio id={fileName}>
+                    <source src={`./kk/${fileName}.mp3`} type="audio/mpeg" />
+                </audio>
                 <p>Purchase Price: {buyPrice ? `${buyPrice} bells` : 'Not available for purchase.'}</p>
                 <p>Sell Value: {sellPrice} bells</p>
             </div>
