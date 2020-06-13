@@ -16,28 +16,25 @@ class App extends React.Component {
     music: [],
     villagers: [],
     art: [],
-    sortBy: 'alpha'
+    sortBy: 'alpha',
+    types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art']
   }
   componentDidMount(){
-    this.populateData(this.state.activeItem)
+    this.state.types.forEach(item => this.populateData(item))
   }
 
   changeType = (newType) => {
-    this.setState({activeItem: newType}, this.populateData(newType))
+    this.setState({activeItem: newType}, this.sortItems)
   }
 
   populateData = dataType => {
-    if(this.state[dataType].length === 0){
-      fetch(`./${dataType}.json`)
-        .then(data => data.json())
-        .then(results => {
-          const itemList = Object.values(results);
-          itemList.forEach(item => item.collapsed = true);
-          this.setState({[dataType]: itemList}, () => this.sortItems(this.state.sortBy))
-        })
-    }else{
-      this.sortItems(this.state.sortBy);
-    }
+    fetch(`./${dataType}.json`)
+      .then(data => data.json())
+      .then(results => {
+        const itemList = Object.values(results);
+        itemList.forEach(item => item.collapsed = true);
+        this.setState({[dataType]: itemList}, () => this.sortItems(this.state.sortBy))
+      })
   }
 
   changeSort = change => {
@@ -72,6 +69,7 @@ class App extends React.Component {
         activeItem={this.state.activeItem} 
         creatures={this.state[activeItem]}
         toggleCollapse = {this.toggleCollapse}
+        sortItems = {this.sortItems}
         changeSort = {this.changeSort} />
     }
     else if(activeItem === 'music'){
