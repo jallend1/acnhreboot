@@ -47,8 +47,18 @@ class App extends React.Component {
     }
   }
 
-  playSong = e => {
-    console.log(e.target.dataset.song);
+  collapseAll = () => {
+    const activePage = this.state.activeItem;
+    const activeItemList = this.state[activePage];
+    activeItemList.forEach(item => item.collapsed = true)
+    this.setState({activePage: activeItemList})
+  }
+
+  expandAll = () => {
+    const activePage = this.state.activeItem;
+    const activeItemList = this.state[activePage];
+    activeItemList.forEach(item => item.collapsed = false)
+    this.setState({activePage: activeItemList})
   }
 
   sortItems = () => {
@@ -109,7 +119,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem}/>
+      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} />
       {displayArea}
     </div>
     );

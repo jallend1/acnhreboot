@@ -20,8 +20,8 @@ class Filter extends React.Component{
                         <label htmlFor="descending">Descending</label>
                     </form>
                     <div>
-                        <button>Collapse All</button>
-                        <button>Expand All</button>
+                        <button onClick={this.props.collapseAll}>Collapse All</button>
+                        <button onClick={this.props.expandAll}>Expand All</button>
                     </div>
                 </div>
             </>
