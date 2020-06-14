@@ -19,6 +19,10 @@ class Filter extends React.Component{
                         <input type="radio" id="descending" name="order" value="descending" />
                         <label htmlFor="descending">Descending</label>
                     </form>
+                    <div>
+                        <button>Collapse All</button>
+                        <button>Expand All</button>
+                    </div>
                 </div>
             </>
         )
