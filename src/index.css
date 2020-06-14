@@ -45,6 +45,11 @@ li{
   color: #744436;
 }
 
+.player{
+  margin: auto;
+  text-align: center;
+}
+
 .item{
   width: 50%;
   margin: auto;
