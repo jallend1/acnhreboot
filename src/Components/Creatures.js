@@ -15,8 +15,10 @@ class Creatures extends React.Component{
                 "museum-phrase": museumPhrase,
                 "catch-phrase": catchPhrase,
                 "file-name": fileName,
+                availability,
                 collapsed
             } = item;
+            console.log(availability)
             return (
                 <div className="item" key={fileName}>
                     <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
