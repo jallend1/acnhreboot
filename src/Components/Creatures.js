@@ -2,6 +2,9 @@
  import { properCase } from '../utils';
 
 class Creatures extends React.Component{
+    componentDidMount(){
+        this.props.handleChange();
+    }
     alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
         if(this.props.activeItem === 'bugs'){
             return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
@@ -13,8 +16,8 @@ class Creatures extends React.Component{
         return (
         <div>
             <h4>Availability</h4>
-            {availability.isAllDay ? 'Available all day' : availability.time}
-            {availability.isAllYear ? 'Available year-round' : this.annualAvailability(availability)}
+            <div>Time: {availability.isAllDay ? 'Available all day' : availability.time}</div>
+            <div>Months: {availability.isAllYear ? 'Available year-round' : this.annualAvailability(availability)}</div>
             <p>Location: {availability.location}</p>
             <p>Rarity: {availability.rarity}</p>
         </div>
@@ -22,11 +25,10 @@ class Creatures extends React.Component{
     }
     annualAvailability = availability => {
         return (
-        <div>
-            <p>Available in the following months: </p>
-            <p>Northern Hemisphere: {availability["month-northern"]}</p>
-            <p>Southern Hemisphere: {availability["month-southern"]}</p>
-        </div>
+            <>
+                <p>Northern Hemisphere: {availability["month-northern"]}</p>
+                <p>Southern Hemisphere: {availability["month-southern"]}</p>
+            </>
         )
     }
     displayItems = item => {

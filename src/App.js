@@ -8,17 +8,21 @@ import Art from './Components/Art';
 import Filter from './Components/Filter';
 
 class App extends React.Component {
-  state = {
-    activeItem: 'fish',
-    fish: [],
-    bugs: [],
-    fossils: [],
-    music: [],
-    villagers: [],
-    art: [],
-    sortBy: 'alpha',
-    order: 'ascending',
-    types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art']
+  constructor(props){
+    super(props);
+    this.state = {
+      activeItem: 'fish',
+      fish: [],
+      bugs: [],
+      fossils: [],
+      music: [],
+      villagers: [],
+      art: [],
+      sortBy: 'alpha',
+      order: 'ascending',
+      types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
+      filtered: []
+    }
   }
   componentDidMount(){
     this.state.types.forEach(item => this.populateData(item))
@@ -60,7 +64,16 @@ class App extends React.Component {
     activeItemList.forEach(item => item.collapsed = false)
     this.setState({activePage: activeItemList})
   }
-
+  
+  handleChange = e => {
+    console.log('changing!')
+    const activeType = this.state.activeItem;
+    const currentData = this.state[activeType];
+    const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value)) || this.state[activeType];
+    this.setState({filtered: filteredData});
+    console.log(filteredData)
+  }
+  
   sortItems = () => {
     const unsortedState = this.state[this.state.activeItem];
     let sortedState = [];
@@ -91,7 +104,9 @@ class App extends React.Component {
     if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
-        creatures={this.state[activeItem]}
+        // creatures={this.state[activeItem]}
+        creatures={this.state.filtered}
+        handleChange={this.handleChange}
         toggleCollapse = {this.toggleCollapse}
         sortItems = {this.sortItems}
         changeSort = {this.changeSort} />
@@ -119,7 +134,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} />
+      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} handleChange = {this.handleChange} />
       {displayArea}
     </div>
     );
