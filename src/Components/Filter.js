@@ -2,7 +2,6 @@ import React from 'react';
 
 class Filter extends React.Component{
     render(){
-        console.log(this.props.activeItem)
         return (
             <>
                 <input type="text" placeholder="Search for item..."></input>

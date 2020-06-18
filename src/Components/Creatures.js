@@ -9,6 +9,26 @@ class Creatures extends React.Component{
             return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>
         }
     }
+    calculateAvailability = availability => {
+        return (
+        <div>
+            <h4>Availability</h4>
+            {availability.isAllDay ? 'Available all day' : availability.time}
+            {availability.isAllYear ? 'Available year-round' : this.annualAvailability(availability)}
+            <p>Location: {availability.location}</p>
+            <p>Rarity: {availability.rarity}</p>
+        </div>
+        )
+    }
+    annualAvailability = availability => {
+        return (
+        <div>
+            <p>Available in the following months: </p>
+            <p>Northern Hemisphere: {availability["month-northern"]}</p>
+            <p>Southern Hemisphere: {availability["month-southern"]}</p>
+        </div>
+        )
+    }
     displayItems = item => {
         const { price, 
             name: {"name-en": name},
@@ -18,7 +38,6 @@ class Creatures extends React.Component{
                 availability,
                 collapsed
             } = item;
-            console.log(availability)
             return (
                 <div className="item" key={fileName}>
                     <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
@@ -40,10 +59,10 @@ class Creatures extends React.Component{
                             </p>
                             <p>{museumPhrase}</p>
                         </div>
+                        {this.props.activeItem === 'fossils' ? null : this.calculateAvailability(availability)}
                     </div>
                 </div>
-        )
-        
+        )        
     }
     render(){
         const activeItem = this.props.activeItem;
