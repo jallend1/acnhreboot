@@ -26,6 +26,7 @@ class App extends React.Component {
   }
   componentDidMount(){
     this.state.types.forEach(item => this.populateData(item))
+    this.handleChange();
   }
 
   changeType = (newType) => {
@@ -66,7 +67,6 @@ class App extends React.Component {
   }
   
   handleChange = e => {
-    console.log('changing!')
     const activeType = this.state.activeItem;
     const currentData = this.state[activeType];
     const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value)) || this.state[activeType];
