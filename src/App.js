@@ -26,7 +26,6 @@ class App extends React.Component {
   }
   componentDidMount(){
     this.state.types.forEach(item => this.populateData(item))
-    this.handleChange();
   }
 
   changeType = (newType) => {
@@ -104,8 +103,8 @@ class App extends React.Component {
     if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
-        // creatures={this.state[activeItem]}
-        creatures={this.state.filtered}
+        creatures={this.state[activeItem]}
+        // creatures={this.state.filtered}
         handleChange={this.handleChange}
         toggleCollapse = {this.toggleCollapse}
         sortItems = {this.sortItems}
