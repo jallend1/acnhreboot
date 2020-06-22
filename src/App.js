@@ -21,7 +21,8 @@ class App extends React.Component {
       sortBy: 'alpha',
       order: 'ascending',
       types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
-      filtered: []
+      filtered: [],
+      searchValue: ''
     }
   }
   componentDidMount(){
@@ -66,11 +67,16 @@ class App extends React.Component {
   }
   
   handleChange = e => {
-    const activeType = this.state.activeItem;
-    const currentData = this.state[activeType];
-    const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value)) || this.state[activeType];
-    this.setState({filtered: filteredData});
-    console.log(filteredData)
+    if(e.currentTarget.value){
+      const searchTerm = e.currentTarget.value;
+      console.log(e.currentTarget.value)
+      const currentSearch = this.state.searchValue;
+      this.setState({searchValue: searchTerm}, console.log(this.state.searchValue))
+      // const activeType = this.state.activeItem;
+      // const currentData = this.state[activeType];
+      // const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value));
+      // this.setState({filtered: filteredData}, console.log(filteredData));
+    }
   }
   
   sortItems = () => {

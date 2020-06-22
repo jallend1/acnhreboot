@@ -3,7 +3,7 @@
 
 class Creatures extends React.Component{
     componentDidMount(){
-        this.props.handleChange();
+        // this.props.handleChange();
     }
     alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
         if(this.props.activeItem === 'bugs'){
