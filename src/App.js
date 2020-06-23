@@ -30,7 +30,9 @@ class App extends React.Component {
   }
 
   changeType = (newType) => {
-    this.setState({activeItem: newType}, this.sortItems)
+    this.setState({
+      activeItem: newType
+    }, this.sortItems)
   }
 
   populateData = dataType => {
@@ -69,13 +71,18 @@ class App extends React.Component {
   handleChange = e => {
     if(e.currentTarget.value){
       const searchTerm = e.currentTarget.value;
-      console.log(e.currentTarget.value)
-      const currentSearch = this.state.searchValue;
-      this.setState({searchValue: searchTerm}, console.log(this.state.searchValue))
-      // const activeType = this.state.activeItem;
-      // const currentData = this.state[activeType];
-      // const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value));
-      // this.setState({filtered: filteredData}, console.log(filteredData));
+      this.setState({searchValue: searchTerm});
+      const activeType = this.state.activeItem;
+      const currentData = this.state[activeType];
+      const filteredData = currentData.filter(item => item.name["name-en"].includes(this.state.searchValue));
+      console.log(filteredData);
+      this.setState({filtered: filteredData});
+    }
+    else{
+      this.setState({
+        searchValue: '',
+        filtered: []
+      });
     }
   }
   
@@ -110,6 +117,7 @@ class App extends React.Component {
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
         creatures={this.state[activeItem]}
+        filtered={this.state.filtered}
         // creatures={this.state.filtered}
         handleChange={this.handleChange}
         toggleCollapse = {this.toggleCollapse}

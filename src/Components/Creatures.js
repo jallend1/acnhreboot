@@ -71,7 +71,7 @@ class Creatures extends React.Component{
         return (
             <>
                 <h2>{activeItem.toUpperCase()}</h2>
-                {this.props.creatures.map(item => this.displayItems(item))}
+                {this.props.filtered.length > 0 ? this.props.filtered.map(item => this.displayItems(item)) : this.props.creatures.map(item => this.displayItems(item))}
             </>
         )
     }
