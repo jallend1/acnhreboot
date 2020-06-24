@@ -47,10 +47,10 @@ class App extends React.Component {
 
   changeSort = change => {
     if(change.target.id === 'nook' || change.target.id === 'alpha'){
-      this.setState({sortBy: change.target.id}, () => this.sortItems(this.state.sortBy))
+      this.setState({sortBy: change.target.id}, () => this.sortItems())
     }
     else if(change.target.id === 'ascending' || change.target.id === 'descending'){
-      this.setState({order: change.target.id}, () => this.sortItems(this.state.sortBy))
+      this.setState({order: change.target.id}, () => this.sortItems())
     }
   }
 
@@ -87,7 +87,8 @@ class App extends React.Component {
   }
   
   sortItems = () => {
-    const unsortedState = this.state[this.state.activeItem];
+    let unsortedState;
+    this.state.searchValue ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
     let sortedState = [];
     if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.name["name-en"].toLowerCase() > b.name["name-en"].toLowerCase() ? 1 : -1);
@@ -118,7 +119,8 @@ class App extends React.Component {
         activeItem={this.state.activeItem} 
         creatures={this.state[activeItem]}
         filtered={this.state.filtered}
-        // creatures={this.state.filtered}
+        displaySelection={this.displaySelection}
+        searchValue={this.state.searchValue}
         handleChange={this.handleChange}
         toggleCollapse = {this.toggleCollapse}
         sortItems = {this.sortItems}

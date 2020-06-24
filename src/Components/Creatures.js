@@ -30,8 +30,17 @@ class Creatures extends React.Component{
                 <p>Southern Hemisphere: {availability["month-southern"]}</p>
             </>
         )
+    }  
+    displaySelection = () => {
+        if(this.props.searchValue){                                                 // If there's a search term, return the filtered array
+            return this.props.filtered.map(item => this.displayItems(item))
+        }
+        else{                                                                       // If not, go with the original state
+            return this.props.creatures.map(item => this.displayItems(item))
+        }
     }
-    displayItems = item => {
+
+    displayItems = item => {  
         const { price, 
             name: {"name-en": name},
                 "museum-phrase": museumPhrase,
@@ -71,10 +80,7 @@ class Creatures extends React.Component{
         return (
             <>
                 <h2>{activeItem.toUpperCase()}</h2>
-                {this.props.filtered.length > 0 
-                    ? this.props.filtered.map(item => this.displayItems(item)) 
-                    : this.props.creatures.map(item => this.displayItems(item))
-                }
+                {this.displaySelection()}
             </>
         )
     }
