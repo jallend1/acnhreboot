@@ -74,7 +74,7 @@ class App extends React.Component {
       this.setState({searchValue: searchTerm});
       const activeType = this.state.activeItem;
       const currentData = this.state[activeType];
-      const filteredData = currentData.filter(item => item.name["name-en"].includes(this.state.searchValue));
+      const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value));
       console.log(filteredData);
       this.setState({filtered: filteredData});
     }
