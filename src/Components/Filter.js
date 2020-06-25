@@ -4,7 +4,10 @@ class Filter extends React.Component{
     render(){
         return (
             <>
-                <input type="text" placeholder="Search for item..." onChange={this.props.handleChange}></input>
+                <div>
+                    <input type="text" placeholder="Search for item..." onChange={this.props.handleChange}></input>
+                    <button>Clear</button>
+                </div>
                 <div id="filters">
                     <form onChange={this.props.changeSort} >
                         <input type="radio" id="alpha" name="sortby" value="alpha" defaultChecked />

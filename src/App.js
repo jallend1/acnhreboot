@@ -70,12 +70,11 @@ class App extends React.Component {
   
   handleChange = e => {
     if(e.currentTarget.value){
-      const searchTerm = e.currentTarget.value;
+      const searchTerm = e.currentTarget.value.toLowerCase();
       this.setState({searchValue: searchTerm});
       const activeType = this.state.activeItem;
       const currentData = this.state[activeType];
-      const filteredData = currentData.filter(item => item.name["name-en"].includes(e.currentTarget.value));
-      console.log(filteredData);
+      const filteredData = currentData.filter(item => item.name["name-en"].includes(searchTerm));
       this.setState({filtered: filteredData});
     }
     else{
