@@ -26,10 +26,10 @@ class App extends React.Component {
     }
   }
   componentDidMount(){
-    this.state.types.forEach(item => this.populateData(item))
+    this.state.types.forEach(item => this.populateData(item))                           //Populates all items into state on load
   }
 
-  changeType = (newType) => {
+  changeType = (newType) => {                                                           //Changes type from active item type to the new one and then applies active sorting
     this.setState({
       activeItem: newType
     }, this.sortItems)
@@ -84,6 +84,10 @@ class App extends React.Component {
       });
     }
   }
+
+  handleReset = e => {
+    
+  }
   
   sortItems = () => {
     let unsortedState;
@@ -96,9 +100,9 @@ class App extends React.Component {
     }else if(this.state.sortBy === 'nook' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.price - b.price);
     }else if(this.state.sortBy === 'nook' && this.state.order === 'descending'){
-    sortedState = unsortedState.sort((a, b) => b.price - a.price);
+      sortedState = unsortedState.sort((a, b) => b.price - a.price);
     }
-    this.setState({[unsortedState]: sortedState})
+  this.state.searchValue ? this.setState({filtered: sortedState}) : this.setState({[this.state.activeItem]: sortedState});
   }
 
   toggleCollapse = item => {
