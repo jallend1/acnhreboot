@@ -69,6 +69,8 @@ class App extends React.Component {
   }
   
   handleChange = e => {
+    e.preventDefault();
+    console.log('handling change')
     if(e.currentTarget.value){
       const searchTerm = e.currentTarget.value.toLowerCase();
       this.setState({searchValue: searchTerm});
@@ -86,7 +88,11 @@ class App extends React.Component {
   }
 
   handleReset = e => {
-    
+    e.preventDefault();
+    const searchForm = document.querySelector('#searchForm');
+    console.log('resetting')
+    this.setState({searchValue: ''});
+    searchForm[0].value = '';
   }
   
   sortItems = () => {
@@ -152,7 +158,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} handleChange = {this.handleChange} />
+      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} handleChange = {this.handleChange} handleReset = {this.handleReset}/>
       {displayArea}
     </div>
     );
