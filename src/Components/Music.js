@@ -6,6 +6,15 @@ class Music extends React.Component{
         activeSong: ''
     };
 
+    displaySelection = () => {
+        if(this.props.searchValue){                                                 // If there's a search term, return the filtered array
+            return this.props.filtered.map(item => this.displaySongs(item))
+        }
+        else{                                                                       // If not, go with the original state
+            return this.props.music.map(item => this.displaySongs(item))
+        }
+    }
+
     displaySongs = song => {
         const {
             "file-name": fileName,
@@ -34,7 +43,7 @@ class Music extends React.Component{
                 <h2>{this.props.activeItem.toUpperCase()}</h2>
                 <Player activeSong={this.state.activeSong} />
                 <div id="songdisplay">
-                    {this.props.music.map(song => this.displaySongs(song))}
+                    {this.displaySelection()}
                 </div>
             </>
         )

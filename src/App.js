@@ -70,14 +70,13 @@ class App extends React.Component {
   }
   
   handleChange = e => {
-    e.preventDefault();
-    console.log('handling change')
+    // e.preventDefault();
     if(e.currentTarget.value){
       const searchTerm = e.currentTarget.value.toLowerCase();
       this.setState({searchValue: searchTerm});
       const activeType = this.state.activeItem;
       const currentData = this.state[activeType];
-      const filteredData = currentData.filter(item => item.name["name-en"].includes(searchTerm));
+      const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
       this.setState({filtered: filteredData});
     }
     else{
@@ -141,6 +140,9 @@ class App extends React.Component {
         activeItem={this.state.activeItem} 
         music={this.state.music} 
         playSong = {this.playSong}
+        filtered={this.state.filtered}
+        handleChange={this.handleChange}
+        searchValue={this.state.searchValue}
         toggleCollapse = {this.toggleCollapse} />
     }
     else if(activeItem === 'villagers'){
