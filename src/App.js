@@ -30,8 +30,9 @@ class App extends React.Component {
   }
 
   changeType = (newType) => {                                                           //Changes type from active item type to the new one and then applies active sorting
+    this.handleReset();
     this.setState({
-      activeItem: newType
+      activeItem: newType,
     }, this.sortItems)
   }
 
@@ -88,7 +89,7 @@ class App extends React.Component {
   }
 
   handleReset = e => {
-    e.preventDefault();
+    //To do: When enter is pressed while in input, do NOT reset page!
     const searchForm = document.querySelector('#searchForm');
     console.log('resetting')
     this.setState({searchValue: ''});

@@ -2,9 +2,6 @@
  import { properCase } from '../utils';
 
 class Creatures extends React.Component{
-    componentDidMount(){
-        // this.props.handleChange();
-    }
     alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
         if(this.props.activeItem === 'bugs'){
             return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
