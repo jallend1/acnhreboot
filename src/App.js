@@ -6,6 +6,7 @@ import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
 import Filter from './Components/Filter';
+import FilterVillagers from './Components/FilterVillagers';
 
 class App extends React.Component {
   constructor(props){
@@ -70,7 +71,6 @@ class App extends React.Component {
   }
   
   handleChange = e => {
-    // e.preventDefault();
     if(e.currentTarget.value){
       const searchTerm = e.currentTarget.value.toLowerCase();
       this.setState({searchValue: searchTerm});
@@ -123,6 +123,7 @@ class App extends React.Component {
   render() {
     const activeItem = this.state.activeItem;
     let displayArea;
+    let filtering = <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} handleChange = {this.handleChange} handleReset = {this.handleReset}/>;
     if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
@@ -149,7 +150,18 @@ class App extends React.Component {
       displayArea = <Villagers 
         activeItem={this.state.activeItem} 
         villagers={this.state.villagers} 
+        filtered={this.state.filtered}
+        handleChange={this.handleChange}
+        searchValue={this.state.searchValue}
         toggleCollapse = {this.toggleCollapse} />
+      filtering = <FilterVillagers
+        changeSort={this.changeSort} 
+        activeItem = {this.state.activeItem} 
+        collapseAll = {this.collapseAll} 
+        expandAll = {this.expandAll} 
+        handleChange = {this.handleChange} 
+        handleReset = {this.handleReset}
+      />
     }
     else if(activeItem === 'art'){
       displayArea = <Art 
@@ -161,7 +173,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} handleChange = {this.handleChange} handleReset = {this.handleReset}/>
+      {filtering}                                                                   {/* Displays filtering component based on active item */} 
       {displayArea}
     </div>
     );

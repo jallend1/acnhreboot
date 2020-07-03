@@ -1,7 +1,16 @@
 import React from 'react';
 
 class Villagers extends React.Component{
+    displaySelection = () => {
+        if(this.props.searchValue){                                                 // If there's a search term, return the filtered array
+            return this.props.filtered.map(item => this.displayVillagers(item))
+        }
+        else{                                                                       // If not, go with the original state
+            return this.props.villagers.map(item => this.displayVillagers(item))
+        }
+    }
     displayVillagers = villager => {
+        console.log(villager)
         const {
             "file-name": fileName,
             "catch-phrase": catchPhrase,
@@ -10,6 +19,7 @@ class Villagers extends React.Component{
             species,
             name: {"name-en": name},
             "birthday-string": birthday,
+            birthday: birthdate,
             collapsed
             } = villager;
         return(
@@ -34,7 +44,7 @@ class Villagers extends React.Component{
         return (
         <>
             <h2>{this.props.activeItem.toUpperCase()}</h2>
-            {this.props.villagers.map(villager => this.displayVillagers(villager))}
+            {this.displaySelection()}
         </>
         )
     }
