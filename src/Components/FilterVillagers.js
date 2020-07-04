@@ -2,6 +2,13 @@ import React from 'react';
 
 
 class FilterVillagers extends React.Component{
+    populateSpecies = () => {
+        this.props.species.forEach(species => {
+            return (
+                <option value={species}>{species}</option>
+            )
+        })
+    }
     render(){
         return (
             <>
@@ -15,8 +22,11 @@ class FilterVillagers extends React.Component{
                 </div>
                 <div>
                     <p>Display Villagers</p>
-                    <form id="characteristics">
-                    </form>
+                    <label for="species">Filter by species:</label>
+                    <select name="species" id="species">
+                        <option value="">Choose a species</option>
+                        {this.populateSpecies}
+                    </select>
                 </div>
             </>
         )

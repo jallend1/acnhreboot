@@ -23,7 +23,8 @@ class App extends React.Component {
       order: 'ascending',
       types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
       filtered: [],
-      searchValue: ''
+      searchValue: '',
+      species: []
     }
   }
   componentDidMount(){
@@ -54,6 +55,14 @@ class App extends React.Component {
     else if(change.target.id === 'ascending' || change.target.id === 'descending'){
       this.setState({order: change.target.id}, () => this.sortItems())
     }
+  }
+
+  compileSpeciesList = villagerSpecies => {
+    if(!this.state.species.includes(villagerSpecies)){
+      const speciesList = this.state.species;
+      speciesList.push(villagerSpecies);
+      this.setState({species: speciesList})
+  }
   }
 
   collapseAll = () => {
@@ -153,7 +162,10 @@ class App extends React.Component {
         filtered={this.state.filtered}
         handleChange={this.handleChange}
         searchValue={this.state.searchValue}
-        toggleCollapse = {this.toggleCollapse} />
+        toggleCollapse = {this.toggleCollapse}
+        species = {this.state.species}
+        compileSpeciesList = {this.compileSpeciesList}
+        />
       filtering = <FilterVillagers
         changeSort={this.changeSort} 
         activeItem = {this.state.activeItem} 
@@ -161,6 +173,7 @@ class App extends React.Component {
         expandAll = {this.expandAll} 
         handleChange = {this.handleChange} 
         handleReset = {this.handleReset}
+        species = {this.state.species}
       />
     }
     else if(activeItem === 'art'){
