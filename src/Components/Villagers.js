@@ -1,9 +1,8 @@
 import React from 'react';
 
 class Villagers extends React.Component{
-    s
     displaySelection = () => {
-        if(this.props.searchValue){                                                 // If there's a search term, return the filtered array
+        if(this.props.filtered.length > 0){                                                 // If there's a search term, return the filtered array
             return this.props.filtered.map(item => this.displayVillagers(item))
         }
         else{                                                                       // If not, go with the original state
@@ -11,7 +10,6 @@ class Villagers extends React.Component{
         }
     }
     displayVillagers = villager => {
-        console.log(villager)
         const {
             "file-name": fileName,
             "catch-phrase": catchPhrase,
@@ -23,7 +21,6 @@ class Villagers extends React.Component{
             birthday: birthdate,
             collapsed
             } = villager;
-        this.props.compileSpeciesList(species);
         return(
             <div className="item" key={fileName}>
                 <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
@@ -41,13 +38,6 @@ class Villagers extends React.Component{
                 </div>
             </div>
         )
-    }
-    populateSpecies = () => {
-        this.props.species.forEach(species => {
-            return (
-                <option value={species}>{species}</option>
-            )
-        })
     }
     render(){
         return (

@@ -33,6 +33,9 @@ class App extends React.Component {
 
   changeType = (newType) => {                                                           //Changes type from active item type to the new one and then applies active sorting
     this.handleReset();
+    if(newType === 'villagers'){
+      this.compileSpeciesList();
+    }
     this.setState({
       activeItem: newType,
     }, this.sortItems)
@@ -44,7 +47,9 @@ class App extends React.Component {
       .then(results => {
         const itemList = Object.values(results);
         itemList.forEach(item => item.collapsed = true);
-        this.setState({[dataType]: itemList}, () => this.sortItems(this.state.sortBy))
+        this.setState({[dataType]: itemList}, () => {
+          this.sortItems(this.state.sortBy);
+        })
       })
   }
 
@@ -57,12 +62,15 @@ class App extends React.Component {
     }
   }
 
-  compileSpeciesList = villagerSpecies => {
-    if(!this.state.species.includes(villagerSpecies)){
-      const speciesList = this.state.species;
-      speciesList.push(villagerSpecies);
-      this.setState({species: speciesList})
-  }
+  compileSpeciesList = () => {
+    const speciesList = this.state.species;
+    const villagers = this.state.villagers;
+    villagers.forEach(villager => {
+      if(!speciesList.includes(villager.species)){
+        speciesList.push(villager.species);
+      }
+    });
+    this.setState({species: speciesList})
   }
 
   collapseAll = () => {
@@ -79,6 +87,14 @@ class App extends React.Component {
     this.setState({activePage: activeItemList})
   }
   
+  filterSpecies = newSpecies => {
+    let filteredResults = this.state.filtered;
+    const desiredSpecies = newSpecies.target.value;
+    const villagers = this.state.villagers;
+    filteredResults = villagers.filter(villager => villager.species === desiredSpecies);
+    this.setState({filtered: filteredResults})
+  }
+
   handleChange = e => {
     if(e.currentTarget.value){
       const searchTerm = e.currentTarget.value.toLowerCase();
@@ -174,6 +190,7 @@ class App extends React.Component {
         handleChange = {this.handleChange} 
         handleReset = {this.handleReset}
         species = {this.state.species}
+        filterSpecies = {this.filterSpecies}
       />
     }
     else if(activeItem === 'art'){

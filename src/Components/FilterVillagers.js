@@ -2,12 +2,9 @@ import React from 'react';
 
 
 class FilterVillagers extends React.Component{
-    populateSpecies = () => {
-        this.props.species.forEach(species => {
-            return (
-                <option value={species}>{species}</option>
-            )
-        })
+    populateSpecies = () => {                                                                                           // Populates drop down list of different villager species
+        return this.props.species.map(species => <option value={species} key={species}>{species}</option>)
+        
     }
     render(){
         return (
@@ -21,11 +18,11 @@ class FilterVillagers extends React.Component{
                         <button onClick={this.props.expandAll}>Expand All</button>
                 </div>
                 <div>
-                    <p>Display Villagers</p>
-                    <label for="species">Filter by species:</label>
-                    <select name="species" id="species">
+                    <label htmlFor="species">Filter by species:</label>
+                    <select name="species" id="species" onChange={this.props.filterSpecies}>
                         <option value="">Choose a species</option>
-                        {this.populateSpecies}
+                        <option value="">All Species</option>
+                        {this.populateSpecies()}
                     </select>
                 </div>
             </>
