@@ -24,7 +24,8 @@ class App extends React.Component {
       types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
       filtered: [],
       searchValue: '',
-      species: []
+      species: [],
+      personalities: []
     }
   }
   componentDidMount(){
@@ -64,10 +65,14 @@ class App extends React.Component {
 
   compileSpeciesList = () => {
     const speciesList = this.state.species;
+    const personalitiesList = this.state.personalities;
     const villagers = this.state.villagers;
     villagers.forEach(villager => {
       if(!speciesList.includes(villager.species)){
         speciesList.push(villager.species);
+      }
+      if(!personalitiesList.includes(villager.personality)){
+        personalitiesList.push(villager.personality)
       }
     });
     this.setState({species: speciesList})
@@ -87,11 +92,15 @@ class App extends React.Component {
     this.setState({activePage: activeItemList})
   }
   
-  filterSpecies = newSpecies => {
+  filterSpecies = criteria => {
     let filteredResults = this.state.filtered;
-    const desiredSpecies = newSpecies.target.value;
+    const desiredCriteria = criteria.target.value;
     const villagers = this.state.villagers;
-    filteredResults = villagers.filter(villager => villager.species === desiredSpecies);
+    if(criteria.target.name === 'species'){
+      filteredResults = villagers.filter(villager => villager.species === desiredCriteria);
+    }else if(criteria.target.name === 'personality'){
+      filteredResults = villagers.filter(villager => villager.personality === desiredCriteria)
+    }
     this.setState({filtered: filteredResults})
   }
 
@@ -191,6 +200,7 @@ class App extends React.Component {
         handleReset = {this.handleReset}
         species = {this.state.species}
         filterSpecies = {this.filterSpecies}
+        personalities = {this.state.personalities}
       />
     }
     else if(activeItem === 'art'){
