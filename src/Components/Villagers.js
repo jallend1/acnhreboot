@@ -18,10 +18,11 @@ class Villagers extends React.Component{
             species,
             name: {"name-en": name},
             "birthday-string": birthday,
-            birthday: birthdate,
+            // birthday: birthdate,
             collapsed
             } = villager;
-        return(
+            this.fixBirthday(villager);
+            return(
             <div className="item" key={fileName}>
                 <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
                     <h3>{name}</h3>
@@ -38,6 +39,14 @@ class Villagers extends React.Component{
                 </div>
             </div>
         )
+    }
+    fixBirthday = villager => {
+        const originalBirthdayFormat = villager.birthday.split('/');
+        const currentTime = new Date();
+        const fixedBirthDate = currentTime.getFullYear() + ' ' + originalBirthdayFormat.reverse().join(' ');
+        const birthDate = new Date(fixedBirthDate);
+        console.log(fixedBirthDate)
+        console.log(birthDate);
     }
     render(){
         return (
