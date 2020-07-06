@@ -33,7 +33,6 @@ class App extends React.Component {
     this.state.types.forEach(item => this.populateData(item))                           //Populates all items into state on load
     const now = new Date();
     this.setState({time: now});
-    console.log(now);
   }
 
   changeType = (newType) => {                                                           //Changes type from active item type to the new one and then applies active sorting
