@@ -18,14 +18,17 @@ class Villagers extends React.Component{
             species,
             name: {"name-en": name},
             "birthday-string": birthday,
-            // birthday: birthdate,
             collapsed
             } = villager;
-            this.fixBirthday(villager);
+            let isBirthday = false;
+            const birthDate = this.fixBirthday(villager);
+            if(birthDate.getMonth() === this.props.time.getMonth() && birthDate.getDate() === this.props.time.getDate()){
+                isBirthday = true;
+            }
             return(
             <div className="item" key={fileName}>
                 <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
-                    <h3>{name}</h3>
+                    <h3>{isBirthday ? `🎉${name}🎉` : name}</h3>
                     <img src={`./images/icons/${this.props.activeItem}/${fileName}.png`} alt={name} />
                     <h4>{catchPhrase}</h4>
                     <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} />
@@ -40,13 +43,12 @@ class Villagers extends React.Component{
             </div>
         )
     }
-    fixBirthday = villager => {
+    fixBirthday = villager => {                                         // Changes birthday from DD//MM into YYYY/MM/DD
         const originalBirthdayFormat = villager.birthday.split('/');
         const currentTime = new Date();
         const fixedBirthDate = currentTime.getFullYear() + ' ' + originalBirthdayFormat.reverse().join(' ');
         const birthDate = new Date(fixedBirthDate);
-        console.log(fixedBirthDate)
-        console.log(birthDate);
+        return birthDate;
     }
     render(){
         return (

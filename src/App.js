@@ -193,6 +193,7 @@ class App extends React.Component {
         toggleCollapse = {this.toggleCollapse}
         species = {this.state.species}
         compileSpeciesList = {this.compileSpeciesList}
+        time = {this.state.time}
         />
       filtering = <FilterVillagers
         changeSort={this.changeSort} 
