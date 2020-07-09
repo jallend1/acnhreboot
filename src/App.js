@@ -6,7 +6,6 @@ import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
 import Filter from './Components/Filter';
-import FilterVillagers from './Components/FilterVillagers';
 
 class App extends React.Component {
   constructor(props){
@@ -127,9 +126,10 @@ class App extends React.Component {
   handleReset = e => {
     //To do: When enter is pressed while in input, do NOT reset page!
     const searchForm = document.querySelector('#searchForm');
+    console.log(searchForm)
     console.log('resetting')
     this.setState({searchValue: ''});
-    searchForm[0].value = '';
+    // searchForm[0].value = '';
   }
   
   sortItems = () => {
@@ -193,12 +193,15 @@ class App extends React.Component {
         activeItem={this.state.activeItem} 
         villagers={this.state.villagers} 
         filtered={this.state.filtered}
-        handleChange={this.handleChange}
         searchValue={this.state.searchValue}
         toggleCollapse = {this.toggleCollapse}
         species = {this.state.species}
         compileSpeciesList = {this.compileSpeciesList}
         time = {this.state.time}
+        changeSort={this.changeSort} 
+        collapseAll = {this.collapseAll} 
+        expandAll = {this.expandAll} 
+        handleReset = {this.handleReset}
         />;
     }
     else if(activeItem === 'art'){
@@ -211,7 +214,7 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      {filtering}                                                                   {/* Displays filtering component based on active item */} 
+      {/* {filtering}                                                                   Displays filtering component based on active item  */}
       {displayArea}
     </div>
     );

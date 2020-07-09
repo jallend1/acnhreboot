@@ -1,4 +1,5 @@
 import React from 'react';
+import Filter from './Filter';
 import FilterVillagers from './FilterVillagers';
 
 class Villagers extends React.Component{
@@ -7,9 +8,11 @@ class Villagers extends React.Component{
         this.state = {
             filtered: this.props.villagers,
             species: [],
-            personalities: []
+            personalities: [],
+            searchValue: ''
         }
 }
+
     compileDropdowns = () => {                                              //Populates the select menus with species and personalities
         const villagers = this.props.villagers;
         const species = this.state.species;
@@ -17,11 +20,11 @@ class Villagers extends React.Component{
         villagers.forEach(villager => { 
             if(!species.includes(villager.species)){
                 species.push(villager.species);
-              }
-              if(!personalities.includes(villager.personality)){
+            }
+            if(!personalities.includes(villager.personality)){
                 personalities.push(villager.personality)
-              }
-            });
+            }
+        });
         this.setState({species, personalities})
     }
 
@@ -29,6 +32,7 @@ class Villagers extends React.Component{
         this.compileDropdowns();
     }
 
+    displaySelection = () => this.props.filtered.map(villager => this.displayVillagers(villager));
     displaySelection = () => this.state.filtered.map(villager => this.displayVillagers(villager));
 
     displayVillagers = villager => {
@@ -66,7 +70,7 @@ class Villagers extends React.Component{
         )
     }
     
-    filterSpecies = criteria => {
+    filterVillagers = criteria => {
         let filteredResults = this.state.filtered;
         const desiredCriteria = criteria.target.value;
         const villagers = this.props.villagers;
@@ -88,19 +92,35 @@ class Villagers extends React.Component{
         const birthDate = new Date(fixedBirthDate);
         return birthDate;
     }
+    handleChange = e => {
+        if(e.currentTarget.value){
+          const searchTerm = e.currentTarget.value.toLowerCase();
+          this.setState({searchValue: searchTerm});
+          const currentData = this.props.villagers;
+          const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
+          this.setState({filtered: filteredData});
+        }
+        else{
+          this.setState({
+            searchValue: '',
+            filtered: this.props.villagers
+          });
+        }
+      }
     render(){
         return (
         <>
             <h2>{this.props.activeItem.toUpperCase()}</h2>
+            <Filter 
+                handleChange = {this.handleChange}
+                handleReset = {this.props.handleReset}
+                collapseAll = {this.props.collapseAll}
+                expandAll = {this.props.expandAll}
+                changeSort = {this.props.changeSort}
+            />
             <FilterVillagers 
-                        changeSort={this.changeSort} 
-                        activeItem = {this.state.activeItem} 
-                        collapseAll = {this.collapseAll} 
-                        expandAll = {this.expandAll} 
-                        handleChange = {this.handleChange} 
-                        handleReset = {this.handleReset}
                         species = {this.state.species}
-                        filterSpecies = {this.filterSpecies}
+                        filterVillagers = {this.filterVillagers}
                         personalities = {this.state.personalities}
             />
             {this.displaySelection()}
