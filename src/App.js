@@ -5,7 +5,6 @@ import Creatures from './Components/Creatures';
 import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
-import Filter from './Components/Filter';
 
 class App extends React.Component {
   constructor(props){
@@ -22,7 +21,6 @@ class App extends React.Component {
       order: 'ascending',
       types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
       filtered: [],
-      searchValue: '',
       time: ''
     }
   }
