@@ -1,7 +1,15 @@
  import React from 'react';
+ import Filter from './Filter';
  import { properCase } from '../utils';
 
 class Creatures extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            filtered: this.props[this.props.activeItem],
+            searchValue: ''
+        }
+    }
     alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
         if(this.props.activeItem === 'bugs'){
             return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
@@ -29,11 +37,11 @@ class Creatures extends React.Component{
         )
     }  
     displaySelection = () => {
-        if(this.props.searchValue){                                                 // If there's a search term, return the filtered array
-            return this.props.filtered.map(item => this.displayItems(item))
+        if(this.state.searchValue){                                                 // If there's a search term, return the filtered array
+            return this.state.filtered.map(item => this.displayItems(item))
         }
         else{                                                                       // If not, go with the original state
-            return this.props.creatures.map(item => this.displayItems(item))
+            return this.props[this.props.activeItem].map(item => this.displayItems(item))
         }
     }
 
@@ -72,10 +80,32 @@ class Creatures extends React.Component{
                 </div>
         )        
     }
+    handleChange = e => {
+        if(e.currentTarget.value){
+          const searchTerm = e.currentTarget.value.toLowerCase();
+          this.setState({searchValue: searchTerm});
+          const currentData = this.props[this.props.activeItem];
+          const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
+          this.setState({filtered: filteredData});
+        }
+        else{
+          this.setState({
+            searchValue: '',
+            filtered: this.props[this.props.activeItem]
+          });
+        }
+      }
     render(){
         const activeItem = this.props.activeItem;
         return (
             <>
+            <Filter 
+                collapseAll = {this.props.collapseAll} 
+                expandAll = {this.props.expandAll} 
+                handleChange = {this.handleChange} 
+                handleReset = {this.props.handleReset}
+                changeSort = {this.props.changeSort}
+            />                
                 <h2>{activeItem.toUpperCase()}</h2>
                 {this.displaySelection()}
             </>

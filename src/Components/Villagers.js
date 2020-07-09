@@ -32,7 +32,6 @@ class Villagers extends React.Component{
         this.compileDropdowns();
     }
 
-    displaySelection = () => this.props.filtered.map(villager => this.displayVillagers(villager));
     displaySelection = () => this.state.filtered.map(villager => this.displayVillagers(villager));
 
     displayVillagers = villager => {

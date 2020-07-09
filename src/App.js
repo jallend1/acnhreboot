@@ -23,8 +23,6 @@ class App extends React.Component {
       types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
       filtered: [],
       searchValue: '',
-      species: [],
-      personalities: [],
       time: ''
     }
   }
@@ -36,9 +34,6 @@ class App extends React.Component {
 
   changeType = (newType) => {                                                           //Changes type from active item type to the new one and then applies active sorting
     this.handleReset();
-    if(newType === 'villagers'){
-      this.compileSpeciesList();
-    }
     this.setState({
       activeItem: newType,
     }, this.sortItems)
@@ -65,21 +60,6 @@ class App extends React.Component {
     }
   }
 
-  compileSpeciesList = () => {
-    const speciesList = this.state.species;
-    const personalitiesList = this.state.personalities;
-    const villagers = this.state.villagers;
-    villagers.forEach(villager => {
-      if(!speciesList.includes(villager.species)){
-        speciesList.push(villager.species);
-      }
-      if(!personalitiesList.includes(villager.personality)){
-        personalitiesList.push(villager.personality)
-      }
-    });
-    this.setState({species: speciesList})
-  }
-
   collapseAll = () => {
     const activePage = this.state.activeItem;
     const activeItemList = this.state[activePage];
@@ -92,35 +72,6 @@ class App extends React.Component {
     const activeItemList = this.state[activePage];
     activeItemList.forEach(item => item.collapsed = false)
     this.setState({activePage: activeItemList})
-  }
-  
-  filterSpecies = criteria => {
-    let filteredResults = this.state.filtered;
-    const desiredCriteria = criteria.target.value;
-    const villagers = this.state.villagers;
-    if(criteria.target.name === 'species'){
-      filteredResults = villagers.filter(villager => villager.species === desiredCriteria);
-    }else if(criteria.target.name === 'personality'){
-      filteredResults = villagers.filter(villager => villager.personality === desiredCriteria)
-    }
-    this.setState({filtered: filteredResults})
-  }
-
-  handleChange = e => {
-    if(e.currentTarget.value){
-      const searchTerm = e.currentTarget.value.toLowerCase();
-      this.setState({searchValue: searchTerm});
-      const activeType = this.state.activeItem;
-      const currentData = this.state[activeType];
-      const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
-      this.setState({filtered: filteredData});
-    }
-    else{
-      this.setState({
-        searchValue: '',
-        filtered: []
-      });
-    }
   }
 
   handleReset = e => {
@@ -160,22 +111,14 @@ class App extends React.Component {
   render() {
     const activeItem = this.state.activeItem;
     let displayArea;
-    let filtering = 
-      <Filter changeSort={this.changeSort} 
-        activeItem = {this.state.activeItem} 
-        collapseAll = {this.collapseAll} 
-        expandAll = {this.expandAll} 
-        handleChange = {this.handleChange} 
-        handleReset = {this.handleReset}/>;
     if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils'){
       displayArea = <Creatures 
-        activeItem={this.state.activeItem} 
-        creatures={this.state[activeItem]}
-        filtered={this.state.filtered}
-        displaySelection={this.displaySelection}
-        searchValue={this.state.searchValue}
-        handleChange={this.handleChange}
+        activeItem={this.state.activeItem}
         toggleCollapse = {this.toggleCollapse}
+        changeSort = {this.changeSort}
+        fish={this.state.fish}
+        bugs={this.state.bugs}
+        fossils={this.state.fossils}
         />
     }
     else if(activeItem === 'music'){
@@ -195,8 +138,6 @@ class App extends React.Component {
         filtered={this.state.filtered}
         searchValue={this.state.searchValue}
         toggleCollapse = {this.toggleCollapse}
-        species = {this.state.species}
-        compileSpeciesList = {this.compileSpeciesList}
         time = {this.state.time}
         changeSort={this.changeSort} 
         collapseAll = {this.collapseAll} 
@@ -214,7 +155,6 @@ class App extends React.Component {
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
-      {/* {filtering}                                                                   Displays filtering component based on active item  */}
       {displayArea}
     </div>
     );
