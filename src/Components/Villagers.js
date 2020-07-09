@@ -1,14 +1,36 @@
 import React from 'react';
+import FilterVillagers from './FilterVillagers';
 
 class Villagers extends React.Component{
-    displaySelection = () => {
-        if(this.props.filtered.length > 0){                                                 // If there's a search term, return the filtered array
-            return this.props.filtered.map(item => this.displayVillagers(item))
+    constructor(props){
+        super(props);
+        this.state = {
+            filtered: this.props.villagers,
+            species: [],
+            personalities: []
         }
-        else{                                                                       // If not, go with the original state
-            return this.props.villagers.map(item => this.displayVillagers(item))
-        }
+}
+    compileDropdowns = () => {                                              //Populates the select menus with species and personalities
+        const villagers = this.props.villagers;
+        const species = this.state.species;
+        const personalities = this.state.personalities;
+        villagers.forEach(villager => { 
+            if(!species.includes(villager.species)){
+                species.push(villager.species);
+              }
+              if(!personalities.includes(villager.personality)){
+                personalities.push(villager.personality)
+              }
+            });
+        this.setState({species, personalities})
     }
+
+    componentDidMount = () => {
+        this.compileDropdowns();
+    }
+
+    displaySelection = () => this.state.filtered.map(villager => this.displayVillagers(villager));
+
     displayVillagers = villager => {
         const {
             "file-name": fileName,
@@ -43,6 +65,22 @@ class Villagers extends React.Component{
             </div>
         )
     }
+    
+    filterSpecies = criteria => {
+        let filteredResults = this.state.filtered;
+        const desiredCriteria = criteria.target.value;
+        const villagers = this.props.villagers;
+        if(desiredCriteria === ''){
+            filteredResults = villagers;
+        }
+        else if(criteria.target.name === 'species'){
+          filteredResults = villagers.filter(villager => villager.species === desiredCriteria);
+        }else if(criteria.target.name === 'personality'){
+          filteredResults = villagers.filter(villager => villager.personality === desiredCriteria)
+        }
+        this.setState({filtered: filteredResults})
+      }
+    
     fixBirthday = villager => {                                         // Changes birthday from DD//MM into YYYY/MM/DD
         const originalBirthdayFormat = villager.birthday.split('/');
         const currentTime = new Date();
@@ -54,6 +92,17 @@ class Villagers extends React.Component{
         return (
         <>
             <h2>{this.props.activeItem.toUpperCase()}</h2>
+            <FilterVillagers 
+                        changeSort={this.changeSort} 
+                        activeItem = {this.state.activeItem} 
+                        collapseAll = {this.collapseAll} 
+                        expandAll = {this.expandAll} 
+                        handleChange = {this.handleChange} 
+                        handleReset = {this.handleReset}
+                        species = {this.state.species}
+                        filterSpecies = {this.filterSpecies}
+                        personalities = {this.state.personalities}
+            />
             {this.displaySelection()}
         </>
         )

@@ -160,7 +160,13 @@ class App extends React.Component {
   render() {
     const activeItem = this.state.activeItem;
     let displayArea;
-    let filtering = <Filter changeSort={this.changeSort} activeItem = {this.state.activeItem} collapseAll = {this.collapseAll} expandAll = {this.expandAll} handleChange = {this.handleChange} handleReset = {this.handleReset}/>;
+    let filtering = 
+      <Filter changeSort={this.changeSort} 
+        activeItem = {this.state.activeItem} 
+        collapseAll = {this.collapseAll} 
+        expandAll = {this.expandAll} 
+        handleChange = {this.handleChange} 
+        handleReset = {this.handleReset}/>;
     if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem} 
@@ -170,8 +176,7 @@ class App extends React.Component {
         searchValue={this.state.searchValue}
         handleChange={this.handleChange}
         toggleCollapse = {this.toggleCollapse}
-        sortItems = {this.sortItems}
-        changeSort = {this.changeSort} />
+        />
     }
     else if(activeItem === 'music'){
       displayArea = <Music 
@@ -194,18 +199,7 @@ class App extends React.Component {
         species = {this.state.species}
         compileSpeciesList = {this.compileSpeciesList}
         time = {this.state.time}
-        />
-      filtering = <FilterVillagers
-        changeSort={this.changeSort} 
-        activeItem = {this.state.activeItem} 
-        collapseAll = {this.collapseAll} 
-        expandAll = {this.expandAll} 
-        handleChange = {this.handleChange} 
-        handleReset = {this.handleReset}
-        species = {this.state.species}
-        filterSpecies = {this.filterSpecies}
-        personalities = {this.state.personalities}
-      />
+        />;
     }
     else if(activeItem === 'art'){
       displayArea = <Art 
