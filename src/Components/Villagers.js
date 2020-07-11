@@ -77,12 +77,12 @@ class Villagers extends React.Component{
             filteredResults = villagers;
         }
         else if(criteria.target.name === 'species'){
-          filteredResults = villagers.filter(villager => villager.species === desiredCriteria);
+            filteredResults = villagers.filter(villager => villager.species === desiredCriteria);
         }else if(criteria.target.name === 'personality'){
-          filteredResults = villagers.filter(villager => villager.personality === desiredCriteria)
+            filteredResults = villagers.filter(villager => villager.personality === desiredCriteria)
         }
         this.setState({filtered: filteredResults})
-      }
+    }
     
     fixBirthday = villager => {                                         // Changes birthday from DD//MM into YYYY/MM/DD
         const originalBirthdayFormat = villager.birthday.split('/');
@@ -93,19 +93,19 @@ class Villagers extends React.Component{
     }
     handleChange = e => {
         if(e.currentTarget.value){
-          const searchTerm = e.currentTarget.value.toLowerCase();
-          this.setState({searchValue: searchTerm});
-          const currentData = this.props.villagers;
-          const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
-          this.setState({filtered: filteredData});
+            const searchTerm = e.currentTarget.value.toLowerCase();
+            this.setState({searchValue: searchTerm});
+            const currentData = this.props.villagers;
+            const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
+            this.setState({filtered: filteredData});
         }
         else{
-          this.setState({
-            searchValue: '',
-            filtered: this.props.villagers
-          });
+            this.setState({
+                searchValue: '',
+                filtered: this.props.villagers
+            });
         }
-      }
+    }
     render(){
         return (
         <>
