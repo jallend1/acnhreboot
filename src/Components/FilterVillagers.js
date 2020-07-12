@@ -2,31 +2,44 @@ import React from 'react';
 
 class FilterVillagers extends React.Component{
     populateSpecies = () => {                                                                                           // Populates drop down list of different villager species
-        return this.props.species.map(species => <option value={species} key={species}>{species}</option>)
+        return this.props.species.map(species => {
+            return (
+                <div className="options" key={species}>
+                    <input type="checkbox" id={species} name="species" value={species} onChange={this.props.checkboxChange}/>
+                    <label htmlFor={species}>{species}</label>
+                </div>
+            )
+        })
     }
     populatePersonalities = () => {
-        return this.props.personalities.map(personality => <option value={personality} key={personality}>{personality}</option>)
+        return this.props.personalities.map(personality => {
+            return (
+                <div className="options" key={personality} >
+                    <input type="checkbox" id={personality} name="personality" value={personality} onChange={this.props.checkboxChange}/>
+                    <label htmlFor={personality}>{personality}</label>
+                </div>
+                )   
+        });
     }
     render(){
         return (
-            <>
-                <div>
-                    <label htmlFor="species">Filter by species:</label>
-                    <select name="species" id="species" onChange={this.props.filterVillagers}>
-                        <option value="">Choose a species</option>
-                        <option value="">All Species</option>
-                        {this.populateSpecies()}
-                    </select>
+            <details>
+                <summary>Advanced search options</summary>
+                <div id="advanced">
+                    <fieldset>
+                        <legend>Species</legend>
+                        <div className="checkboxes">
+                            {this.populateSpecies()}
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Personalities</legend>
+                        <div className="checkboxes">
+                            {this.populatePersonalities()}
+                        </div>
+                    </fieldset>
                 </div>
-                <div>
-                    <label htmlFor="personality">Filter by personality:</label>
-                    <select name="personality" id="personality" onChange={this.props.filterVillagers}>
-                        <option value="">Choose a personality</option>
-                        <option value="">All personalities</option>
-                        {this.populatePersonalities()}
-                    </select>
-                </div>
-            </>
+            </details>
         )
     }
 }

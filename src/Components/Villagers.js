@@ -9,9 +9,38 @@ class Villagers extends React.Component{
             filtered: this.props.villagers,
             species: [],
             personalities: [],
-            searchValue: ''
+            searchTerm: '',
+            searchSpecies: [],
+            searchPersonality: []
+            }
+    }
+
+    checkboxChange = e => {                                                 // Adds or removes advanced search options from search criteria
+        if(e.target.name === 'species'){
+            const params = this.state.searchSpecies;
+            const type = e.target.value;
+            if(e.target.checked === true){
+                params.push(type);
+            }
+            if(e.target.checked === false){
+                const index = params.indexOf(type);
+                params.splice(index, 1);
+            }
+            this.setState({searchSpecies: params }, this.filterVillagers);    
         }
-}
+        else if(e.target.name === 'personality'){
+            const params = this.state.searchPersonality;
+            const type = e.target.value;
+            if(e.target.checked === true){
+                params.push(type);
+            }
+            if(e.target.checked === false){
+                const index = params.indexOf(type);
+                params.splice(index, 1);
+            }
+            this.setState({searchPersonality: params }, this.filterVillagers);
+        }
+    }
 
     compileDropdowns = () => {                                              //Populates the select menus with species and personalities
         const villagers = this.props.villagers;
@@ -70,18 +99,24 @@ class Villagers extends React.Component{
     }
     
     filterVillagers = criteria => {
-        let filteredResults = this.state.filtered;
-        const desiredCriteria = criteria.target.value;
-        const villagers = this.props.villagers;
-        if(desiredCriteria === ''){
-            filteredResults = villagers;
+        let newResults = this.state.filtered;
+        const searchTerm = this.state.searchTerm;
+        let searchSpecies = this.state.searchSpecies;
+        let searchPersonality = this.state.searchPersonality;
+        if(searchTerm){
+            newResults = newResults.filter(villager => villager.name["name-en"].toLowerCase().includes(searchTerm));
+            console.log(typeof newResults)
         }
-        else if(criteria.target.name === 'species'){
-            filteredResults = villagers.filter(villager => villager.species === desiredCriteria);
-        }else if(criteria.target.name === 'personality'){
-            filteredResults = villagers.filter(villager => villager.personality === desiredCriteria)
+        if(searchSpecies.length > 0){
+            newResults = newResults.filter(villager => villager.species === searchSpecies[0]);
+            console.log(typeof newResults)
+            console.log(newResults);
         }
-        this.setState({filtered: filteredResults})
+        if(!searchTerm && searchSpecies.length === 0){
+            newResults = this.props.villagers;
+        }
+        this.setState({filtered: newResults});
+
     }
     
     fixBirthday = villager => {                                         // Changes birthday from DD//MM into YYYY/MM/DD
@@ -93,11 +128,10 @@ class Villagers extends React.Component{
     }
     handleChange = e => {
         if(e.currentTarget.value){
-            const searchTerm = e.currentTarget.value.toLowerCase();
-            this.setState({searchValue: searchTerm});
-            const currentData = this.props.villagers;
-            const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
-            this.setState({filtered: filteredData});
+            let searchTerm = this.state.searchTerm;
+            const newSearchParams = e.currentTarget.value.toLowerCase();
+            searchTerm = newSearchParams
+            this.setState({searchTerm}, this.filterVillagers());
         }
         else{
             this.setState({
@@ -118,9 +152,11 @@ class Villagers extends React.Component{
                 changeSort = {this.props.changeSort}
             />
             <FilterVillagers 
-                        species = {this.state.species}
-                        filterVillagers = {this.filterVillagers}
-                        personalities = {this.state.personalities}
+                filterVillagers = {this.filterVillagers}
+                searchCriteria = {this.state.searchCriteria}
+                species = {this.state.species}
+                personalities = {this.state.personalities}
+                checkboxChange = {this.checkboxChange}
             />
             {this.displaySelection()}
         </>
