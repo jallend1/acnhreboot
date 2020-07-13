@@ -38,6 +38,12 @@ class FilterVillagers extends React.Component{
                             {this.populatePersonalities()}
                         </div>
                     </fieldset>
+                    <fieldset>
+                        <legend>Birthdays</legend>
+                        <div>
+                            <p>Functionality pending!</p>
+                        </div>
+                    </fieldset>
                 </div>
             </details>
         )

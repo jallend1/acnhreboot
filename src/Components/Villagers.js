@@ -22,7 +22,7 @@ class Villagers extends React.Component{
             if(e.target.checked === true){
                 params.push(type);
             }
-            if(e.target.checked === false){
+            else if(e.target.checked === false){
                 const index = params.indexOf(type);
                 params.splice(index, 1);
             }
@@ -34,7 +34,7 @@ class Villagers extends React.Component{
             if(e.target.checked === true){
                 params.push(type);
             }
-            if(e.target.checked === false){
+            else if(e.target.checked === false){
                 const index = params.indexOf(type);
                 params.splice(index, 1);
             }
@@ -58,6 +58,8 @@ class Villagers extends React.Component{
     }
 
     componentDidMount = () => {
+        const currentTime = new Date();
+        this.setState({time: currentTime});
         this.compileDropdowns();
     }
 
@@ -79,6 +81,10 @@ class Villagers extends React.Component{
             if(birthDate.getMonth() === this.props.time.getMonth() && birthDate.getDate() === this.props.time.getDate()){
                 isBirthday = true;
             }
+            let birthdayDaysAway = Math.ceil((birthDate - this.props.time) / (1000 * 3600 * 24));
+            if(birthdayDaysAway < 0){
+                birthdayDaysAway += 365;
+            }
             return(
             <div className="item" key={fileName}>
                 <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
@@ -93,6 +99,7 @@ class Villagers extends React.Component{
                     <p>Gender: {gender}</p>
                     <p>Species: {species}</p>
                     <p>Birthday: {birthday}</p>
+                    <p>Days until birthday: {birthdayDaysAway}</p>
                 </div>
             </div>
         )
@@ -105,12 +112,9 @@ class Villagers extends React.Component{
         let searchPersonality = this.state.searchPersonality;
         if(searchTerm){
             newResults = newResults.filter(villager => villager.name["name-en"].toLowerCase().includes(searchTerm));
-            console.log(typeof newResults)
         }
         if(searchSpecies.length > 0){
             newResults = newResults.filter(villager => villager.species === searchSpecies[0]);
-            console.log(typeof newResults)
-            console.log(newResults);
         }
         if(!searchTerm && searchSpecies.length === 0){
             newResults = this.props.villagers;
@@ -121,9 +125,12 @@ class Villagers extends React.Component{
     
     fixBirthday = villager => {                                         // Changes birthday from DD//MM into YYYY/MM/DD
         const originalBirthdayFormat = villager.birthday.split('/');
-        const currentTime = new Date();
+        const currentTime = this.props.time;
         const fixedBirthDate = currentTime.getFullYear() + ' ' + originalBirthdayFormat.reverse().join(' ');
         const birthDate = new Date(fixedBirthDate);
+        if(villager.name["name-en"] === 'Twiggy'){
+            console.log(Math.ceil((birthDate - currentTime) / (1000 * 3600 * 24)));
+        }
         return birthDate;
     }
     handleChange = e => {
