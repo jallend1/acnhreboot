@@ -128,9 +128,6 @@ class Villagers extends React.Component{
         const currentTime = this.props.time;
         const fixedBirthDate = currentTime.getFullYear() + ' ' + originalBirthdayFormat.reverse().join(' ');
         const birthDate = new Date(fixedBirthDate);
-        if(villager.name["name-en"] === 'Twiggy'){
-            console.log(Math.ceil((birthDate - currentTime) / (1000 * 3600 * 24)));
-        }
         return birthDate;
     }
     handleChange = e => {

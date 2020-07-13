@@ -74,7 +74,7 @@ class App extends React.Component {
 
   handleReset = e => {
     //To do: When enter is pressed while in input, do NOT reset page!
-    const searchForm = document.querySelector('#searchForm');
+    // const searchForm = document.querySelector('#searchForm');
     this.setState({searchValue: ''});
   }
   
@@ -114,6 +114,7 @@ class App extends React.Component {
         fish={this.state.fish}
         bugs={this.state.bugs}
         fossils={this.state.fossils}
+        time={this.state.time}
         />
     }
     else if(activeItem === 'music'){
@@ -138,7 +139,6 @@ class App extends React.Component {
         collapseAll = {this.collapseAll} 
         expandAll = {this.expandAll} 
         handleReset = {this.handleReset}
-        time = {this.state.time}
         />;
     }
     else if(activeItem === 'art'){

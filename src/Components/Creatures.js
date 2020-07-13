@@ -17,7 +17,43 @@ class Creatures extends React.Component{
             return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>
         }
     }
+    annualAvailability = availability => {
+        return (
+            <>
+                <p>Northern Hemisphere: {availability["month-northern"]}</p>
+                <p>Southern Hemisphere: {availability["month-southern"]}</p>
+            </>
+        )
+    }  
     calculateAvailability = availability => {
+        const northernMonths = availability["month-northern"]
+        const currentMonth = this.props.time.getMonth();
+        if(availability.isAllYear){                                                     // All year? Available
+            return true;
+        }
+        if(northernMonths === currentMonth){                                            // If available one month, and that month is now? Available
+            return true;
+        }
+        if(northernMonths.includes('&')){                                               // If available to ranges of months, compares current month to first range, and then second
+            const twoRanges = northernMonths.split('&');
+            const rangeOne = twoRanges[0].split('-');
+            const rangeTwo = twoRanges[1].split('-');
+            if(currentMonth >= rangeOne[0] && currentMonth <= rangeOne[1]){
+                return true;
+            }
+            else if(currentMonth >= rangeTwo[0] && currentMonth <= rangeTwo[1]){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        const monthsArray = northernMonths.split('-');
+        if(currentMonth >= monthsArray[0] && currentMonth <= monthsArray[1]){
+            return true;
+        }            
+        return false;
+    }
+    displayAvailability = availability => {
         return (
         <div>
             <h4>Availability</h4>
@@ -28,14 +64,6 @@ class Creatures extends React.Component{
         </div>
         )
     }
-    annualAvailability = availability => {
-        return (
-            <>
-                <p>Northern Hemisphere: {availability["month-northern"]}</p>
-                <p>Southern Hemisphere: {availability["month-southern"]}</p>
-            </>
-        )
-    }  
     displaySelection = () => {
         if(this.state.searchValue){                                                 // If there's a search term, return the filtered array
             return this.state.filtered.map(item => this.displayItems(item))
@@ -48,12 +76,13 @@ class Creatures extends React.Component{
     displayItems = item => {  
         const { price, 
             name: {"name-en": name},
-                "museum-phrase": museumPhrase,
-                "catch-phrase": catchPhrase,
-                "file-name": fileName,
-                availability,
-                collapsed
-            } = item;
+            "museum-phrase": museumPhrase,
+            "catch-phrase": catchPhrase,
+            "file-name": fileName,
+            availability,
+            collapsed
+        } = item;
+        const availableToday = this.calculateAvailability(availability);
             return (
                 <div className="item" key={fileName}>
                     <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
@@ -64,6 +93,7 @@ class Creatures extends React.Component{
                             : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
                         />
                         <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle"/>
+                        <img src={availableToday? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'}/>
                     </header>
                     <div className={collapsed ? "collapsed details" : "details"}>
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
@@ -75,7 +105,7 @@ class Creatures extends React.Component{
                             </p>
                             <p>{museumPhrase}</p>
                         </div>
-                        {this.props.activeItem === 'fossils' ? null : this.calculateAvailability(availability)}
+                        {this.props.activeItem === 'fossils' ? null : this.displayAvailability(availability)}
                     </div>
                 </div>
         )        
