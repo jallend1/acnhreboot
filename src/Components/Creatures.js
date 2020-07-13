@@ -27,7 +27,7 @@ class Creatures extends React.Component{
     }  
     calculateAvailability = availability => {
         const northernMonths = availability["month-northern"]
-        const currentMonth = this.props.time.getMonth();
+        const currentMonth = this.props.time.getMonth() + 1;                            // API keeps months according to calendar, JS starts at 0;
         if(availability.isAllYear){                                                     // All year? Available
             return true;
         }
