@@ -116,7 +116,11 @@ class Villagers extends React.Component{
         if(searchSpecies.length > 0){
             newResults = newResults.filter(villager => villager.species === searchSpecies[0]);
         }
-        if(!searchTerm && searchSpecies.length === 0){
+        if(searchPersonality.length > 0){
+            newResults = newResults.filter(villager => villager.personality === searchPersonality[0]);
+            console.log(newResults);
+        }
+        if(!searchTerm && searchSpecies.length === 0 && searchPersonality.length === 0){
             newResults = this.props.villagers;
         }
         this.setState({filtered: newResults});
@@ -130,6 +134,7 @@ class Villagers extends React.Component{
         const birthDate = new Date(fixedBirthDate);
         return birthDate;
     }
+
     handleChange = e => {
         if(e.currentTarget.value){
             let searchTerm = this.state.searchTerm;
