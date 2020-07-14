@@ -1,6 +1,7 @@
 import React from 'react';
 import Filter from './Filter';
 import FilterVillagers from './FilterVillagers';
+import { properCase } from '../utils';
 
 class Villagers extends React.Component{
     constructor(props){
@@ -11,10 +12,42 @@ class Villagers extends React.Component{
             personalities: [],
             searchTerm: '',
             searchSpecies: [],
-            searchPersonality: []
+            searchPersonality: [],
+            birthdayBoys: []
             }
     }
 
+    birthdayCheck = () => {
+        const birthdayBoys = [];
+        this.props.villagers.forEach(villager => {
+            const birthDate = this.fixBirthday(villager);                                                                   // Changes each birthdate in API from DD/MM to MM/DD
+            if(birthDate.getMonth() === this.props.time.getMonth() && birthDate.getDate() === this.props.time.getDate()){   // If that matches local time, push them into birthday array
+                birthdayBoys.push(
+                    [
+                        villager.personality, 
+                        villager.name["name-USen"], 
+                        villager["catch-phrase"],
+                        villager["file-name"], 
+                        villager["birthday-string"]
+                    ]);
+            }
+        })
+        this.setState({birthdayBoys});
+    }
+    celebrateBirthday = () => {
+        const birthdayBoys = this.state.birthdayBoys;
+        if (birthdayBoys.length === 0){
+            return <p>No villagers on celebrating their birthday today</p>
+        }
+        else return birthdayBoys.map(birthdayBoy => {
+            return (
+                <div key={birthdayBoy[1]} className="birthdayboy">
+                    <img src={`./images/villagers/${birthdayBoy[3]}.png`} alt={birthdayBoy[1]} />
+                    <p>Happy birthday to always {birthdayBoy[0]} {birthdayBoy[1]}! {properCase(birthdayBoy[2])}!  </p>
+                </div>
+            )
+        });
+    }
     checkboxChange = e => {                                                 // Adds or removes advanced search options from search criteria
         if(e.target.name === 'species'){
             const params = this.state.searchSpecies;
@@ -61,6 +94,7 @@ class Villagers extends React.Component{
         const currentTime = new Date();
         this.setState({time: currentTime});
         this.compileDropdowns();
+        this.birthdayCheck();
     }
 
     displaySelection = () => this.state.filtered.map(villager => this.displayVillagers(villager));
@@ -72,7 +106,7 @@ class Villagers extends React.Component{
             gender,
             personality,
             species,
-            name: {"name-en": name},
+            name: {"name-USen": name},
             "birthday-string": birthday,
             collapsed
             } = villager;
@@ -153,6 +187,9 @@ class Villagers extends React.Component{
         return (
         <>
             <h2>{this.props.activeItem.toUpperCase()}</h2>
+            <div id="birthdays">
+                {this.celebrateBirthday()}
+            </div>
             <Filter 
                 handleChange = {this.handleChange}
                 handleReset = {this.props.handleReset}
