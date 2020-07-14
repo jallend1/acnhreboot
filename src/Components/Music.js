@@ -20,7 +20,7 @@ class Music extends React.Component{
             "file-name": fileName,
             "buy-price": buyPrice,
             "sell-price": sellPrice,
-            name:{"name-en": name}
+            name:{"name-USen": name}
             } = song;
         return (
             <div className="item song" key={fileName}>

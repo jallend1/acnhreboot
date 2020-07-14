@@ -83,9 +83,9 @@ class App extends React.Component {
     this.state.searchValue ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
     let sortedState = [];
     if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
-      sortedState = unsortedState.sort((a, b) => a.name["name-en"].toLowerCase() > b.name["name-en"].toLowerCase() ? 1 : -1);
+      sortedState = unsortedState.sort((a, b) => a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase() ? 1 : -1);
     }else if(this.state.sortBy === 'alpha' && this.state.order === 'descending'){
-        sortedState = unsortedState.sort((a, b) => a.name["name-en"].toLowerCase() < b.name["name-en"].toLowerCase() ? 1 : -1);
+        sortedState = unsortedState.sort((a, b) => a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase() ? 1 : -1);
     }else if(this.state.sortBy === 'nook' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.price - b.price);
     }else if(this.state.sortBy === 'nook' && this.state.order === 'descending'){

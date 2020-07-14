@@ -5,7 +5,7 @@ class Art extends React.Component{
     displayArt = art => {
         const {
             "file-name": fileName,
-            name: {"name-en": name},
+            name: {"name-USen": name},
             "buy-price": buyPrice,
             "sell-price": sellPrice,
             hasFake

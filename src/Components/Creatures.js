@@ -74,15 +74,21 @@ class Creatures extends React.Component{
     }
 
     displayItems = item => {  
+        let availableToday;
         const { price, 
-            name: {"name-en": name},
+            name: {"name-USen": name},
             "museum-phrase": museumPhrase,
             "catch-phrase": catchPhrase,
             "file-name": fileName,
             availability,
             collapsed
         } = item;
-        const availableToday = this.calculateAvailability(availability);
+        if(this.props.activeItem === 'fossils'){
+            availableToday = true;
+        }
+        else{
+            availableToday = this.calculateAvailability(availability);
+        }
             return (
                 <div className="item" key={fileName}>
                     <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
@@ -115,7 +121,7 @@ class Creatures extends React.Component{
           const searchTerm = e.currentTarget.value.toLowerCase();
           this.setState({searchValue: searchTerm});
           const currentData = this.props[this.props.activeItem];
-          const filteredData = currentData.filter(item => item.name["name-en"].toLowerCase().includes(searchTerm));
+          const filteredData = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
           this.setState({filtered: filteredData});
         }
         else{
