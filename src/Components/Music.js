@@ -41,7 +41,9 @@ class Music extends React.Component{
         return ( 
             <>
                 <h2>{this.props.activeItem.toUpperCase()}</h2>
-                <Player activeSong={this.state.activeSong} />
+                <div id="songplayer">
+                    <Player activeSong={this.state.activeSong} />
+                </div>
                 <div id="songdisplay">
                     {this.displaySelection()}
                 </div>

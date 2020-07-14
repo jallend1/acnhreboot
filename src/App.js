@@ -17,9 +17,10 @@ class App extends React.Component {
       music: [],
       villagers: [],
       art: [],
+      sea: [],
       sortBy: 'alpha',
       order: 'ascending',
-      types: ['fish', 'bugs', 'fossils', 'music', 'villagers', 'art'],
+      types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art'],
       filtered: [],
       time: ''
     }
@@ -106,7 +107,7 @@ class App extends React.Component {
   render() {
     const activeItem = this.state.activeItem;
     let displayArea;
-    if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils'){
+    if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils' || activeItem === 'sea'){
       displayArea = <Creatures 
         activeItem={this.state.activeItem}
         toggleCollapse = {this.toggleCollapse}
@@ -114,6 +115,7 @@ class App extends React.Component {
         fish={this.state.fish}
         bugs={this.state.bugs}
         fossils={this.state.fossils}
+        sea={this.state.sea}
         time={this.state.time}
         />
     }
@@ -150,7 +152,7 @@ class App extends React.Component {
     return (  
     <div className="container">
       <Header />
-      <Navbar activeItem={this.state.activeItem} changeType={this.changeType} />
+      <Navbar activeItem={this.state.activeItem} changeType={this.changeType} types={this.state.types} />
       {displayArea}
     </div>
     );

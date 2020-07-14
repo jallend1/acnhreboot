@@ -1,22 +1,19 @@
 import React from 'react';
+import { properCase } from '../utils';
 
 class Navbar extends React.Component{
     handleClick = (clickedType) => {
         const newType = clickedType.target.textContent.toLowerCase();
         this.props.changeType(newType);
     }
+    renderTypes = types => {
+        return types.map(type => <li onClick={this.handleClick}>{properCase(type)}</li>)
+    }
     render() { 
         return(
-            <>
             <ul>
-                <li onClick={this.handleClick}>Fish</li>
-                <li onClick={this.handleClick}>Bugs</li>
-                <li onClick={this.handleClick}>Fossils</li>
-                <li onClick={this.handleClick}>Music</li>
-                <li onClick={this.handleClick}>Villagers</li>
-                <li onClick={this.handleClick}>Art</li>
+                {this.renderTypes(this.props.types)}
             </ul>
-            </>
         )
     }
 }

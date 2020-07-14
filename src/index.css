@@ -113,6 +113,14 @@ li{
   justify-content: space-around;
 }
 
+#songplayer{
+  width: 100%;
+}
+
+#player{
+  text-align: center;
+}
+
 #songdisplay{
   display: flex;
   flex-direction: row;
