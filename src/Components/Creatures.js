@@ -26,32 +26,9 @@ class Creatures extends React.Component{
         )
     }  
     calculateAvailability = availability => {
-        const northernMonths = availability["month-northern"]
-        const currentMonth = this.props.time.getMonth() + 1;                            // API keeps months according to calendar, JS starts at 0;
-        if(availability.isAllYear){                                                     // All year? Available
-            return true;
-        }
-        if(northernMonths === currentMonth){                                            // If available one month, and that month is now? Available
-            return true;
-        }
-        if(northernMonths.includes('&')){                                               // If available to ranges of months, compares current month to first range, and then second
-            const twoRanges = northernMonths.split('&');
-            const rangeOne = twoRanges[0].split('-');
-            const rangeTwo = twoRanges[1].split('-');
-            if(currentMonth >= rangeOne[0] && currentMonth <= rangeOne[1]){
-                return true;
-            }
-            else if(currentMonth >= rangeTwo[0] && currentMonth <= rangeTwo[1]){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        const monthsArray = northernMonths.split('-');
-        if(currentMonth >= monthsArray[0] && currentMonth <= monthsArray[1]){
-            return true;
-        }            
-        return false;
+        const northernMonths = availability["month-array-northern"]
+        const currentMonth = this.props.time.getMonth() + 1;            // API keeps months according to calendar, JS starts at 0;
+        return northernMonths.includes(currentMonth);                   // If current month is incluced in array of availibility, true
     }
     displayAvailability = availability => {
         return (
