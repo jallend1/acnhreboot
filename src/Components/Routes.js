@@ -11,13 +11,7 @@ class Routes extends React.Component{
         super(props);
         this.state = {
           activeItem: 'fish',
-          fish: [],
-          bugs: [],
-          fossils: [],
           music: [],
-          villagers: [],
-          art: [],
-          sea: [],
           sortBy: 'alpha',
           order: 'ascending',
           types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art'],
@@ -27,17 +21,15 @@ class Routes extends React.Component{
       }
       componentDidMount(){
         this.state.types.forEach(item => this.populateData(item))                           //Populates all items into state on load
-        const now = new Date();
-        this.setState({time: now});
       }
       
     populateData = dataType => {
         fetch(`./music.json`)
             .then(data => data.json())
             .then(results => {
-            const itemList = Object.values(results);
-            itemList.forEach(item => item.collapsed = true);
-            this.setState({music: itemList})
+                const itemList = Object.values(results);
+                itemList.forEach(item => item.collapsed = true);
+                this.setState({music: itemList})
             })
         }
     render(){
@@ -58,7 +50,7 @@ class Routes extends React.Component{
                         <Welcome />
                     </Route>
                     <Route exact path="/music">
-                        <Music activeItem='songs' filtered={this.state.music} music={this.state.music} />
+                        <Music activeItem='music' filtered={this.state.music} music={this.state.music} />
                     </Route>
                 </Switch>
             </Router>

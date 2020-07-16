@@ -1,6 +1,5 @@
 import React from 'react';
 import Player from './Player';
-import { useParams } from 'react-router-dom'
 
 class Music extends React.Component{
     state = {
