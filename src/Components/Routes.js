@@ -5,6 +5,7 @@ import { BrowserRouter as Router,
     Link } from 'react-router-dom';
 import Music from './Music';
 import Welcome from './Welcome';
+import Art from './Art';
 
 class Routes extends React.Component{
     constructor(props){
@@ -12,9 +13,10 @@ class Routes extends React.Component{
         this.state = {
           activeItem: 'fish',
           music: [],
+          art: [],
           sortBy: 'alpha',
           order: 'ascending',
-          types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art'],
+          types: ['music', 'art'],
           filtered: [],
           time: ''
         }
@@ -24,14 +26,24 @@ class Routes extends React.Component{
       }
       
     populateData = dataType => {
-        fetch(`./music.json`)
+        fetch(`./${dataType}.json`)
             .then(data => data.json())
             .then(results => {
                 const itemList = Object.values(results);
                 itemList.forEach(item => item.collapsed = true);
-                this.setState({music: itemList})
+                this.setState({[dataType]: itemList})
             })
-        }
+    }
+    renderTypes = types => {
+        // This does NOT work!!! Unsure why
+        return types.map(type => {
+            return ( 
+            <li>
+                <Link to="/:music" component={Music}>{type.toUpperCase()}</Link>
+            </li>
+        )
+        })
+    }   
     render(){
         return(
             <Router>
@@ -43,6 +55,9 @@ class Routes extends React.Component{
                         <li>
                             <Link to="/music">Music</Link>
                         </li>
+                        <li>
+                            <Link to="/art">Art</Link>
+                        </li>
                     </ul>
                 </div>
                 <Switch>
@@ -50,7 +65,18 @@ class Routes extends React.Component{
                         <Welcome />
                     </Route>
                     <Route exact path="/music">
-                        <Music activeItem='music' filtered={this.state.music} music={this.state.music} />
+                        <Music 
+                            activeItem='music' 
+                            filtered={this.state.music} 
+                            music={this.state.music} 
+                        />
+                    </Route>
+                    <Route exact path="/art">
+                        <Art
+                            activeItem='art' 
+                            filtered={this.state.art} 
+                            art={this.state.art} 
+                        />
                     </Route>
                 </Switch>
             </Router>

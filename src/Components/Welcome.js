@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 class Welcome extends React.Component{
     render(){
         return(
-            <p>Welcome!</p>
+            <div>
+                <p>Welcome!</p>   
+            </div>
         )
     }
 }
