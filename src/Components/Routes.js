@@ -6,6 +6,7 @@ import { BrowserRouter as Router,
 import Music from './Music';
 import Welcome from './Welcome';
 import Art from './Art';
+import Creatures from './Creatures';
 
 class Routes extends React.Component{
     constructor(props){
@@ -14,9 +15,14 @@ class Routes extends React.Component{
           activeItem: 'fish',
           music: [],
           art: [],
+          creatures: {
+              fish: [],
+              bugs: [],
+              fossils: []
+          },
           sortBy: 'alpha',
           order: 'ascending',
-          types: ['music', 'art'],
+          types: ['fish', 'bugs', 'fossils', 'music', 'art'],
           filtered: [],
           time: ''
         }
@@ -31,7 +37,15 @@ class Routes extends React.Component{
             .then(results => {
                 const itemList = Object.values(results);
                 itemList.forEach(item => item.collapsed = true);
-                this.setState({[dataType]: itemList})
+                // Updates embedded creatures 
+                if(dataType === 'fish' || dataType === 'bugs' || dataType === 'fossils'){
+                    const creatures = {...this.state.creatures};
+                    creatures[dataType] = itemList;
+                    this.setState({creatures});
+                }
+                else{
+                    this.setState({[dataType]: itemList})
+                }
             })
     }
     renderTypes = types => {
@@ -52,6 +66,7 @@ class Routes extends React.Component{
                         <li>
                             <Link to="/">Home</Link>
                         </li>
+                            <Link to="/fish">Fish</Link>
                         <li>
                             <Link to="/music">Music</Link>
                         </li>
@@ -63,6 +78,14 @@ class Routes extends React.Component{
                 <Switch>
                     <Route exact path="/">
                         <Welcome />
+                    </Route>
+                    <Route exact path="/fish">
+                        {/* <Creatures 
+                            activeItem='fish'
+                            filtered={this.state.creatures}
+                            fish={this.state.creatures}
+                        /> */}
+
                     </Route>
                     <Route exact path="/music">
                         <Music 

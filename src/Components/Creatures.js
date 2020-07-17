@@ -6,7 +6,7 @@ class Creatures extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            filtered: this.props[this.props.activeItem],
+            filtered: this.props.creatures[this.props.activeItem],
             searchValue: ''
         }
     }
