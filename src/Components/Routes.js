@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router,
     Switch,
     Route,
+    NavLink,
     Link } from 'react-router-dom';
 import Music from './Music';
 import Welcome from './Welcome';
@@ -61,20 +62,20 @@ class Routes extends React.Component{
     render(){
         return(
             <Router>
-                <div>
+                {/* <div>
                     <ul>
                         <li>
-                            <Link to="/">Home</Link>
+                            <NavLink to="/">Home</NavLink>
                         </li>
-                            <Link to="/fish">Fish</Link>
+                            <NavLink to="/fish">Fish</NavLink>
                         <li>
-                            <Link to="/music">Music</Link>
+                            <NavLink to="/music">Music</NavLink>
                         </li>
                         <li>
-                            <Link to="/art">Art</Link>
+                            <NavLink to="/art">Art</NavLink>
                         </li>
                     </ul>
-                </div>
+                </div> */}
                 <Switch>
                     <Route exact path="/">
                         <Welcome />
