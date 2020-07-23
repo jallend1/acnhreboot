@@ -5,6 +5,12 @@ import Creatures from './Components/Creatures';
 import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
+import Welcome from './Components/Welcome';
+import { BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+  Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props){
@@ -106,55 +112,123 @@ class App extends React.Component {
 
   render() {
     const activeItem = this.state.activeItem;
-    let displayArea;
-    if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils' || activeItem === 'sea'){
-      displayArea = <Creatures 
-        activeItem={this.state.activeItem}
-        toggleCollapse = {this.toggleCollapse}
-        changeSort = {this.changeSort}
-        creatures = {this.state[this.state.activeItem]}
-        fish={this.state.fish}
-        bugs={this.state.bugs}
-        fossils={this.state.fossils}
-        sea={this.state.sea}
-        time={this.state.time}
-        />
-    }
-    else if(activeItem === 'music'){
-      displayArea = <Music 
-        activeItem={this.state.activeItem} 
-        music={this.state.music} 
-        playSong = {this.playSong}
-        filtered={this.state.filtered}
-        handleChange={this.handleChange}
-        searchValue={this.state.searchValue}
-        toggleCollapse = {this.toggleCollapse} />
-    }
-    else if(activeItem === 'villagers'){
-      displayArea = <Villagers 
-        activeItem={this.state.activeItem} 
-        villagers={this.state.villagers} 
-        filtered={this.state.filtered}
-        searchValue={this.state.searchValue}
-        toggleCollapse = {this.toggleCollapse}
-        time = {this.state.time}
-        changeSort={this.changeSort} 
-        collapseAll = {this.collapseAll} 
-        expandAll = {this.expandAll} 
-        handleReset = {this.handleReset}
-        />;
-    }
-    else if(activeItem === 'art'){
-      displayArea = <Art 
-        activeItem={this.state.activeItem} 
-        art={this.state.art} 
-        toggleCollapse = {this.toggleCollapse} />
-    }
+    // let displayArea;
+    // if(activeItem === 'fish' || activeItem === 'bugs' || activeItem === 'fossils' || activeItem === 'sea'){
+    //   displayArea = <Creatures 
+    //     activeItem={this.state.activeItem}
+    //     toggleCollapse = {this.toggleCollapse}
+    //     changeSort = {this.changeSort}
+    //     creatures = {this.state[this.state.activeItem]}
+    //     fish={this.state.fish}
+    //     bugs={this.state.bugs}
+    //     fossils={this.state.fossils}
+    //     sea={this.state.sea}
+    //     time={this.state.time}
+    //     />
+    // }
+    // else if(activeItem === 'music'){
+    //   displayArea = <Music 
+    //     activeItem={this.state.activeItem} 
+    //     music={this.state.music} 
+    //     playSong = {this.playSong}
+    //     filtered={this.state.filtered}
+    //     handleChange={this.handleChange}
+    //     searchValue={this.state.searchValue}
+    //     toggleCollapse = {this.toggleCollapse} />
+    // }
+    // else if(activeItem === 'villagers'){
+    //   displayArea = <Villagers 
+    //     activeItem={this.state.activeItem} 
+    //     villagers={this.state.villagers} 
+    //     filtered={this.state.filtered}
+    //     searchValue={this.state.searchValue}
+    //     toggleCollapse = {this.toggleCollapse}
+    //     time = {this.state.time}
+    //     changeSort={this.changeSort} 
+    //     collapseAll = {this.collapseAll} 
+    //     expandAll = {this.expandAll} 
+    //     handleReset = {this.handleReset}
+    //     />;
+    // }
+    // else if(activeItem === 'art'){
+    //   displayArea = <Art 
+    //     activeItem={this.state.activeItem} 
+    //     art={this.state.art} 
+    //     toggleCollapse = {this.toggleCollapse} />
+    // }
     return (  
     <div className="container">
       <Header />
       <Navbar activeItem={this.state.activeItem} changeType={this.changeType} types={this.state.types} />
-      {displayArea}
+      <Router>
+      <Switch>
+        <Route path="/fish">
+          <Creatures 
+          activeItem={this.state.activeItem}
+          toggleCollapse = {this.toggleCollapse}
+          changeSort = {this.changeSort}
+          creatures = {this.state[this.state.activeItem]}
+          fish={this.state.fish}
+          time={this.state.time}
+          />
+        </Route>
+        <Route path="/bugs">
+          <Creatures 
+            activeItem={this.state.activeItem}
+            toggleCollapse = {this.toggleCollapse}
+            changeSort = {this.changeSort}
+            creatures = {this.state[this.state.activeItem]}
+            fish={this.state.bugs}
+            time={this.state.time}
+          />
+        </Route>
+        <Route path="/fossils">
+          <Creatures 
+            activeItem={this.state.activeItem}
+            toggleCollapse = {this.toggleCollapse}
+            changeSort = {this.changeSort}
+            creatures = {this.state.fossils}
+            fossils={this.state.fossils}
+          />
+        </Route>
+        <Route path="/music">
+          <Music 
+            activeItem={this.state.activeItem} 
+            music={this.state.music} 
+            playSong = {this.playSong}
+            filtered={this.state.filtered}
+            handleChange={this.handleChange}
+            searchValue={this.state.searchValue}
+            toggleCollapse = {this.toggleCollapse} 
+          />
+        </Route>
+        <Route path="/villagers">
+          <Villagers 
+            activeItem={this.state.activeItem} 
+            villagers={this.state.villagers} 
+            filtered={this.state.filtered}
+            searchValue={this.state.searchValue}
+            toggleCollapse = {this.toggleCollapse}
+            time = {this.state.time}
+            changeSort={this.changeSort} 
+            collapseAll = {this.collapseAll} 
+            expandAll = {this.expandAll} 
+            handleReset = {this.handleReset}
+          />
+        </Route>
+        <Route path="/art">
+          <Art 
+            activeItem={this.state.activeItem} 
+            art={this.state.art} 
+            toggleCollapse = {this.toggleCollapse}
+          />
+        </Route>
+        <Route path="/">
+          <Welcome />
+        </Route>
+      </Switch>
+    </Router>
+      {/* {displayArea} */}
     </div>
     );
   }
