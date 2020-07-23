@@ -7,6 +7,7 @@ import { BrowserRouter as Router,
 import Music from './Music';
 import Welcome from './Welcome';
 import Art from './Art';
+import App from '../App';
 import Creatures from './Creatures';
 
 class Routes extends React.Component{
@@ -62,7 +63,7 @@ class Routes extends React.Component{
     render(){
         return(
             <Router>
-                {/* <div>
+                <div>
                     <ul>
                         <li>
                             <NavLink to="/">Home</NavLink>
@@ -75,19 +76,19 @@ class Routes extends React.Component{
                             <NavLink to="/art">Art</NavLink>
                         </li>
                     </ul>
-                </div> */}
+                </div>
                 <Switch>
                     <Route exact path="/">
-                        <Welcome />
+                        <App />
                     </Route>
-                    <Route exact path="/fish">
+                    {/* <Route exact path="/fish"> */}
                         {/* <Creatures 
                             activeItem='fish'
                             filtered={this.state.creatures}
                             fish={this.state.creatures}
                         /> */}
 
-                    </Route>
+                    {/* </Route> */}
                     <Route exact path="/music">
                         <Music 
                             activeItem='music' 

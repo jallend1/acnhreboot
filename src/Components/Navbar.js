@@ -1,5 +1,6 @@
 import React from 'react';
 import { properCase } from '../utils';
+// import { Link, Router } from 'react-router-dom';
 
 class Navbar extends React.Component{
     handleClick = (clickedType) => {
@@ -7,12 +8,19 @@ class Navbar extends React.Component{
         this.props.changeType(newType);
     }
     renderTypes = types => {
-        return types.map(type => <li onClick={this.handleClick}>{properCase(type)}</li>)
+        return types.map(type => {
+            return (
+                // <Link to={`/${type}`}>{type}</Link>
+                <li onClick={this.handleClick}>{properCase(type)}</li>
+                )
+        })
     }
     render() { 
         return(
             <ul>
-                {this.renderTypes(this.props.types)}
+                <li>
+                    {this.renderTypes(this.props.types)}
+                </li>
             </ul>
         )
     }

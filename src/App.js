@@ -112,6 +112,7 @@ class App extends React.Component {
         activeItem={this.state.activeItem}
         toggleCollapse = {this.toggleCollapse}
         changeSort = {this.changeSort}
+        creatures = {this.state[this.state.activeItem]}
         fish={this.state.fish}
         bugs={this.state.bugs}
         fossils={this.state.fossils}
