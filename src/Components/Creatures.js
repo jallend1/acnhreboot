@@ -46,7 +46,7 @@ class Creatures extends React.Component{
             return this.state.filtered.map(item => this.displayItems(item))
         }
         else{                                                                       // If not, go with the original state
-            return this.props[this.props.activeItem].map(item => this.displayItems(item))
+            return this.props.creatures.map(item => this.displayItems(item))
         }
     }
 
@@ -68,7 +68,7 @@ class Creatures extends React.Component{
         }
             return (
                 <div className="item" key={fileName}>
-                    <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
+                    <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}>
                         <h3>{properCase(name)}</h3>
                         <h4>{price || item.price} bells</h4> 
                         <img src={

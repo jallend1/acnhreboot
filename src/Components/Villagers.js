@@ -121,7 +121,7 @@ class Villagers extends React.Component{
             }
             return(
             <div className="item" key={fileName}>
-                <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName)}>
+                <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}>
                     <h3>{isBirthday ? `🎉${name}🎉` : name}</h3>
                     <img src={`./images/icons/${this.props.activeItem}/${fileName}.png`} alt={name} />
                     <h4>{catchPhrase}</h4>
