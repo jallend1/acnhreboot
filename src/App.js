@@ -6,6 +6,7 @@ import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
 import Welcome from './Components/Welcome';
+import { properCase } from './utils';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -86,13 +87,12 @@ class App extends React.Component {
   handleReset = e => {
     //To do: When enter is pressed while in input, do NOT reset page!
     // const searchForm = document.querySelector('#searchForm');
-    this.setState({searchValue: ''});
   }
 
   renderTypes = types => {
     return types.map(type => {
         return (
-            <NavLink to={`/${type}`}>{type}</NavLink>
+            <NavLink to={`/${type}`}>{properCase(type)}</NavLink>
             // <li onClick={this.handleClick}>{properCase(type)}</li>
             )
     })
@@ -173,86 +173,88 @@ class App extends React.Component {
     <div className="container">
       <Header />
       {/* <Navbar activeItem={this.state.activeItem} changeType={this.changeType} types={this.state.types} /> */}
-      <Router>
-        {this.renderTypes(this.state.types)}
-        <Switch>
-          <Route path="/fish">
-            <Creatures 
-            activeItem="fish"
-            toggleCollapse = {this.toggleCollapse}
-            changeSort = {this.changeSort}
-            creatures = {this.state.fish}
-            fish={this.state.fish}
-            time={this.state.time}
-            />
-          </Route>
-          <Route path="/bugs">
-            <Creatures 
-              activeItem="bugs"
-              toggleCollapse = {this.toggleCollapse}
-              changeSort = {this.changeSort}
-              creatures = {this.state.bugs}
-              bugs={this.state.bugs}
-              time={this.state.time}
-            />
-          </Route>
-          <Route path="/sea">
-            <Creatures 
-              activeItem="sea"
-              toggleCollapse = {this.toggleCollapse}
-              changeSort = {this.changeSort}
-              creatures = {this.state.sea}
-              sea={this.state.sea}
-              time={this.state.time}
-            />
-          </Route>
-          <Route path="/fossils">
-            <Creatures 
-              activeItem="fossils"
-              toggleCollapse = {this.toggleCollapse}
-              changeSort = {this.changeSort}
-              creatures = {this.state.fossils}
-              fossils={this.state.fossils}
-              time={this.state.time}
-            />
-          </Route>
-          <Route path="/music">
-            <Music 
-              activeItem='music'
-              music={this.state.music} 
-              playSong = {this.playSong}
-              filtered={this.state.filtered}
-              handleChange={this.handleChange}
-              searchValue={this.state.searchValue}
-              toggleCollapse = {this.toggleCollapse} 
-            />
-          </Route>
-          <Route path="/villagers">
-            <Villagers 
-              activeItem="villagers"
-              villagers={this.state.villagers} 
-              filtered={this.state.filtered}
-              searchValue={this.state.searchValue}
-              toggleCollapse = {this.toggleCollapse}
-              time = {this.state.time}
-              changeSort={this.changeSort} 
-              collapseAll = {this.collapseAll} 
-              expandAll = {this.expandAll} 
-              handleReset = {this.handleReset}
-            />
-          </Route>
-          <Route path="/art">
-            <Art 
-              activeItem="art"
-              art={this.state.art} 
-              toggleCollapse = {this.toggleCollapse}
-            />
-          </Route>
-          <Route path="/">
-            <Welcome />
-          </Route>
-        </Switch>
-      </Router>
+      <nav>
+        <Router>
+          <ul>
+            {this.renderTypes(this.state.types)}
+          </ul>
+          <Switch>
+            <Route path="/fish">
+              <Creatures 
+                activeItem="fish"
+                toggleCollapse = {this.toggleCollapse}
+                changeSort = {this.changeSort}
+                creatures = {this.state.fish}
+                fish={this.state.fish}
+                time={this.state.time}
+              />
+            </Route>
+            <Route path="/bugs">
+              <Creatures 
+                activeItem="bugs"
+                toggleCollapse = {this.toggleCollapse}
+                changeSort = {this.changeSort}
+                creatures = {this.state.bugs}
+                bugs={this.state.bugs}
+                time={this.state.time}
+              />
+            </Route>
+            <Route path="/sea">
+              <Creatures 
+                activeItem="sea"
+                toggleCollapse = {this.toggleCollapse}
+                changeSort = {this.changeSort}
+                creatures = {this.state.sea}
+                sea={this.state.sea}
+                time={this.state.time}
+              />
+            </Route>
+            <Route path="/fossils">
+              <Creatures 
+                activeItem="fossils"
+                toggleCollapse = {this.toggleCollapse}
+                changeSort = {this.changeSort}
+                creatures = {this.state.fossils}
+                fossils={this.state.fossils}
+                time={this.state.time}
+              />
+            </Route>
+            <Route path="/music">
+              <Music 
+                activeItem='music'
+                music={this.state.music} 
+                playSong = {this.playSong}
+                filtered={this.state.filtered}
+                handleChange={this.handleChange}
+                toggleCollapse = {this.toggleCollapse} 
+              />
+            </Route>
+            <Route path="/villagers">
+              <Villagers 
+                activeItem="villagers"
+                villagers={this.state.villagers} 
+                filtered={this.state.filtered}
+                toggleCollapse = {this.toggleCollapse}
+                time = {this.state.time}
+                changeSort={this.changeSort} 
+                collapseAll = {this.collapseAll} 
+                expandAll = {this.expandAll} 
+                handleReset = {this.handleReset}
+              />
+            </Route>
+            <Route path="/art">
+              <Art 
+                activeItem="art"
+                art={this.state.art} 
+                toggleCollapse = {this.toggleCollapse}
+              />
+            </Route>
+            <Route path="/">
+              <Welcome />
+            </Route>
+          </Switch>
+        </Router>
+      </nav>
       {/* {displayArea} */}
     </div>
     );

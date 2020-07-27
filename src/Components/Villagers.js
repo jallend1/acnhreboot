@@ -1,3 +1,5 @@
+// TO FIX: When going directly to /villagers, villagers are not fully loaded and advanced search options do no populate
+
 import React from 'react';
 import Filter from './Filter';
 import FilterVillagers from './FilterVillagers';
@@ -37,13 +39,13 @@ class Villagers extends React.Component{
     celebrateBirthday = () => {
         const birthdayBoys = this.state.birthdayBoys;
         if (birthdayBoys.length === 0){
-            return <p>No villagers on celebrating their birthday today</p>
+            return <p>No villagers are celebrating their birthday today</p>
         }
         else return birthdayBoys.map(birthdayBoy => {
             return (
                 <div key={birthdayBoy[1]} className="birthdayboy">
                     <img src={`./images/villagers/${birthdayBoy[3]}.png`} alt={birthdayBoy[1]} />
-                    <p>Happy birthday to always {birthdayBoy[0]} {birthdayBoy[1]}! {properCase(birthdayBoy[2])}!  </p>
+                    <p>Happy birthday to the always {birthdayBoy[0]} {birthdayBoy[1]}! {properCase(birthdayBoy[2])}!  </p>
                 </div>
             )
         });
@@ -97,7 +99,16 @@ class Villagers extends React.Component{
         this.birthdayCheck();
     }
 
-    displaySelection = () => this.state.filtered.map(villager => this.displayVillagers(villager));
+    displaySelection = () => {
+        if(this.state.searchTerm){                                                 // If there's a search term, return the filtered array
+            return this.state.filtered.map(villager => this.displayVillagers(villager))
+        }
+        else{                                                                       // If not, go with the original state
+            return this.props.villagers.map(villager => this.displayVillagers(villager))
+        }
+        this.state.filtered.map(villager => this.displayVillagers(villager));
+
+    }
 
     displayVillagers = villager => {
         const {
@@ -140,12 +151,12 @@ class Villagers extends React.Component{
     }
     
     filterVillagers = criteria => {
-        let newResults = this.state.filtered;
+        let newResults = this.props.villagers;
         const searchTerm = this.state.searchTerm;
         let searchSpecies = this.state.searchSpecies;
         let searchPersonality = this.state.searchPersonality;
         if(searchTerm){
-            newResults = newResults.filter(villager => villager.name["name-en"].toLowerCase().includes(searchTerm));
+            newResults = newResults.filter(villager => villager.name["name-USen"].toLowerCase().includes(searchTerm));
         }
         if(searchSpecies.length > 0){
             newResults = newResults.filter(villager => villager.species === searchSpecies[0]);
@@ -178,7 +189,6 @@ class Villagers extends React.Component{
         }
         else{
             this.setState({
-                searchValue: '',
                 filtered: this.props.villagers
             });
         }
