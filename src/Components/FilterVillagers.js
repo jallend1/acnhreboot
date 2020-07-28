@@ -1,6 +1,17 @@
 import React from 'react';
 
 class FilterVillagers extends React.Component{
+    populateMonths = () => {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        return months.map(month => {
+            return (
+                <div className="options" key={month}>
+                    <input type="checkbox" name="birthday" value={month} onChange={this.props.checkboxChange} />
+                    <label htmlFor={month}>{month}</label>
+                </div>
+            )
+        })
+    }
     populateSpecies = () => {                                                                                           // Populates drop down list of different villager species
         return this.props.species.map(species => {
             return (
@@ -40,8 +51,8 @@ class FilterVillagers extends React.Component{
                     </fieldset>
                     <fieldset>
                         <legend>Birthdays</legend>
-                        <div>
-                            <p>Functionality pending!</p>
+                        <div className="checkboxes">
+                            {this.populateMonths()}
                         </div>
                     </fieldset>
                 </div>

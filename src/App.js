@@ -92,7 +92,7 @@ class App extends React.Component {
   renderTypes = types => {
     return types.map(type => {
         return (
-            <NavLink to={`/${type}`}>{properCase(type)}</NavLink>
+            <NavLink to={`/${type}`} key={type}>{properCase(type)}</NavLink>
             // <li onClick={this.handleClick}>{properCase(type)}</li>
             )
     })

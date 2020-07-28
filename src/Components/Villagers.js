@@ -15,6 +15,7 @@ class Villagers extends React.Component{
             searchTerm: '',
             searchSpecies: [],
             searchPersonality: [],
+            searchBirthday: [],
             birthdayBoys: []
             }
     }
@@ -51,6 +52,7 @@ class Villagers extends React.Component{
         });
     }
     checkboxChange = e => {                                                 // Adds or removes advanced search options from search criteria
+        console.log(e.target.name);
         if(e.target.name === 'species'){
             const params = this.state.searchSpecies;
             const type = e.target.value;
@@ -74,6 +76,14 @@ class Villagers extends React.Component{
                 params.splice(index, 1);
             }
             this.setState({searchPersonality: params }, this.filterVillagers);
+        }
+        else if(e.target.name === 'birthday'){
+            const params = this.state.searchBirthday;
+            const month = e.target.value;
+            if(e.target.checked === true){
+                params.push(month);
+            }
+            this.setState({searchBirthday: params}, this.filterVillagers)
         }
     }
 
@@ -100,14 +110,12 @@ class Villagers extends React.Component{
     }
 
     displaySelection = () => {
-        if(this.state.searchTerm || this.state.searchSpecies.length > 0 || this.state.searchPersonality.length > 0){            // If there's a search term, return the filtered array
+        if(this.state.searchTerm || this.state.searchSpecies.length > 0 || this.state.searchPersonality.length > 0 || this.state.searchBirthday.length > 0){            // If there's a search term, return the filtered array
             return this.state.filtered.map(villager => this.displayVillagers(villager))
         }
         else{                                                                                                                   // If not, go with the original state
             return this.props.villagers.map(villager => this.displayVillagers(villager))
         }
-        this.state.filtered.map(villager => this.displayVillagers(villager));
-
     }
 
     displayVillagers = villager => {
@@ -155,6 +163,7 @@ class Villagers extends React.Component{
         const searchTerm = this.state.searchTerm;
         let searchSpecies = this.state.searchSpecies;
         let searchPersonality = this.state.searchPersonality;
+        let searchBirthday = this.state.searchBirthday;
         if(searchTerm){
             newResults = newResults.filter(villager => villager.name["name-USen"].toLowerCase().includes(searchTerm));
         }
@@ -164,7 +173,15 @@ class Villagers extends React.Component{
         if(searchPersonality.length > 0){
             newResults = newResults.filter(villager => searchPersonality.includes(villager.personality));
         }
-        if(!searchTerm && searchSpecies.length === 0 && searchPersonality.length === 0){
+        if(searchBirthday.length > 0){
+            newResults = newResults.filter(villager => {
+                const birthday = villager["birthday-string"].split(' ');
+                console.log(searchBirthday.includes(birthday[0]));
+                return searchBirthday.includes(birthday[0]);
+            });
+            console.log(newResults)
+        }
+        if(!searchTerm && searchSpecies.length === 0 && searchPersonality.length === 0 && searchBirthday.length === 0){
             newResults = this.props.villagers;
         }
         this.setState({filtered: newResults});
