@@ -6,8 +6,6 @@ class Art extends React.Component{
         const {
             "file-name": fileName,
             name: {"name-USen": name},
-            "buy-price": buyPrice,
-            "sell-price": sellPrice,
             hasFake
             } = art;
         return(
@@ -23,8 +21,8 @@ class Art extends React.Component{
             <>
                 <h2>Art</h2>
                 <div id="artretail">
-                    <p>Redd's Selling price on all paintings: 4980 bells</p>
-                    <p>Nook's Buying price on all paintings: 1245 bells</p>
+                    <p>Redd sells all art for 4980 bells</p>
+                    <p>Nook buys all art for 1245 bells</p>
                 </div>
                 <div id="artdisplay">
                     {this.props[this.props.activeItem].map(art => this.displayArt(art))}
