@@ -100,10 +100,10 @@ class Villagers extends React.Component{
     }
 
     displaySelection = () => {
-        if(this.state.searchTerm){                                                 // If there's a search term, return the filtered array
+        if(this.state.searchTerm || this.state.searchSpecies.length > 0 || this.state.searchPersonality.length > 0){            // If there's a search term, return the filtered array
             return this.state.filtered.map(villager => this.displayVillagers(villager))
         }
-        else{                                                                       // If not, go with the original state
+        else{                                                                                                                   // If not, go with the original state
             return this.props.villagers.map(villager => this.displayVillagers(villager))
         }
         this.state.filtered.map(villager => this.displayVillagers(villager));
@@ -159,11 +159,10 @@ class Villagers extends React.Component{
             newResults = newResults.filter(villager => villager.name["name-USen"].toLowerCase().includes(searchTerm));
         }
         if(searchSpecies.length > 0){
-            newResults = newResults.filter(villager => villager.species === searchSpecies[0]);
+            newResults = newResults.filter(villager => searchSpecies.includes(villager.species));
         }
         if(searchPersonality.length > 0){
-            newResults = newResults.filter(villager => villager.personality === searchPersonality[0]);
-            console.log(newResults);
+            newResults = newResults.filter(villager => searchPersonality.includes(villager.personality));
         }
         if(!searchTerm && searchSpecies.length === 0 && searchPersonality.length === 0){
             newResults = this.props.villagers;
