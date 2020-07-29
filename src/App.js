@@ -51,8 +51,8 @@ class App extends React.Component {
         itemList.forEach(item => item.collapsed = true);
         this.setState({[dataType]: itemList}, () => {
           this.sortItems(this.state.sortBy);
-        })
-      })
+        });
+      });
   }
 
   changeSort = change => {
@@ -91,9 +91,8 @@ class App extends React.Component {
     return types.map(type => {
         return (
             <NavLink to={`/${type}`} key={type}>{properCase(type)}</NavLink>
-            // <li onClick={this.handleClick}>{properCase(type)}</li>
-            )
-    })
+        )
+    });
   }
   
   sortItems = () => {
@@ -121,11 +120,11 @@ class App extends React.Component {
     this.setState({[creatureType]: currentState})
   }
 
+  // TODO : Universal active state? Allow filtering from main page, drying out code pretty dramatically; Routes in own file?
   render() {
     return (  
     <div className="container">
       <Header />
-
       <nav>
         <Router>
           <ul>
