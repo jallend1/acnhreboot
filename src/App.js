@@ -66,18 +66,21 @@ class App extends React.Component {
 
 
   // TO DO -- REPAIR COLLAPSE AND EXPAND ALL SINCE ROUTING IMPLEMENATION
-  collapseAll = () => {
-    const activePage = this.state.activeItem;
-    const activeItemList = this.state[activePage];
+  collapseAll = (activeItem) => {
+    // const activePage = this.state.activeItem;
+    // const activeItemList = this.state[activePage].map(item => item.collapsed = true);
+    const activeItemList = this.state[activeItem];
     activeItemList.forEach(item => item.collapsed = true)
-    this.setState({activePage: activeItemList})
+    console.log(activeItem)
+    this.setState({[activeItem]: activeItemList})
   }
 
-  expandAll = () => {
-    const activePage = this.state.activeItem;
-    const activeItemList = this.state[activePage];
+  expandAll = (activeItem) => {
+    // const activePage = this.state.activeItem;
+    const activeItemList = this.state[activeItem];
+    // const activeItemList = this.state[activePage].map(item => item.collapsed = false);
     activeItemList.forEach(item => item.collapsed = false)
-    this.setState({activePage: activeItemList})
+    this.setState({[activeItem]: activeItemList})
   }
 
   // FIX THE ABOVE!!!!
@@ -139,6 +142,8 @@ class App extends React.Component {
                 creatures = {this.state.fish}
                 fish={this.state.fish}
                 time={this.state.time}
+                collapseAll={this.collapseAll}
+                expandAll={this.expandAll}
               />
             </Route>
             <Route path="/bugs">
@@ -149,6 +154,8 @@ class App extends React.Component {
                 creatures = {this.state.bugs}
                 bugs={this.state.bugs}
                 time={this.state.time}
+                collapseAll={this.collapseAll}
+                expandAll={this.expandAll}
               />
             </Route>
             <Route path="/sea">
@@ -159,6 +166,8 @@ class App extends React.Component {
                 creatures = {this.state.sea}
                 sea={this.state.sea}
                 time={this.state.time}
+                collapseAll={this.collapseAll}
+                expandAll={this.expandAll}
               />
             </Route>
             <Route path="/fossils">
@@ -169,6 +178,8 @@ class App extends React.Component {
                 creatures = {this.state.fossils}
                 fossils={this.state.fossils}
                 time={this.state.time}
+                collapseAll={this.collapseAll}
+                expandAll={this.expandAll}
               />
             </Route>
             <Route path="/music">

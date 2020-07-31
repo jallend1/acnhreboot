@@ -113,6 +113,7 @@ class Creatures extends React.Component{
         return (
             <>
             <Filter 
+                activeItem = {this.props.activeItem}
                 collapseAll = {this.props.collapseAll} 
                 expandAll = {this.props.expandAll} 
                 handleChange = {this.handleChange} 

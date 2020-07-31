@@ -217,6 +217,7 @@ class Villagers extends React.Component{
                 {this.celebrateBirthday()}
             </div>
             <Filter 
+                activeItem = 'villagers'
                 handleChange = {this.handleChange}
                 handleReset = {this.props.handleReset}
                 collapseAll = {this.props.collapseAll}
