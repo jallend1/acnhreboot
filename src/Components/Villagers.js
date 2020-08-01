@@ -138,9 +138,9 @@ class Villagers extends React.Component{
             if(birthDate.getMonth() === this.props.time.getMonth() && birthDate.getDate() === this.props.time.getDate()){
                 isBirthday = true;
             }
-            let birthdayDaysAway = Math.ceil((birthDate - this.props.time) / (1000 * 3600 * 24));
-            if(birthdayDaysAway < 0){
-                birthdayDaysAway += 365;
+            villager.birthdayDaysAway = Math.ceil((birthDate - this.props.time) / (1000 * 3600 * 24));
+            if(villager.birthdayDaysAway < 0){
+                villager.birthdayDaysAway += 365;
             }
             return(
             <div className="item" key={fileName}>
@@ -156,7 +156,7 @@ class Villagers extends React.Component{
                     <p>Gender: {gender}</p>
                     <p>Species: {species}</p>
                     <p>Birthday: {birthday}</p>
-                    <p>Days until birthday: {birthdayDaysAway}</p>
+                    <p>Days until birthday: {villager.birthdayDaysAway}</p>
                 </div>
             </div>
         )

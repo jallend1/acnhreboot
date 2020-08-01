@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   changeSort = change => {
-    if(change.target.id === 'nook' || change.target.id === 'alpha' || change.target.id === 'cj' || change.target.id === 'flick'){
+    if(change.target.id === 'nook' || change.target.id === 'alpha' || change.target.id === 'cj' || change.target.id === 'flick' || change.target.id === 'births'){
       this.setState({sortBy: change.target.id}, () => this.sortItems())
     }
     else if(change.target.id === 'ascending' || change.target.id === 'descending'){
@@ -64,26 +64,17 @@ class App extends React.Component {
     }
   }
 
-
-  // TO DO -- REPAIR COLLAPSE AND EXPAND ALL SINCE ROUTING IMPLEMENATION
   collapseAll = (activeItem) => {
-    // const activePage = this.state.activeItem;
-    // const activeItemList = this.state[activePage].map(item => item.collapsed = true);
     const activeItemList = this.state[activeItem];
     activeItemList.forEach(item => item.collapsed = true)
-    console.log(activeItem)
     this.setState({[activeItem]: activeItemList})
   }
 
   expandAll = (activeItem) => {
-    // const activePage = this.state.activeItem;
     const activeItemList = this.state[activeItem];
-    // const activeItemList = this.state[activePage].map(item => item.collapsed = false);
     activeItemList.forEach(item => item.collapsed = false)
     this.setState({[activeItem]: activeItemList})
   }
-
-  // FIX THE ABOVE!!!!
 
   handleReset = e => {
     //To do: When enter is pressed while in input, do NOT reset page!
@@ -98,6 +89,8 @@ class App extends React.Component {
     });
   }
   
+
+  // This code is *** NO *** way to live
   sortItems = () => {
     let unsortedState;
     this.state.searchValue ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
@@ -115,12 +108,14 @@ class App extends React.Component {
     }else if(this.state.sortBy === 'cj' && this.state.order === 'descending'){
       sortedState = unsortedState.sort((a, b) => b["price-cj"] - a["price-cj"]);
     }else if(this.state.sortBy === 'flick' && this.state.order === 'ascending'){
-      console.log(unsortedState[0]["price-flick"])
       sortedState = unsortedState.sort((a, b) => a["price-flick"] - b["price-flick"]);
     }else if(this.state.sortBy === 'flick' && this.state.order === 'descending'){
       sortedState = unsortedState.sort((a, b) => b["price-flick"] - a["price-flick"]);
+    }else if(this.state.sortBy === 'births' && this.state.order === 'ascending'){
+      sortedState = unsortedState.sort((a, b) => a.birthdayDaysAway - b.birthdayDaysAway);
+    }else if(this.state.sortBy === 'births' && this.state.order === 'descending'){
+      sortedState = unsortedState.sort((a, b) => b.birthdayDaysAway - a.birthdayDaysAway);
     }
-
   this.state.searchValue ? this.setState({filtered: sortedState}) : this.setState({[this.state.activeItem]: sortedState});
   }
 
