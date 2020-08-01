@@ -1,6 +1,25 @@
 import React from 'react';
 
 class Filter extends React.Component{
+    determineSearchFields() {
+        console.log(this.props.activeItem);
+        if(this.props.activeItem === 'fish'){
+            return(
+                <>
+                    <input type="radio" id="cj" name="sortby" value="cj" />
+                    <label htmlFor="cj">CJ's Price </label>
+                </>
+            )
+        }
+        else if(this.props.activeItem === 'bugs'){
+            return(
+                <>
+                    <input type="radio" id="flick" name="sortby" value="flick" />
+                    <label htmlFor="flick">Flick's Price</label>
+                </>
+            )
+        }
+    }
     render(){
         return (
             <>
@@ -11,9 +30,10 @@ class Filter extends React.Component{
                 <div id="filters">
                     <form onChange={this.props.changeSort} >
                         <input type="radio" id="alpha" name="sortby" value="alpha" defaultChecked />
-                        <label htmlFor="alpha">Alphabetical</label>
+                            <label htmlFor="alpha">Alphabetical</label>
                         <input type="radio" id="nook" name="sortby" value="nook" />
-                        <label htmlFor="nook">Nook Price </label>
+                            <label htmlFor="nook">Nook's Price </label>
+                        {this.determineSearchFields()}
                     </form>
                     <form onChange={this.props.changeSort}>
                         <input type="radio" id="ascending" name="order" value="ascending" defaultChecked />

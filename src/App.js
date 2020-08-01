@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   changeSort = change => {
-    if(change.target.id === 'nook' || change.target.id === 'alpha'){
+    if(change.target.id === 'nook' || change.target.id === 'alpha' || change.target.id === 'cj' || change.target.id === 'flick'){
       this.setState({sortBy: change.target.id}, () => this.sortItems())
     }
     else if(change.target.id === 'ascending' || change.target.id === 'descending'){
@@ -93,7 +93,7 @@ class App extends React.Component {
   renderTypes = types => {
     return types.map(type => {
         return (
-            <NavLink to={`/${type}`} key={type}>{properCase(type)}</NavLink>
+            <NavLink to={`/${type}`} key={type} onClick={() => this.setState({activeItem: type})}>{properCase(type)}</NavLink>
         )
     });
   }
@@ -110,7 +110,17 @@ class App extends React.Component {
       sortedState = unsortedState.sort((a, b) => a.price - b.price);
     }else if(this.state.sortBy === 'nook' && this.state.order === 'descending'){
       sortedState = unsortedState.sort((a, b) => b.price - a.price);
+    }else if(this.state.sortBy === 'cj' && this.state.order === 'ascending'){
+      sortedState = unsortedState.sort((a, b) => a["price-cj"] - b["price-cj"]);
+    }else if(this.state.sortBy === 'cj' && this.state.order === 'descending'){
+      sortedState = unsortedState.sort((a, b) => b["price-cj"] - a["price-cj"]);
+    }else if(this.state.sortBy === 'flick' && this.state.order === 'ascending'){
+      console.log(unsortedState[0]["price-flick"])
+      sortedState = unsortedState.sort((a, b) => a["price-flick"] - b["price-flick"]);
+    }else if(this.state.sortBy === 'flick' && this.state.order === 'descending'){
+      sortedState = unsortedState.sort((a, b) => b["price-flick"] - a["price-flick"]);
     }
+
   this.state.searchValue ? this.setState({filtered: sortedState}) : this.setState({[this.state.activeItem]: sortedState});
   }
 

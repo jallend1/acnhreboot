@@ -85,7 +85,7 @@ class Villagers extends React.Component{
             }
             else if(e.target.checked === false){
                 const index = params.indexOf(month);
-                params.splice(month, 1);
+                params.splice(index, 1);
             }
             this.setState({searchBirthday: params}, this.filterVillagers)
         }
