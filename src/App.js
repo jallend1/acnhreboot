@@ -23,6 +23,7 @@ class App extends React.Component {
       villagers: [],
       art: [],
       sea: [],
+      limitToAvailable: false,
       sortBy: 'alpha',
       order: 'ascending',
       types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art'],
@@ -88,12 +89,19 @@ class App extends React.Component {
         )
     });
   }
-  
+
+  showAvailable = e => {
+    console.log(e.target.checked)
+    e.target.checked ? this.setState({limitToAvailable: true}, this.sortItems) : this.setState({limitToAvailable: false}, this.sortItems);
+  }
 
   // This code is *** NO *** way to live
   sortItems = () => {
     let unsortedState;
     this.state.searchValue ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
+    if(this.state.limitToAvailable){
+      this.state.searchValue ? unsortedState = this.state.filtered.filter(item => item.isAvailable) : unsortedState = this.state[this.state.activeItem].filter(item => item.isAvailable);
+    }
     let sortedState = [];
     if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase() ? 1 : -1);
@@ -145,10 +153,11 @@ class App extends React.Component {
                 toggleCollapse = {this.toggleCollapse}
                 changeSort = {this.changeSort}
                 creatures = {this.state.fish}
-                fish={this.state.fish}
-                time={this.state.time}
-                collapseAll={this.collapseAll}
-                expandAll={this.expandAll}
+                fish = {this.state.fish}
+                time = {this.state.time}
+                collapseAll = {this.collapseAll}
+                expandAll = {this.expandAll}
+                showAvailable = {this.showAvailable}
               />
             </Route>
             <Route path="/bugs">

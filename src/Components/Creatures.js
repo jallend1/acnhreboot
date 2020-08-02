@@ -76,7 +76,7 @@ class Creatures extends React.Component{
                             : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
                         />
                         <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle"/>
-                        <img src={availableToday? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'}/>
+                        <img src={availableToday ? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'}/>
                     </header>
                     <div className={collapsed ? "collapsed details" : "details"}>
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
@@ -95,19 +95,19 @@ class Creatures extends React.Component{
     }
     handleChange = e => {
         if(e.currentTarget.value){
-          const searchTerm = e.currentTarget.value.toLowerCase();
-          this.setState({searchValue: searchTerm});
-          const currentData = this.props[this.props.activeItem];
-          const filteredData = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
-          this.setState({filtered: filteredData});
+            const searchTerm = e.currentTarget.value.toLowerCase();
+            this.setState({searchValue: searchTerm});
+            const currentData = this.props[this.props.activeItem];
+            const filteredData = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
+            this.setState({filtered: filteredData});
         }
         else{
-          this.setState({
+            this.setState({
             searchValue: '',
-            filtered: this.props[this.props.activeItem]
-          });
+            filtered: this.props[this.props.activeItem]});
         }
-      }
+    }
+
     render(){
         const activeItem = this.props.activeItem;
         return (
@@ -119,6 +119,7 @@ class Creatures extends React.Component{
                 handleChange = {this.handleChange} 
                 handleReset = {this.props.handleReset}
                 changeSort = {this.props.changeSort}
+                showAvailable = {this.props.showAvailable}
             />                
                 <h2>{activeItem.toUpperCase()}</h2>
                 {this.displaySelection()}
