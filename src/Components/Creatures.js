@@ -42,7 +42,7 @@ class Creatures extends React.Component{
         )
     }
     displaySelection = () => {
-        if(this.state.searchValue){                                                 // If there's a search term, return the filtered array
+        if(this.state.searchValue || this.props.availableToday){                                                 // If there's a search term, return the filtered array
             return this.state.filtered.map(item => this.displayItems(item))
         }
         else{                                                                       // If not, go with the original state
@@ -66,6 +66,7 @@ class Creatures extends React.Component{
         else{
             availableToday = this.calculateAvailability(availability);
         }
+        item.availableToday = availableToday;
             return (
                 <div className="item" key={fileName}>
                     <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}>
