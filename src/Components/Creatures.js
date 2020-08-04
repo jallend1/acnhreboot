@@ -6,7 +6,7 @@ class Creatures extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            filtered: this.props.creatures[this.props.activeItem],
+            filtered: this.props.creatures,
             searchValue: ''
         }
     }
@@ -42,7 +42,7 @@ class Creatures extends React.Component{
         )
     }
     displaySelection = () => {
-        if(this.state.searchValue || this.props.availableToday){                                                 // If there's a search term, return the filtered array
+        if(this.state.searchValue || this.state.availableToday){                                                 // If there's a search term, return the filtered array
             return this.state.filtered.map(item => this.displayItems(item))
         }
         else{                                                                       // If not, go with the original state
@@ -108,6 +108,16 @@ class Creatures extends React.Component{
             filtered: this.props[this.props.activeItem]});
         }
     }
+    showAvailable = e => {
+        if(e.target.checked){
+            const currentState = this.state.filtered;
+            const newState = currentState.filter(item => item.availableToday);
+            this.setState({filtered: newState, availableToday: true});
+        }
+        else{
+          this.setState({filtered: this.props[this.props.activeItem], availableToday: false});
+        }
+    }
 
     render(){
         const activeItem = this.props.activeItem;
@@ -120,7 +130,7 @@ class Creatures extends React.Component{
                 handleChange = {this.handleChange} 
                 handleReset = {this.props.handleReset}
                 changeSort = {this.props.changeSort}
-                showAvailable = {this.props.showAvailable}
+                showAvailable = {this.showAvailable}
             />                
                 <h2>{activeItem.toUpperCase()}</h2>
                 {this.displaySelection()}

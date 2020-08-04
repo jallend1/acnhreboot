@@ -90,33 +90,10 @@ class App extends React.Component {
     });
   }
 
-  showAvailable = e => {
-    if(e.target.checked){
-      const currentState = this.state[this.state.activeItem];
-      const newState = currentState.filter(item => item.availableToday);
-      this.setState({
-        limitToAvailable: true,
-        filtered: newState
-      }, this.sortItems);
-    }
-    // e.target.checked ? this.setState({limitToAvailable: true}, this.sortItems) : this.setState({limitToAvailable: false}, this.sortItems);
-    else{
-      this.setState({limitToAvailable: false, filtered: []}, this.sortItems);
-    }
-  }
-
   // This code is *** NO *** way to live
   sortItems = () => {
     let unsortedState;
     this.state.searchValue || this.state.limitToAvailable ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
-    // if(this.state.limitToAvailable){
-    //   this.state.searchValue ? 
-    //     unsortedState = this.state.filtered.filter(item => item.availableToday === true) 
-    //     : unsortedState = this.state[this.state.activeItem].filter(item => item.availableToday === true);
-    // }
-    // else{
-    //   this.state.searchValue ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
-    // }
     let sortedState = [];
     if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase() ? 1 : -1);
@@ -163,7 +140,7 @@ class App extends React.Component {
           </ul>
           <Switch>
             <Route path="/fish">
-              <Creatures 
+              <Creatures
                 activeItem="fish"
                 toggleCollapse = {this.toggleCollapse}
                 changeSort = {this.changeSort}
@@ -172,7 +149,6 @@ class App extends React.Component {
                 time = {this.state.time}
                 collapseAll = {this.collapseAll}
                 expandAll = {this.expandAll}
-                showAvailable = {this.showAvailable}
                 availableToday = {this.state.availableToday}
               />
             </Route>
