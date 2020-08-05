@@ -110,9 +110,9 @@ class Creatures extends React.Component{
     }
     showAvailable = e => {
         if(e.target.checked){
-            const currentState = this.state.filtered;
-            const newState = currentState.filter(item => item.availableToday);
-            this.setState({filtered: newState, availableToday: true});
+            const currentState = this.props[this.props.activeItem];
+            const filtered = currentState.filter(item => item.availableToday);
+            this.setState({filtered, availableToday: true});
         }
         else{
           this.setState({filtered: this.props[this.props.activeItem], availableToday: false});

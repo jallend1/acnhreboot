@@ -37,13 +37,6 @@ class App extends React.Component {
     this.setState({time: now});
   }
 
-  changeType = (newType) => {                                                           //Changes type from active item type to the new one and then applies active sorting
-    this.handleReset();
-    this.setState({
-      activeItem: newType,
-    }, this.sortItems)
-  }
-
   populateData = dataType => {
     fetch(`./${dataType}.json`)
       .then(data => data.json())
