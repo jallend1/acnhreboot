@@ -69,15 +69,16 @@ class Creatures extends React.Component{
         item.availableToday = availableToday;
             return (
                 <div className="item" key={fileName}>
-                    <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}>
+                    <header className="itemhead" >
+                        <input type="checkbox" name="markcomplete" value={name} onClick={this.props.markComplete}/>
                         <h3>{properCase(name)}</h3>
                         <h4>{price || item.price} bells</h4> 
                         <img src={
                             this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
                             : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
-                        />
-                        <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle"/>
-                        <img src={availableToday ? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'}/>
+                            />
+                        <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}/>
+                        <img src={availableToday ? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'} />
                     </header>
                     <div className={collapsed ? "collapsed details" : "details"}>
                         <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
@@ -123,17 +124,17 @@ class Creatures extends React.Component{
         const activeItem = this.props.activeItem;
         return (
             <>
-            <Filter 
-                activeItem = {this.props.activeItem}
-                collapseAll = {this.props.collapseAll} 
-                expandAll = {this.props.expandAll} 
-                handleChange = {this.handleChange} 
-                handleReset = {this.props.handleReset}
-                changeSort = {this.props.changeSort}
-                showAvailable = {this.showAvailable}
-            />                
-                <h2>{activeItem.toUpperCase()}</h2>
-                {this.displaySelection()}
+                <Filter 
+                    activeItem = {this.props.activeItem}
+                    collapseAll = {this.props.collapseAll} 
+                    expandAll = {this.props.expandAll} 
+                    handleChange = {this.handleChange} 
+                    handleReset = {this.props.handleReset}
+                    changeSort = {this.props.changeSort}
+                    showAvailable = {this.showAvailable}
+                />                
+                    <h2>{activeItem.toUpperCase()}</h2>
+                    {this.displaySelection()}
             </>
         )
     }

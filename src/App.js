@@ -9,7 +9,7 @@ import { properCase } from './utils';
 import { BrowserRouter as Router,
   Switch,
   Route,
-  NavLink} from 'react-router-dom';
+  NavLink } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props){
@@ -28,7 +28,8 @@ class App extends React.Component {
       order: 'ascending',
       types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art'],
       filtered: [],
-      time: ''
+      time: '',
+      completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], songs: [], art: []}
     }
   }
   componentDidMount(){
@@ -75,6 +76,19 @@ class App extends React.Component {
     // const searchForm = document.querySelector('#searchForm');
   }
 
+  markComplete = e => {
+    const currentState = this.state.completed;
+    if(e.target.checked){
+      currentState[this.state.activeItem].push(e.target.value)
+      this.setState({completed: currentState}, console.log(this.state.completed))
+    }
+    else{
+      const index = currentState[this.state.activeItem].indexOf(e.target.value);
+      currentState[this.state.activeItem].splice(index, 1);
+      this.setState({completed: currentState}, console.log(this.state.completed));
+    }
+  }
+  
   renderTypes = types => {
     return types.map(type => {
         return (
@@ -143,6 +157,7 @@ class App extends React.Component {
                 collapseAll = {this.collapseAll}
                 expandAll = {this.expandAll}
                 availableToday = {this.state.availableToday}
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/bugs">
@@ -155,6 +170,7 @@ class App extends React.Component {
                 time={this.state.time}
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/sea">
@@ -167,6 +183,7 @@ class App extends React.Component {
                 time={this.state.time}
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/fossils">
@@ -179,6 +196,7 @@ class App extends React.Component {
                 time={this.state.time}
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/music">
@@ -189,6 +207,7 @@ class App extends React.Component {
                 filtered={this.state.filtered}
                 handleChange={this.handleChange}
                 toggleCollapse = {this.toggleCollapse} 
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/villagers">
@@ -202,6 +221,7 @@ class App extends React.Component {
                 collapseAll = {this.collapseAll} 
                 expandAll = {this.expandAll} 
                 handleReset = {this.handleReset}
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/art">
@@ -209,6 +229,7 @@ class App extends React.Component {
                 activeItem="art"
                 art={this.state.art} 
                 toggleCollapse = {this.toggleCollapse}
+                markComplete = {this.markComplete}
               />
             </Route>
             <Route path="/">

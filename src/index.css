@@ -50,8 +50,16 @@ li{
   text-align: center;
 }
 
+#flex{
+  display: flex;
+}
+
+#completion{
+  max-width: 5%;
+}
+
 .item{
-  width: 50%;
+  width: 60%;
   margin: auto;
   text-align: center;
 }
@@ -63,6 +71,7 @@ li{
 .itemhead{
   display: flex;
   justify-content: space-between;
+  flex-grow: 8;
 }
 
 .itemhead h3{
