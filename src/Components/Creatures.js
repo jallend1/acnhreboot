@@ -10,7 +10,7 @@ class Creatures extends React.Component{
             searchValue: ''
         }
     }
-    alternateBuyer = item => {                                                      // Shows Flick prices for bugs, CJ for fish
+    alternateBuyer = item => {                                                      // In item details, shows Flick prices for bugs, CJ for fish
         if(this.props.activeItem === 'bugs'){
             return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>
         }else if(item["price-cj"]){
@@ -25,11 +25,13 @@ class Creatures extends React.Component{
             </>
         )
     }  
+    
     calculateAvailability = availability => {
         const northernMonths = availability["month-array-northern"]
         const currentMonth = this.props.time.getMonth() + 1;            // API keeps months according to calendar, JS starts at 0;
         return northernMonths.includes(currentMonth);                   // If current month is incluced in array of availibility, true
     }
+    
     displayAvailability = availability => {
         return (
         <div>
@@ -41,6 +43,19 @@ class Creatures extends React.Component{
         </div>
         )
     }
+
+    displayPrice = item => {
+        if(this.props.sortBy === 'cj'){
+            return <h4>{item["price-cj"]} bells</h4> 
+        }
+        else if(this.props.sortBy === 'flick'){
+            return <h4>{item["price-flick"]} bells</h4>
+        }
+        else{
+            return <h4>{item.price} bells</h4> 
+        }
+    }
+    
     displaySelection = () => {
         if(this.state.searchValue || this.state.availableToday){                                                 // If there's a search term, return the filtered array
             return this.state.filtered.map(item => this.displayItems(item))
@@ -72,7 +87,7 @@ class Creatures extends React.Component{
                     <header className="itemhead" >
                         <input type="checkbox" name="markcomplete" value={name} onClick={this.props.markComplete}/>
                         <h3>{properCase(name)}</h3>
-                        <h4>{price || item.price} bells</h4> 
+                        {this.displayPrice(item)}
                         <img src={
                             this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
                             : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"

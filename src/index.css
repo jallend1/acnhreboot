@@ -50,14 +50,6 @@ li{
   text-align: center;
 }
 
-#flex{
-  display: flex;
-}
-
-#completion{
-  max-width: 5%;
-}
-
 .item{
   width: 60%;
   margin: auto;
