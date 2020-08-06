@@ -4,6 +4,7 @@ import Creatures from './Components/Creatures';
 import Music from './Components/Music';
 import Villagers from './Components/Villagers';
 import Art from './Components/Art';
+import Completed from './Components/Completed';
 import Welcome from './Components/Welcome';
 import { properCase } from './utils';
 import { BrowserRouter as Router,
@@ -26,7 +27,7 @@ class App extends React.Component {
       limitToAvailable: false,
       sortBy: 'alpha',
       order: 'ascending',
-      types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art'],
+      types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art', 'completed'],
       filtered: [],
       time: '',
       completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], songs: [], art: []}
@@ -39,7 +40,8 @@ class App extends React.Component {
   }
 
   populateData = dataType => {
-    fetch(`./${dataType}.json`)
+    if(dataType !== 'completed'){
+      fetch(`./${dataType}.json`)
       .then(data => data.json())
       .then(results => {
         const itemList = Object.values(results);
@@ -48,6 +50,7 @@ class App extends React.Component {
           this.sortItems(this.state.sortBy);
         });
       });
+    }
   }
 
   changeSort = change => {
@@ -80,12 +83,12 @@ class App extends React.Component {
     const currentState = this.state.completed;
     if(e.target.checked){
       currentState[this.state.activeItem].push(e.target.value)
-      this.setState({completed: currentState}, console.log(this.state.completed))
+      this.setState({completed: currentState})
     }
     else{
       const index = currentState[this.state.activeItem].indexOf(e.target.value);
       currentState[this.state.activeItem].splice(index, 1);
-      this.setState({completed: currentState}, console.log(this.state.completed));
+      this.setState({completed: currentState});
     }
   }
   
@@ -232,6 +235,12 @@ class App extends React.Component {
                 art={this.state.art} 
                 toggleCollapse = {this.toggleCollapse}
                 markComplete = {this.markComplete}
+              />
+            </Route>
+            <Route path="/completed">
+              <Completed
+                activeItem ="completed"
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/">

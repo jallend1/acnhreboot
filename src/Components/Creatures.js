@@ -67,8 +67,7 @@ class Creatures extends React.Component{
 
     displayItems = item => {  
         let availableToday;
-        const { price, 
-            name: {"name-USen": name},
+        const { name: {"name-USen": name},
             "museum-phrase": museumPhrase,
             "catch-phrase": catchPhrase,
             "file-name": fileName,
