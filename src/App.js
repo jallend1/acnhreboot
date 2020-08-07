@@ -36,6 +36,11 @@ class App extends React.Component {
   componentDidMount(){
     this.state.types.forEach(item => this.populateData(item))                           //Populates all items into state on load
     const now = new Date();
+    if(localStorage.getItem('completed') !== null){
+      const currentCompleted = this.state.completed;
+      const savedCompleted = localStorage.getItem('completed');
+      this.setState({completed: JSON.parse(savedCompleted)});
+    }
     this.setState({time: now});
   }
 
@@ -83,12 +88,12 @@ class App extends React.Component {
     const currentState = this.state.completed;
     if(e.target.checked){
       currentState[this.state.activeItem].push(e.target.value)
-      this.setState({completed: currentState})
+      this.setState({completed: currentState}, localStorage.setItem('completed', JSON.stringify(this.state.completed)))
     }
     else{
       const index = currentState[this.state.activeItem].indexOf(e.target.value);
       currentState[this.state.activeItem].splice(index, 1);
-      this.setState({completed: currentState});
+      this.setState({completed: currentState}, localStorage.setItem('completed', JSON.stringify(this.state.completed)));
     }
   }
   
