@@ -241,6 +241,13 @@ class App extends React.Component {
               <Completed
                 activeItem ="completed"
                 completed = {this.state.completed}
+                fish = {this.state.fish}
+                bugs = {this.state.bugs}
+                sea = {this.state.sea}
+                fossils = {this.state.fossils}
+                music = {this.state.music}
+                villagers = {this.state.villagers}
+                art = {this.state.art}
               />
             </Route>
             <Route path="/">

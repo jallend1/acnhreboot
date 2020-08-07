@@ -81,32 +81,32 @@ class Creatures extends React.Component{
             availableToday = this.calculateAvailability(availability);
         }
         item.availableToday = availableToday;
-            return (
-                <div className="item" key={fileName}>
-                    <header className="itemhead" >
-                        <input type="checkbox" name="markcomplete" value={name} onClick={this.props.markComplete}/>
-                        <h3>{properCase(name)}</h3>
-                        {this.displayPrice(item)}
-                        <img src={
-                            this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
-                            : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
-                            />
-                        <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}/>
-                        <img src={availableToday ? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'} />
-                    </header>
-                    <div className={collapsed ? "collapsed details" : "details"}>
-                        <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
-                        {this.alternateBuyer(item)}
-                        <p>{catchPhrase}</p>
-                        <div>        
-                            <p>
-                                <span role="img" aria-label="owl emoji">🦉</span> Blathers' Take <span role="img" aria-label="owl emoji">🦉</span>
-                            </p>
-                            <p>{museumPhrase}</p>
-                        </div>
-                        {this.props.activeItem === 'fossils' ? null : this.displayAvailability(availability)}
+        return (
+            <div className="item" key={fileName}>
+                <header className="itemhead" >
+                    <input type="checkbox" name="markcomplete" value={name} onClick={this.props.markComplete}/>
+                    <h3>{properCase(name)}</h3>
+                    {this.displayPrice(item)}
+                    <img src={
+                        this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
+                        : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
+                        />
+                    <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}/>
+                    <img src={availableToday ? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'} />
+                </header>
+                <div className={collapsed ? "collapsed details" : "details"}>
+                    <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
+                    {this.alternateBuyer(item)}
+                    <p>{catchPhrase}</p>
+                    <div>        
+                        <p>
+                            <span role="img" aria-label="owl emoji">🦉</span> Blathers' Take <span role="img" aria-label="owl emoji">🦉</span>
+                        </p>
+                        <p>{museumPhrase}</p>
                     </div>
+                    {this.props.activeItem === 'fossils' ? null : this.displayAvailability(availability)}
                 </div>
+            </div>
         )        
     }
     handleChange = e => {
@@ -130,7 +130,7 @@ class Creatures extends React.Component{
             this.setState({filtered, availableToday: true});
         }
         else{
-          this.setState({filtered: this.props[this.props.activeItem], availableToday: false});
+            this.setState({filtered: this.props[this.props.activeItem], availableToday: false});
         }
     }
 
