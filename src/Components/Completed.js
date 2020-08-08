@@ -29,7 +29,7 @@ class Completed extends React.Component{
             currentState[itemArray] = [];
             if(completed[itemArray]){
                 completed[itemArray].forEach(item => {
-                    const itemDeets = this.props[itemArray].find(element => element.name["name-USen"] === item);                 // ALl the JSON info on the completed item
+                    const itemDeets = this.props.allItems[itemArray].find(element => element.name["name-USen"] === item);                 // ALl the JSON info on the completed item
                     const fileLocation = 
                         itemArray === 'fossils' || itemArray === 'music' || itemArray === 'art' ? `./images/${itemArray}/${itemDeets["file-name"]}.png` //Displays image instead of icon for fossils, music, and art
                         : `./images/icons/${itemArray}/${itemDeets["file-name"]}.png`;

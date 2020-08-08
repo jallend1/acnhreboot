@@ -6,7 +6,7 @@ class Creatures extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            filtered: this.props.creatures,
+            filtered: this.props.allItems[this.props.activeItem],
             searchValue: ''
         }
     }
@@ -65,7 +65,7 @@ class Creatures extends React.Component{
             return this.state.filtered.map(item => this.displayItems(item))
         }
         else{                                                                       // If not, go with the original state
-            return this.props.creatures.map(item => this.displayItems(item))
+            return this.props.allItems[this.props.activeItem].map(item => this.displayItems(item))
         }
     }
 
@@ -130,24 +130,24 @@ class Creatures extends React.Component{
         if(e.currentTarget.value){
             const searchTerm = e.currentTarget.value.toLowerCase();
             this.setState({searchValue: searchTerm});
-            const currentData = this.props[this.props.activeItem];
+            const currentData = this.props.allItems[this.props.activeItem];
             const filteredData = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
             this.setState({filtered: filteredData});
         }
         else{
             this.setState({
             searchValue: '',
-            filtered: this.props[this.props.activeItem]});
+            filtered: this.props.allItems[this.props.activeItem]});
         }
     }
     showAvailable = e => {
         if(e.target.checked){
-            const currentState = this.props[this.props.activeItem];
+            const currentState = this.props.allItems[this.props.activeItem];
             const filtered = currentState.filter(item => item.availableToday);
             this.setState({filtered, availableToday: true});
         }
         else{
-            this.setState({filtered: this.props[this.props.activeItem], availableToday: false});
+            this.setState({filtered: this.props.allItems[this.props.activeItem], availableToday: false});
         }
     }
 

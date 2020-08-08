@@ -30,8 +30,6 @@ class Art extends React.Component{
         )
     }
     render(){
-        console.log(this.props.activeItem);
-        console.log(this.props.allItems);
         return (
             <>
                 <h2>Art</h2>

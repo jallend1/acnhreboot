@@ -18,13 +18,6 @@ class App extends React.Component {
     this.state = {
       activeItem: 'fish',
       allItems: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []},
-      fish: [],
-      bugs: [],
-      fossils: [],
-      music: [],
-      villagers: [],
-      art: [],
-      sea: [],
       limitToAvailable: false,
       sortBy: 'alpha',
       order: 'ascending',
@@ -60,7 +53,7 @@ class App extends React.Component {
         const currentState = this.state.allItems;
         currentState[dataType] = itemList;
         this.setState({
-          [dataType]: itemList,
+          // [dataType]: itemList,
           allItems: currentState
         }, () => {
           this.sortItems(this.state.sortBy);
@@ -83,15 +76,15 @@ class App extends React.Component {
   }
 
   collapseAll = (activeItem) => {
-    const activeItemList = this.state[activeItem];
-    activeItemList.forEach(item => item.collapsed = true)
-    this.setState({[activeItem]: activeItemList})
+    const activeItemList = this.state.allItems;
+    activeItemList[activeItem].forEach(item => item.collapsed = true)
+    this.setState({allItems: activeItemList})
   }
 
   expandAll = (activeItem) => {
-    const activeItemList = this.state[activeItem];
-    activeItemList.forEach(item => item.collapsed = false)
-    this.setState({[activeItem]: activeItemList})
+    const activeItemList = this.state.allItems;
+    activeItemList[activeItem].forEach(item => item.collapsed = false)
+    this.setState({allItems: activeItemList})
   }
 
   handleReset = e => {
@@ -127,7 +120,7 @@ class App extends React.Component {
   // TODO This code is *** NO *** way to live
   sortItems = () => {
     let unsortedState;
-    this.state.searchValue || this.state.limitToAvailable ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
+    this.state.searchValue || this.state.limitToAvailable ? unsortedState = this.state.filtered : unsortedState = this.state.allItems[this.state.activeItem];
     let sortedState = [];
     if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
       sortedState = unsortedState.sort((a, b) => a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase() ? 1 : -1);
@@ -183,8 +176,6 @@ class App extends React.Component {
                 changeActiveItem = {this.changeActiveItem}
                 toggleCollapse = {this.toggleCollapse}
                 changeSort = {this.changeSort}
-                creatures = {this.state.fish}
-                fish = {this.state.fish}
                 time = {this.state.time}
                 collapseAll = {this.collapseAll}
                 expandAll = {this.expandAll}
@@ -192,6 +183,7 @@ class App extends React.Component {
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
                 completed = {this.state.completed}
+                allItems = {this.state.allItems}
               />
             </Route>
             <Route path="/bugs">
@@ -200,14 +192,13 @@ class App extends React.Component {
                 toggleCollapse = {this.toggleCollapse}
                 changeActiveItem = {this.changeActiveItem}
                 changeSort = {this.changeSort}
-                creatures = {this.state.bugs}
-                bugs={this.state.bugs}
                 time={this.state.time}
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
                 completed = {this.state.completed}
+                allItems = {this.state.allItems}
               />
             </Route>
             <Route path="/sea">
@@ -216,13 +207,12 @@ class App extends React.Component {
                 toggleCollapse = {this.toggleCollapse}
                 changeSort = {this.changeSort}
                 changeActiveItem = {this.changeActiveItem}
-                creatures = {this.state.sea}
-                sea={this.state.sea}
                 time={this.state.time}
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
+                allItems = {this.state.allItems}
               />
             </Route>
             <Route path="/fossils">
@@ -231,13 +221,12 @@ class App extends React.Component {
                 toggleCollapse = {this.toggleCollapse}
                 changeActiveItem = {this.changeActiveItem}
                 changeSort = {this.changeSort}
-                creatures = {this.state.fossils}
-                fossils={this.state.fossils}
                 time={this.state.time}
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
+                allItems = {this.state.allItems}
               />
             </Route>
             <Route path="/music">
@@ -245,7 +234,6 @@ class App extends React.Component {
                 allItems={this.state.allItems}
                 activeItem='music'
                 changeActiveItem = {this.changeActiveItem}
-                // music={this.state.music} 
                 playSong = {this.playSong}
                 filtered={this.state.filtered}
                 handleChange={this.handleChange}
@@ -259,7 +247,6 @@ class App extends React.Component {
                 allItems = {this.state.allItems}
                 activeItem="villagers"
                 changeActiveItem = {this.changeActiveItem}
-                villagers={this.state.villagers} 
                 filtered={this.state.filtered}
                 toggleCollapse = {this.toggleCollapse}
                 time = {this.state.time}
@@ -275,7 +262,6 @@ class App extends React.Component {
               <Art 
                 activeItem="art"
                 changeActiveItem = {this.changeActiveItem}
-                art={this.state.art} 
                 toggleCollapse = {this.toggleCollapse}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
@@ -287,19 +273,13 @@ class App extends React.Component {
                 activeItem ="completed"
                 changeActiveItem = {this.changeActiveItem}
                 completed = {this.state.completed}
-                fish = {this.state.fish}
-                bugs = {this.state.bugs}
-                sea = {this.state.sea}
-                fossils = {this.state.fossils}
-                music = {this.state.music}
-                villagers = {this.state.villagers}
-                art = {this.state.art}
                 collapseAll = {this.props.collapseAll} 
                 expandAll = {this.props.expandAll} 
                 handleChange = {this.handleChange} 
                 handleReset = {this.props.handleReset}
                 changeSort = {this.props.changeSort}
                 showAvailable = {this.showAvailable}
+                allItems = {this.state.allItems}
               />
             </Route>
             <Route path="/">

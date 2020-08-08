@@ -52,7 +52,6 @@ class Villagers extends React.Component{
         });
     }
     checkboxChange = e => {                                                 // Adds or removes advanced search options from search criteria
-        console.log(e.target.name);
         if(e.target.name === 'species'){
             const params = this.state.searchSpecies;
             const type = e.target.value;
@@ -192,10 +191,8 @@ class Villagers extends React.Component{
         if(searchBirthday.length > 0){
             newResults = newResults.filter(villager => {
                 const birthday = villager["birthday-string"].split(' ');
-                console.log(searchBirthday.includes(birthday[0]));
                 return searchBirthday.includes(birthday[0]);
             });
-            console.log(newResults)
         }
         if(!searchTerm && searchSpecies.length === 0 && searchPersonality.length === 0 && searchBirthday.length === 0){
             newResults = this.props.allItems.villagers;
@@ -226,8 +223,6 @@ class Villagers extends React.Component{
         }
     }
     render(){
-        console.log(this.props);
-        console.log(this.props.allItems);
         return (
         <>
             <h2>{this.props.activeItem.toUpperCase()}</h2>
