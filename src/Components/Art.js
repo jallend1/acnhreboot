@@ -2,6 +2,9 @@ import React from 'react';
 import { properCase } from '../utils'
 
 class Art extends React.Component{
+    componentDidMount(){
+        this.props.changeActiveItem(this.props.activeItem);
+    }
     displayArt = art => {
         const {
             "file-name": fileName,
@@ -12,6 +15,16 @@ class Art extends React.Component{
             <div className="song" id="artwork" key={name}>
                 <h3>{properCase(name)}</h3>
                 <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
+                <div>
+                    <input 
+                        name="markcomplete"
+                        type="checkbox"
+                        value={name}
+                        onChange={this.props.markComplete}
+                        checked={this.props.completed[this.props.activeItem].includes(name)}
+                    />
+                    <label htmlFor="markcomplete">Mark complete?</label>
+                </div>
                 <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
             </div>
         )
