@@ -1,5 +1,6 @@
 import React from 'react';
 import { properCase } from '../utils';
+import Filter from './Filter';
 
 class Completed extends React.Component{
     constructor(props){
@@ -45,7 +46,18 @@ class Completed extends React.Component{
     render(){
         return (
             <>
-                {this.displayCompleted()}
+                <Filter 
+                    activeItem = {this.props.activeItem}
+                    collapseAll = {this.props.collapseAll} 
+                    expandAll = {this.props.expandAll} 
+                    handleChange = {this.handleChange} 
+                    handleReset = {this.props.handleReset}
+                    changeSort = {this.props.changeSort}
+                    showAvailable = {this.showAvailable}
+                />
+                <div className="item">
+                    {this.displayCompleted()}
+                </div>
             </>
         )
     }

@@ -89,7 +89,7 @@ class Creatures extends React.Component{
                         name="markcomplete" 
                         value={name} 
                         onChange={this.props.markComplete} 
-                        checked={this.props.completed[this.props.activeItem].includes(name)}                    // If item included in Completed, checks the box
+                        checked={this.props.completed[this.props.activeItem].includes(name)}                    // If item included in Completed, checks the
                     />
                     <h3>{properCase(name)}</h3>
                     {this.displayPrice(item)}

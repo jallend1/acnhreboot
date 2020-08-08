@@ -257,6 +257,12 @@ class App extends React.Component {
                 music = {this.state.music}
                 villagers = {this.state.villagers}
                 art = {this.state.art}
+                collapseAll = {this.props.collapseAll} 
+                expandAll = {this.props.expandAll} 
+                handleChange = {this.handleChange} 
+                handleReset = {this.props.handleReset}
+                changeSort = {this.props.changeSort}
+                showAvailable = {this.showAvailable}
               />
             </Route>
             <Route path="/">
