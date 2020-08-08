@@ -30,11 +30,11 @@ class App extends React.Component {
       types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art', 'completed'],
       filtered: [],
       time: '',
-      completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], songs: [], art: []}
+      completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []}
     }
   }
   clearCollected = () => {
-    const clearedState = {fish: [], bugs: [], sea: [], fossils: [], villagers: [], songs: [], art: []};
+    const clearedState = {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []};
     localStorage.removeItem('completed');
     this.setState({completed: clearedState});
 
@@ -95,6 +95,11 @@ class App extends React.Component {
 
   markComplete = e => {
     const currentState = this.state.completed;
+    console.log(this.state.activeItem)
+    console.log(this.state.completed)
+    console.log(this.state.completed[this.state.activeItem])
+    console.log(currentState[this.state.activeItem])
+    console.log(e.target.value)
     if(e.target.checked){
       currentState[this.state.activeItem].push(e.target.value)
       this.setState({completed: currentState}, localStorage.setItem('completed', JSON.stringify(this.state.completed)))
@@ -238,6 +243,7 @@ class App extends React.Component {
                 handleChange={this.handleChange}
                 toggleCollapse = {this.toggleCollapse} 
                 markComplete = {this.markComplete}
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/villagers">

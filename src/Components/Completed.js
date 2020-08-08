@@ -29,8 +29,9 @@ class Completed extends React.Component{
             currentState[itemArray] = [];
             if(completed[itemArray]){
                 completed[itemArray].forEach(item => {
+                    
                     const itemDeets = this.props[itemArray].find(element => element.name["name-USen"] === item);                 // ALl the JSON info on the completed item
-                    const fileLocation = itemArray === 'fossils' ? `./images/fossils/${itemDeets["file-name"]}.png` : `./images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
+                    const fileLocation = itemArray === 'fossils' || itemArray === 'music' ? `./images/${itemArray}/${itemDeets["file-name"]}.png` : `./images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
                     const importantDeets = {                                                                                    // Extracts just the item name, its type and image location
                         name: itemDeets.name["name-USen"],
                         type: itemArray,
@@ -43,6 +44,15 @@ class Completed extends React.Component{
         });
         this.setState({completedDetails: currentState});
     }
+    // findFileLocation = (creatureType, item) => {    
+    //     if(creatureType === 'fossils'){
+    //         return `./images/fossils/${item["file-name"]}.png`
+    //     }
+    //     else if(creatureType === 'music'){
+    //         return `./images/music`
+    //     }
+
+    // }
     render(){
         return (
             <>
