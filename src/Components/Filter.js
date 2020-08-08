@@ -1,5 +1,4 @@
 import React from 'react';
-
 class Filter extends React.Component{
     determineSearchFields() {
         if(this.props.activeItem === 'fish'){

@@ -53,11 +53,8 @@ class App extends React.Component {
         itemList.forEach(item => item.collapsed = true);
         const currentState = this.state.allItems;
         currentState[dataType] = itemList;
-        this.setState({
-          // [dataType]: itemList,
-          allItems: currentState
-        }, () => {
-          this.sortItems(this.state.sortBy);
+        this.setState({allItems: currentState}, 
+          () => {this.sortItems(this.state.sortBy);
         });
       });
     }
@@ -117,10 +114,9 @@ class App extends React.Component {
         )
     });
   }
-
+// TODO Limit to creatures available today has NOT worked since refactoring out to Filter being direct child of App
   showAvailable = e => {
     if(e.target.checked){
-      console.log(e.target.checked);  
       const currentState = this.state.allItems[this.state.activeItem];
         const filtered = currentState.filter(item => item.availableToday);
         this.setState({filtered, availableToday: true});

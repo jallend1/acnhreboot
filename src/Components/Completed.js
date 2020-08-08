@@ -12,15 +12,16 @@ class Completed extends React.Component{
         this.extractData(this.props.completed);
     }
     displayCompleted = () => {
-            return this.state.completedDetails.map(item => {
-                return (
-                    <div key={item.key}>
-                        <p>{properCase(item.name)}</p>
-                        <img src={item.filename} alt={`Icon of ${item.name}`}></img>
-                    </div>
-                )
-            });
+        return this.state.completedDetails.map(item => {
+            return (
+                <div key={item.key}>
+                    <p>{properCase(item.name)}</p>
+                    <img src={item.filename} alt={`Icon of ${item.name}`}></img>
+                </div>
+            )
+        });
     }
+    
     extractData = completed => {
         const currentState = this.state.completedDetails;
         const itemArrays = Object.keys(completed);                          // Extracts name of all item types into an array
