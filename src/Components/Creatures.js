@@ -1,5 +1,4 @@
  import React from 'react';
- import Filter from './Filter';
  import { properCase } from '../utils';
 
 class Creatures extends React.Component{
@@ -140,32 +139,14 @@ class Creatures extends React.Component{
             filtered: this.props.allItems[this.props.activeItem]});
         }
     }
-    showAvailable = e => {
-        if(e.target.checked){
-            const currentState = this.props.allItems[this.props.activeItem];
-            const filtered = currentState.filter(item => item.availableToday);
-            this.setState({filtered, availableToday: true});
-        }
-        else{
-            this.setState({filtered: this.props.allItems[this.props.activeItem], availableToday: false});
-        }
-    }
+
 
     render(){
         const activeItem = this.props.activeItem;
         return (
             <>
-                <Filter 
-                    activeItem = {this.props.activeItem}
-                    collapseAll = {this.props.collapseAll} 
-                    expandAll = {this.props.expandAll} 
-                    handleChange = {this.handleChange} 
-                    handleReset = {this.props.handleReset}
-                    changeSort = {this.props.changeSort}
-                    showAvailable = {this.showAvailable}
-                />                
-                    <h2>{activeItem.toUpperCase()}</h2>
-                    {this.displaySelection()}
+                <h2>{activeItem.toUpperCase()}</h2>
+                {this.displaySelection()}
             </>
         )
     }

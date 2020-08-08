@@ -1,7 +1,6 @@
 // TODO: When starting directly at /villagers, Villagers with birthdays do not display
 
 import React from 'react';
-import Filter from './Filter';
 import FilterVillagers from './FilterVillagers';
 import { properCase } from '../utils';
 
@@ -229,14 +228,6 @@ class Villagers extends React.Component{
             <div id="birthdays">
                 {this.celebrateBirthday()}
             </div>
-            <Filter 
-                activeItem = 'villagers'
-                handleChange = {this.handleChange}
-                handleReset = {this.props.handleReset}
-                collapseAll = {this.props.collapseAll}
-                expandAll = {this.props.expandAll}
-                changeSort = {this.props.changeSort}
-            />
             <FilterVillagers 
                 filterVillagers = {this.filterVillagers}
                 searchCriteria = {this.state.searchCriteria}

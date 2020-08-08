@@ -6,6 +6,7 @@ import Villagers from './Components/Villagers';
 import Art from './Components/Art';
 import Completed from './Components/Completed';
 import Welcome from './Components/Welcome';
+import Filter from './Components/Filter';
 import { properCase } from './utils';
 import { BrowserRouter as Router,
   Switch,
@@ -117,6 +118,18 @@ class App extends React.Component {
     });
   }
 
+  showAvailable = e => {
+    if(e.target.checked){
+      console.log(e.target.checked);  
+      const currentState = this.state.allItems[this.state.activeItem];
+        const filtered = currentState.filter(item => item.availableToday);
+        this.setState({filtered, availableToday: true});
+    }
+    else{
+        this.setState({filtered: [this.state.allItems[this.state.activeItem]], availableToday: false});
+    }
+  }
+
   // TODO This code is *** NO *** way to live
   sortItems = () => {
     let unsortedState;
@@ -143,17 +156,17 @@ class App extends React.Component {
     }else if(this.state.sortBy === 'births' && this.state.order === 'descending'){
       sortedState = unsortedState.sort((a, b) => b.birthdayDaysAway - a.birthdayDaysAway);
     }
-  this.state.searchValue || this.state.availableToday 
-    ? this.setState({filtered: sortedState}) 
-    : this.setState({[this.state.activeItem]: sortedState});
+    this.state.searchValue || this.state.availableToday 
+      ? this.setState({filtered: sortedState}) 
+      : this.setState({[this.state.activeItem]: sortedState});
   }
 
   toggleCollapse = (item, creatureType) => {
-    const currentState = this.state[creatureType];
-    const itemIndex = currentState.findIndex(creature => creature["file-name"] === item);
-    let isCollapsed = currentState[itemIndex].collapsed;
+    const currentState = this.state.allItems;
+    const itemIndex = currentState[creatureType].findIndex(creature => creature["file-name"] === item);
+    let isCollapsed = currentState[creatureType][itemIndex].collapsed;
     isCollapsed = !isCollapsed;
-    currentState[itemIndex].collapsed = isCollapsed;
+    currentState[creatureType][itemIndex].collapsed = isCollapsed;
     this.setState({[creatureType]: currentState})
   }
 
@@ -162,6 +175,15 @@ class App extends React.Component {
     return (  
       <div className="container">
         <Header />
+        <Filter 
+          activeItem={this.state.activeItem}
+          handleChange={this.handleChange}
+          handleReset={this.handleReset}
+          changeSort={this.changeSort}
+          collapseAll={this.collapseAll}
+          expandAll={this.expandAll}
+          showAvailable={this.showAvailable}
+        />
         <Router>
           <nav>
             <ul>
@@ -173,12 +195,10 @@ class App extends React.Component {
             <Route path="/fish">
               <Creatures
                 activeItem="fish"
+                filtered={this.state.filtered}
                 changeActiveItem = {this.changeActiveItem}
                 toggleCollapse = {this.toggleCollapse}
-                changeSort = {this.changeSort}
                 time = {this.state.time}
-                collapseAll = {this.collapseAll}
-                expandAll = {this.expandAll}
                 availableToday = {this.state.availableToday}
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
@@ -190,11 +210,9 @@ class App extends React.Component {
               <Creatures 
                 activeItem="bugs"
                 toggleCollapse = {this.toggleCollapse}
+                filtered={this.state.filtered}
                 changeActiveItem = {this.changeActiveItem}
-                changeSort = {this.changeSort}
                 time={this.state.time}
-                collapseAll={this.collapseAll}
-                expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
                 completed = {this.state.completed}
@@ -204,12 +222,10 @@ class App extends React.Component {
             <Route path="/sea">
               <Creatures 
                 activeItem="sea"
+                filtered={this.state.filtered}
                 toggleCollapse = {this.toggleCollapse}
-                changeSort = {this.changeSort}
                 changeActiveItem = {this.changeActiveItem}
                 time={this.state.time}
-                collapseAll={this.collapseAll}
-                expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
                 allItems = {this.state.allItems}
@@ -220,10 +236,7 @@ class App extends React.Component {
                 activeItem="fossils"
                 toggleCollapse = {this.toggleCollapse}
                 changeActiveItem = {this.changeActiveItem}
-                changeSort = {this.changeSort}
                 time={this.state.time}
-                collapseAll={this.collapseAll}
-                expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
                 allItems = {this.state.allItems}
@@ -250,10 +263,6 @@ class App extends React.Component {
                 filtered={this.state.filtered}
                 toggleCollapse = {this.toggleCollapse}
                 time = {this.state.time}
-                changeSort={this.changeSort} 
-                collapseAll = {this.collapseAll} 
-                expandAll = {this.expandAll} 
-                handleReset = {this.handleReset}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
               />
@@ -273,12 +282,6 @@ class App extends React.Component {
                 activeItem ="completed"
                 changeActiveItem = {this.changeActiveItem}
                 completed = {this.state.completed}
-                collapseAll = {this.props.collapseAll} 
-                expandAll = {this.props.expandAll} 
-                handleChange = {this.handleChange} 
-                handleReset = {this.props.handleReset}
-                changeSort = {this.props.changeSort}
-                showAvailable = {this.showAvailable}
                 allItems = {this.state.allItems}
               />
             </Route>
