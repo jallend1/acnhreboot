@@ -31,6 +31,10 @@ class Creatures extends React.Component{
         const currentMonth = this.props.time.getMonth() + 1;            // API keeps months according to calendar, JS starts at 0;
         return northernMonths.includes(currentMonth);                   // If current month is incluced in array of availibility, true
     }
+
+    componentDidMount(){
+        this.props.changeActiveItem(this.props.activeItem);
+    }
     
     displayAvailability = availability => {
         return (
@@ -89,7 +93,7 @@ class Creatures extends React.Component{
                         name="markcomplete" 
                         value={name} 
                         onChange={this.props.markComplete} 
-                        checked={this.props.completed[this.props.activeItem].includes(name)}                    // If item included in Completed, checks the
+                        checked={this.props.completed[this.props.activeItem].includes(name)}                    // If item included in Completed, renders the box to the page already checked
                     />
                     <h3>{properCase(name)}</h3>
                     {this.displayPrice(item)}

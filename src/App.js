@@ -63,6 +63,10 @@ class App extends React.Component {
     }
   }
 
+  changeActiveItem = newType => {
+    this.setState({activeItem: newType})
+  }
+
   changeSort = change => {
     if(change.target.id === 'nook' || change.target.id === 'alpha' || change.target.id === 'cj' || change.target.id === 'flick' || change.target.id === 'births'){
       this.setState({sortBy: change.target.id}, () => this.sortItems())
@@ -164,6 +168,7 @@ class App extends React.Component {
             <Route path="/fish">
               <Creatures
                 activeItem="fish"
+                changeActiveItem = {this.changeActiveItem}
                 toggleCollapse = {this.toggleCollapse}
                 changeSort = {this.changeSort}
                 creatures = {this.state.fish}
@@ -181,6 +186,7 @@ class App extends React.Component {
               <Creatures 
                 activeItem="bugs"
                 toggleCollapse = {this.toggleCollapse}
+                changeActiveItem = {this.changeActiveItem}
                 changeSort = {this.changeSort}
                 creatures = {this.state.bugs}
                 bugs={this.state.bugs}
@@ -197,6 +203,7 @@ class App extends React.Component {
                 activeItem="sea"
                 toggleCollapse = {this.toggleCollapse}
                 changeSort = {this.changeSort}
+                changeActiveItem = {this.changeActiveItem}
                 creatures = {this.state.sea}
                 sea={this.state.sea}
                 time={this.state.time}
@@ -210,6 +217,7 @@ class App extends React.Component {
               <Creatures 
                 activeItem="fossils"
                 toggleCollapse = {this.toggleCollapse}
+                changeActiveItem = {this.changeActiveItem}
                 changeSort = {this.changeSort}
                 creatures = {this.state.fossils}
                 fossils={this.state.fossils}
@@ -223,6 +231,7 @@ class App extends React.Component {
             <Route path="/music">
               <Music 
                 activeItem='music'
+                changeActiveItem = {this.changeActiveItem}
                 music={this.state.music} 
                 playSong = {this.playSong}
                 filtered={this.state.filtered}
@@ -234,6 +243,7 @@ class App extends React.Component {
             <Route path="/villagers">
               <Villagers 
                 activeItem="villagers"
+                changeActiveItem = {this.changeActiveItem}
                 villagers={this.state.villagers} 
                 filtered={this.state.filtered}
                 toggleCollapse = {this.toggleCollapse}
@@ -243,11 +253,13 @@ class App extends React.Component {
                 expandAll = {this.expandAll} 
                 handleReset = {this.handleReset}
                 markComplete = {this.markComplete}
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/art">
               <Art 
                 activeItem="art"
+                changeActiveItem = {this.changeActiveItem}
                 art={this.state.art} 
                 toggleCollapse = {this.toggleCollapse}
                 markComplete = {this.markComplete}
@@ -256,6 +268,7 @@ class App extends React.Component {
             <Route path="/completed">
               <Completed
                 activeItem ="completed"
+                changeActiveItem = {this.changeActiveItem}
                 completed = {this.state.completed}
                 fish = {this.state.fish}
                 bugs = {this.state.bugs}

@@ -108,6 +108,7 @@ class Villagers extends React.Component{
 
     componentDidMount = () => {
         const currentTime = new Date();
+        this.props.changeActiveItem('villagers');
         this.setState({time: currentTime});
         this.compileDropdowns();
         this.birthdayCheck();
@@ -144,11 +145,22 @@ class Villagers extends React.Component{
             }
             return(
             <div className="item" key={fileName}>
-                <header className="itemhead" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}>
+                <header className="itemhead">
                     <h3>{isBirthday ? `🎉${name}🎉` : name}</h3>
                     <img src={`./images/icons/${this.props.activeItem}/${fileName}.png`} alt={name} />
                     <h4>{catchPhrase}</h4>
-                    <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} />
+                    <img 
+                        src={collapsed ? './images/expand.png' : './images/collapse.png'} 
+                        alt={collapsed ? 'Expand' : 'Collapse'} 
+                        onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}
+                        />
+                    <input 
+                        type="checkbox" 
+                        name="markcomplete" 
+                        value={name} 
+                        onChange={this.props.markComplete} 
+                        checked={this.props.completed.villagers.includes(name)} 
+                    />
                 </header>
                 <div className={collapsed ? "details collapsed" : "details"}>
                     <img src={collapsed ? 'null' : `./images/${this.props.activeItem}/${fileName}.png`} alt="{name}" />
