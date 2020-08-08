@@ -167,6 +167,7 @@ class App extends React.Component {
                 availableToday = {this.state.availableToday}
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/bugs">
@@ -181,6 +182,7 @@ class App extends React.Component {
                 expandAll={this.expandAll}
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/sea">
@@ -194,6 +196,7 @@ class App extends React.Component {
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
                 markComplete = {this.markComplete}
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/fossils">
@@ -207,6 +210,7 @@ class App extends React.Component {
                 collapseAll={this.collapseAll}
                 expandAll={this.expandAll}
                 markComplete = {this.markComplete}
+                completed = {this.state.completed}
               />
             </Route>
             <Route path="/music">

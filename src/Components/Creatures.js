@@ -84,15 +84,28 @@ class Creatures extends React.Component{
         return (
             <div className="item" key={fileName}>
                 <header className="itemhead" >
-                    <input type="checkbox" name="markcomplete" value={name} onClick={this.props.markComplete}/>
+                    <input 
+                        type="checkbox" 
+                        name="markcomplete" 
+                        value={name} 
+                        onChange={this.props.markComplete} 
+                        checked={this.props.completed[this.props.activeItem].includes(name)}                    // If item included in Completed, checks the box
+                    />
                     <h3>{properCase(name)}</h3>
                     {this.displayPrice(item)}
                     <img src={
                         this.props.activeItem === 'fossils' ? `./images/icons/fossil.png` 
                         : `./images/icons/${this.props.activeItem}/${fileName}.png`} alt="{name}"
                         />
-                    <img src={collapsed ? './images/expand.png' : './images/collapse.png'} alt={collapsed ? 'Expand' : 'Collapse'} id="expandtoggle" onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}/>
-                    <img src={availableToday ? './images/available.png' : './images/unavailable.png'} alt={availableToday ? 'Available' : 'Unavailable'} />
+                    <img 
+                        src={collapsed ? './images/expand.png' : './images/collapse.png'} 
+                        alt={collapsed ? 'Expand' : 'Collapse'} 
+                        id="expandtoggle" 
+                        onClick={() => this.props.toggleCollapse(fileName, this.props.activeItem)}
+                        />
+                    <img 
+                        src={availableToday ? './images/available.png' : './images/unavailable.png'} 
+                        alt={availableToday ? 'Available' : 'Unavailable'} />
                 </header>
                 <div className={collapsed ? "collapsed details" : "details"}>
                     <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
