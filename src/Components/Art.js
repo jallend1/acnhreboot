@@ -30,6 +30,8 @@ class Art extends React.Component{
         )
     }
     render(){
+        console.log(this.props.activeItem);
+        console.log(this.props.allItems);
         return (
             <>
                 <h2>Art</h2>
@@ -38,7 +40,7 @@ class Art extends React.Component{
                     <p>Nook buys all art for 1245 bells</p>
                 </div>
                 <div id="artdisplay">
-                    {this.props[this.props.activeItem].map(art => this.displayArt(art))}
+                    {this.props.allItems[this.props.activeItem].map(art => this.displayArt(art))}
                 </div>
             </>
         )

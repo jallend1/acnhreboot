@@ -15,7 +15,8 @@ class Music extends React.Component{
             return this.props.filtered.map(item => this.displaySongs(item))
         }
         else{                                                                       // If not, go with the original state
-            return this.props.music.map(item => this.displaySongs(item))
+            return this.props.allItems[this.props.activeItem].map(item => this.displaySongs(item))
+            // return this.props.music.map(item => this.displaySongs(item))
         }
     }
 

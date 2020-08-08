@@ -1,4 +1,4 @@
-// TO FIX: When going directly to /villagers, villagers are not fully loaded and advanced search options do no populate
+// TODO: When starting directly at /villagers, Villagers with birthdays do not display
 
 import React from 'react';
 import Filter from './Filter';
@@ -9,7 +9,7 @@ class Villagers extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            filtered: this.props.villagers,
+            filtered: this.props.allItems.villagers,
             species: [],
             personalities: [],
             searchTerm: '',
@@ -22,7 +22,7 @@ class Villagers extends React.Component{
 
     birthdayCheck = () => {
         const birthdayBoys = [];
-        this.props.villagers.forEach(villager => {
+        this.props.allItems.villagers.forEach(villager => {
             const birthDate = this.fixBirthday(villager);                                                                   // Changes each birthdate in API from DD/MM to MM/DD
             if(birthDate.getMonth() === this.props.time.getMonth() && birthDate.getDate() === this.props.time.getDate()){   // If that matches local time, push them into birthday array
                 birthdayBoys.push(
@@ -92,7 +92,7 @@ class Villagers extends React.Component{
     }
 
     compileDropdowns = () => {                                              //Populates the select menus with species and personalities
-        const villagers = this.props.villagers;
+        const villagers = this.props.allItems.villagers;
         const species = this.state.species;
         const personalities = this.state.personalities;
         villagers.forEach(villager => { 
@@ -119,7 +119,7 @@ class Villagers extends React.Component{
             return this.state.filtered.map(villager => this.displayVillagers(villager))
         }
         else{                                                                                                                   // If not, go with the original state
-            return this.props.villagers.map(villager => this.displayVillagers(villager))
+            return this.props.allItems.villagers.map(villager => this.displayVillagers(villager))
         }
     }
 
@@ -175,7 +175,7 @@ class Villagers extends React.Component{
     }
     
     filterVillagers = criteria => {
-        let newResults = this.props.villagers;
+        let newResults = this.props.allItems.villagers;
         const searchTerm = this.state.searchTerm;
         let searchSpecies = this.state.searchSpecies;
         let searchPersonality = this.state.searchPersonality;
@@ -198,7 +198,7 @@ class Villagers extends React.Component{
             console.log(newResults)
         }
         if(!searchTerm && searchSpecies.length === 0 && searchPersonality.length === 0 && searchBirthday.length === 0){
-            newResults = this.props.villagers;
+            newResults = this.props.allItems.villagers;
         }
         this.setState({filtered: newResults});
 
@@ -221,11 +221,13 @@ class Villagers extends React.Component{
         }
         else{
             this.setState({
-                filtered: this.props.villagers
+                filtered: this.props.allItems.villagers
             });
         }
     }
     render(){
+        console.log(this.props);
+        console.log(this.props.allItems);
         return (
         <>
             <h2>{this.props.activeItem.toUpperCase()}</h2>

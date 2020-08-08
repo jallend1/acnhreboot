@@ -17,6 +17,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       activeItem: 'fish',
+      allItems: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []},
       fish: [],
       bugs: [],
       fossils: [],
@@ -56,7 +57,12 @@ class App extends React.Component {
       .then(results => {
         const itemList = Object.values(results);
         itemList.forEach(item => item.collapsed = true);
-        this.setState({[dataType]: itemList}, () => {
+        const currentState = this.state.allItems;
+        currentState[dataType] = itemList;
+        this.setState({
+          [dataType]: itemList,
+          allItems: currentState
+        }, () => {
           this.sortItems(this.state.sortBy);
         });
       });
@@ -109,7 +115,11 @@ class App extends React.Component {
   renderTypes = types => {
     return types.map(type => {
         return (
-            <NavLink to={`/${type}`} key={type} onClick={() => this.setState({activeItem: type})}>{properCase(type)}</NavLink>
+            <NavLink 
+              to={`/${type}`} 
+              key={type} 
+              onClick={() => this.setState({activeItem: type})}>{properCase(type)}
+            </NavLink>
         )
     });
   }
@@ -140,7 +150,9 @@ class App extends React.Component {
     }else if(this.state.sortBy === 'births' && this.state.order === 'descending'){
       sortedState = unsortedState.sort((a, b) => b.birthdayDaysAway - a.birthdayDaysAway);
     }
-  this.state.searchValue || this.state.availableToday ? this.setState({filtered: sortedState}) : this.setState({[this.state.activeItem]: sortedState});
+  this.state.searchValue || this.state.availableToday 
+    ? this.setState({filtered: sortedState}) 
+    : this.setState({[this.state.activeItem]: sortedState});
   }
 
   toggleCollapse = (item, creatureType) => {
@@ -230,9 +242,10 @@ class App extends React.Component {
             </Route>
             <Route path="/music">
               <Music 
+                allItems={this.state.allItems}
                 activeItem='music'
                 changeActiveItem = {this.changeActiveItem}
-                music={this.state.music} 
+                // music={this.state.music} 
                 playSong = {this.playSong}
                 filtered={this.state.filtered}
                 handleChange={this.handleChange}
@@ -243,6 +256,7 @@ class App extends React.Component {
             </Route>
             <Route path="/villagers">
               <Villagers 
+                allItems = {this.state.allItems}
                 activeItem="villagers"
                 changeActiveItem = {this.changeActiveItem}
                 villagers={this.state.villagers} 
@@ -265,6 +279,7 @@ class App extends React.Component {
                 toggleCollapse = {this.toggleCollapse}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
+                allItems = {this.state.allItems}
               />
             </Route>
             <Route path="/completed">
