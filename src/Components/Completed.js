@@ -29,10 +29,11 @@ class Completed extends React.Component{
             if(completed[itemArray]){
                 completed[itemArray].forEach(item => {
                     const itemDeets = this.props[itemArray].find(element => element.name["name-USen"] === item);                 // ALl the JSON info on the completed item
+                    const fileLocation = itemArray === 'fossils' ? `./images/fossils/${itemDeets["file-name"]}.png` : `./images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
                     const importantDeets = {                                                                                    // Extracts just the item name, its type and image location
                         name: itemDeets.name["name-USen"],
                         type: itemArray,
-                        filename: `./images/icons/${itemArray}/${itemDeets["file-name"]}.png`,
+                        filename: fileLocation,
                         key: `completed${itemDeets.name["name-USen"]}`
                     };
                     currentState.push(importantDeets);
