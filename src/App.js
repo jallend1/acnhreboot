@@ -33,11 +33,16 @@ class App extends React.Component {
       completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], songs: [], art: []}
     }
   }
+  clearCollected = () => {
+    const clearedState = {fish: [], bugs: [], sea: [], fossils: [], villagers: [], songs: [], art: []};
+    localStorage.removeItem('completed');
+    this.setState({completed: clearedState});
+
+  }
   componentDidMount(){
     this.state.types.forEach(item => this.populateData(item))                           //Populates all items into state on load
     const now = new Date();
     if(localStorage.getItem('completed') !== null){
-      const currentCompleted = this.state.completed;
       const savedCompleted = localStorage.getItem('completed');
       this.setState({completed: JSON.parse(savedCompleted)});
     }
@@ -80,7 +85,7 @@ class App extends React.Component {
   }
 
   handleReset = e => {
-    //To do: When enter is pressed while in input, do NOT reset page!
+    //TODO: When enter is pressed while in input, do NOT reset page!
     // const searchForm = document.querySelector('#searchForm');
   }
 
@@ -105,7 +110,7 @@ class App extends React.Component {
     });
   }
 
-  // This code is *** NO *** way to live
+  // TODO This code is *** NO *** way to live
   sortItems = () => {
     let unsortedState;
     this.state.searchValue || this.state.limitToAvailable ? unsortedState = this.state.filtered : unsortedState = this.state[this.state.activeItem];
@@ -146,13 +151,15 @@ class App extends React.Component {
   // TODO : Universal active state? Allow filtering from main page, drying out code pretty dramatically; Routes in own file?
   render() {
     return (  
-    <div className="container">
-      <Header />
-      <nav>
+      <div className="container">
+        <Header />
         <Router>
-          <ul>
-            {this.renderTypes(this.state.types)}
-          </ul>
+          <nav>
+            <ul>
+              {this.renderTypes(this.state.types)}
+            </ul>
+          </nav>
+          <button onClick={this.clearCollected}>Clear ALL completed items</button>
           <Switch>
             <Route path="/fish">
               <Creatures
@@ -270,8 +277,7 @@ class App extends React.Component {
             </Route>
           </Switch>
         </Router>
-      </nav>
-    </div>
+      </div>
     );
   }
 }
