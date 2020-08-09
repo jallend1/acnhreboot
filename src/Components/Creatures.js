@@ -60,12 +60,18 @@ class Creatures extends React.Component{
     }
     
     displaySelection = () => {
-        if(this.state.searchValue || this.state.availableToday){                                                 // If there's a search term, return the filtered array
-            return this.state.filtered.map(item => this.displayItems(item))
+        const activeItems = this.props.allItems[this.props.activeItem];
+        if(this.props.displayFiltered){
+            return this.props.filtered.map(item => this.displayItems(item))
         }
-        else{                                                                       // If not, go with the original state
-            return this.props.allItems[this.props.activeItem].map(item => this.displayItems(item))
-        }
+        // if(this.state.searchValue){                                                
+        // }
+        // else if(this.props.limitToAvailable){                                       // If displaying available only, filter array appropriately
+        //     return activeItems
+        //         .filter(item => item.availableToday)
+        //         .map(item => this.displayItems(item));
+        // }                                                                     
+        return activeItems.map(item => this.displayItems(item))                     // If not, go with the original state
     }
 
     displayItems = item => {  
@@ -125,20 +131,7 @@ class Creatures extends React.Component{
             </div>
         )        
     }
-    handleChange = e => {
-        if(e.currentTarget.value){
-            const searchTerm = e.currentTarget.value.toLowerCase();
-            this.setState({searchValue: searchTerm});
-            const currentData = this.props.allItems[this.props.activeItem];
-            const filteredData = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
-            this.setState({filtered: filteredData});
-        }
-        else{
-            this.setState({
-            searchValue: '',
-            filtered: this.props.allItems[this.props.activeItem]});
-        }
-    }
+
 
 
     render(){

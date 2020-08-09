@@ -14,7 +14,10 @@ class Art extends React.Component{
         return(
             <div className="song" id="artwork" key={name}>
                 <h3>{properCase(name)}</h3>
-                <img src={`./images/${this.props.activeItem}/${fileName}.png`} alt={name} />
+                <img 
+                    src={`./images/${this.props.activeItem}/${fileName}.png`} 
+                    alt={name} 
+                />
                 <div>
                     <input 
                         name="markcomplete"
