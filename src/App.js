@@ -18,6 +18,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       activeItem: 'fish',
+      activeItems: [],
       allItems: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []},
       limitToAvailable: false,
       sortBy: 'alpha',
@@ -52,17 +53,17 @@ class App extends React.Component {
       .then(data => data.json())
       .then(results => {
         const currentState = this.state.allItems;
-        const itemList = Object.values(results);                          // Extracts all the creature data of a certain type
-        itemList.forEach(item => item.collapsed = true);                  // Sets each item to initially have a collapsed state
-        currentState[dataType] = itemList;                                
-        this.setState({allItems: currentState},
-          () => {this.sortItems()});
-    })
+        currentState[dataType] = itemList;
+        this.setState({allItems: currentState, activeItems: currentState[this.state.activeItem]}, 
+          () => {this.sortItems(this.state.sortBy);
+        });
+      });
+    }
   }
 }
 
   changeActiveItem = newType => {
-    this.setState({activeItem: newType}, this.filterForAvailable())
+    this.setState({activeItem: newType, activeItems: this.state.allItems[newType]});
   }
 
   changeSort = change => {
@@ -74,6 +75,12 @@ class App extends React.Component {
     }
   }
 
+  changeToNew = e => {
+    const newType = e.target.dataset.id;                                                // Takes the type of creature from the dataset name included in HTML 
+    const newCreatures = this.state.allItems[newType];
+    this.setState({activeItem: newType, activeItems: newCreatures}, this.showAvailable) //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
+  }
+  
   collapseAll = (activeItem) => {
     const activeItemList = this.state.allItems;
     activeItemList[activeItem].forEach(item => item.collapsed = true)
@@ -123,27 +130,30 @@ class App extends React.Component {
             <NavLink 
               to={`/${type}`} 
               key={type} 
-              onClick={() => this.changeActiveItem(type)}>{properCase(type)}
+              data-id={type}
+              onClick={this.changeToNew}>{properCase(type)}
             </NavLink>
         )
     });
   }
-// TODO Limit to creatures available today has NOT worked since refactoring out to Filter being direct child of App
-  filterForAvailable = () => {
-    const currentState = this.state.allItems;
-    const activeType = this.state.activeItem
-    let displayFiltered;
-    if(this.state.limitToAvailable === true || this.state.searchValue){
-      displayFiltered = true;
+  
+  showAvailable = () => {
+    if(this.state.availableToday){
+      const currentState = this.state.allItems[this.state.activeItem];
+      const filtered = currentState.filter(item => item.availableToday);
+      this.setState({activeItems: filtered});
     }
     else{
-      displayFiltered = false;
+        this.setState({activeItems: this.state.allItems[this.state.activeItem]});
     }
-    // const displayFiltered = this.state.limitToAvailable || this.state.searchValue;
-    
-    let filtered = [];
-    if(this.state.limitToAvailable){
-      filtered = currentState[activeType].filter(item => item.availableToday);
+  }
+
+  toggleAvailable = e => {
+    if(e.target.checked){
+      this.setState({availableToday: true}, this.showAvailable);
+    }
+    else{
+      this.setState({availableToday: false}, this.showAvailable);
     }
     else{
       filtered = currentState[activeType];
@@ -163,10 +173,8 @@ class App extends React.Component {
 
   // TODO This code is *** NO *** way to live
   sortItems = () => {
-    const currentState = this.state.allItems;
-    const displayFiltered = this.state.displayFiltered;
-    let unsortedState;
-    displayFiltered ? unsortedState = this.state.filtered : unsortedState = this.state.allItems[this.state.activeItem];
+    this.showAvailable();
+    let unsortedState = this.state.activeItems;
     // this.state.searchValue || this.state.limitToAvailable ? unsortedState = this.state.filtered : unsortedState = this.state.allItems[this.state.activeItem];
     let sortedState = [];
     if(this.state.sortBy === 'alpha' && this.state.order === 'ascending'){
@@ -190,10 +198,8 @@ class App extends React.Component {
     }else if(this.state.sortBy === 'births' && this.state.order === 'descending'){
       sortedState = unsortedState.sort((a, b) => b.birthdayDaysAway - a.birthdayDaysAway);
     }
-    currentState[this.state.activeItem] = sortedState;
-    displayFiltered 
-      ? this.setState({filtered: sortedState}) 
-      : this.setState({allItems: currentState});
+    this.setState({activeItems: sortedState})
+
   }
 
   toggleCollapse = (item, creatureType) => {
@@ -230,6 +236,7 @@ class App extends React.Component {
             <Route path="/fish">
               <Creatures
                 activeItem="fish"
+                activeItems={this.state.activeItems}
                 filtered={this.state.filtered}
                 changeActiveItem = {this.changeActiveItem}
                 toggleCollapse = {this.toggleCollapse}
@@ -239,13 +246,13 @@ class App extends React.Component {
                 sortBy = {this.state.sortBy}
                 completed = {this.state.completed}
                 allItems = {this.state.allItems}
-                handleChange = {this.state.handleChange}
-                displayFiltered = {this.state.displayFiltered}
+                showAvailable = {this.showAvailable}
               />
             </Route>
             <Route path="/bugs">
               <Creatures 
                 activeItem="bugs"
+                activeItems={this.state.activeItems}
                 toggleCollapse = {this.toggleCollapse}
                 filtered={this.state.filtered}
                 changeActiveItem = {this.changeActiveItem}
@@ -254,14 +261,13 @@ class App extends React.Component {
                 sortBy = {this.state.sortBy}
                 completed = {this.state.completed}
                 allItems = {this.state.allItems}
-                limitToAvailable = {this.state.limitToAvailable}
-                handleChange = {this.state.handleChange}
-                displayFiltered = {this.state.displayFiltered}
+                showAvailable = {this.showAvailable}
               />
             </Route>
             <Route path="/sea">
               <Creatures 
                 activeItem="sea"
+                activeItems={this.state.activeItems}
                 filtered={this.state.filtered}
                 toggleCollapse = {this.toggleCollapse}
                 changeActiveItem = {this.changeActiveItem}
@@ -269,14 +275,13 @@ class App extends React.Component {
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
                 allItems = {this.state.allItems}
-                limitToAvailable = {this.state.limitToAvailable}
-                handleChange = {this.state.handleChange}
-                displayFiltered = {this.state.displayFiltered}
+                showAvailable = {this.showAvailable}
               />
             </Route>
             <Route path="/fossils">
               <Creatures 
                 activeItem="fossils"
+                activeItems={this.state.activeItems}
                 toggleCollapse = {this.toggleCollapse}
                 changeActiveItem = {this.changeActiveItem}
                 filtered={this.state.filtered}
@@ -284,9 +289,7 @@ class App extends React.Component {
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}
                 allItems = {this.state.allItems}
-                limitToAvailable = {this.state.limitToAvailable}
-                handleChange = {this.state.handleChange}
-                displayFiltered = {this.state.displayFiltered}
+                showAvailable = {this.showAvailable}
               />
             </Route>
             <Route path="/music">

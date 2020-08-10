@@ -60,18 +60,7 @@ class Creatures extends React.Component{
     }
     
     displaySelection = () => {
-        const activeItems = this.props.allItems[this.props.activeItem];
-        if(this.props.displayFiltered){
-            return this.props.filtered.map(item => this.displayItems(item))
-        }
-        // if(this.state.searchValue){                                                
-        // }
-        // else if(this.props.limitToAvailable){                                       // If displaying available only, filter array appropriately
-        //     return activeItems
-        //         .filter(item => item.availableToday)
-        //         .map(item => this.displayItems(item));
-        // }                                                                     
-        return activeItems.map(item => this.displayItems(item))                     // If not, go with the original state
+        return this.props.activeItems.map(item => this.displayItems(item));
     }
 
     displayItems = item => {  
