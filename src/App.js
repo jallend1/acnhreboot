@@ -199,7 +199,6 @@ class App extends React.Component {
       sortedState = unsortedState.sort((a, b) => b.birthdayDaysAway - a.birthdayDaysAway);
     }
     this.setState({activeItems: sortedState})
-
   }
 
   toggleCollapse = (item, creatureType) => {
