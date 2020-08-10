@@ -70,7 +70,7 @@ class Filter extends React.Component{
                         <button onClick={() => this.props.expandAll(this.props.activeItem)}>Expand All</button>
                     </div>
                     <div>
-                        <input type="checkbox" id="available" name="available" onClick={this.props.showAvailable}/>
+                        <input type="checkbox" id="available" name="available" onClick={this.props.toggleAvailable}/>
                         <label htmlFor="available">Limit to creatures available today</label>
                     </div>
                 </div>

@@ -60,12 +60,7 @@ class Creatures extends React.Component{
     }
     
     displaySelection = () => {
-        if(this.state.searchValue || this.state.availableToday){                                                 // If there's a search term, return the filtered array
-            return this.state.filtered.map(item => this.displayItems(item))
-        }
-        else{                                                                       // If not, go with the original state
-            return this.props.allItems[this.props.activeItem].map(item => this.displayItems(item))
-        }
+        return this.props.activeItems.map(item => this.displayItems(item));
     }
 
     displayItems = item => {  
