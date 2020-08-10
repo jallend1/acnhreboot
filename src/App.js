@@ -26,7 +26,9 @@ class App extends React.Component {
       types: ['fish', 'bugs', 'sea', 'fossils', 'music', 'villagers', 'art', 'completed'],
       filtered: [],
       time: '',
-      completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []}
+      completed: {fish: [], bugs: [], sea: [], fossils: [], villagers: [], music: [], art: []},
+      searchValue: '',
+      displayFiltered: false
     }
   }
   clearCollected = () => {
@@ -50,8 +52,6 @@ class App extends React.Component {
       fetch(`./${dataType}.json`)
       .then(data => data.json())
       .then(results => {
-        const itemList = Object.values(results);
-        itemList.forEach(item => item.collapsed = true);
         const currentState = this.state.allItems;
         currentState[dataType] = itemList;
         this.setState({allItems: currentState, activeItems: currentState[this.state.activeItem]}, 
@@ -60,6 +60,7 @@ class App extends React.Component {
       });
     }
   }
+}
 
   changeActiveItem = newType => {
     this.setState({activeItem: newType, activeItems: this.state.allItems[newType]});
@@ -91,7 +92,20 @@ class App extends React.Component {
     activeItemList[activeItem].forEach(item => item.collapsed = false)
     this.setState({allItems: activeItemList})
   }
-
+  handleChange = e => {
+    if(e.currentTarget.value){
+      const searchTerm = e.currentTarget.value.toLowerCase();
+      const currentData = this.state.allItems[this.state.activeItem];
+      const filtered = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
+      this.setState({filtered, searchValue: searchTerm});
+    }
+    else{
+        this.setState({
+        searchValue: '',
+        filtered: this.state.allItems[this.state.activeItem]});
+    }
+}
+  
   handleReset = e => {
     //TODO: When enter is pressed while in input, do NOT reset page!
     // const searchForm = document.querySelector('#searchForm');
@@ -141,6 +155,20 @@ class App extends React.Component {
     else{
       this.setState({availableToday: false}, this.showAvailable);
     }
+    else{
+      filtered = currentState[activeType];
+    }
+    this.setState({filtered, displayFiltered}, this.sortItems());
+  }
+
+  toggleAvailable = () => {
+    const currentState = this.state.limitToAvailable;
+    const newState = !currentState;
+    let displayFiltered;
+    if(newState === true || this.state.searchValue){
+      displayFiltered = true;
+    }
+    this.setState({limitToAvailable: newState, displayFiltered}, this.filterForAvailable());
   }
 
   // TODO This code is *** NO *** way to live
@@ -171,7 +199,6 @@ class App extends React.Component {
       sortedState = unsortedState.sort((a, b) => b.birthdayDaysAway - a.birthdayDaysAway);
     }
     this.setState({activeItems: sortedState})
-
   }
 
   toggleCollapse = (item, creatureType) => {
@@ -183,7 +210,7 @@ class App extends React.Component {
     this.setState({[creatureType]: currentState})
   }
 
-  // TODO : Universal active state? Allow filtering from main page, drying out code pretty dramatically; Routes in own file?
+  // TODO : Using React Router ID to replace activeItem would allow Fish/Bugs/Sea/Fossils to be combined into one
   render() {
     return (  
       <div className="container">
@@ -213,7 +240,7 @@ class App extends React.Component {
                 changeActiveItem = {this.changeActiveItem}
                 toggleCollapse = {this.toggleCollapse}
                 time = {this.state.time}
-                availableToday = {this.state.availableToday}
+                limitToAvailable = {this.state.limitToAvailable}
                 markComplete = {this.markComplete}
                 sortBy = {this.state.sortBy}
                 completed = {this.state.completed}
@@ -256,6 +283,7 @@ class App extends React.Component {
                 activeItems={this.state.activeItems}
                 toggleCollapse = {this.toggleCollapse}
                 changeActiveItem = {this.changeActiveItem}
+                filtered={this.state.filtered}
                 time={this.state.time}
                 markComplete = {this.markComplete}
                 completed = {this.state.completed}

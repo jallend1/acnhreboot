@@ -120,20 +120,7 @@ class Creatures extends React.Component{
             </div>
         )        
     }
-    handleChange = e => {
-        if(e.currentTarget.value){
-            const searchTerm = e.currentTarget.value.toLowerCase();
-            this.setState({searchValue: searchTerm});
-            const currentData = this.props.allItems[this.props.activeItem];
-            const filteredData = currentData.filter(item => item.name["name-USen"].toLowerCase().includes(searchTerm));
-            this.setState({filtered: filteredData});
-        }
-        else{
-            this.setState({
-            searchValue: '',
-            filtered: this.props.allItems[this.props.activeItem]});
-        }
-    }
+
 
 
     render(){
