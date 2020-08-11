@@ -12,7 +12,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink,
+  NavLink
 } from "react-router-dom";
 
 class App extends React.Component {
@@ -29,6 +29,7 @@ class App extends React.Component {
         villagers: [],
         music: [],
         art: [],
+        completed: []
       },
       limitToAvailable: false,
       sortBy: "alpha",
@@ -41,7 +42,7 @@ class App extends React.Component {
         "music",
         "villagers",
         "art",
-        "completed",
+        "completed"
       ],
       time: "",
       completed: {
@@ -51,9 +52,9 @@ class App extends React.Component {
         fossils: [],
         villagers: [],
         music: [],
-        art: [],
+        art: []
       },
-      searchValue: "",
+      searchValue: ""
     };
   }
   clearCollected = () => {
@@ -64,7 +65,7 @@ class App extends React.Component {
       fossils: [],
       villagers: [],
       music: [],
-      art: [],
+      art: []
     };
     localStorage.removeItem("completed");
     this.setState({ completed: clearedState });
@@ -91,7 +92,7 @@ class App extends React.Component {
           this.setState(
             {
               allItems: currentState,
-              activeItems: currentState[this.state.activeItem],
+              activeItems: currentState[this.state.activeItem]
             },
             () => {
               this.sortItems(this.state.sortBy);
@@ -104,7 +105,7 @@ class App extends React.Component {
   changeActiveItem = (newType) => {
     this.setState({
       activeItem: newType,
-      activeItems: this.state.allItems[newType],
+      activeItems: this.state.allItems[newType]
     });
   };
 
@@ -169,6 +170,39 @@ class App extends React.Component {
     }
   };
 
+  populateComplete = () => {
+    const currentState = this.state.allItems;
+    const completed = this.state.completed;
+    const itemArrays = Object.keys(completed); // Extracts all the item types from the completed object list
+    itemArrays.forEach((itemArray) => {
+      currentState.completed[itemArray] = [];
+      if (completed[itemArray]) {
+        // If this item type has anything in it, process it
+        completed[itemArray].forEach((item) => {
+          const itemDeets = this.state.allItems[itemArray].find(
+            (element) => element.name["name-USen"] === item
+          ); // All the JSON info on this current item
+          const fileLocation =
+            itemArray === "fossils" ||
+            itemArray === "music" ||
+            itemArray === "art"
+              ? `./images/${itemArray}/${itemDeets["file-name"]}.png`
+              : `images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
+          itemDeets.fileLocation = fileLocation;
+          itemDeets.key = `completed${itemDeets.name["name-USen"]}`;
+          itemDeets.type = itemArray;
+          if (
+            !currentState.completed.find(
+              (item) => item.name["name-USen"] === itemDeets.name["name-USen"]
+            )
+          ) {
+            currentState.completed.push(itemDeets);
+          }
+        });
+      }
+      this.setState({ allItems: currentState });
+    });
+  };
   renderTypes = (types) => {
     return types.map((type) => {
       return (
@@ -191,7 +225,7 @@ class App extends React.Component {
     } else {
       this.setState({
         searchValue: "",
-        activeItems: this.state.allItems[this.state.activeItem],
+        activeItems: this.state.allItems[this.state.activeItem]
       });
     }
   };
@@ -429,6 +463,7 @@ class App extends React.Component {
                 changeActiveItem={this.changeActiveItem}
                 completed={this.state.completed}
                 allItems={this.state.allItems}
+                populateComplete={this.populateComplete}
               />
             </Route>
             <Route path="/">

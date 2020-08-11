@@ -6,7 +6,7 @@ class Creatures extends React.Component {
     super(props);
     this.state = {
       filtered: this.props.allItems[this.props.activeItem],
-      searchValue: "",
+      searchValue: ""
     };
   }
   alternateBuyer = (item) => {
@@ -78,7 +78,7 @@ class Creatures extends React.Component {
       "catch-phrase": catchPhrase,
       "file-name": fileName,
       availability,
-      collapsed,
+      collapsed
     } = item;
     if (this.props.activeItem === "fossils") {
       availableToday = true;
