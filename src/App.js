@@ -53,6 +53,7 @@ class App extends React.Component {
         music: [],
         art: [],
       },
+      searchValue: "",
     };
   }
   clearCollected = () => {
@@ -183,16 +184,43 @@ class App extends React.Component {
     });
   };
 
-  showAvailable = () => {
-    if (this.state.availableToday) {
-      const currentState = this.state.allItems[this.state.activeItem];
-      const filtered = currentState.filter((item) => item.availableToday);
-      this.setState({ activeItems: filtered });
+  searchField = (e) => {
+    if (e.currentTarget.value) {
+      const searchValue = e.currentTarget.value.toLowerCase();
+      this.setState({ searchValue }, this.searchResults);
     } else {
       this.setState({
+        searchValue: "",
         activeItems: this.state.allItems[this.state.activeItem],
       });
     }
+  };
+
+  searchResults = () => {
+    const currentData = this.state.allItems[this.state.activeItem];
+    const filtered = currentData.filter((item) =>
+      item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
+    );
+    this.setState({ activeItems: filtered }, this.showAvailable);
+  };
+  showAvailable = () => {
+    const currentState = this.state.activeItems;
+    let filtered = [];
+    // If only looking at today, filters it so
+    if (this.state.availableToday) {
+      filtered = currentState.filter((item) => item.availableToday);
+      // If not, checks to see if search field has value, and restores array matching that criteria
+    } else {
+      if (this.state.searchValue) {
+        filtered = this.state.allItems[this.state.activeItem].filter((item) =>
+          item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
+        );
+        // If no search values, restores the original item list
+      } else {
+        filtered = currentState;
+      }
+    }
+    this.setState({ activeItems: filtered });
   };
 
   toggleAvailable = (e) => {
@@ -290,7 +318,7 @@ class App extends React.Component {
         <Header />
         <Filter
           activeItem={this.state.activeItem}
-          handleChange={this.handleChange}
+          searchField={this.searchField}
           handleReset={this.handleReset}
           changeSort={this.changeSort}
           collapseAll={this.collapseAll}
