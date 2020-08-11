@@ -217,7 +217,7 @@ class App extends React.Component {
         );
         // If no search values, restores the original item list
       } else {
-        filtered = currentState;
+        filtered = this.state.allItems[this.state.activeItem];
       }
     }
     this.setState({ activeItems: filtered });
