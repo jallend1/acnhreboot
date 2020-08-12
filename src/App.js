@@ -62,6 +62,7 @@ class App extends React.Component {
     this.state.types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
     if (localStorage.getItem("completed") !== null) {
+      //If any completed items exist in localStorage, makes them active
       const savedCompleted = localStorage.getItem("completed");
       this.setState({ completed: JSON.parse(savedCompleted) });
     }
@@ -163,6 +164,7 @@ class App extends React.Component {
     const completed = this.state.completed;
     const itemArrays = Object.keys(completed); // Extracts all the item types from the completed object list
     itemArrays.forEach((itemArray) => {
+      //Runs through item types, and retrieves full item details
       currentState.completed[itemArray] = [];
       if (completed[itemArray]) {
         // If this item type has anything in it, process it
@@ -221,35 +223,37 @@ class App extends React.Component {
 
   searchResults = () => {
     const currentData = this.state.allItems[this.state.activeItem];
-    const filtered = currentData.filter((item) =>
+    const activeItems = currentData.filter((item) =>
       item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
     );
-    this.setState({ activeItems: filtered }, this.showAvailable);
+    this.setState({ activeItems }, this.showAvailable);
   };
   showAvailable = () => {
     const currentState = this.state.activeItems;
-    let filtered = [];
+    let activeItems = [];
     // If only looking at today, filters it so
     if (this.state.availableToday) {
-      filtered = currentState.filter((item) => item.availableToday);
+      activeItems = currentState.filter((item) => item.availableToday);
       // If not, checks to see if search field has value, and restores array matching that criteria
     } else {
       if (this.state.searchValue) {
-        filtered = this.state.allItems[this.state.activeItem].filter((item) =>
+        activeItems = this.state.allItems[
+          this.state.activeItem
+        ].filter((item) =>
           item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
         );
         // If no search values, restores the original item list
       } else {
-        filtered = this.state.allItems[this.state.activeItem];
+        activeItems = this.state.allItems[this.state.activeItem];
       }
     }
-    this.setState({ activeItems: filtered });
+    this.setState({ activeItems });
   };
 
   sortAlpha = () => {
     const activeItems = this.state.activeItems;
     const criteria = this.state.sortBy;
-    if (criteria === "alpha" || criteria === -1) {
+    if (criteria === "alpha") {
       activeItems.sort((a, b) =>
         a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
           ? 1

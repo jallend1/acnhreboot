@@ -4,10 +4,6 @@ import { properCase } from "../utils";
 class Creatures extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      filtered: this.props.allItems[this.props.activeItem],
-      searchValue: ""
-    };
   }
   alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish

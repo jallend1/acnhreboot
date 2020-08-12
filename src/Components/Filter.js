@@ -70,7 +70,6 @@ class Filter extends React.Component {
             type="checkbox"
             id="descending"
             name="descending"
-            checked={this.props.descending}
             onChange={this.props.toggleDescending}
           />
           <label htmlFor="descending">Sort in descending order</label>
