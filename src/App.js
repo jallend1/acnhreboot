@@ -31,6 +31,7 @@ class App extends React.Component {
         art: [],
         completed: []
       },
+      descending: false,
       limitToAvailable: false,
       sortBy: "alpha",
       order: "ascending",
@@ -94,9 +95,10 @@ class App extends React.Component {
               allItems: currentState,
               activeItems: currentState[this.state.activeItem]
             },
-            () => {
-              this.sortItems(this.state.sortBy);
-            }
+            this.sortAlpha
+            // () => {
+            //   this.sortItems(this.state.sortBy);
+            // }
           );
         });
     }
@@ -131,7 +133,8 @@ class App extends React.Component {
     const newCreatures = this.state.allItems[newType];
     this.setState(
       { activeItem: newType, activeItems: newCreatures },
-      this.showAvailable
+      // this.showAvailable
+      this.sortAlpha
     ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
   };
 
@@ -264,31 +267,47 @@ class App extends React.Component {
       this.setState({ availableToday: false }, this.showAvailable);
     }
   };
+  sortAlpha = () => {
+    const activeItems = this.state.activeItems;
+    activeItems.sort((a, b) =>
+      a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
+        ? 1
+        : -1
+    );
+    if (this.state.descending) activeItems.reverse();
+    this.setState({ activeItems }, this.showAvailable);
+  };
+
+  toggleDescending = (e) => {
+    let descending = this.state.descending;
+    if (e.target.checked) {
+      descending = !descending;
+    }
+    this.setState({ descending }, this.sortAlpha);
+  };
 
   // TODO This code is *** NO *** way to live
   sortItems = () => {
     this.showAvailable();
     let unsortedState = this.state.activeItems;
     let sortedState = [];
-    if (this.state.sortBy === "alpha" && this.state.order === "ascending") {
-      sortedState = unsortedState.sort((a, b) =>
-        a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
-          ? 1
-          : -1
-      );
-    } else if (
-      this.state.sortBy === "alpha" &&
-      this.state.order === "descending"
-    ) {
-      sortedState = unsortedState.sort((a, b) =>
-        a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase()
-          ? 1
-          : -1
-      );
-    } else if (
-      this.state.sortBy === "nook" &&
-      this.state.order === "ascending"
-    ) {
+    // if (this.state.sortBy === "alpha" && this.state.order === "ascending") {
+    //   sortedState = unsortedState.sort((a, b) =>
+    //     a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
+    //       ? 1
+    //       : -1
+    //   );
+    // } else if (
+    //   this.state.sortBy === "alpha" &&
+    //   this.state.order === "descending"
+    // ) {
+    //   sortedState = unsortedState.sort((a, b) =>
+    //     a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase()
+    //       ? 1
+    //       : -1
+    //   );
+    // }
+    if (this.state.sortBy === "nook" && this.state.order === "ascending") {
       sortedState = unsortedState.sort((a, b) => a.price - b.price);
     } else if (
       this.state.sortBy === "nook" &&
@@ -358,6 +377,8 @@ class App extends React.Component {
           collapseAll={this.collapseAll}
           expandAll={this.expandAll}
           toggleAvailable={this.toggleAvailable}
+          toggleDescending={this.toggleDescending}
+          descending={this.props.descending}
         />
         <Router>
           <nav>

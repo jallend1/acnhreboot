@@ -65,8 +65,16 @@ class Filter extends React.Component {
             <label htmlFor="alpha">Alphabetical</label>
             {this.determineSearchFields()}
           </form>
-          <form onChange={this.props.changeSort}>
-            <input
+          {/* <form onChange={this.props.changeSort}> */}
+          <input
+            type="checkbox"
+            id="descending"
+            name="descending"
+            checked={this.props.descending}
+            onChange={this.props.toggleDescending}
+          />
+          <label htmlFor="descending">Sort in descending order</label>
+          {/* <input
               type="radio"
               id="ascending"
               name="order"
@@ -80,8 +88,8 @@ class Filter extends React.Component {
               name="order"
               value="descending"
             />
-            <label htmlFor="descending">Descending</label>
-          </form>
+            <label htmlFor="descending">Descending</label> */}
+          {/* </form> */}
           <div>
             <button
               onClick={() => this.props.collapseAll(this.props.activeItem)}
