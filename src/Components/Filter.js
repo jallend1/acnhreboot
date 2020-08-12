@@ -4,39 +4,40 @@ class Filter extends React.Component {
     if (this.props.activeItem === "fish") {
       return (
         <>
-          <input type="radio" id="nook" name="sortby" value="nook" />
+          <input type="radio" id="nook" name="sortby" value="price" />
           <label htmlFor="nook">Nook's Price </label>
-          <input type="radio" id="cj" name="sortby" value="cj" />
+          <input type="radio" id="cj" name="sortby" value="price-cj" />
           <label htmlFor="cj">CJ's Price </label>
         </>
       );
     } else if (this.props.activeItem === "bugs") {
       return (
         <>
-          <input type="radio" id="nook" name="sortby" value="nook" />
+          <input type="radio" id="nook" name="sortby" value="price" />
           <label htmlFor="nook">Nook's Price </label>
-          <input type="radio" id="flick" name="sortby" value="flick" />
+          <input type="radio" id="flick" name="sortby" value="price-flick" />
           <label htmlFor="flick">Flick's Price</label>
         </>
       );
-    } else if (this.props.activeItem === "fossils") {
+    } else if (
+      this.props.activeItem === "fossils" ||
+      this.props.activeItem === "sea"
+    ) {
       return (
         <>
-          <input type="radio" id="nook" name="sortby" value="nook" />
-          <label htmlFor="nook">Nook's Price </label>
-        </>
-      );
-    } else if (this.props.activeItem === "sea") {
-      return (
-        <>
-          <input type="radio" id="nook" name="sortby" value="nook" />
+          <input type="radio" id="nook" name="sortby" value="price" />
           <label htmlFor="nook">Nook's Price </label>
         </>
       );
     } else if (this.props.activeItem === "villagers") {
       return (
         <>
-          <input type="radio" id="births" name="sortby" value="births" />
+          <input
+            type="radio"
+            id="births"
+            name="sortby"
+            value="birthdayDaysAway"
+          />
           <label htmlFor="births">Days Until Birthday</label>
         </>
       );
@@ -45,7 +46,7 @@ class Filter extends React.Component {
   render() {
     return (
       <>
-        <form id="searchForm" onSubmit={this.props.handleChange}>
+        <form id="searchForm">
           <input
             type="text"
             placeholder="Search for item..."
@@ -65,7 +66,6 @@ class Filter extends React.Component {
             <label htmlFor="alpha">Alphabetical</label>
             {this.determineSearchFields()}
           </form>
-          {/* <form onChange={this.props.changeSort}> */}
           <input
             type="checkbox"
             id="descending"
@@ -74,22 +74,6 @@ class Filter extends React.Component {
             onChange={this.props.toggleDescending}
           />
           <label htmlFor="descending">Sort in descending order</label>
-          {/* <input
-              type="radio"
-              id="ascending"
-              name="order"
-              value="ascending"
-              defaultChecked
-            />
-            <label htmlFor="ascending">Ascending</label>
-            <input
-              type="radio"
-              id="descending"
-              name="order"
-              value="descending"
-            />
-            <label htmlFor="descending">Descending</label> */}
-          {/* </form> */}
           <div>
             <button
               onClick={() => this.props.collapseAll(this.props.activeItem)}

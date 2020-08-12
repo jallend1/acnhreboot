@@ -34,7 +34,6 @@ class App extends React.Component {
       descending: false,
       limitToAvailable: false,
       sortBy: "alpha",
-      order: "ascending",
       types: [
         "fish",
         "bugs",
@@ -58,19 +57,7 @@ class App extends React.Component {
       searchValue: ""
     };
   }
-  clearCollected = () => {
-    const clearedState = {
-      fish: [],
-      bugs: [],
-      sea: [],
-      fossils: [],
-      villagers: [],
-      music: [],
-      art: []
-    };
-    localStorage.removeItem("completed");
-    this.setState({ completed: clearedState });
-  };
+
   componentDidMount() {
     this.state.types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
@@ -96,9 +83,6 @@ class App extends React.Component {
               activeItems: currentState[this.state.activeItem]
             },
             this.sortAlpha
-            // () => {
-            //   this.sortItems(this.state.sortBy);
-            // }
           );
         });
     }
@@ -112,20 +96,8 @@ class App extends React.Component {
   };
 
   changeSort = (change) => {
-    if (
-      change.target.id === "nook" ||
-      change.target.id === "alpha" ||
-      change.target.id === "cj" ||
-      change.target.id === "flick" ||
-      change.target.id === "births"
-    ) {
-      this.setState({ sortBy: change.target.id }, () => this.sortItems());
-    } else if (
-      change.target.id === "ascending" ||
-      change.target.id === "descending"
-    ) {
-      this.setState({ order: change.target.id }, () => this.sortItems());
-    }
+    const target = change.target.value;
+    this.setState({ sortBy: target }, this.sortAlpha);
   };
 
   changeToNew = (e) => {
@@ -133,9 +105,22 @@ class App extends React.Component {
     const newCreatures = this.state.allItems[newType];
     this.setState(
       { activeItem: newType, activeItems: newCreatures },
-      // this.showAvailable
       this.sortAlpha
     ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
+  };
+
+  clearCollected = () => {
+    const clearedState = {
+      fish: [],
+      bugs: [],
+      sea: [],
+      fossils: [],
+      villagers: [],
+      music: [],
+      art: []
+    };
+    localStorage.removeItem("completed");
+    this.setState({ completed: clearedState });
   };
 
   collapseAll = (activeItem) => {
@@ -207,6 +192,7 @@ class App extends React.Component {
     });
   };
   renderTypes = (types) => {
+    // Generates list of item types for NavBar
     return types.map((type) => {
       return (
         <NavLink
@@ -260,97 +246,28 @@ class App extends React.Component {
     this.setState({ activeItems: filtered });
   };
 
+  sortAlpha = () => {
+    const activeItems = this.state.activeItems;
+    const criteria = this.state.sortBy;
+    if (criteria === "alpha" || criteria === -1) {
+      activeItems.sort((a, b) =>
+        a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
+          ? 1
+          : -1
+      );
+    } else {
+      activeItems.sort((a, b) => (a[criteria] > b[criteria] ? 1 : -1));
+    }
+    if (this.state.descending) activeItems.reverse();
+    this.setState({ activeItems }, this.showAvailable);
+  };
+
   toggleAvailable = (e) => {
     if (e.target.checked) {
       this.setState({ availableToday: true }, this.showAvailable);
     } else {
       this.setState({ availableToday: false }, this.showAvailable);
     }
-  };
-  sortAlpha = () => {
-    const activeItems = this.state.activeItems;
-    activeItems.sort((a, b) =>
-      a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
-        ? 1
-        : -1
-    );
-    if (this.state.descending) activeItems.reverse();
-    this.setState({ activeItems }, this.showAvailable);
-  };
-
-  toggleDescending = (e) => {
-    let descending = this.state.descending;
-    if (e.target.checked) {
-      descending = !descending;
-    }
-    this.setState({ descending }, this.sortAlpha);
-  };
-
-  // TODO This code is *** NO *** way to live
-  sortItems = () => {
-    this.showAvailable();
-    let unsortedState = this.state.activeItems;
-    let sortedState = [];
-    // if (this.state.sortBy === "alpha" && this.state.order === "ascending") {
-    //   sortedState = unsortedState.sort((a, b) =>
-    //     a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
-    //       ? 1
-    //       : -1
-    //   );
-    // } else if (
-    //   this.state.sortBy === "alpha" &&
-    //   this.state.order === "descending"
-    // ) {
-    //   sortedState = unsortedState.sort((a, b) =>
-    //     a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase()
-    //       ? 1
-    //       : -1
-    //   );
-    // }
-    if (this.state.sortBy === "nook" && this.state.order === "ascending") {
-      sortedState = unsortedState.sort((a, b) => a.price - b.price);
-    } else if (
-      this.state.sortBy === "nook" &&
-      this.state.order === "descending"
-    ) {
-      sortedState = unsortedState.sort((a, b) => b.price - a.price);
-    } else if (this.state.sortBy === "cj" && this.state.order === "ascending") {
-      sortedState = unsortedState.sort((a, b) => a["price-cj"] - b["price-cj"]);
-    } else if (
-      this.state.sortBy === "cj" &&
-      this.state.order === "descending"
-    ) {
-      sortedState = unsortedState.sort((a, b) => b["price-cj"] - a["price-cj"]);
-    } else if (
-      this.state.sortBy === "flick" &&
-      this.state.order === "ascending"
-    ) {
-      sortedState = unsortedState.sort(
-        (a, b) => a["price-flick"] - b["price-flick"]
-      );
-    } else if (
-      this.state.sortBy === "flick" &&
-      this.state.order === "descending"
-    ) {
-      sortedState = unsortedState.sort(
-        (a, b) => b["price-flick"] - a["price-flick"]
-      );
-    } else if (
-      this.state.sortBy === "births" &&
-      this.state.order === "ascending"
-    ) {
-      sortedState = unsortedState.sort(
-        (a, b) => a.birthdayDaysAway - b.birthdayDaysAway
-      );
-    } else if (
-      this.state.sortBy === "births" &&
-      this.state.order === "descending"
-    ) {
-      sortedState = unsortedState.sort(
-        (a, b) => b.birthdayDaysAway - a.birthdayDaysAway
-      );
-    }
-    this.setState({ activeItems: sortedState });
   };
 
   toggleCollapse = (item, creatureType) => {
@@ -364,6 +281,11 @@ class App extends React.Component {
     this.setState({ [creatureType]: currentState });
   };
 
+  toggleDescending = (e) => {
+    let descending = this.state.descending;
+    descending = !descending;
+    this.setState({ descending }, this.sortAlpha);
+  };
   // TODO : Universal active state? Allow filtering from main page, drying out code pretty dramatically; Routes in own file?
   render() {
     return (
@@ -450,7 +372,6 @@ class App extends React.Component {
                 changeActiveItem={this.changeActiveItem}
                 playSong={this.playSong}
                 filtered={this.state.filtered}
-                handleChange={this.handleChange}
                 toggleCollapse={this.toggleCollapse}
                 markComplete={this.markComplete}
                 completed={this.state.completed}
