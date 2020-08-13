@@ -1,5 +1,6 @@
 import React from "react";
 import { properCase } from "../utils";
+import Details from "./Details";
 
 class Creatures extends React.Component {
   constructor(props) {
@@ -119,29 +120,12 @@ class Creatures extends React.Component {
             alt={availableToday ? "Available" : "Unavailable"}
           />
         </header>
-        <div className={collapsed ? "collapsed details" : "details"}>
-          <img
-            src={`./images/${this.props.activeItem}/${fileName}.png`}
-            alt={name}
-          />
-          {this.alternateBuyer(item)}
-          <p>{catchPhrase}</p>
-          <div>
-            <p>
-              <span role="img" aria-label="owl emoji">
-                🦉
-              </span>{" "}
-              Blathers' Take{" "}
-              <span role="img" aria-label="owl emoji">
-                🦉
-              </span>
-            </p>
-            <p>{museumPhrase}</p>
-          </div>
-          {this.props.activeItem === "fossils"
-            ? null
-            : this.displayAvailability(availability)}
-        </div>
+        <Details
+          activeItem={this.props.activeItem}
+          item={item}
+          alternateBuyer={this.alternateBuyer}
+          displayAvailability={this.displayAvailability}
+        />
       </div>
     );
   };
