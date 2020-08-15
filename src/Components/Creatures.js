@@ -1,10 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { properCase } from "../utils";
 
-class Creatures extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+class Creatures extends Component {
   alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish
     if (this.props.activeItem === "bugs") {
@@ -52,6 +49,14 @@ class Creatures extends React.Component {
     );
   };
 
+  displayItems = (item) => {
+    return (
+      <div key={item["file-name"]}>
+        {this.renderHeader(item)}
+        {this.renderDetails(item)}
+      </div>
+    );
+  };
   displayPrice = (item) => {
     if (this.props.sortBy === "cj") {
       return <h4>{item["price-cj"]} bells</h4>;
@@ -62,95 +67,107 @@ class Creatures extends React.Component {
     }
   };
 
-  displaySelection = () => {
-    return this.props.activeItems.map((item) => this.displayItems(item));
-  };
-
-  displayItems = (item) => {
+  renderAvailability = ({ availability }) => {
     let availableToday;
-    const {
-      name: { "name-USen": name },
-      "museum-phrase": museumPhrase,
-      "catch-phrase": catchPhrase,
-      "file-name": fileName,
-      availability,
-      collapsed
-    } = item;
-    if (this.props.activeItem === "fossils") {
-      availableToday = true;
-    } else {
-      availableToday = this.calculateAvailability(availability);
-    }
-    item.availableToday = availableToday;
+    this.props.activeItem === "fossils"
+      ? (availableToday = true)
+      : (availableToday = this.calculateAvailability(availability));
     return (
-      <div className="item" key={fileName}>
+      <img
+        src={
+          availableToday ? "./images/available.png" : "./images/unavailable.png"
+        }
+        alt={availableToday ? "Available" : "Unavailable"}
+      />
+    );
+  };
+  renderCollapse = (item) => {
+    return (
+      <img
+        src={item.collapsed ? "./images/expand.png" : "./images/collapse.png"}
+        alt={item.collapsed ? "Expand" : "Collapse"}
+        id="expandtoggle"
+        onClick={() =>
+          this.props.toggleCollapse(item["file-name"], this.props.activeItem)
+        }
+      />
+    );
+  };
+  renderDetails = (item) => {
+    return (
+      <div className={item.collapsed ? "collapsed details" : "details"}>
+        <img
+          src={`./images/${this.props.activeItem}/${item["file-name"]}.png`}
+          alt={item.name["name-USen"]}
+        />
+        {this.alternateBuyer(item)}
+        {this.renderPhrases(item)}
+        {this.props.activeItem === "fossils"
+          ? null
+          : this.displayAvailability(item.availability)}
+      </div>
+    );
+  };
+  renderHeader = (item) => {
+    return (
+      <div className="item">
         <header className="itemhead">
           <input
             type="checkbox"
             name="markcomplete"
-            value={name}
+            value={item.name["name-USen"]}
             onChange={this.props.markComplete}
-            checked={this.props.completed[this.props.activeItem].includes(name)} // If item included in Completed, renders the box to the page already checked
+            checked={this.props.completed[this.props.activeItem].includes(
+              item.name["name-USen"]
+            )} // If item included in Completed, renders the box to the page already checked
           />
-          <h3>{properCase(name)}</h3>
+          <h3>{properCase(item.name["name-USen"])}</h3>
           {this.displayPrice(item)}
-          <img
-            src={
-              this.props.activeItem === "fossils"
-                ? `./images/icons/fossil.png`
-                : `./images/icons/${this.props.activeItem}/${fileName}.png`
-            }
-            alt="{name}"
-          />
-          <img
-            src={collapsed ? "./images/expand.png" : "./images/collapse.png"}
-            alt={collapsed ? "Expand" : "Collapse"}
-            id="expandtoggle"
-            onClick={() =>
-              this.props.toggleCollapse(fileName, this.props.activeItem)
-            }
-          />
-          <img
-            src={
-              availableToday
-                ? "./images/available.png"
-                : "./images/unavailable.png"
-            }
-            alt={availableToday ? "Available" : "Unavailable"}
-          />
+          {this.renderIcon(item)}
+          {this.renderCollapse(item)}
+          {this.renderAvailability(item)}
         </header>
-        <div className={collapsed ? "collapsed details" : "details"}>
-          <img
-            src={`./images/${this.props.activeItem}/${fileName}.png`}
-            alt={name}
-          />
-          {this.alternateBuyer(item)}
-          <p>{catchPhrase}</p>
-          <div>
-            <p>
-              <span role="img" aria-label="owl emoji">
-                🦉
-              </span>{" "}
-              Blathers' Take{" "}
-              <span role="img" aria-label="owl emoji">
-                🦉
-              </span>
-            </p>
-            <p>{museumPhrase}</p>
-          </div>
-          {this.props.activeItem === "fossils"
-            ? null
-            : this.displayAvailability(availability)}
-        </div>
       </div>
     );
   };
-  render() {
-    const activeItem = this.props.activeItem;
+  renderIcon = (item) => {
+    return (
+      <img
+        src={
+          this.props.activeItem === "fossils"
+            ? `./images/icons/fossil.png`
+            : `./images/icons/${this.props.activeItem}/${item["file-name"]}.png`
+        }
+        alt={item.name["name-USen"]}
+      />
+    );
+  };
+
+  renderPhrases = (item) => {
     return (
       <>
-        <h2>{activeItem.toUpperCase()}</h2>
-        {this.displaySelection()}
+        <p>{item["catch-phrase"]}</p>
+        <div>
+          <p>
+            <span role="img" aria-label="owl emoji">
+              🦉
+            </span>
+            Blathers' Take
+            <span role="img" aria-label="owl emoji">
+              🦉
+            </span>
+          </p>
+          <p>{item["museum-phrase"]}</p>
+        </div>
+      </>
+    );
+  };
+
+  render() {
+    return (
+      <>
+        <h2>{this.props.activeItem.toUpperCase()}</h2>
+        {this.props.activeItems.map((item) => this.displayItems(item))}
       </>
     );
   }
