@@ -12,7 +12,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink
+  NavLink,
 } from "react-router-dom";
 
 class App extends React.Component {
@@ -29,7 +29,7 @@ class App extends React.Component {
         villagers: [],
         music: [],
         art: [],
-        completed: []
+        completed: [],
       },
       descending: false,
       limitToAvailable: false,
@@ -42,7 +42,7 @@ class App extends React.Component {
         "music",
         "villagers",
         "art",
-        "completed"
+        "completed",
       ],
       time: "",
       completed: {
@@ -52,9 +52,9 @@ class App extends React.Component {
         fossils: [],
         villagers: [],
         music: [],
-        art: []
+        art: [],
       },
-      searchValue: ""
+      searchValue: "",
     };
   }
 
@@ -81,7 +81,7 @@ class App extends React.Component {
           this.setState(
             {
               allItems: currentState,
-              activeItems: currentState[this.state.activeItem]
+              activeItems: currentState[this.state.activeItem],
             },
             this.sortAlpha
           );
@@ -98,7 +98,7 @@ class App extends React.Component {
   changeActiveItem = (newType) => {
     this.setState({
       activeItem: newType,
-      activeItems: this.state.allItems[newType]
+      activeItems: this.state.allItems[newType],
     });
   };
 
@@ -124,7 +124,7 @@ class App extends React.Component {
       fossils: [],
       villagers: [],
       music: [],
-      art: []
+      art: [],
     };
     localStorage.removeItem("completed");
     this.setState({ completed: clearedState });
@@ -148,6 +148,7 @@ class App extends React.Component {
   };
 
   markComplete = (e) => {
+    console.log(e);
     const currentState = this.state.completed;
     if (e.target.checked) {
       currentState[this.state.activeItem].push(e.target.value);
@@ -222,7 +223,7 @@ class App extends React.Component {
     } else {
       this.setState({
         searchValue: "",
-        activeItems: this.state.allItems[this.state.activeItem]
+        activeItems: this.state.allItems[this.state.activeItem],
       });
     }
   };
