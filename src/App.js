@@ -89,6 +89,12 @@ class App extends React.Component {
     }
   };
 
+  calculateAvailability = (availability) => {
+    const northernMonths = availability["month-array-northern"];
+    const currentMonth = this.state.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
+    return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
+  };
+
   changeActiveItem = (newType) => {
     this.setState({
       activeItem: newType,
@@ -233,7 +239,11 @@ class App extends React.Component {
     let activeItems = [];
     // If only looking at today, filters it so
     if (this.state.availableToday) {
-      activeItems = currentState.filter((item) => item.availableToday);
+      activeItems = currentState.filter((item) => {
+        return this.calculateAvailability(item.availability);
+        // console.log(item);
+        // return item.availableToday;
+      });
       // If not, checks to see if search field has value, and restores array matching that criteria
     } else {
       if (this.state.searchValue) {
