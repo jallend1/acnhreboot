@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { properCase } from "../utils";
 
 const Creatures = (props) => {
@@ -24,10 +24,6 @@ const Creatures = (props) => {
     const currentMonth = props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
-
-  // componentDidMount() {
-  //   props.changeActiveItem(props.activeItem);
-  // }
 
   const displayAvailability = (availability) => {
     return (
