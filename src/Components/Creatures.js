@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { properCase } from "../utils";
 
-class Creatures extends Component {
-  alternateBuyer = (item) => {
+const Creatures = (props) => {
+  const alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish
-    if (this.props.activeItem === "bugs") {
+    if (props.activeItem === "bugs") {
       return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>;
     } else if (item["price-cj"]) {
       return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>;
     }
   };
-  annualAvailability = (availability) => {
+  const annualAvailability = (availability) => {
     return (
       <>
         <p>Northern Hemisphere: {availability["month-northern"]}</p>
@@ -19,17 +19,17 @@ class Creatures extends Component {
     );
   };
 
-  calculateAvailability = (availability) => {
+  const calculateAvailability = (availability) => {
     const northernMonths = availability["month-array-northern"];
-    const currentMonth = this.props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
+    const currentMonth = props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
 
-  componentDidMount() {
-    this.props.changeActiveItem(this.props.activeItem);
-  }
+  // componentDidMount() {
+  //   props.changeActiveItem(props.activeItem);
+  // }
 
-  displayAvailability = (availability) => {
+  const displayAvailability = (availability) => {
     return (
       <div>
         <h4>Availability</h4>
@@ -41,7 +41,7 @@ class Creatures extends Component {
           Months:{" "}
           {availability.isAllYear
             ? "Available year-round"
-            : this.annualAvailability(availability)}
+            : annualAvailability(availability)}
         </div>
         <p>Location: {availability.location}</p>
         <p>Rarity: {availability.rarity}</p>
@@ -49,29 +49,29 @@ class Creatures extends Component {
     );
   };
 
-  displayItems = (item) => {
+  const displayItems = (item) => {
     return (
       <div key={item["file-name"]}>
-        {this.renderHeader(item)}
-        {this.renderDetails(item)}
+        {renderHeader(item)}
+        {renderDetails(item)}
       </div>
     );
   };
-  displayPrice = (item) => {
-    if (this.props.sortBy === "cj") {
+  const displayPrice = (item) => {
+    if (props.sortBy === "cj") {
       return <h4>{item["price-cj"]} bells</h4>;
-    } else if (this.props.sortBy === "flick") {
+    } else if (props.sortBy === "flick") {
       return <h4>{item["price-flick"]} bells</h4>;
     } else {
       return <h4>{item.price} bells</h4>;
     }
   };
 
-  renderAvailability = ({ availability }) => {
+  const renderAvailability = ({ availability }) => {
     let availableToday;
-    this.props.activeItem === "fossils"
+    props.activeItem === "fossils"
       ? (availableToday = true)
-      : (availableToday = this.calculateAvailability(availability));
+      : (availableToday = calculateAvailability(availability));
     return (
       <img
         src={
@@ -81,34 +81,34 @@ class Creatures extends Component {
       />
     );
   };
-  renderCollapse = (item) => {
+  const renderCollapse = (item) => {
     return (
       <img
         src={item.collapsed ? "./images/expand.png" : "./images/collapse.png"}
         alt={item.collapsed ? "Expand" : "Collapse"}
         id="expandtoggle"
         onClick={() =>
-          this.props.toggleCollapse(item["file-name"], this.props.activeItem)
+          props.toggleCollapse(item["file-name"], props.activeItem)
         }
       />
     );
   };
-  renderDetails = (item) => {
+  const renderDetails = (item) => {
     return (
       <div className={item.collapsed ? "collapsed details" : "details"}>
         <img
-          src={`./images/${this.props.activeItem}/${item["file-name"]}.png`}
+          src={`./images/${props.activeItem}/${item["file-name"]}.png`}
           alt={item.name["name-USen"]}
         />
-        {this.alternateBuyer(item)}
-        {this.renderPhrases(item)}
-        {this.props.activeItem === "fossils"
+        {alternateBuyer(item)}
+        {renderPhrases(item)}
+        {props.activeItem === "fossils"
           ? null
-          : this.displayAvailability(item.availability)}
+          : displayAvailability(item.availability)}
       </div>
     );
   };
-  renderHeader = (item) => {
+  const renderHeader = (item) => {
     return (
       <div className="item">
         <header className="itemhead">
@@ -116,34 +116,34 @@ class Creatures extends Component {
             type="checkbox"
             name="markcomplete"
             value={item.name["name-USen"]}
-            onChange={this.props.markComplete}
-            checked={this.props.completed[this.props.activeItem].includes(
+            onChange={props.markComplete}
+            checked={props.completed[props.activeItem].includes(
               item.name["name-USen"]
             )} // If item included in Completed, renders the box to the page already checked
           />
           <h3>{properCase(item.name["name-USen"])}</h3>
-          {this.displayPrice(item)}
-          {this.renderIcon(item)}
-          {this.renderCollapse(item)}
-          {this.renderAvailability(item)}
+          {displayPrice(item)}
+          {renderIcon(item)}
+          {renderCollapse(item)}
+          {renderAvailability(item)}
         </header>
       </div>
     );
   };
-  renderIcon = (item) => {
+  const renderIcon = (item) => {
     return (
       <img
         src={
-          this.props.activeItem === "fossils"
+          props.activeItem === "fossils"
             ? `./images/icons/fossil.png`
-            : `./images/icons/${this.props.activeItem}/${item["file-name"]}.png`
+            : `./images/icons/${props.activeItem}/${item["file-name"]}.png`
         }
         alt={item.name["name-USen"]}
       />
     );
   };
 
-  renderPhrases = (item) => {
+  const renderPhrases = (item) => {
     return (
       <>
         <p>{item["catch-phrase"]}</p>
@@ -162,15 +162,12 @@ class Creatures extends Component {
       </>
     );
   };
-
-  render() {
-    return (
-      <>
-        <h2>{this.props.activeItem.toUpperCase()}</h2>
-        {this.props.activeItems.map((item) => this.displayItems(item))}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h2>{props.activeItem.toUpperCase()}</h2>
+      {props.activeItems.map((item) => displayItems(item))}
+    </>
+  );
+};
 
 export default Creatures;

@@ -7,6 +7,7 @@ import Art from "./Components/Art";
 import Completed from "./Components/Completed";
 import Welcome from "./Components/Welcome";
 import Filter from "./Components/Filter";
+import Player from "./Components/Player";
 import { properCase } from "./utils";
 import {
   BrowserRouter as Router,
@@ -143,8 +144,7 @@ class App extends React.Component {
   };
 
   handleReset = (e) => {
-    //TODO: When enter is pressed while in input, do NOT reset page!
-    // const searchForm = document.querySelector('#searchForm');
+    e.preventDefault();
   };
 
   markComplete = (e) => {

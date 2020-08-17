@@ -1,6 +1,5 @@
 import React from "react";
 import Player from "./Player";
-import Song from "./Song";
 
 const Music = (props) => {
   const displaySelection = () => {
@@ -27,7 +26,7 @@ const Music = (props) => {
           src={`./images/${props.activeItem}/${fileName}.png`}
           data-song={fileName}
           alt={name}
-          onClick={playSong}
+          // onClick={playSong}
         />
         <div>
           <label htmlFor="markcomplete">Mark complete?</label>
@@ -48,10 +47,11 @@ const Music = (props) => {
     );
   };
 
-  const playSong = (e) => {
-    const activeSong = e.target.dataset.song;
-    this.setState({ activeSong });
-  };
+  // TODO: Restore playing functionality on main App page
+  // const playSong = (e) => {
+  //   const activeSong = e.target.dataset.song;
+  //   this.setState({ activeSong });
+  // };
 
   return (
     <>
