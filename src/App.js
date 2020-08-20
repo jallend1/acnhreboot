@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Creatures from "./Components/Creatures";
 import Music from "./Components/Music";
@@ -7,14 +8,8 @@ import Art from "./Components/Art";
 import Completed from "./Components/Completed";
 import Welcome from "./Components/Welcome";
 import Filter from "./Components/Filter";
+import NavBar from "./Components/NavBar";
 import Player from "./Components/Player";
-import { properCase } from "./utils";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -30,7 +25,7 @@ class App extends React.Component {
         villagers: [],
         music: [],
         art: [],
-        completed: [],
+        completed: []
       },
       descending: false,
       limitToAvailable: false,
@@ -43,7 +38,7 @@ class App extends React.Component {
         "music",
         "villagers",
         "art",
-        "completed",
+        "completed"
       ],
       time: "",
       completed: {
@@ -53,13 +48,14 @@ class App extends React.Component {
         fossils: [],
         villagers: [],
         music: [],
-        art: [],
+        art: []
       },
-      searchValue: "",
+      searchValue: ""
     };
   }
 
   componentDidMount() {
+    console.log("Mounted!");
     this.state.types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
     if (localStorage.getItem("completed") !== null) {
@@ -71,6 +67,7 @@ class App extends React.Component {
   }
 
   populateData = (dataType) => {
+    console.log("Populating data!");
     if (dataType !== "completed") {
       fetch(`./${dataType}.json`)
         .then((data) => data.json())
@@ -82,7 +79,7 @@ class App extends React.Component {
           this.setState(
             {
               allItems: currentState,
-              activeItems: currentState[this.state.activeItem],
+              activeItems: currentState[this.state.activeItem]
             },
             this.sortAlpha
           );
@@ -99,7 +96,7 @@ class App extends React.Component {
   changeActiveItem = (newType) => {
     this.setState({
       activeItem: newType,
-      activeItems: this.state.allItems[newType],
+      activeItems: this.state.allItems[newType]
     });
   };
 
@@ -125,7 +122,7 @@ class App extends React.Component {
       fossils: [],
       villagers: [],
       music: [],
-      art: [],
+      art: []
     };
     localStorage.removeItem("completed");
     this.setState({ completed: clearedState });
@@ -200,21 +197,6 @@ class App extends React.Component {
       this.setState({ allItems: currentState });
     });
   };
-  renderTypes = (types) => {
-    // Generates list of item types for NavBar
-    return types.map((type) => {
-      return (
-        <NavLink
-          to={`/${type}`}
-          key={type}
-          data-id={type}
-          onClick={this.changeToNew}
-        >
-          {properCase(type)}
-        </NavLink>
-      );
-    });
-  };
 
   searchField = (e) => {
     if (e.currentTarget.value) {
@@ -223,7 +205,7 @@ class App extends React.Component {
     } else {
       this.setState({
         searchValue: "",
-        activeItems: this.state.allItems[this.state.activeItem],
+        activeItems: this.state.allItems[this.state.activeItem]
       });
     }
   };
@@ -304,83 +286,28 @@ class App extends React.Component {
   // TODO : Universal active state? Allow filtering from main page, drying out code pretty dramatically; Routes in own file?
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Filter
-          activeItem={this.state.activeItem}
-          searchField={this.searchField}
-          handleReset={this.handleReset}
-          changeSort={this.changeSort}
-          collapseAll={this.collapseAll}
-          expandAll={this.expandAll}
-          toggleAvailable={this.toggleAvailable}
-          toggleDescending={this.toggleDescending}
-          descending={this.props.descending}
-        />
-        <Router>
-          <nav>
-            <ul>{this.renderTypes(this.state.types)}</ul>
-          </nav>
+      <BrowserRouter>
+        <div className="container">
+          <Header />
+          <Filter
+            activeItem={this.state.activeItem}
+            searchField={this.searchField}
+            handleReset={this.handleReset}
+            changeSort={this.changeSort}
+            collapseAll={this.collapseAll}
+            expandAll={this.expandAll}
+            toggleAvailable={this.toggleAvailable}
+            toggleDescending={this.toggleDescending}
+            descending={this.props.descending}
+          />
+          <NavBar changeToNew={this.changeToNew} types={this.state.types} />
+          {/* <ul>{this.renderTypes(this.state.types)}</ul> */}
           <button onClick={this.clearCollected}>
             Clear ALL completed items
           </button>
-          <Switch>
-            <Route path="/fish">
-              <Creatures
-                activeItem="fish"
-                activeItems={this.state.activeItems}
-                changeActiveItem={this.changeActiveItem}
-                toggleCollapse={this.toggleCollapse}
-                time={this.state.time}
-                availableToday={this.state.availableToday}
-                markComplete={this.markComplete}
-                sortBy={this.state.sortBy}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                showAvailable={this.showAvailable}
-              />
-            </Route>
-            <Route path="/bugs">
-              <Creatures
-                activeItem="bugs"
-                activeItems={this.state.activeItems}
-                toggleCollapse={this.toggleCollapse}
-                changeActiveItem={this.changeActiveItem}
-                time={this.state.time}
-                markComplete={this.markComplete}
-                sortBy={this.state.sortBy}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                showAvailable={this.showAvailable}
-              />
-            </Route>
-            <Route path="/sea">
-              <Creatures
-                activeItem="sea"
-                activeItems={this.state.activeItems}
-                toggleCollapse={this.toggleCollapse}
-                changeActiveItem={this.changeActiveItem}
-                time={this.state.time}
-                markComplete={this.markComplete}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                showAvailable={this.showAvailable}
-              />
-            </Route>
-            <Route path="/fossils">
-              <Creatures
-                activeItem="fossils"
-                activeItems={this.state.activeItems}
-                toggleCollapse={this.toggleCollapse}
-                changeActiveItem={this.changeActiveItem}
-                time={this.state.time}
-                markComplete={this.markComplete}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                showAvailable={this.showAvailable}
-              />
-            </Route>
-            <Route path="/music">
+          <Route
+            path="/music"
+            render={() => (
               <Music
                 allItems={this.state.allItems}
                 activeItem="music"
@@ -391,8 +318,11 @@ class App extends React.Component {
                 markComplete={this.markComplete}
                 completed={this.state.completed}
               />
-            </Route>
-            <Route path="/villagers">
+            )}
+          />
+          <Route
+            path="/villagers"
+            render={() => (
               <Villagers
                 allItems={this.state.allItems}
                 activeItem="villagers"
@@ -403,8 +333,11 @@ class App extends React.Component {
                 markComplete={this.markComplete}
                 completed={this.state.completed}
               />
-            </Route>
-            <Route path="/art">
+            )}
+          />
+          <Route
+            path="/art"
+            render={() => (
               <Art
                 activeItem="art"
                 changeActiveItem={this.changeActiveItem}
@@ -413,8 +346,11 @@ class App extends React.Component {
                 completed={this.state.completed}
                 allItems={this.state.allItems}
               />
-            </Route>
-            <Route path="/completed">
+            )}
+          />
+          <Route
+            path="/completed"
+            render={() => (
               <Completed
                 activeItem="completed"
                 changeActiveItem={this.changeActiveItem}
@@ -422,13 +358,87 @@ class App extends React.Component {
                 allItems={this.state.allItems}
                 populateComplete={this.populateComplete}
               />
-            </Route>
-            <Route path="/">
-              <Welcome />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
+            )}
+          />
+          {/* <Route
+            path="/creatures/:type"
+            render={() => (
+              <Creature
+                allItems={this.state.allItems}
+                activeItems={this.state.activeItems}
+                // activeItem="bugs"
+                // activeItems={this.state.activeItems}
+                // toggleCollapse={this.toggleCollapse}
+                // changeActiveItem={this.changeActiveItem}
+                // time={this.state.time}
+                // markComplete={this.markComplete}
+                // sortBy={this.state.sortBy}
+                // completed={this.state.completed}
+                // allItems={this.state.allItems}
+                // showAvailable={this.showAvailable}
+              />
+            )}
+          /> */}
+          <Route path="/fish">
+            <Creatures
+              activeItem="fish"
+              activeItems={this.state.activeItems}
+              changeActiveItem={this.changeActiveItem}
+              toggleCollapse={this.toggleCollapse}
+              time={this.state.time}
+              availableToday={this.state.availableToday}
+              markComplete={this.markComplete}
+              sortBy={this.state.sortBy}
+              completed={this.state.completed}
+              allItems={this.state.allItems}
+              showAvailable={this.showAvailable}
+            />
+          </Route>
+          <Route path="/bugs">
+            <Creatures
+              activeItem="bugs"
+              activeItems={this.state.activeItems}
+              toggleCollapse={this.toggleCollapse}
+              changeActiveItem={this.changeActiveItem}
+              time={this.state.time}
+              markComplete={this.markComplete}
+              sortBy={this.state.sortBy}
+              completed={this.state.completed}
+              allItems={this.state.allItems}
+              showAvailable={this.showAvailable}
+            />
+          </Route>
+          <Route path="/sea">
+            <Creatures
+              activeItem="sea"
+              activeItems={this.state.activeItems}
+              toggleCollapse={this.toggleCollapse}
+              changeActiveItem={this.changeActiveItem}
+              time={this.state.time}
+              markComplete={this.markComplete}
+              completed={this.state.completed}
+              allItems={this.state.allItems}
+              showAvailable={this.showAvailable}
+            />
+          </Route>
+          <Route path="/fossils">
+            <Creatures
+              activeItem="fossils"
+              activeItems={this.state.activeItems}
+              toggleCollapse={this.toggleCollapse}
+              changeActiveItem={this.changeActiveItem}
+              time={this.state.time}
+              markComplete={this.markComplete}
+              completed={this.state.completed}
+              allItems={this.state.allItems}
+              showAvailable={this.showAvailable}
+            />
+          </Route>
+          <Route path="/">
+            <Welcome />
+          </Route>
+        </div>
+      </BrowserRouter>
     );
   }
 }

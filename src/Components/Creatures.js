@@ -113,9 +113,10 @@ const Creatures = (props) => {
             name="markcomplete"
             value={item.name["name-USen"]}
             onChange={props.markComplete}
+            // If item included in Completed, renders the box to the page already checked
             checked={props.completed[props.activeItem].includes(
               item.name["name-USen"]
-            )} // If item included in Completed, renders the box to the page already checked
+            )}
           />
           <h3>{properCase(item.name["name-USen"])}</h3>
           {displayPrice(item)}
@@ -158,6 +159,7 @@ const Creatures = (props) => {
       </>
     );
   };
+
   return (
     <>
       <h2>{props.activeItem.toUpperCase()}</h2>
