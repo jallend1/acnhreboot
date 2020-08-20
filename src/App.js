@@ -28,7 +28,7 @@ class App extends React.Component {
         completed: []
       },
       descending: false,
-      limitToAvailable: false,
+      availableToday: false,
       sortBy: "alpha",
       types: [
         "fish",
