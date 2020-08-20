@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useParams } from "react-router-dom";
 import Header from "./Components/Header";
 import Creatures from "./Components/Creatures";
 import Music from "./Components/Music";
@@ -63,7 +63,9 @@ class App extends React.Component {
       const savedCompleted = localStorage.getItem("completed");
       this.setState({ completed: JSON.parse(savedCompleted) });
     }
-    this.setState({ time: now });
+    this.setState({
+      time: now
+    });
   }
 
   populateData = (dataType) => {
@@ -360,25 +362,6 @@ class App extends React.Component {
               />
             )}
           />
-          {/* <Route
-            path="/creatures/:type"
-            render={() => (
-              <Creature
-                allItems={this.state.allItems}
-                activeItems={this.state.activeItems}
-                // activeItem="bugs"
-                // activeItems={this.state.activeItems}
-                // toggleCollapse={this.toggleCollapse}
-                // changeActiveItem={this.changeActiveItem}
-                // time={this.state.time}
-                // markComplete={this.markComplete}
-                // sortBy={this.state.sortBy}
-                // completed={this.state.completed}
-                // allItems={this.state.allItems}
-                // showAvailable={this.showAvailable}
-              />
-            )}
-          /> */}
           <Route path="/fish">
             <Creatures
               activeItem="fish"

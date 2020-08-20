@@ -2,6 +2,7 @@ import React from "react";
 import { properCase } from "../utils";
 
 const Creatures = (props) => {
+  console.log(props);
   const alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish
     if (props.activeItem === "bugs") {
