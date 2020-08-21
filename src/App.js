@@ -352,71 +352,88 @@ class App extends React.Component {
           />
           <Route
             path="/completed"
-            render={() => (
+            render={(props) => (
               <Completed
                 activeItem="completed"
                 changeActiveItem={this.changeActiveItem}
                 completed={this.state.completed}
                 allItems={this.state.allItems}
                 populateComplete={this.populateComplete}
+                {...props}
               />
             )}
           />
-          <Route path="/fish">
-            <Creatures
-              activeItem="fish"
-              activeItems={this.state.activeItems}
-              changeActiveItem={this.changeActiveItem}
-              toggleCollapse={this.toggleCollapse}
-              time={this.state.time}
-              availableToday={this.state.availableToday}
-              markComplete={this.markComplete}
-              sortBy={this.state.sortBy}
-              completed={this.state.completed}
-              allItems={this.state.allItems}
-              showAvailable={this.showAvailable}
-            />
-          </Route>
-          <Route path="/bugs">
-            <Creatures
-              activeItem="bugs"
-              activeItems={this.state.activeItems}
-              toggleCollapse={this.toggleCollapse}
-              changeActiveItem={this.changeActiveItem}
-              time={this.state.time}
-              markComplete={this.markComplete}
-              sortBy={this.state.sortBy}
-              completed={this.state.completed}
-              allItems={this.state.allItems}
-              showAvailable={this.showAvailable}
-            />
-          </Route>
-          <Route path="/sea">
-            <Creatures
-              activeItem="sea"
-              activeItems={this.state.activeItems}
-              toggleCollapse={this.toggleCollapse}
-              changeActiveItem={this.changeActiveItem}
-              time={this.state.time}
-              markComplete={this.markComplete}
-              completed={this.state.completed}
-              allItems={this.state.allItems}
-              showAvailable={this.showAvailable}
-            />
-          </Route>
-          <Route path="/fossils">
-            <Creatures
-              activeItem="fossils"
-              activeItems={this.state.activeItems}
-              toggleCollapse={this.toggleCollapse}
-              changeActiveItem={this.changeActiveItem}
-              time={this.state.time}
-              markComplete={this.markComplete}
-              completed={this.state.completed}
-              allItems={this.state.allItems}
-              showAvailable={this.showAvailable}
-            />
-          </Route>
+          <Route
+            path="/:creature"
+            render={(props) => (
+              <Creatures
+                activeItem="fish"
+                activeItems={this.state.activeItems}
+                changeActiveItem={this.changeActiveItem}
+                toggleCollapse={this.toggleCollapse}
+                time={this.state.time}
+                availableToday={this.state.availableToday}
+                markComplete={this.markComplete}
+                sortBy={this.state.sortBy}
+                completed={this.state.completed}
+                allItems={this.state.allItems}
+                showAvailable={this.showAvailable}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/:creature"
+            render={(props) => (
+              <Creatures
+                activeItem="bugs"
+                activeItems={this.state.activeItems}
+                toggleCollapse={this.toggleCollapse}
+                changeActiveItem={this.changeActiveItem}
+                time={this.state.time}
+                markComplete={this.markComplete}
+                sortBy={this.state.sortBy}
+                completed={this.state.completed}
+                allItems={this.state.allItems}
+                showAvailable={this.showAvailable}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/:creature"
+            render={(props) => (
+              <Creatures
+                activeItem="sea"
+                activeItems={this.state.activeItems}
+                toggleCollapse={this.toggleCollapse}
+                changeActiveItem={this.changeActiveItem}
+                time={this.state.time}
+                markComplete={this.markComplete}
+                completed={this.state.completed}
+                allItems={this.state.allItems}
+                showAvailable={this.showAvailable}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/:creature"
+            render={(props) => (
+              <Creatures
+                activeItem="fossils"
+                activeItems={this.state.activeItems}
+                toggleCollapse={this.toggleCollapse}
+                changeActiveItem={this.changeActiveItem}
+                time={this.state.time}
+                markComplete={this.markComplete}
+                completed={this.state.completed}
+                allItems={this.state.allItems}
+                showAvailable={this.showAvailable}
+                {...props}
+              />
+            )}
+          />
           <Route path="/">
             <Welcome />
           </Route>

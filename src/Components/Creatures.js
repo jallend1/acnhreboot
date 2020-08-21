@@ -1,17 +1,35 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { properCase } from "../utils";
 
-const Creatures = (props) => {
-  console.log(props);
-  const alternateBuyer = (item) => {
+class Creatures extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeItem: "", activeItems: [] };
+  }
+
+  // populateData = (type) => {
+  //   fetch(`./${type}.json`)
+  //     .then((data) => data.json())
+  //     .then((results) => {
+  //       const itemList = Object.values(results);
+  //       itemList.forEach((item) => (item.collapsed = true));
+  //       this.setState(
+  //         { activeItems: itemList },
+  //         console.log(this.state.activeItems)
+  //       );
+  //     });
+  // };
+
+  alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish
-    if (props.activeItem === "bugs") {
+    if (this.props.activeItem === "bugs") {
       return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>;
     } else if (item["price-cj"]) {
       return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>;
     }
   };
-  const annualAvailability = (availability) => {
+  annualAvailability = (availability) => {
     return (
       <>
         <p>Northern Hemisphere: {availability["month-northern"]}</p>
@@ -20,13 +38,17 @@ const Creatures = (props) => {
     );
   };
 
-  const calculateAvailability = (availability) => {
+  calculateAvailability = (availability) => {
     const northernMonths = availability["month-array-northern"];
-    const currentMonth = props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
+    const currentMonth = this.props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
 
-  const displayAvailability = (availability) => {
+  componentDidMount() {
+    const activeItem = this.props.match.params.creature;
+    this.setState({ activeItem, activeItems: this.props.allItems[activeItem] });
+  }
+  displayAvailability = (availability) => {
     return (
       <div>
         <h4>Availability</h4>
@@ -38,7 +60,7 @@ const Creatures = (props) => {
           Months:{" "}
           {availability.isAllYear
             ? "Available year-round"
-            : annualAvailability(availability)}
+            : this.annualAvailability(availability)}
         </div>
         <p>Location: {availability.location}</p>
         <p>Rarity: {availability.rarity}</p>
@@ -46,29 +68,29 @@ const Creatures = (props) => {
     );
   };
 
-  const displayItems = (item) => {
+  displayItems = (item) => {
     return (
       <div key={item["file-name"]}>
-        {renderHeader(item)}
-        {renderDetails(item)}
+        {this.renderHeader(item)}
+        {this.renderDetails(item)}
       </div>
     );
   };
-  const displayPrice = (item) => {
-    if (props.sortBy === "cj") {
+  displayPrice = (item) => {
+    if (this.props.sortBy === "cj") {
       return <h4>{item["price-cj"]} bells</h4>;
-    } else if (props.sortBy === "flick") {
+    } else if (this.props.sortBy === "flick") {
       return <h4>{item["price-flick"]} bells</h4>;
     } else {
       return <h4>{item.price} bells</h4>;
     }
   };
 
-  const renderAvailability = ({ availability }) => {
+  renderAvailability = ({ availability }) => {
     let availableToday;
-    props.activeItem === "fossils"
+    this.props.activeItem === "fossils"
       ? (availableToday = true)
-      : (availableToday = calculateAvailability(availability));
+      : (availableToday = this.calculateAvailability(availability));
     return (
       <img
         src={
@@ -78,34 +100,34 @@ const Creatures = (props) => {
       />
     );
   };
-  const renderCollapse = (item) => {
+  renderCollapse = (item) => {
     return (
       <img
         src={item.collapsed ? "./images/expand.png" : "./images/collapse.png"}
         alt={item.collapsed ? "Expand" : "Collapse"}
         id="expandtoggle"
         onClick={() =>
-          props.toggleCollapse(item["file-name"], props.activeItem)
+          this.props.toggleCollapse(item["file-name"], this.props.activeItem)
         }
       />
     );
   };
-  const renderDetails = (item) => {
+  renderDetails = (item) => {
     return (
       <div className={item.collapsed ? "collapsed details" : "details"}>
         <img
-          src={`./images/${props.activeItem}/${item["file-name"]}.png`}
+          src={`./images/${this.props.activeItem}/${item["file-name"]}.png`}
           alt={item.name["name-USen"]}
         />
-        {alternateBuyer(item)}
-        {renderPhrases(item)}
-        {props.activeItem === "fossils"
+        {this.alternateBuyer(item)}
+        {this.renderPhrases(item)}
+        {this.props.activeItem === "fossils"
           ? null
-          : displayAvailability(item.availability)}
+          : this.displayAvailability(item.availability)}
       </div>
     );
   };
-  const renderHeader = (item) => {
+  renderHeader = (item) => {
     return (
       <div className="item">
         <header className="itemhead">
@@ -113,35 +135,35 @@ const Creatures = (props) => {
             type="checkbox"
             name="markcomplete"
             value={item.name["name-USen"]}
-            onChange={props.markComplete}
+            onChange={this.props.markComplete}
             // If item included in Completed, renders the box to the page already checked
-            checked={props.completed[props.activeItem].includes(
+            checked={this.props.completed[this.props.activeItem].includes(
               item.name["name-USen"]
             )}
           />
           <h3>{properCase(item.name["name-USen"])}</h3>
-          {displayPrice(item)}
-          {renderIcon(item)}
-          {renderCollapse(item)}
-          {renderAvailability(item)}
+          {this.displayPrice(item)}
+          {this.renderIcon(item)}
+          {this.renderCollapse(item)}
+          {this.renderAvailability(item)}
         </header>
       </div>
     );
   };
-  const renderIcon = (item) => {
+  renderIcon = (item) => {
     return (
       <img
         src={
-          props.activeItem === "fossils"
+          this.props.activeItem === "fossils"
             ? `./images/icons/fossil.png`
-            : `./images/icons/${props.activeItem}/${item["file-name"]}.png`
+            : `./images/icons/${this.props.activeItem}/${item["file-name"]}.png`
         }
         alt={item.name["name-USen"]}
       />
     );
   };
 
-  const renderPhrases = (item) => {
+  renderPhrases = (item) => {
     return (
       <>
         <p>{item["catch-phrase"]}</p>
@@ -160,13 +182,20 @@ const Creatures = (props) => {
       </>
     );
   };
-
-  return (
-    <>
-      <h2>{props.activeItem.toUpperCase()}</h2>
-      {props.activeItems.map((item) => displayItems(item))}
-    </>
-  );
-};
+  render() {
+    if (this.state.activeItems.length) {
+      return (
+        <>
+          <h2>{this.props.activeItem.toUpperCase()}</h2>
+          {this.props.allItems[this.state.activeItem].map((item) =>
+            this.displayItems(item)
+          )}
+          {/* {this.state.activeItems.map((item) => this.displayItems(item))} */}
+        </>
+      );
+    }
+    return <h2>Loading</h2>;
+  }
+}
 
 export default Creatures;
