@@ -4,9 +4,12 @@ import { properCase } from "../utils";
 class Creatures extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "", activeItems: [] };
+    this.state = { activeItem: "" };
   }
 
+  componentDidMount() {
+    this.props.changeActiveItem(this.props.match.params.creature);
+  }
   alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish
     if (this.props.activeItem === "bugs") {
@@ -168,10 +171,10 @@ class Creatures extends React.Component {
     return (
       <>
         <h2>{this.props.activeItem.toUpperCase()}</h2>
-        {this.props.allItems[this.props.activeItem].map((item) =>
+        {/* {this.props.allItems[this.props.activeItem].map((item) =>
           this.displayItems(item)
-        )}
-        {/* {this.state.activeItems.map((item) => this.displayItems(item))} */}
+        )} */}
+        {this.props.activeItems.map((item) => this.displayItems(item))}
       </>
     );
   }

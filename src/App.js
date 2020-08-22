@@ -222,11 +222,13 @@ class App extends React.Component {
     let activeItems = [];
     // If only looking at today, filters it so
     if (this.state.availableToday) {
-      activeItems = currentState.filter((item) => {
-        return this.calculateAvailability(item.availability);
-        // console.log(item);
-        // return item.availableToday;
-      });
+      this.state.activeItem === "fossils"
+        ? // If fossils, show them all
+          (activeItems = this.state.allItems[this.state.activeItem])
+        : //If anything else, compare their availability to the current time
+          (activeItems = currentState.filter((item) => {
+            return this.calculateAvailability(item.availability);
+          }));
       // If not, checks to see if search field has value, and restores array matching that criteria
     } else {
       if (this.state.searchValue) {
@@ -235,7 +237,7 @@ class App extends React.Component {
         ].filter((item) =>
           item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
         );
-        // If no search values, restores the original item list
+        // If nof iltering criteria, restores the original item list
       } else {
         activeItems = this.state.allItems[this.state.activeItem];
       }
@@ -307,7 +309,7 @@ class App extends React.Component {
           </button>
           <Route
             path="/music"
-            render={() => (
+            render={(props) => (
               <Music
                 allItems={this.state.allItems}
                 activeItem="music"
@@ -317,34 +319,37 @@ class App extends React.Component {
                 toggleCollapse={this.toggleCollapse}
                 markComplete={this.markComplete}
                 completed={this.state.completed}
+                {...props}
               />
             )}
           />
           <Route
             path="/villagers"
-            render={() => (
+            render={(props) => (
               <Villagers
+                activeItem={props.match.params.creature}
                 allItems={this.state.allItems}
-                activeItem="villagers"
                 changeActiveItem={this.changeActiveItem}
                 filtered={this.state.filtered}
                 toggleCollapse={this.toggleCollapse}
                 time={this.state.time}
                 markComplete={this.markComplete}
                 completed={this.state.completed}
+                {...props}
               />
             )}
           />
           <Route
             path="/art"
-            render={() => (
+            render={(props) => (
               <Art
-                activeItem="art"
+                activeItem={props.match.params.creature}
                 changeActiveItem={this.changeActiveItem}
                 toggleCollapse={this.toggleCollapse}
                 markComplete={this.markComplete}
                 completed={this.state.completed}
                 allItems={this.state.allItems}
+                {...props}
               />
             )}
           />
@@ -352,7 +357,7 @@ class App extends React.Component {
             path="/completed"
             render={(props) => (
               <Completed
-                activeItem="completed"
+                activeItem={props.match.params.creature}
                 changeActiveItem={this.changeActiveItem}
                 completed={this.state.completed}
                 allItems={this.state.allItems}
@@ -363,24 +368,22 @@ class App extends React.Component {
           />
           <Route
             path="/:creature"
-            render={(props) => {
-              return (
-                <Creatures
-                  activeItem={props.match.params.creature}
-                  activeItems={this.state.activeItems}
-                  changeActiveItem={this.changeActiveItem}
-                  toggleCollapse={this.toggleCollapse}
-                  time={this.state.time}
-                  availableToday={this.state.availableToday}
-                  markComplete={this.markComplete}
-                  sortBy={this.state.sortBy}
-                  completed={this.state.completed}
-                  allItems={this.state.allItems}
-                  showAvailable={this.showAvailable}
-                  {...props}
-                />
-              );
-            }}
+            render={(props) => (
+              <Creatures
+                activeItem={props.match.params.creature}
+                activeItems={this.state.activeItems}
+                changeActiveItem={this.changeActiveItem}
+                toggleCollapse={this.toggleCollapse}
+                time={this.state.time}
+                availableToday={this.state.availableToday}
+                markComplete={this.markComplete}
+                sortBy={this.state.sortBy}
+                completed={this.state.completed}
+                allItems={this.state.allItems}
+                showAvailable={this.showAvailable}
+                {...props}
+              />
+            )}
           />
           <Route path="/">
             <Welcome />
