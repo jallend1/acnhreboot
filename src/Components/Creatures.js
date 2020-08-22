@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { properCase } from "../utils";
 
 class Creatures extends React.Component {
@@ -7,19 +6,6 @@ class Creatures extends React.Component {
     super(props);
     this.state = { activeItem: "", activeItems: [] };
   }
-
-  // populateData = (type) => {
-  //   fetch(`./${type}.json`)
-  //     .then((data) => data.json())
-  //     .then((results) => {
-  //       const itemList = Object.values(results);
-  //       itemList.forEach((item) => (item.collapsed = true));
-  //       this.setState(
-  //         { activeItems: itemList },
-  //         console.log(this.state.activeItems)
-  //       );
-  //     });
-  // };
 
   alternateBuyer = (item) => {
     // In item details, shows Flick prices for bugs, CJ for fish
@@ -44,10 +30,6 @@ class Creatures extends React.Component {
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
 
-  componentDidMount() {
-    const activeItem = this.props.match.params.creature;
-    this.setState({ activeItem, activeItems: this.props.allItems[activeItem] });
-  }
   displayAvailability = (availability) => {
     return (
       <div>
@@ -183,18 +165,15 @@ class Creatures extends React.Component {
     );
   };
   render() {
-    if (this.state.activeItems.length) {
-      return (
-        <>
-          <h2>{this.props.activeItem.toUpperCase()}</h2>
-          {this.props.allItems[this.state.activeItem].map((item) =>
-            this.displayItems(item)
-          )}
-          {/* {this.state.activeItems.map((item) => this.displayItems(item))} */}
-        </>
-      );
-    }
-    return <h2>Loading</h2>;
+    return (
+      <>
+        <h2>{this.props.activeItem.toUpperCase()}</h2>
+        {this.props.allItems[this.props.activeItem].map((item) =>
+          this.displayItems(item)
+        )}
+        {/* {this.state.activeItems.map((item) => this.displayItems(item))} */}
+      </>
+    );
   }
 }
 
