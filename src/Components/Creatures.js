@@ -79,7 +79,9 @@ class Creatures extends React.Component {
     return (
       <img
         src={
-          availableToday ? "./images/available.png" : "./images/unavailable.png"
+          availableToday
+            ? "../images/available.png"
+            : "../images/unavailable.png"
         }
         alt={availableToday ? "Available" : "Unavailable"}
       />
@@ -88,7 +90,7 @@ class Creatures extends React.Component {
   renderCollapse = (item) => {
     return (
       <img
-        src={item.collapsed ? "./images/expand.png" : "./images/collapse.png"}
+        src={item.collapsed ? "../images/expand.png" : "../images/collapse.png"}
         alt={item.collapsed ? "Expand" : "Collapse"}
         id="expandtoggle"
         onClick={() =>
@@ -101,7 +103,7 @@ class Creatures extends React.Component {
     return (
       <div className={item.collapsed ? "collapsed details" : "details"}>
         <img
-          src={`./images/${this.props.activeItem}/${item["file-name"]}.png`}
+          src={`../images/${this.props.activeItem}/${item["file-name"]}.png`}
           alt={item.name["name-USen"]}
         />
         {this.alternateBuyer(item)}
@@ -140,8 +142,8 @@ class Creatures extends React.Component {
       <img
         src={
           this.props.activeItem === "fossils"
-            ? `./images/icons/fossil.png`
-            : `./images/icons/${this.props.activeItem}/${item["file-name"]}.png`
+            ? `../images/icons/fossil.png`
+            : `../images/icons/${this.props.activeItem}/${item["file-name"]}.png`
         }
         alt={item.name["name-USen"]}
       />

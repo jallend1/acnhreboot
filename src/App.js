@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Creatures from "./Components/Creatures";
 import Music from "./Components/Music";
@@ -69,7 +69,18 @@ class App extends React.Component {
 
   populateData = (dataType) => {
     if (dataType !== "completed") {
-      fetch(`./${dataType}.json`)
+      let jsonPath = "";
+      if (
+        dataType === "fish" ||
+        dataType === "bugs" ||
+        dataType === "sea" ||
+        dataType === "fossils"
+      ) {
+        jsonPath = `../${dataType}.json`;
+      } else {
+        jsonPath = `./${dataType}.json`;
+      }
+      fetch(jsonPath)
         .then((data) => data.json())
         .then((results) => {
           const itemList = Object.values(results);
@@ -303,7 +314,6 @@ class App extends React.Component {
             descending={this.props.descending}
           />
           <NavBar changeToNew={this.changeToNew} types={this.state.types} />
-          {/* <ul>{this.renderTypes(this.state.types)}</ul> */}
           <button onClick={this.clearCollected}>
             Clear ALL completed items
           </button>
@@ -327,7 +337,7 @@ class App extends React.Component {
             path="/villagers"
             render={(props) => (
               <Villagers
-                activeItem={props.match.params.creature}
+                activeItem="villagers"
                 allItems={this.state.allItems}
                 changeActiveItem={this.changeActiveItem}
                 filtered={this.state.filtered}
@@ -343,7 +353,7 @@ class App extends React.Component {
             path="/art"
             render={(props) => (
               <Art
-                activeItem={props.match.params.creature}
+                activeItem="art"
                 changeActiveItem={this.changeActiveItem}
                 toggleCollapse={this.toggleCollapse}
                 markComplete={this.markComplete}
@@ -357,7 +367,7 @@ class App extends React.Component {
             path="/completed"
             render={(props) => (
               <Completed
-                activeItem={props.match.params.creature}
+                activeItem="completed"
                 changeActiveItem={this.changeActiveItem}
                 completed={this.state.completed}
                 allItems={this.state.allItems}
@@ -367,23 +377,25 @@ class App extends React.Component {
             )}
           />
           <Route
-            path="/:creature"
-            render={(props) => (
-              <Creatures
-                activeItem={props.match.params.creature}
-                activeItems={this.state.activeItems}
-                changeActiveItem={this.changeActiveItem}
-                toggleCollapse={this.toggleCollapse}
-                time={this.state.time}
-                availableToday={this.state.availableToday}
-                markComplete={this.markComplete}
-                sortBy={this.state.sortBy}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                showAvailable={this.showAvailable}
-                {...props}
-              />
-            )}
+            path="/creatures/:creature"
+            render={(props) => {
+              return (
+                <Creatures
+                  activeItem={props.match.params.creature}
+                  activeItems={this.state.activeItems}
+                  changeActiveItem={this.changeActiveItem}
+                  toggleCollapse={this.toggleCollapse}
+                  time={this.state.time}
+                  availableToday={this.state.availableToday}
+                  markComplete={this.markComplete}
+                  sortBy={this.state.sortBy}
+                  completed={this.state.completed}
+                  allItems={this.state.allItems}
+                  showAvailable={this.showAvailable}
+                  {...props}
+                />
+              );
+            }}
           />
           <Route path="/">
             <Welcome />
