@@ -69,6 +69,7 @@ class App extends React.Component {
 
   populateData = (dataType) => {
     if (dataType !== "completed") {
+      // Compensating for JSON path change after adding /creature/ to base URL for creatures
       let jsonPath = "";
       if (
         dataType === "fish" ||
@@ -233,13 +234,19 @@ class App extends React.Component {
     let activeItems = [];
     // If only looking at today, filters it so
     if (this.state.availableToday) {
-      this.state.activeItem === "fossils"
-        ? // If fossils, show them all
-          (activeItems = this.state.allItems[this.state.activeItem])
-        : //If anything else, compare their availability to the current time
-          (activeItems = currentState.filter((item) => {
-            return this.calculateAvailability(item.availability);
-          }));
+      //If a living creature, compare their availability to the current time
+      if (
+        this.state.activeItem === "fish" ||
+        this.state.activeItem === "bugs" ||
+        this.state.activeItem === "sea"
+      ) {
+        activeItems = currentState.filter((item) => {
+          return this.calculateAvailability(item.availability);
+        });
+        // Everything else has full availability
+      } else {
+        activeItems = this.state.allItems[this.state.activeItem];
+      }
       // If not, checks to see if search field has value, and restores array matching that criteria
     } else {
       if (this.state.searchValue) {
@@ -248,7 +255,7 @@ class App extends React.Component {
         ].filter((item) =>
           item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
         );
-        // If nof iltering criteria, restores the original item list
+        // If no filtering criteria, restores the original item list
       } else {
         activeItems = this.state.allItems[this.state.activeItem];
       }

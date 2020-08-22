@@ -2,11 +2,6 @@ import React from "react";
 import { properCase } from "../utils";
 
 class Creatures extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeItem: "" };
-  }
-
   componentDidMount() {
     this.props.changeActiveItem(this.props.match.params.creature);
   }
@@ -173,9 +168,6 @@ class Creatures extends React.Component {
     return (
       <>
         <h2>{this.props.activeItem.toUpperCase()}</h2>
-        {/* {this.props.allItems[this.props.activeItem].map((item) =>
-          this.displayItems(item)
-        )} */}
         {this.props.activeItems.map((item) => this.displayItems(item))}
       </>
     );
