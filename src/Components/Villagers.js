@@ -18,6 +18,22 @@ class Villagers extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    const currentTime = new Date();
+    this.props.changeActiveItem("villagers");
+    this.setState({ time: currentTime });
+    this.compileDropdowns();
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props.searchValue !== prevProps.searchValue) {
+      this.filterVillagers();
+    }
+    if (this.props.activeItems !== prevProps.activeItems) {
+      this.birthdayCheck();
+    }
+  };
+
   birthdayCheck = () => {
     const birthdayBoys = [];
     this.props.allItems.villagers.forEach((villager) => {
@@ -109,19 +125,6 @@ class Villagers extends React.Component {
     this.setState({ species, personalities });
   };
 
-  componentDidMount = () => {
-    const currentTime = new Date();
-    this.props.changeActiveItem("villagers");
-    this.setState({ time: currentTime });
-    this.compileDropdowns();
-    this.birthdayCheck();
-  };
-
-  componentDidUpdate = (prevProps) => {
-    if (this.props.searchValue !== prevProps.searchValue) {
-      this.filterVillagers();
-    }
-  };
   displaySelection = () => {
     if (
       this.props.searchValue ||
@@ -263,7 +266,13 @@ class Villagers extends React.Component {
     return (
       <>
         <h2>{this.props.activeItem.toUpperCase()}</h2>
-        <div id="birthdays">{this.celebrateBirthday()}</div>
+        <div id="birthdays">
+          {this.props.activeItems.length > 0 ? (
+            this.celebrateBirthday()
+          ) : (
+            <h3>Checking the calendar for birthdays</h3>
+          )}
+        </div>
         <FilterVillagers
           filterVillagers={this.filterVillagers}
           searchCriteria={this.state.searchCriteria}
@@ -271,7 +280,11 @@ class Villagers extends React.Component {
           personalities={this.state.personalities}
           checkboxChange={this.checkboxChange}
         />
-        {this.displaySelection()}
+        {this.props.activeItems.length > 0 ? (
+          this.displaySelection()
+        ) : (
+          <h3>Gathering all the villagers</h3>
+        )}
       </>
     );
   }
