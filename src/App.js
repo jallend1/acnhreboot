@@ -157,7 +157,6 @@ class App extends React.Component {
   };
 
   markComplete = (e) => {
-    console.log(e);
     const currentState = this.state.completed;
     if (e.target.checked) {
       currentState[this.state.activeItem].push(e.target.value);
@@ -211,14 +210,11 @@ class App extends React.Component {
   };
 
   searchField = (e) => {
-    if (e.currentTarget.value) {
-      const searchValue = e.currentTarget.value.toLowerCase();
-      this.setState({ searchValue }, this.searchResults);
+    const searchValue = e.target.value;
+    if (this.state.activeItem !== "villagers") {
+      this.setState({ searchValue }, this.searchResults());
     } else {
-      this.setState({
-        searchValue: "",
-        activeItems: this.state.allItems[this.state.activeItem]
-      });
+      this.setState({ searchValue });
     }
   };
 
@@ -345,7 +341,9 @@ class App extends React.Component {
             render={(props) => (
               <Villagers
                 activeItem="villagers"
+                activeItems={this.state.activeItems}
                 allItems={this.state.allItems}
+                searchValue={this.state.searchValue}
                 changeActiveItem={this.changeActiveItem}
                 filtered={this.state.filtered}
                 toggleCollapse={this.toggleCollapse}

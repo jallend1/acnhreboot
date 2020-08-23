@@ -8,10 +8,9 @@ class Villagers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filtered: this.props.allItems.villagers,
+      filtered: this.props.activeItems,
       species: [],
       personalities: [],
-      searchTerm: "",
       searchSpecies: [],
       searchPersonality: [],
       searchBirthday: [],
@@ -118,9 +117,14 @@ class Villagers extends React.Component {
     this.birthdayCheck();
   };
 
+  componentDidUpdate = (prevProps) => {
+    if (this.props.searchValue !== prevProps.searchValue) {
+      this.filterVillagers();
+    }
+  };
   displaySelection = () => {
     if (
-      this.state.searchTerm ||
+      this.props.searchValue ||
       this.state.searchSpecies.length > 0 ||
       this.state.searchPersonality.length > 0 ||
       this.state.searchBirthday.length > 0
@@ -131,7 +135,7 @@ class Villagers extends React.Component {
       );
     } else {
       // If not, go with the original state
-      return this.props.allItems.villagers.map((villager) =>
+      return this.props.activeItems.map((villager) =>
         this.displayVillagers(villager)
       );
     }
@@ -205,15 +209,15 @@ class Villagers extends React.Component {
     );
   };
 
-  filterVillagers = (criteria) => {
-    let newResults = this.props.allItems.villagers;
-    const searchTerm = this.state.searchTerm;
+  filterVillagers = () => {
+    let newResults = this.props.activeItems;
+    const searchValue = this.props.searchValue;
     let searchSpecies = this.state.searchSpecies;
     let searchPersonality = this.state.searchPersonality;
     let searchBirthday = this.state.searchBirthday;
-    if (searchTerm) {
+    if (searchValue) {
       newResults = newResults.filter((villager) =>
-        villager.name["name-USen"].toLowerCase().includes(searchTerm)
+        villager.name["name-USen"].toLowerCase().includes(searchValue)
       );
     }
     if (searchSpecies.length > 0) {
@@ -233,12 +237,12 @@ class Villagers extends React.Component {
       });
     }
     if (
-      !searchTerm &&
+      searchValue === "" &&
       searchSpecies.length === 0 &&
       searchPersonality.length === 0 &&
       searchBirthday.length === 0
     ) {
-      newResults = this.props.allItems.villagers;
+      newResults = this.props.activeItems;
     }
     this.setState({ filtered: newResults });
   };
@@ -255,18 +259,6 @@ class Villagers extends React.Component {
     return birthDate;
   };
 
-  handleChange = (e) => {
-    if (e.currentTarget.value) {
-      let searchTerm = this.state.searchTerm;
-      const newSearchParams = e.currentTarget.value.toLowerCase();
-      searchTerm = newSearchParams;
-      this.setState({ searchTerm }, this.filterVillagers());
-    } else {
-      this.setState({
-        filtered: this.props.allItems.villagers
-      });
-    }
-  };
   render() {
     return (
       <>
