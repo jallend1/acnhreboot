@@ -1,5 +1,3 @@
-// TODO: When starting directly at /villagers, Villagers with birthdays do not display
-
 import React from "react";
 import FilterVillagers from "./FilterVillagers";
 import { properCase } from "../utils";
@@ -22,7 +20,6 @@ class Villagers extends React.Component {
     const currentTime = new Date();
     this.props.changeActiveItem("villagers");
     this.setState({ time: currentTime });
-    this.compileDropdowns();
   };
 
   componentDidUpdate = (prevProps) => {
@@ -31,6 +28,7 @@ class Villagers extends React.Component {
     }
     if (this.props.activeItems !== prevProps.activeItems) {
       this.birthdayCheck();
+      this.compileDropdowns();
     }
   };
 
