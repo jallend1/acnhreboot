@@ -134,10 +134,6 @@ class App extends React.Component {
     this.setState({ allItems: activeItemList });
   };
 
-  handleReset = (e) => {
-    e.preventDefault();
-  };
-
   markComplete = (e) => {
     const currentState = this.state.completed;
     if (e.target.checked) {
@@ -291,11 +287,12 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="container">
           <Header />
-          <Player activeSong={this.state.activeSong} />
+          {this.state.activeSong ? (
+            <Player activeSong={this.state.activeSong} />
+          ) : null}
           <Filter
             activeItem={this.state.activeItem}
             searchField={this.searchField}
-            handleReset={this.handleReset}
             changeSort={this.changeSort}
             collapseAll={this.collapseAll}
             expandAll={this.expandAll}
