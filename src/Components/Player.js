@@ -6,7 +6,7 @@ const Player = (props) => {
       <audio
         controls
         autoPlay
-        src={`./kk/${this.props.activeSong}.mp3`}
+        src={`./kk/${props.activeSong}.mp3`}
         type="audio/mpeg"
       />
     </div>

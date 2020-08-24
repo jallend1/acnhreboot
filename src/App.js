@@ -17,6 +17,7 @@ class App extends React.Component {
     this.state = {
       activeItem: "fish",
       activeItems: [],
+      activeSong: "",
       allItems: {
         fish: [],
         bugs: [],
@@ -174,6 +175,10 @@ class App extends React.Component {
     }
   };
 
+  playSong = (e) => {
+    const activeSong = e.target.dataset.song;
+    this.setState({ activeSong });
+  };
   populateComplete = () => {
     const currentState = this.state.allItems;
     const completed = this.state.completed;
@@ -305,6 +310,7 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="container">
           <Header />
+          <Player activeSong={this.state.activeSong} />
           <Filter
             activeItem={this.state.activeItem}
             searchField={this.searchField}
@@ -324,7 +330,6 @@ class App extends React.Component {
             path="/music"
             render={(props) => (
               <Music
-                // allItems={this.state.allItems}
                 activeItem="music"
                 activeItems={this.state.activeItems}
                 searchValue={this.state.searchValue}
