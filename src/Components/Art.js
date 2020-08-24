@@ -5,6 +5,11 @@ class Art extends React.Component {
   componentDidMount() {
     this.props.changeActiveItem(this.props.activeItem);
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.searchValue !== prevProps.searchValue) {
+      this.filterArt();
+    }
+  }
   displayArt = (art) => {
     const {
       "file-name": fileName,
@@ -32,6 +37,14 @@ class Art extends React.Component {
       </div>
     );
   };
+
+  filterArt = () => {
+    const searchValue = this.props.searchValue;
+    const displayedArt = this.props.allItems.art.filter((art) =>
+      art.name["name-USen"].includes(searchValue)
+    );
+    return displayedArt.map((art) => this.displayArt(art));
+  };
   render() {
     return (
       <>
@@ -40,11 +53,7 @@ class Art extends React.Component {
           <p>Redd sells all art for 4980 bells</p>
           <p>Nook buys all art for 1245 bells</p>
         </div>
-        <div id="artdisplay">
-          {this.props.allItems[this.props.activeItem].map((art) =>
-            this.displayArt(art)
-          )}
-        </div>
+        <div id="artdisplay">{this.filterArt()}</div>
       </>
     );
   }

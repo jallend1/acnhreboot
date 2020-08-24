@@ -268,12 +268,11 @@ class Villagers extends React.Component {
           {this.props.activeItems.length > 0 ? (
             this.celebrateBirthday()
           ) : (
-            <h3>Checking the calendar for birthdays</h3>
+            <h3>Running through the calendar looking for birthdays</h3>
           )}
         </div>
         <FilterVillagers
           filterVillagers={this.filterVillagers}
-          searchCriteria={this.state.searchCriteria}
           species={this.state.species}
           personalities={this.state.personalities}
           checkboxChange={this.checkboxChange}
@@ -281,7 +280,7 @@ class Villagers extends React.Component {
         {this.props.activeItems.length > 0 ? (
           this.displaySelection()
         ) : (
-          <h3>Gathering all the villagers</h3>
+          <h3>Gathering all the villagers...</h3>
         )}
       </>
     );

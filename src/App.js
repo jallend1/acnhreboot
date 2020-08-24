@@ -359,6 +359,7 @@ class App extends React.Component {
             render={(props) => (
               <Art
                 activeItem="art"
+                searchValue={this.state.searchValue}
                 changeActiveItem={this.changeActiveItem}
                 toggleCollapse={this.toggleCollapse}
                 markComplete={this.markComplete}
