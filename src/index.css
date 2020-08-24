@@ -136,12 +136,16 @@ li {
   max-width: 25%;
 }
 
-.card img {
-  /* max-width: 50%; */
+.card.song {
+  position: relative;
+}
+
+.card.song img {
   margin: auto;
   transition: transform 0.3s;
 }
 
 .card img:hover {
   transform: scale(1.5);
+  z-index: 1;
 }
