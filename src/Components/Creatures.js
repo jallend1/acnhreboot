@@ -58,11 +58,11 @@ class Creatures extends React.Component {
   };
   displayPrice = (item) => {
     if (this.props.sortBy === "cj") {
-      return <h4>{item["price-cj"]} bells</h4>;
+      return <h6>{item["price-cj"]} bells</h6>;
     } else if (this.props.sortBy === "flick") {
-      return <h4>{item["price-flick"]} bells</h4>;
+      return <h6>{item["price-flick"]} bells</h6>;
     } else {
-      return <h4>{item.price} bells</h4>;
+      return <h6>{item.price} bells</h6>;
     }
   };
 
@@ -123,7 +123,7 @@ class Creatures extends React.Component {
               item.name["name-USen"]
             )}
           />
-          <h3>{properCase(item.name["name-USen"])}</h3>
+          <h5>{properCase(item.name["name-USen"])}</h5>
           {this.displayPrice(item)}
           {this.renderIcon(item)}
           {this.renderCollapse(item)}

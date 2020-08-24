@@ -31,29 +31,37 @@ class Music extends React.Component {
       name: { "name-USen": name }
     } = song;
     return (
-      <div className="item song" key={fileName}>
-        <h3>{name}</h3>
-        <img
-          src={`./images/${this.props.activeItem}/${fileName}.png`}
-          data-song={fileName}
-          alt={name}
-          onClick={this.props.playSong}
-        />
-        <div>
-          <label htmlFor="markcomplete">Mark complete?</label>
-          <input
-            type="checkbox"
-            name="markcomplete"
-            value={name}
-            checked={this.props.completed[this.props.activeItem].includes(name)}
-            onChange={this.props.markComplete}
+      <div className="card song" key={fileName}>
+        <div className="card-image">
+          <img
+            src={`./images/${this.props.activeItem}/${fileName}.png`}
+            data-song={fileName}
+            alt={name}
+            onClick={this.props.playSong}
           />
         </div>
-        <p>
-          Purchase Price:{" "}
-          {buyPrice ? `${buyPrice} bells` : "Not available for purchase."}
-        </p>
-        <p>Sell Value: {sellPrice} bells</p>
+        <span className="card-title">{name}</span>
+        <div className="card-content">
+          <p>
+            Purchase Price:{" "}
+            {buyPrice ? `${buyPrice} bells` : "Not available for purchase."}
+          </p>
+          <p>Sell Value: {sellPrice} bells</p>
+        </div>
+        <div className="card-action">
+          <label>
+            <input
+              type="checkbox"
+              name="markcomplete"
+              value={name}
+              checked={this.props.completed[this.props.activeItem].includes(
+                name
+              )}
+              onChange={this.props.markComplete}
+            />
+            <span>Mark Complete</span>
+          </label>
+        </div>
       </div>
     );
   };
@@ -62,7 +70,9 @@ class Music extends React.Component {
     return (
       <>
         <h2>{this.props.activeItem.toUpperCase()}</h2>
-        <div id="songdisplay">{this.displaySelection()}</div>
+        <div className="container" id="songdisplay">
+          {this.displaySelection()}
+        </div>
       </>
     );
   }

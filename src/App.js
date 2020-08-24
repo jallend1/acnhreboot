@@ -192,7 +192,7 @@ class App extends React.Component {
   };
 
   searchField = (e) => {
-    const searchValue = e.target.value;
+    const searchValue = e.target.value.toLowerCase();
     if (this.state.activeItem !== "villagers") {
       this.setState({ searchValue }, this.searchResults());
     } else {
@@ -290,6 +290,11 @@ class App extends React.Component {
           {this.state.activeSong ? (
             <Player activeSong={this.state.activeSong} />
           ) : null}
+          <NavBar
+            activeItem={this.state.activeItem}
+            changeToNew={this.changeToNew}
+            types={Object.keys(this.state.allItems)}
+          />
           <Filter
             activeItem={this.state.activeItem}
             searchField={this.searchField}
@@ -299,10 +304,6 @@ class App extends React.Component {
             toggleAvailable={this.toggleAvailable}
             toggleDescending={this.toggleDescending}
             descending={this.props.descending}
-          />
-          <NavBar
-            changeToNew={this.changeToNew}
-            types={Object.keys(this.state.allItems)}
           />
           <button onClick={this.clearCollected}>
             Clear ALL completed items
