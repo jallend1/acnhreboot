@@ -324,11 +324,12 @@ class App extends React.Component {
             path="/music"
             render={(props) => (
               <Music
-                allItems={this.state.allItems}
+                // allItems={this.state.allItems}
                 activeItem="music"
+                activeItems={this.state.activeItems}
+                searchValue={this.state.searchValue}
                 changeActiveItem={this.changeActiveItem}
                 playSong={this.playSong}
-                filtered={this.state.filtered}
                 toggleCollapse={this.toggleCollapse}
                 markComplete={this.markComplete}
                 completed={this.state.completed}

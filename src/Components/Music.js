@@ -1,29 +1,41 @@
 import React from "react";
 import Player from "./Player";
 
-const Music = (props) => {
-  const displaySelection = () => {
-    if (props.searchValue) {
+class Music extends React.Component {
+  componentDidMount() {
+    this.props.changeActiveItem("music");
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.searchValue !== prevProps.searchValue) {
+      this.displaySelection();
+    }
+  }
+  displaySelection = () => {
+    if (this.props.searchValue) {
       // If there's a search term, return the filtered array
-      return props.filtered.map((item) => displaySongs(item));
+      return this.props.activeItems
+        .filter((song) =>
+          song.name["name-USen"].includes(this.props.searchValue)
+        )
+        .map((item) => this.displaySongs(item));
     } else {
       // If not, go with the original state
-      return props.allItems[props.activeItem].map((item) => displaySongs(item));
+      return this.props.activeItems.map((item) => this.displaySongs(item));
     }
   };
 
-  const displaySongs = (song) => {
+  displaySongs = (song) => {
     const {
       "file-name": fileName,
       "buy-price": buyPrice,
       "sell-price": sellPrice,
-      name: { "name-USen": name },
+      name: { "name-USen": name }
     } = song;
     return (
       <div className="item song" key={fileName}>
         <h3>{name}</h3>
         <img
-          src={`./images/${props.activeItem}/${fileName}.png`}
+          src={`./images/${this.props.activeItem}/${fileName}.png`}
           data-song={fileName}
           alt={name}
           // onClick={playSong}
@@ -34,8 +46,8 @@ const Music = (props) => {
             type="checkbox"
             name="markcomplete"
             value={name}
-            checked={props.completed[props.activeItem].includes(name)}
-            onChange={props.markComplete}
+            checked={this.props.completed[this.props.activeItem].includes(name)}
+            onChange={this.props.markComplete}
           />
         </div>
         <p>
@@ -52,16 +64,17 @@ const Music = (props) => {
   //   const activeSong = e.target.dataset.song;
   //   this.setState({ activeSong });
   // };
-
-  return (
-    <>
-      <h2>{props.activeItem.toUpperCase()}</h2>
-      <div id="songplayer">
-        {/* <Player activeSong={this.state.activeSong} /> */}
-      </div>
-      <div id="songdisplay">{displaySelection()}</div>
-    </>
-  );
-};
+  render() {
+    return (
+      <>
+        <h2>{this.props.activeItem.toUpperCase()}</h2>
+        <div id="songplayer">
+          {/* <Player activeSong={this.state.activeSong} /> */}
+        </div>
+        <div id="songdisplay">{this.displaySelection()}</div>
+      </>
+    );
+  }
+}
 
 export default Music;
