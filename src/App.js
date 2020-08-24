@@ -70,23 +70,10 @@ class App extends React.Component {
 
   populateData = (dataType) => {
     if (dataType !== "completed") {
-      //TODO Generates error when starting at Creature pages, but works properly starting elsewhere
-      // Compensating for JSON path change after adding /creature/ to base URL for creatures
-      let jsonPath = "";
-      if (
-        dataType === "fish" ||
-        dataType === "bugs" ||
-        dataType === "sea" ||
-        dataType === "fossils"
-      ) {
-        jsonPath = `../${dataType}.json`;
-      } else {
-        jsonPath = `./${dataType}.json`;
-      }
+      let jsonPath = `../${dataType}.json`;
       fetch(jsonPath)
         .then((data) => data.json())
         .then((results) => {
-          console.log(jsonPath);
           const itemList = Object.values(results);
           itemList.forEach((item) => (item.collapsed = true));
           const currentState = this.state.allItems;
