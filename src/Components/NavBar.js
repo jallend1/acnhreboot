@@ -11,13 +11,8 @@ const NavBar = (props) => {
         ? (url = `/creatures/${type}`)
         : (url = `/${type}`);
       return (
-        <li className={type === props.activeItem ? "active" : null}>
-          <NavLink
-            to={url}
-            key={type}
-            data-id={type}
-            onClick={props.changeToNew}
-          >
+        <li key={type} className={type === props.activeItem ? "active" : null}>
+          <NavLink to={url} data-id={type} onClick={props.changeToNew}>
             {properCase(type)}
           </NavLink>
         </li>
@@ -26,7 +21,7 @@ const NavBar = (props) => {
   };
   return (
     <nav>
-      <div class="nav-wrapper">
+      <div className="nav-wrapper">
         <ul className="green accent-2">{renderTypes(props.types)}</ul>
       </div>
     </nav>

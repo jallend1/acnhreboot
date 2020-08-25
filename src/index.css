@@ -10,8 +10,6 @@ body {
 }
 
 .container {
-  margin: auto;
-  width: 80%;
   background: white;
 }
 
@@ -48,7 +46,7 @@ li {
 }
 
 .item {
-  width: 60%;
+  /* max-width: 30%; */
   margin: auto;
   text-align: center;
 }
@@ -132,12 +130,18 @@ li {
   flex-wrap: wrap;
 }
 
-.card {
-  max-width: 25%;
+.items {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card.creature {
+  /* width: 30%; */
+  margin: auto;
+  text-align: center;
 }
 
 .card.song {
-  position: relative;
+  max-width: 25%;
 }
 
 .card.song img {
@@ -145,7 +149,7 @@ li {
   transition: transform 0.3s;
 }
 
-.card img:hover {
+.card.song img:hover {
   transform: scale(1.5);
   z-index: 1;
 }
