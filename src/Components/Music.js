@@ -39,6 +39,7 @@ class Music extends React.Component {
             alt={name}
             onClick={this.props.playSong}
           />
+          <div className="clicktoplay">Click to play</div>
         </div>
         <span className="card-title">{name}</span>
         <div className="card-content">
