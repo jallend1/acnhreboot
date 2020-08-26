@@ -1,5 +1,3 @@
-// TODO Villager Birthdays no longer populate UNLESS you go to /Villagers FIRST
-
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Components/Header";
