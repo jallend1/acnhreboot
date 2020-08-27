@@ -48,6 +48,31 @@ class Music extends React.Component {
             checked={this.props.completed[this.props.activeItem].includes(name)}
             onChange={this.props.markComplete}
           />
+<<<<<<< HEAD
+=======
+        </div>
+        <span className="card-title">{name}</span>
+        <div className="card-content">
+          <p>
+            Purchase Price:{" "}
+            {buyPrice ? `${buyPrice} bells` : "Not available for purchase."}
+          </p>
+          <p>Sell Value: {sellPrice} bells</p>
+        </div>
+        <div className="card-action">
+          <label>
+            <input
+              type="checkbox"
+              name="markcomplete"
+              value={name}
+              checked={this.props.completed[this.props.activeItem].includes(
+                name
+              )}
+              onChange={this.props.markComplete}
+            />
+            <span>Mark Complete</span>
+          </label>
+>>>>>>> parent of 53d3ba4... Continues basic Materialize CSS integration and adds notes to features to repair
         </div>
         <p>
           Purchase Price:{" "}
