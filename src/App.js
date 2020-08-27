@@ -31,6 +31,16 @@ class App extends React.Component {
       descending: false,
       availableToday: false,
       sortBy: "alpha",
+      types: [
+        "fish",
+        "bugs",
+        "sea",
+        "fossils",
+        "music",
+        "villagers",
+        "art",
+        "completed"
+      ],
       time: "",
       completed: {
         fish: [],
@@ -46,9 +56,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // Extracts the types of objects from State
-    const types = Object.keys(this.state.allItems);
-    types.forEach((item) => this.populateData(item)); //Populates all items into state on load
+    this.state.types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
     if (localStorage.getItem("completed") !== null) {
       //If any completed items exist in localStorage, makes them active
@@ -305,6 +313,7 @@ class App extends React.Component {
             toggleDescending={this.toggleDescending}
             descending={this.props.descending}
           />
+          <NavBar changeToNew={this.changeToNew} types={this.state.types} />
           <button onClick={this.clearCollected}>
             Clear ALL completed items
           </button>
