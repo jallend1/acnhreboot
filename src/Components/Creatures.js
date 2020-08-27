@@ -1,4 +1,5 @@
 import React from "react";
+import { properCase } from "../utils";
 import Creature from "./Creature";
 
 class Creatures extends React.Component {
