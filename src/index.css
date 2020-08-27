@@ -10,6 +10,8 @@ body {
 }
 
 .container {
+  margin: auto;
+  width: 80%;
   background: white;
 }
 
@@ -31,6 +33,8 @@ h3 {
 }
 
 ul {
+  margin-top: 0;
+  background-color: #bcf8cb;
   display: flex;
   justify-content: space-evenly;
 }
@@ -38,6 +42,8 @@ ul {
 li {
   list-style: none;
   display: inline;
+  margin: 2em;
+  color: #744436;
 }
 
 .player {
@@ -46,7 +52,7 @@ li {
 }
 
 .item {
-  /* max-width: 30%; */
+  width: 60%;
   margin: auto;
   text-align: center;
 }
@@ -130,25 +136,16 @@ li {
   flex-wrap: wrap;
 }
 
-.items {
-  display: flex;
-  flex-wrap: wrap;
-}
-.card.creature {
-  /* width: 30%; */
-  margin: auto;
+.song {
+  max-width: 300px;
   text-align: center;
 }
 
-.card.song {
-  max-width: 25%;
-}
-
-.card.song img {
-  margin: auto;
+.song img {
+  max-width: 150px;
   transition: transform 0.3s;
 }
 
-.card.song img:hover {
+.song img:hover {
   transform: scale(1.5);
 }
