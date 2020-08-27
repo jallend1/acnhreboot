@@ -1,18 +1,68 @@
 import React from "react";
 import { properCase } from "../utils";
-import Creature from "./Creature";
 
 class Creatures extends React.Component {
   componentDidMount() {
     this.props.changeActiveItem(this.props.match.params.creature);
   }
+  alternateBuyer = (item) => {
+    // In item details, shows Flick prices for bugs, CJ for fish
+    if (this.props.activeItem === "bugs") {
+      return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>;
+    } else if (item["price-cj"]) {
+      return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>;
+    }
+  };
+  annualAvailability = (availability) => {
+    return (
+      <>
+        <p>Northern Hemisphere: {availability["month-northern"]}</p>
+        <p>Southern Hemisphere: {availability["month-southern"]}</p>
+      </>
+    );
+  };
+
+  calculateAvailability = (availability) => {
+    const northernMonths = availability["month-array-northern"];
+    const currentMonth = this.props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
+    return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
+  };
+
+  displayAvailability = (availability) => {
+    return (
+      <div>
+        <h4>Availability</h4>
+        <div>
+          Time:{" "}
+          {availability.isAllDay ? "Available all day" : availability.time}
+        </div>
+        <div>
+          Months:{" "}
+          {availability.isAllYear
+            ? "Available year-round"
+            : this.annualAvailability(availability)}
+        </div>
+        <p>Location: {availability.location}</p>
+        <p>Rarity: {availability.rarity}</p>
+      </div>
+    );
+  };
+
+  displayItems = (item) => {
+    return (
+      <div key={item["file-name"]}>
+        {this.renderHeader(item)}
+        {this.renderDetails(item)}
+      </div>
+    );
+  };
   displayPrice = (item) => {
     if (this.props.sortBy === "cj") {
-      return <h4>{item["price-cj"]} bells</h4>;
+      return <h6>{item["price-cj"]} bells</h6>;
     } else if (this.props.sortBy === "flick") {
-      return <h4>{item["price-flick"]} bells</h4>;
+      return <h6>{item["price-flick"]} bells</h6>;
     } else {
-      return <h4>{item.price} bells</h4>;
+      return <h6>{item.price} bells</h6>;
     }
   };
 
@@ -73,7 +123,7 @@ class Creatures extends React.Component {
               item.name["name-USen"]
             )}
           />
-          <h3>{properCase(item.name["name-USen"])}</h3>
+          <h5>{properCase(item.name["name-USen"])}</h5>
           {this.displayPrice(item)}
           {this.renderIcon(item)}
           {this.renderCollapse(item)}
@@ -116,23 +166,10 @@ class Creatures extends React.Component {
   };
   render() {
     return (
-      <div className="container">
+      <>
         <h2>{this.props.activeItem.toUpperCase()}</h2>
-        <div className="items">
-          {/* {this.props.activeItems.map((item) => this.displayItems(item))} */}
-          {this.props.activeItems.map((item) => (
-            <Creature
-              item={item}
-              displayPrice={this.displayPrice}
-              activeItem={this.props.activeItem}
-              key={item.name["name-USen"]}
-              time={this.props.time}
-              markComplete={this.props.markComplete}
-              completed={this.props.completed}
-            />
-          ))}
-        </div>
-      </div>
+        {this.props.activeItems.map((item) => this.displayItems(item))}
+      </>
     );
   }
 }

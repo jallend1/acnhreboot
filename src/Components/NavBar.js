@@ -11,15 +11,24 @@ const NavBar = (props) => {
         ? (url = `/creatures/${type}`)
         : (url = `/${type}`);
       return (
-        <NavLink to={url} key={type} data-id={type} onClick={props.changeToNew}>
-          {properCase(type)}
-        </NavLink>
+        <li className={type === props.activeItem ? "active" : null}>
+          <NavLink
+            to={url}
+            key={type}
+            data-id={type}
+            onClick={props.changeToNew}
+          >
+            {properCase(type)}
+          </NavLink>
+        </li>
       );
     });
   };
   return (
     <nav>
-      <ul>{renderTypes(props.types)}</ul>
+      <div class="nav-wrapper">
+        <ul className="green accent-2">{renderTypes(props.types)}</ul>
+      </div>
     </nav>
   );
 };

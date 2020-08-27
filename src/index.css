@@ -33,8 +33,6 @@ h3 {
 }
 
 ul {
-  margin-top: 0;
-  background-color: #bcf8cb;
   display: flex;
   justify-content: space-evenly;
 }
@@ -42,8 +40,6 @@ ul {
 li {
   list-style: none;
   display: inline;
-  margin: 2em;
-  color: #744436;
 }
 
 .player {
@@ -136,16 +132,20 @@ li {
   flex-wrap: wrap;
 }
 
-.song {
-  max-width: 300px;
-  text-align: center;
+.card {
+  max-width: 25%;
 }
 
-.song img {
-  max-width: 150px;
+.card.song {
+  position: relative;
+}
+
+.card.song img {
+  margin: auto;
   transition: transform 0.3s;
 }
 
-.song img:hover {
+.card img:hover {
   transform: scale(1.5);
+  z-index: 1;
 }

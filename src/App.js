@@ -1,3 +1,5 @@
+// TODO Villager Birthdays no longer populate UNLESS you go to /Villagers FIRST
+
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Components/Header";
@@ -31,16 +33,6 @@ class App extends React.Component {
       descending: false,
       availableToday: false,
       sortBy: "alpha",
-      types: [
-        "fish",
-        "bugs",
-        "sea",
-        "fossils",
-        "music",
-        "villagers",
-        "art",
-        "completed"
-      ],
       time: "",
       completed: {
         fish: [],
@@ -56,7 +48,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.state.types.forEach((item) => this.populateData(item)); //Populates all items into state on load
+    // Extracts the types of objects from State
+    const types = Object.keys(this.state.allItems);
+    types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
     if (localStorage.getItem("completed") !== null) {
       //If any completed items exist in localStorage, makes them active
@@ -200,7 +194,7 @@ class App extends React.Component {
   };
 
   searchField = (e) => {
-    const searchValue = e.target.value;
+    const searchValue = e.target.value.toLowerCase();
     if (this.state.activeItem !== "villagers") {
       this.setState({ searchValue }, this.searchResults());
     } else {
@@ -298,6 +292,11 @@ class App extends React.Component {
           {this.state.activeSong ? (
             <Player activeSong={this.state.activeSong} />
           ) : null}
+          <NavBar
+            activeItem={this.state.activeItem}
+            changeToNew={this.changeToNew}
+            types={Object.keys(this.state.allItems)}
+          />
           <Filter
             activeItem={this.state.activeItem}
             searchField={this.searchField}
@@ -307,10 +306,6 @@ class App extends React.Component {
             toggleAvailable={this.toggleAvailable}
             toggleDescending={this.toggleDescending}
             descending={this.props.descending}
-          />
-          <NavBar
-            changeToNew={this.changeToNew}
-            types={Object.keys(this.state.allItems)}
           />
           <button onClick={this.clearCollected}>
             Clear ALL completed items
