@@ -76,9 +76,9 @@ class Filter extends React.Component {
     return (
       <>
         <form id="searchForm">
-          <div class="input-field">
-            <i class="material-icons prefix">search</i>
-            <label htmlFor="search" class="active">
+          <div className="input-field">
+            <i className="material-icons prefix">search</i>
+            <label htmlFor="search" className="active">
               Search for items...
             </label>
             <input

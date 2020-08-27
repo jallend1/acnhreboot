@@ -50,10 +50,10 @@ class Creatures extends React.Component {
 
   displayItems = (item) => {
     return (
-      <div key={item["file-name"]}>
+      <tr key={item["file-name"]}>
         {this.renderHeader(item)}
         {this.renderDetails(item)}
-      </div>
+      </tr>
     );
   };
   displayPrice = (item) => {
@@ -111,25 +111,30 @@ class Creatures extends React.Component {
   };
   renderHeader = (item) => {
     return (
-      <div className="item">
-        <header className="itemhead">
-          <input
-            type="checkbox"
-            name="markcomplete"
-            value={item.name["name-USen"]}
-            onChange={this.props.markComplete}
-            // If item included in Completed, renders the box to the page already checked
-            checked={this.props.completed[this.props.activeItem].includes(
-              item.name["name-USen"]
-            )}
-          />
+      <>
+        <td>
+          <label>
+            <input
+              type="checkbox"
+              name="markcomplete"
+              value={item.name["name-USen"]}
+              onChange={this.props.markComplete}
+              // If item included in Completed, renders the box to the page already checked
+              checked={this.props.completed[this.props.activeItem].includes(
+                item.name["name-USen"]
+              )}
+            />
+            <span>Mark Complete</span>
+          </label>
+        </td>
+        <td>
           <h5>{properCase(item.name["name-USen"])}</h5>
-          {this.displayPrice(item)}
-          {this.renderIcon(item)}
-          {this.renderCollapse(item)}
-          {this.renderAvailability(item)}
-        </header>
-      </div>
+        </td>
+        <td>{this.displayPrice(item)}</td>
+        <td>{this.renderIcon(item)}</td>
+        <td>{this.renderCollapse(item)}</td>
+        <td>{this.renderAvailability(item)}</td>
+      </>
     );
   };
   renderIcon = (item) => {
@@ -167,8 +172,21 @@ class Creatures extends React.Component {
   render() {
     return (
       <>
-        <h2>{this.props.activeItem.toUpperCase()}</h2>
-        {this.props.activeItems.map((item) => this.displayItems(item))}
+        <h5>{this.props.activeItem.toUpperCase()}</h5>
+        <table>
+          <thead>
+            <tr>
+              <th>Complete?</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Icon</th>
+              <th>Available Now</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.activeItems.map((item) => this.displayItems(item))}
+          </tbody>
+        </table>
       </>
     );
   }
