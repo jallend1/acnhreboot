@@ -47,6 +47,10 @@ li {
   text-align: center;
 }
 
+.hiddenrow {
+  display: none;
+}
+
 /* .item {
   width: 60%;
   margin: auto;

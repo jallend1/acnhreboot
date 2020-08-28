@@ -5,22 +5,6 @@ class Creatures extends React.Component {
   componentDidMount() {
     this.props.changeActiveItem(this.props.match.params.creature);
   }
-  alternateBuyer = (item) => {
-    // In item details, shows Flick prices for bugs, CJ for fish
-    if (this.props.activeItem === "bugs") {
-      return <h4 id="flick">Flick's Price: {item["price-flick"]} bells</h4>;
-    } else if (item["price-cj"]) {
-      return <h4 id="cj">CJ's Price: {item["price-cj"]} bells</h4>;
-    }
-  };
-  annualAvailability = (availability) => {
-    return (
-      <>
-        <p>Northern Hemisphere: {availability["month-northern"]}</p>
-        <p>Southern Hemisphere: {availability["month-southern"]}</p>
-      </>
-    );
-  };
 
   calculateAvailability = (availability) => {
     const northernMonths = availability["month-array-northern"];
@@ -28,32 +12,14 @@ class Creatures extends React.Component {
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
 
-  displayAvailability = (availability) => {
-    return (
-      <div>
-        <h4>Availability</h4>
-        <div>
-          Time:{" "}
-          {availability.isAllDay ? "Available all day" : availability.time}
-        </div>
-        <div>
-          Months:{" "}
-          {availability.isAllYear
-            ? "Available year-round"
-            : this.annualAvailability(availability)}
-        </div>
-        <p>Location: {availability.location}</p>
-        <p>Rarity: {availability.rarity}</p>
-      </div>
-    );
-  };
-
   displayItems = (item) => {
     return (
-      <tr key={item["file-name"]}>
-        {this.renderHeader(item)}
-        {this.renderDetails(item)}
-      </tr>
+      <>
+        <tr key={item["file-name"]}>{this.renderHeader(item)}</tr>
+        <tr>
+          <td>{this.renderDetails(item)}</td>
+        </tr>
+      </>
     );
   };
   displayPrice = (item) => {
@@ -96,19 +62,113 @@ class Creatures extends React.Component {
   };
   renderDetails = (item) => {
     return (
-      <div className={item.collapsed ? "collapsed details" : "details"}>
+      <>
         <img
           src={`../images/${this.props.activeItem}/${item["file-name"]}.png`}
           alt={item.name["name-USen"]}
         />
-        {this.alternateBuyer(item)}
-        {this.renderPhrases(item)}
-        {this.props.activeItem === "fossils"
-          ? null
-          : this.displayAvailability(item.availability)}
-      </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Pricing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nook's Price: </td>
+              <td>{item.price} bells</td>
+            </tr>
+            <tr>
+              <td>{item["price-cj"] ? "CJ's Price:" : "Flick's Price"}</td>
+              <td>
+                {item["price-cj"] ? item["price-cj"] : item["price-flick"]}{" "}
+                bells
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {this.props.activeItem === "fossils" ? null : ( //Anything other than fossils, display availability
+          <table>
+            <thead>
+              <tr>
+                <th>Availability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Location:</td>
+                <td>{item.availability.location}</td>
+              </tr>
+              <tr>
+                <td>Rarity:</td>
+                <td>{item.availability.rarity}</td>
+              </tr>
+              <tr>
+                <td>Time:</td>
+                <td>
+                  {item.availability.isAllDay
+                    ? "Available all day"
+                    : item.availability.time}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Months</th>
+              </tr>
+              <tr>
+                <td>Northern Hempishere:</td>
+                <td>
+                  {item.availability.isAllYear
+                    ? "Available year-round"
+                    : item.availability["month-northern"]}
+                </td>
+              </tr>
+              <tr>
+                <td>Southern Hemisphere:</td>
+                <td>
+                  {item.availability.isAllYear
+                    ? "Available year-round"
+                    : item.availability["month-southern"]}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+        <table>
+          <thead>
+            <tr>
+              <th>Catch Phrase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{item["catch-phrase"]}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span role="img" aria-label="owl emoji">
+                  🦉
+                </span>
+                Blathers' Take
+                <span role="img" aria-label="owl emoji">
+                  🦉
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{item["museum-phrase"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </>
     );
   };
+
   renderHeader = (item) => {
     return (
       <>
@@ -150,25 +210,6 @@ class Creatures extends React.Component {
     );
   };
 
-  renderPhrases = (item) => {
-    return (
-      <>
-        <p>{item["catch-phrase"]}</p>
-        <div>
-          <p>
-            <span role="img" aria-label="owl emoji">
-              🦉
-            </span>
-            Blathers' Take
-            <span role="img" aria-label="owl emoji">
-              🦉
-            </span>
-          </p>
-          <p>{item["museum-phrase"]}</p>
-        </div>
-      </>
-    );
-  };
   render() {
     return (
       <>
@@ -180,6 +221,7 @@ class Creatures extends React.Component {
               <th>Name</th>
               <th>Price</th>
               <th>Icon</th>
+              <th>Expand</th>
               <th>Available Now</th>
             </tr>
           </thead>
