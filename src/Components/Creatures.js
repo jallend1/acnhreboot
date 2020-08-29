@@ -35,15 +35,10 @@ class Creatures extends React.Component {
     this.props.activeItem === "fossils"
       ? (availableToday = true)
       : (availableToday = this.calculateAvailability(availability));
-    return (
-      <img
-        src={
-          availableToday
-            ? "../images/available.png"
-            : "../images/unavailable.png"
-        }
-        alt={availableToday ? "Available" : "Unavailable"}
-      />
+    return availableToday ? (
+      <i className="material-icons green-text">check_circle</i>
+    ) : (
+      <i className="material-icons red-text">cancel</i>
     );
   };
   renderCollapse = (item) => {
