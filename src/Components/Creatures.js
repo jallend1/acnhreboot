@@ -68,7 +68,7 @@ class Creatures extends React.Component {
     if (this.props.activeItem !== "fossils") {
       return (
         // this.props.activeItem === "fossils" ? null : ( //Anything other than fossils, display availability
-        <table className="centered">
+        <table className="detailsTable centered">
           <thead>
             <tr>
               <th colSpan="2">Availability</th>
@@ -119,9 +119,9 @@ class Creatures extends React.Component {
   };
   tableInfo = (item) => {
     return (
-      <table>
+      <table className="detailsTable">
         <caption>
-          Detailed info on the {properCase(item.name["name-USen"])}
+          <q>{item["catch-phrase"]}</q>
         </caption>
         <thead>
           <tr>
@@ -131,11 +131,6 @@ class Creatures extends React.Component {
                 alt={item.name["name-USen"]}
               />
             </th>
-          </tr>
-          <tr>
-            <td colSpan="2" className="center">
-              {item["catch-phrase"]}
-            </td>
           </tr>
         </thead>
         <tbody>
@@ -166,7 +161,7 @@ class Creatures extends React.Component {
   };
   tablePricing = (item) => {
     return (
-      <table className="centered">
+      <table className="centered detailsTable">
         <thead>
           <tr>
             <th colSpan="2" className="center">

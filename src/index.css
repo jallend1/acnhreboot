@@ -157,3 +157,8 @@ li {
   transform: scale(1.5);
   z-index: 1;
 }
+
+.detailsTable {
+  max-width: 60%;
+  margin: auto;
+}
