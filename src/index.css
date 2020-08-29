@@ -47,8 +47,17 @@ li {
   text-align: center;
 }
 
-.hiddenrow {
-  display: none;
+.image {
+  width: 60%;
+  text-align: center;
+}
+
+.image img {
+  max-width: 512px;
+}
+
+.blathers {
+  width: 100%;
 }
 
 /* .item {
@@ -81,11 +90,6 @@ li {
 
 .collapsed {
   display: none;
-}
-
-#expandtoggle {
-  max-height: 30px;
-  padding-top: 1em;
 }
 
 .checkboxes {

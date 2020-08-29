@@ -16,9 +16,7 @@ class Creatures extends React.Component {
     return (
       <>
         <tr key={item["file-name"]}>{this.renderHeader(item)}</tr>
-        <tr>
-          <td>{this.renderDetails(item)}</td>
-        </tr>
+        {this.renderDetails(item)}
       </>
     );
   };
@@ -49,106 +47,113 @@ class Creatures extends React.Component {
     );
   };
   renderCollapse = (item) => {
-    return (
-      <img
-        src={item.collapsed ? "../images/expand.png" : "../images/collapse.png"}
-        alt={item.collapsed ? "Expand" : "Collapse"}
-        id="expandtoggle"
+    return item.collapsed ? (
+      <i
+        className="material-icons"
         onClick={() =>
           this.props.toggleCollapse(item["file-name"], this.props.activeItem)
         }
-      />
+      >
+        expand_more
+      </i>
+    ) : (
+      <i
+        className="material-icons"
+        onClick={() =>
+          this.props.toggleCollapse(item["file-name"], this.props.activeItem)
+        }
+      >
+        expand_less
+      </i>
     );
   };
-  renderDetails = (item) => {
-    return (
-      <>
-        <img
-          src={`../images/${this.props.activeItem}/${item["file-name"]}.png`}
-          alt={item.name["name-USen"]}
-        />
-        <table>
+
+  // Returns pricing information portion of Creature details
+  tableAvailability = (item) => {
+    if (this.props.activeItem !== "fossils") {
+      return (
+        // this.props.activeItem === "fossils" ? null : ( //Anything other than fossils, display availability
+        <table className="centered">
           <thead>
             <tr>
-              <th>Pricing</th>
+              <th colSpan="2">Availability</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Nook's Price: </td>
-              <td>{item.price} bells</td>
+              <td>Location:</td>
+              <td>{item.availability.location}</td>
             </tr>
             <tr>
-              <td>{item["price-cj"] ? "CJ's Price:" : "Flick's Price"}</td>
+              <td>Rarity:</td>
+              <td>{item.availability.rarity}</td>
+            </tr>
+            <tr>
+              <td>Time:</td>
               <td>
-                {item["price-cj"] ? item["price-cj"] : item["price-flick"]}{" "}
-                bells
+                {item.availability.isAllDay
+                  ? "Available all day"
+                  : item.availability.time}
+              </td>
+            </tr>
+            <tr>
+              <th colSpan="2" className="center">
+                Months
+              </th>
+            </tr>
+            <tr>
+              <td>Northern Hempishere:</td>
+              <td>
+                {item.availability.isAllYear
+                  ? "Available year-round"
+                  : item.availability["month-northern"]}
+              </td>
+            </tr>
+            <tr>
+              <td>Southern Hemisphere:</td>
+              <td>
+                {item.availability.isAllYear
+                  ? "Available year-round"
+                  : item.availability["month-southern"]}
               </td>
             </tr>
           </tbody>
         </table>
-        {this.props.activeItem === "fossils" ? null : ( //Anything other than fossils, display availability
-          <table>
-            <thead>
-              <tr>
-                <th>Availability</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Location:</td>
-                <td>{item.availability.location}</td>
-              </tr>
-              <tr>
-                <td>Rarity:</td>
-                <td>{item.availability.rarity}</td>
-              </tr>
-              <tr>
-                <td>Time:</td>
-                <td>
-                  {item.availability.isAllDay
-                    ? "Available all day"
-                    : item.availability.time}
-                </td>
-              </tr>
-              <tr>
-                <th colSpan="2">Months</th>
-              </tr>
-              <tr>
-                <td>Northern Hempishere:</td>
-                <td>
-                  {item.availability.isAllYear
-                    ? "Available year-round"
-                    : item.availability["month-northern"]}
-                </td>
-              </tr>
-              <tr>
-                <td>Southern Hemisphere:</td>
-                <td>
-                  {item.availability.isAllYear
-                    ? "Available year-round"
-                    : item.availability["month-southern"]}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        )}
-        <table>
-          <thead>
-            <tr>
-              <th>Catch Phrase</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{item["catch-phrase"]}</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>
+      );
+    }
+  };
+  tableInfo = (item) => {
+    return (
+      <table>
+        <caption>
+          Detailed info on the {properCase(item.name["name-USen"])}
+        </caption>
+        <thead>
+          <tr>
+            <th colSpan="2" className="image">
+              <img
+                src={`../images/${this.props.activeItem}/${item["file-name"]}.png`}
+                alt={item.name["name-USen"]}
+              />
+            </th>
+          </tr>
+          <tr>
+            <td colSpan="2" className="center">
+              {item["catch-phrase"]}
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img
+                src="../images/blathers.png"
+                alt="Blathers the Owl"
+                className="blathers"
+              />
+            </td>
+            <td>
+              <h5 className="center">
                 <span role="img" aria-label="owl emoji">
                   🦉
                 </span>
@@ -156,23 +161,63 @@ class Creatures extends React.Component {
                 <span role="img" aria-label="owl emoji">
                   🦉
                 </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{item["museum-phrase"]}</td>
-            </tr>
-          </tbody>
-        </table>
-      </>
+              </h5>
+              <blockquote>{item["museum-phrase"]}</blockquote>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     );
+  };
+  tablePricing = (item) => {
+    return (
+      <table className="centered">
+        <thead>
+          <tr>
+            <th colSpan="2" className="center">
+              Pricing
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nook's Price: </td>
+            <td>{item.price} bells</td>
+          </tr>
+          <tr>
+            <td>{item["price-cj"] ? "CJ's Price:" : "Flick's Price"}</td>
+            <td>
+              {item["price-cj"] ? item["price-cj"] : item["price-flick"]} bells
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
+
+  renderDetails = (item) => {
+    if (item.collapsed === false) {
+      return (
+        <>
+          <tr>
+            {/* Makes the single cell containing the new table span the width of the parent table  */}
+            <td colSpan="6">
+              {this.tableInfo(item)}
+              {this.tablePricing(item)}
+              {this.tableAvailability(item)}
+            </td>
+          </tr>
+        </>
+      );
+    } else {
+      return null;
+    }
   };
 
   renderHeader = (item) => {
     return (
       <>
-        <td>
+        <td key={item.name["name-USen"] + "header"}>
           <label>
             <input
               type="checkbox"
@@ -213,22 +258,24 @@ class Creatures extends React.Component {
   render() {
     return (
       <>
-        <h5>{this.props.activeItem.toUpperCase()}</h5>
-        <table>
-          <thead>
-            <tr>
-              <th>Complete?</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Icon</th>
-              <th>Expand</th>
-              <th>Available Now</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.activeItems.map((item) => this.displayItems(item))}
-          </tbody>
-        </table>
+        <div className="container">
+          <h5>{this.props.activeItem.toUpperCase()}</h5>
+          <table className="highlight">
+            <thead>
+              <tr>
+                <th>Complete?</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Icon</th>
+                <th>Expand</th>
+                <th>Available Now</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.activeItems.map((item) => this.displayItems(item))}
+            </tbody>
+          </table>
+        </div>
       </>
     );
   }
