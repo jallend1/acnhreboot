@@ -176,13 +176,39 @@ class Villagers extends React.Component {
             alt={name}
           />
           <h4>{catchPhrase}</h4>
+          {villager.collapsed ? (
+            <i
+              className="material-icons"
+              onClick={() =>
+                this.props.toggleCollapse(
+                  villager["file-name"],
+                  this.props.activeItem
+                )
+              }
+            >
+              expand_more
+            </i>
+          ) : (
+            <i
+              className="material-icons"
+              onClick={() =>
+                this.props.toggleCollapse(
+                  villager["file-name"],
+                  this.props.activeItem
+                )
+              }
+            >
+              expand_less
+            </i>
+          )}
+          {/*           
           <img
             src={collapsed ? "./images/expand.png" : "./images/collapse.png"}
             alt={collapsed ? "Expand" : "Collapse"}
             onClick={() =>
               this.props.toggleCollapse(fileName, this.props.activeItem)
             }
-          />
+          /> */}
           <input
             type="checkbox"
             name="markcomplete"
