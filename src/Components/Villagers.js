@@ -168,15 +168,15 @@ class Villagers extends React.Component {
       villager.birthdayDaysAway += 365;
     }
     return (
-      <div className="item" key={fileName}>
-        <header className="itemhead">
+      <div className="card villager center" key={fileName}>
+        <header>
           <h3>{isBirthday ? `🎉${name}🎉` : name}</h3>
           <img
             src={`./images/icons/${this.props.activeItem}/${fileName}.png`}
             alt={name}
           />
           <h4>{catchPhrase}</h4>
-          {villager.collapsed ? (
+          {/* {villager.collapsed ? (
             <i
               className="material-icons"
               onClick={() =>
@@ -200,15 +200,7 @@ class Villagers extends React.Component {
             >
               expand_less
             </i>
-          )}
-          {/*           
-          <img
-            src={collapsed ? "./images/expand.png" : "./images/collapse.png"}
-            alt={collapsed ? "Expand" : "Collapse"}
-            onClick={() =>
-              this.props.toggleCollapse(fileName, this.props.activeItem)
-            }
-          /> */}
+          )} */}
           <input
             type="checkbox"
             name="markcomplete"
@@ -217,13 +209,15 @@ class Villagers extends React.Component {
             checked={this.props.completed.villagers.includes(name)}
           />
         </header>
-        <div className={collapsed ? "details collapsed" : "details"}>
+        <div className="details">
+          {/* <div className={collapsed ? "details collapsed" : "details"}> */}
           <img
-            src={
-              collapsed
-                ? "null"
-                : `./images/${this.props.activeItem}/${fileName}.png`
-            }
+            src={`./images/${this.props.activeItem}/${fileName}.png`}
+            // src={
+            //   collapsed
+            //     ? "null"
+            //     : `./images/${this.props.activeItem}/${fileName}.png`
+            // }
             alt="{name}"
           />
           <p>Personality: {personality}</p>
@@ -303,11 +297,13 @@ class Villagers extends React.Component {
           personalities={this.state.personalities}
           checkboxChange={this.checkboxChange}
         />
-        {this.props.activeItems.length > 0 ? (
-          this.displaySelection()
-        ) : (
-          <h3>Gathering all the villagers...</h3>
-        )}
+        <div id="villagers">
+          {this.props.activeItems.length > 0 ? (
+            this.displaySelection()
+          ) : (
+            <h3>Gathering all the villagers...</h3>
+          )}
+        </div>
       </>
     );
   }

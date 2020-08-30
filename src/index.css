@@ -60,12 +60,6 @@ li {
   width: 100%;
 }
 
-/* .item {
-  width: 60%;
-  margin: auto;
-  text-align: center;
-} */
-
 .item img {
   max-width: 400px;
 }
@@ -140,12 +134,13 @@ li {
   flex-wrap: wrap;
 }
 
-.card {
-  max-width: 25%;
+.card.villager {
 }
 
 .card.song {
+  max-width: 25%;
   position: relative;
+  margin: 2em;
 }
 
 .card.song img {
@@ -161,4 +156,14 @@ li {
 .detailsTable {
   max-width: 60%;
   margin: auto;
+}
+
+#villagers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.villager {
+  margin: 2rem;
 }
