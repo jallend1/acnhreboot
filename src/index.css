@@ -134,7 +134,41 @@ li {
   flex-wrap: wrap;
 }
 
-.card.villager {
+.villagerdetails {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: opacity 1000ms;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.villagerdetails.active {
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+}
+
+.popup {
+  margin: 2em auto;
+  padding: 2em;
+  background: #fff;
+  border-radius: 3%;
+  width: 30%;
+  position: relative;
+}
+
+.popup .close {
+  position: absolute;
+  top: 1%;
+  right: 5%;
+}
+
+.popup img {
+  border-radius: 10%;
 }
 
 .card.song {

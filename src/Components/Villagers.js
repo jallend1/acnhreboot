@@ -1,6 +1,7 @@
 import React from "react";
 import FilterVillagers from "./FilterVillagers";
 import { properCase } from "../utils";
+import Popup from "./Popup";
 
 class Villagers extends React.Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Villagers extends React.Component {
       searchSpecies: [],
       searchPersonality: [],
       searchBirthday: [],
-      birthdayBoys: []
+      birthdayBoys: [],
+      activeCard: ""
     };
   }
 
@@ -20,6 +22,7 @@ class Villagers extends React.Component {
     const currentTime = new Date();
     this.props.changeActiveItem("villagers");
     this.setState({ time: currentTime });
+    this.birthdayCheck();
   };
 
   componentDidUpdate = (prevProps) => {
@@ -32,14 +35,13 @@ class Villagers extends React.Component {
     }
   };
 
+  activateCard = (cardID) => {
+    this.setState({ activeCard: cardID });
+  };
   birthdayCheck = () => {
     const birthdayBoys = [];
     this.props.allItems.villagers.forEach((villager) => {
-      const birthDate = this.fixBirthday(villager); // Changes each birthdate in API from DD/MM to MM/DD
-      if (
-        birthDate.getMonth() === this.props.time.getMonth() &&
-        birthDate.getDate() === this.props.time.getDate()
-      ) {
+      if (villager.isBirthday) {
         // If that matches local time, push them into birthday array
         birthdayBoys.push([
           villager.personality,
@@ -146,20 +148,15 @@ class Villagers extends React.Component {
     const {
       "file-name": fileName,
       "catch-phrase": catchPhrase,
-      gender,
-      personality,
-      species,
-      name: { "name-USen": name },
-      "birthday-string": birthday,
-      collapsed
+      name: { "name-USen": name }
     } = villager;
-    let isBirthday = false;
+    villager.isBirthday = false;
     const birthDate = this.fixBirthday(villager);
     if (
       birthDate.getMonth() === this.props.time.getMonth() &&
       birthDate.getDate() === this.props.time.getDate()
     ) {
-      isBirthday = true;
+      villager.isBirthday = true;
     }
     villager.birthdayDaysAway = Math.ceil(
       (birthDate - this.props.time) / (1000 * 3600 * 24)
@@ -168,66 +165,36 @@ class Villagers extends React.Component {
       villager.birthdayDaysAway += 365;
     }
     return (
-      <div className="card villager center" key={fileName}>
-        <header>
-          <h3>{isBirthday ? `🎉${name}🎉` : name}</h3>
-          <img
-            src={`./images/icons/${this.props.activeItem}/${fileName}.png`}
-            alt={name}
-          />
-          <h4>{catchPhrase}</h4>
-          {/* {villager.collapsed ? (
+      <>
+        <div className="card villager center" key={fileName}>
+          <header>
+            <h3>{villager.isBirthday ? `🎉${name}🎉` : name}</h3>
+            <img
+              src={`./images/icons/${this.props.activeItem}/${fileName}.png`}
+              alt={name}
+            />
+            <h4>"{properCase(catchPhrase)}"</h4>
             <i
               className="material-icons"
-              onClick={() =>
-                this.props.toggleCollapse(
-                  villager["file-name"],
-                  this.props.activeItem
-                )
-              }
+              onClick={() => this.activateCard(fileName)}
             >
-              expand_more
+              more_horiz
             </i>
-          ) : (
-            <i
-              className="material-icons"
-              onClick={() =>
-                this.props.toggleCollapse(
-                  villager["file-name"],
-                  this.props.activeItem
-                )
-              }
-            >
-              expand_less
-            </i>
-          )} */}
-          <input
-            type="checkbox"
-            name="markcomplete"
-            value={name}
-            onChange={this.props.markComplete}
-            checked={this.props.completed.villagers.includes(name)}
-          />
-        </header>
-        <div className="details">
-          {/* <div className={collapsed ? "details collapsed" : "details"}> */}
-          <img
-            src={`./images/${this.props.activeItem}/${fileName}.png`}
-            // src={
-            //   collapsed
-            //     ? "null"
-            //     : `./images/${this.props.activeItem}/${fileName}.png`
-            // }
-            alt="{name}"
-          />
-          <p>Personality: {personality}</p>
-          <p>Gender: {gender}</p>
-          <p>Species: {species}</p>
-          <p>Birthday: {birthday}</p>
-          <p>Days until birthday: {villager.birthdayDaysAway}</p>
+            <input
+              type="checkbox"
+              name="markcomplete"
+              value={name}
+              onChange={this.props.markComplete}
+              checked={this.props.completed.villagers.includes(name)}
+            />
+          </header>
         </div>
-      </div>
+      </>
     );
+  };
+
+  closeDetails = () => {
+    this.setState({ activeCard: "" });
   };
 
   filterVillagers = () => {
@@ -288,7 +255,7 @@ class Villagers extends React.Component {
           {this.props.activeItems.length > 0 ? (
             this.celebrateBirthday()
           ) : (
-            <h3>Running through the calendar looking for birthdays</h3>
+            <h5>Running through the calendar looking for birthdays</h5>
           )}
         </div>
         <FilterVillagers
@@ -304,6 +271,13 @@ class Villagers extends React.Component {
             <h3>Gathering all the villagers...</h3>
           )}
         </div>
+        {this.state.activeCard ? (
+          <Popup
+            villagers={this.props.activeItems}
+            activeCard={this.state.activeCard}
+            closeDetails={this.closeDetails}
+          />
+        ) : null}
       </>
     );
   }
