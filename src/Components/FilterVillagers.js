@@ -19,13 +19,15 @@ class FilterVillagers extends React.Component {
     return months.map((month) => {
       return (
         <div className="options" key={month}>
-          <input
-            type="checkbox"
-            name="birthday"
-            value={month}
-            onChange={this.props.checkboxChange}
-          />
-          <label htmlFor={month}>{month}</label>
+          <label>
+            <input
+              type="checkbox"
+              name="birthday"
+              value={month}
+              onChange={this.props.checkboxChange}
+            />
+            <span>{month}</span>
+          </label>
         </div>
       );
     });
@@ -35,14 +37,16 @@ class FilterVillagers extends React.Component {
     return this.props.species.map((species) => {
       return (
         <div className="options" key={species}>
-          <input
-            type="checkbox"
-            id={species}
-            name="species"
-            value={species}
-            onChange={this.props.checkboxChange}
-          />
-          <label htmlFor={species}>{species}</label>
+          <label>
+            <input
+              type="checkbox"
+              id={species}
+              name="species"
+              value={species}
+              onChange={this.props.checkboxChange}
+            />
+            <span>{species}</span>
+          </label>
         </div>
       );
     });
@@ -51,14 +55,16 @@ class FilterVillagers extends React.Component {
     return this.props.personalities.map((personality) => {
       return (
         <div className="options" key={personality}>
-          <input
-            type="checkbox"
-            id={personality}
-            name="personality"
-            value={personality}
-            onChange={this.props.checkboxChange}
-          />
-          <label htmlFor={personality}>{personality}</label>
+          <label>
+            <input
+              type="checkbox"
+              id={personality}
+              name="personality"
+              value={personality}
+              onChange={this.props.checkboxChange}
+            />
+            <span>{personality}</span>
+          </label>
         </div>
       );
     });

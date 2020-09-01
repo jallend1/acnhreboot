@@ -93,7 +93,7 @@ li {
 }
 
 .options {
-  padding: 5px 5px 0 0;
+  padding: 2em 2em 0 0;
 }
 
 #birthdays {
@@ -144,6 +144,7 @@ li {
   visibility: hidden;
   opacity: 0;
   background: rgba(0, 0, 0, 0.8);
+  text-align: center;
 }
 
 .villagerdetails.active {

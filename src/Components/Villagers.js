@@ -23,6 +23,7 @@ class Villagers extends React.Component {
     this.props.changeActiveItem("villagers");
     this.setState({ time: currentTime });
     this.birthdayCheck();
+    this.compileDropdowns();
   };
 
   componentDidUpdate = (prevProps) => {
