@@ -3,6 +3,9 @@ import React from "react";
 const Player = (props) => {
   return (
     <div id="player">
+      <div>
+        <img id="songposter" src={`./images/music/${props.activeSong}.png`} />
+      </div>
       <audio
         controls
         autoPlay

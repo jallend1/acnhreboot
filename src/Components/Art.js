@@ -17,21 +17,25 @@ class Art extends React.Component {
       hasFake
     } = art;
     return (
-      <div className="song" id="artwork" key={name}>
+      <div className="song center" id="artwork" key={name}>
         <h3>{properCase(name)}</h3>
         <img
           src={`./images/${this.props.activeItem}/${fileName}.png`}
           alt={name}
         />
         <div>
-          <input
-            name="markcomplete"
-            type="checkbox"
-            value={name}
-            onChange={this.props.markComplete}
-            checked={this.props.completed[this.props.activeItem].includes(name)}
-          />
-          <label htmlFor="markcomplete">Mark complete?</label>
+          <label>
+            <input
+              name="markcomplete"
+              type="checkbox"
+              value={name}
+              onChange={this.props.markComplete}
+              checked={this.props.completed[this.props.activeItem].includes(
+                name
+              )}
+            />
+            <span>Mark Complete</span>
+          </label>
         </div>
         <p>Has a fake version? {hasFake ? "Yes" : "No"}</p>
       </div>

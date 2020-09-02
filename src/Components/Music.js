@@ -31,7 +31,7 @@ class Music extends React.Component {
       name: { "name-USen": name }
     } = song;
     return (
-      <div className="card song" key={fileName}>
+      <div className="card song center" key={fileName}>
         <div className="card-image">
           <img
             src={`./images/${this.props.activeItem}/${fileName}.png`}

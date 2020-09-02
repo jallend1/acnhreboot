@@ -120,6 +120,14 @@ li {
   border-top: 3px solid black;
 }
 
+#songposter {
+  max-height: 150px;
+}
+
+audio {
+  transform: scale(1.1);
+}
+
 #songplayer {
   width: 100%;
 }

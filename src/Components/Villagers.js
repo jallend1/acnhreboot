@@ -175,19 +175,24 @@ class Villagers extends React.Component {
               alt={name}
             />
             <h4>"{properCase(catchPhrase)}"</h4>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="markcomplete"
+                  value={name}
+                  onChange={this.props.markComplete}
+                  checked={this.props.completed.villagers.includes(name)}
+                />
+                <span>Mark Complete</span>
+              </label>
+            </div>
             <i
               className="material-icons"
               onClick={() => this.activateCard(fileName)}
             >
               more_horiz
             </i>
-            <input
-              type="checkbox"
-              name="markcomplete"
-              value={name}
-              onChange={this.props.markComplete}
-              checked={this.props.completed.villagers.includes(name)}
-            />
           </header>
         </div>
       </>

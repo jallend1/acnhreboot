@@ -165,7 +165,7 @@ class Creatures extends React.Component {
         <thead>
           <tr>
             <th colSpan="2" className="center">
-              Pricing
+              Selling Price
             </th>
           </tr>
         </thead>
