@@ -1,6 +1,17 @@
 import React from "react";
 
-const Location = ({ item }) => {
+const Attributes = ({ item }) => {
+  // Only sea creatures and fish have shadow
+  const shadowSize = () => {
+    if (item.shadow) {
+      return (
+        <tr>
+          <td>Shadow-size:</td>
+          <td>{item.shadow}</td>
+        </tr>
+      );
+    }
+  };
   return (
     <>
       <tr>
@@ -19,8 +30,9 @@ const Location = ({ item }) => {
             : item.availability.time}
         </td>
       </tr>
+      {shadowSize()}
     </>
   );
 };
 
-export default Location;
+export default Attributes;

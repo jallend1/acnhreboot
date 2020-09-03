@@ -1,7 +1,5 @@
 import React from "react";
 import { properCase } from "../utils";
-import Location from "./Creature/Location";
-import Months from "./Creature/Months";
 import Details from "./Creature/Details";
 
 class Creatures extends React.Component {
@@ -17,10 +15,10 @@ class Creatures extends React.Component {
 
   displayItems = (item) => {
     return (
-      <>
-        <tr key={item["file-name"]}>{this.renderHeader(item)}</tr>
+      <React.Fragment key={item["file-name"]}>
+        <tr>{this.renderHeader(item)}</tr>
         {this.renderDetails(item)}
-      </>
+      </React.Fragment>
     );
   };
   displayPrice = (item) => {
@@ -66,23 +64,22 @@ class Creatures extends React.Component {
     );
   };
 
-  tableAvailability = (item) => {
-    if (this.props.activeItem !== "fossils") {
-      return (
-        // this.props.activeItem === "fossils" ? null : ( //Anything other than fossils, display availability
-        <table className="detailsTable centered">
-          <thead>
-            <tr>
-              <th colSpan="2">Availability</th>
-            </tr>
-          </thead>
-          <tbody>
-            <Location item={item} />
-            <Months item={item} />
-          </tbody>
-        </table>
-      );
-    }
+  renderComplete = (item) => {
+    return (
+      <label>
+        <input
+          type="checkbox"
+          name="markcomplete"
+          value={item.name["name-USen"]}
+          onChange={this.props.markComplete}
+          // If item included in Completed, renders the box to the page already checked
+          checked={this.props.completed[this.props.activeItem].includes(
+            item.name["name-USen"]
+          )}
+        />
+        <span>Mark Complete</span>
+      </label>
+    );
   };
 
   renderDetails = (item) => {
@@ -92,7 +89,11 @@ class Creatures extends React.Component {
           <tr>
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
-              <Details item={item} activeItem={this.props.activeItem} />
+              <Details
+                item={item}
+                activeItem={this.props.activeItem}
+                key={item}
+              />
             </td>
           </tr>
         </>
@@ -106,20 +107,9 @@ class Creatures extends React.Component {
     return (
       <>
         <td key={item.name["name-USen"] + "header"}>
-          <label>
-            <input
-              type="checkbox"
-              name="markcomplete"
-              value={item.name["name-USen"]}
-              onChange={this.props.markComplete}
-              // If item included in Completed, renders the box to the page already checked
-              checked={this.props.completed[this.props.activeItem].includes(
-                item.name["name-USen"]
-              )}
-            />
-            <span>Mark Complete</span>
-          </label>
+          {this.renderComplete(item)}
         </td>
+
         <td>
           <h5>{properCase(item.name["name-USen"])}</h5>
         </td>

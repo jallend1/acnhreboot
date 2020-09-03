@@ -5,18 +5,25 @@ import Pricing from "./Pricing";
 import Availability from "./Availability";
 
 const Details = ({ item, activeItem }) => {
+  // Returns quote if creature isn't a fossil (Fossils don't have catch phrases!)
+  const catchPhrase = () => {
+    return item["catch-phrase"] ? (
+      <caption>
+        <q>{item["catch-phrase"]}</q>
+      </caption>
+    ) : null;
+  };
   return (
     <>
       <table className="detailsTable">
-        <caption>
-          <q>{item["catch-phrase"]}</q>
-        </caption>
+        {catchPhrase()}
         <DetailsHeader item={item} activeItem={activeItem} />
         <tbody>
           <Blathers item={item} />
           <Pricing item={item} />
-          {/* TODO Add Table Availability Here */}
-          {activeItem !== "fossils" ? <Availability item={item} /> : null}
+          {activeItem !== "fossils" ? (
+            <Availability item={item} activeItem={activeItem} />
+          ) : null}
         </tbody>
       </table>
     </>

@@ -1,5 +1,5 @@
 import React from "react";
-import Location from "./Location";
+import Attributes from "./Attributes";
 import Months from "./Months";
 
 const Availability = ({ item }) => {
@@ -9,11 +9,11 @@ const Availability = ({ item }) => {
         <table className="detailsTable centered">
           <thead>
             <tr>
-              <th colSpan="2">Availability</th>
+              <th colSpan="2">Attributes</th>
             </tr>
           </thead>
           <tbody>
-            <Location item={item} />
+            <Attributes item={item} />
             <Months item={item} />
           </tbody>
         </table>

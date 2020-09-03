@@ -166,7 +166,7 @@ class Villagers extends React.Component {
       villager.birthdayDaysAway += 365;
     }
     return (
-      <>
+      <React.Fragment key={fileName}>
         <div className="card villager center" key={fileName}>
           <header>
             <h3>{villager.isBirthday ? `🎉${name}🎉` : name}</h3>
@@ -195,7 +195,7 @@ class Villagers extends React.Component {
             </i>
           </header>
         </div>
-      </>
+      </React.Fragment>
     );
   };
 
