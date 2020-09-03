@@ -5,12 +5,22 @@ class Filter extends React.Component {
     if (isCreature || this.props.activeItem === "fossils") {
       return (
         <div>
-          <button onClick={() => this.props.collapseAll(this.props.activeItem)}>
-            Collapse All
-          </button>
-          <button onClick={() => this.props.expandAll(this.props.activeItem)}>
-            Expand All
-          </button>
+          <div className="collapse-toggle">
+            <button
+              className="btn collapse-toggle"
+              onClick={() => this.props.collapseAll(this.props.activeItem)}
+            >
+              Collapse All
+            </button>
+          </div>
+          <div className="collapse-toggle">
+            <button
+              className="btn collapse-toggle"
+              onClick={() => this.props.expandAll(this.props.activeItem)}
+            >
+              Expand All
+            </button>
+          </div>
         </div>
       );
     } else {

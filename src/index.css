@@ -210,3 +210,12 @@ audio {
 .villager {
   margin: 2rem;
 }
+
+.collapse-toggle button {
+  margin: 0.25em 0 0.25em 0;
+}
+
+.collapse-toggle {
+  box-sizing: border-box;
+  width: 100%;
+}

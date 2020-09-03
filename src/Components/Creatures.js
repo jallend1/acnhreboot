@@ -1,5 +1,9 @@
 import React from "react";
 import { properCase } from "../utils";
+import Blathers from "./Creature/Blathers";
+import Pricing from "./Creature/Pricing";
+import Location from "./Creature/Location";
+import Months from "./Creature/Months";
 
 class Creatures extends React.Component {
   componentDidMount() {
@@ -63,7 +67,6 @@ class Creatures extends React.Component {
     );
   };
 
-  // Returns pricing information portion of Creature details
   tableAvailability = (item) => {
     if (this.props.activeItem !== "fossils") {
       return (
@@ -75,48 +78,14 @@ class Creatures extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Location:</td>
-              <td>{item.availability.location}</td>
-            </tr>
-            <tr>
-              <td>Rarity:</td>
-              <td>{item.availability.rarity}</td>
-            </tr>
-            <tr>
-              <td>Time:</td>
-              <td>
-                {item.availability.isAllDay
-                  ? "Available all day"
-                  : item.availability.time}
-              </td>
-            </tr>
-            <tr>
-              <th colSpan="2" className="center">
-                Months
-              </th>
-            </tr>
-            <tr>
-              <td>Northern Hempishere:</td>
-              <td>
-                {item.availability.isAllYear
-                  ? "Available year-round"
-                  : item.availability["month-northern"]}
-              </td>
-            </tr>
-            <tr>
-              <td>Southern Hemisphere:</td>
-              <td>
-                {item.availability.isAllYear
-                  ? "Available year-round"
-                  : item.availability["month-southern"]}
-              </td>
-            </tr>
+            <Location item={item} />
+            <Months item={item} />
           </tbody>
         </table>
       );
     }
   };
+
   tableInfo = (item) => {
     return (
       <table className="detailsTable">
@@ -133,54 +102,7 @@ class Creatures extends React.Component {
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img
-                src="../images/blathers.png"
-                alt="Blathers the Owl"
-                className="blathers"
-              />
-            </td>
-            <td>
-              <h5 className="center">
-                <span role="img" aria-label="owl emoji">
-                  🦉
-                </span>
-                Blathers' Take
-                <span role="img" aria-label="owl emoji">
-                  🦉
-                </span>
-              </h5>
-              <blockquote>{item["museum-phrase"]}</blockquote>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    );
-  };
-  tablePricing = (item) => {
-    return (
-      <table className="centered detailsTable">
-        <thead>
-          <tr>
-            <th colSpan="2" className="center">
-              Selling Price
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Nook's Price: </td>
-            <td>{item.price} bells</td>
-          </tr>
-          <tr>
-            <td>{item["price-cj"] ? "CJ's Price:" : "Flick's Price"}</td>
-            <td>
-              {item["price-cj"] ? item["price-cj"] : item["price-flick"]} bells
-            </td>
-          </tr>
-        </tbody>
+        <Blathers item={item} />
       </table>
     );
   };
@@ -193,7 +115,7 @@ class Creatures extends React.Component {
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
               {this.tableInfo(item)}
-              {this.tablePricing(item)}
+              <Pricing item={item} />
               {this.tableAvailability(item)}
             </td>
           </tr>

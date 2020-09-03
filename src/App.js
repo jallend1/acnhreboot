@@ -307,7 +307,7 @@ class App extends React.Component {
             toggleDescending={this.toggleDescending}
             descending={this.props.descending}
           />
-          <button onClick={this.clearCollected}>
+          <button className="btn" onClick={this.clearCollected}>
             Clear ALL completed items
           </button>
           <Route
