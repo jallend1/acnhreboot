@@ -19,11 +19,6 @@ const Location = ({ item }) => {
             : item.availability.time}
         </td>
       </tr>
-      <tr>
-        <th colSpan="2" className="center">
-          Months
-        </th>
-      </tr>
     </>
   );
 };

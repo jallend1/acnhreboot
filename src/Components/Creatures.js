@@ -4,6 +4,7 @@ import Blathers from "./Creature/Blathers";
 import Pricing from "./Creature/Pricing";
 import Location from "./Creature/Location";
 import Months from "./Creature/Months";
+import Details from "./Creature/Details";
 
 class Creatures extends React.Component {
   componentDidMount() {
@@ -86,27 +87,6 @@ class Creatures extends React.Component {
     }
   };
 
-  tableInfo = (item) => {
-    return (
-      <table className="detailsTable">
-        <caption>
-          <q>{item["catch-phrase"]}</q>
-        </caption>
-        <thead>
-          <tr>
-            <th colSpan="2" className="image">
-              <img
-                src={`../images/${this.props.activeItem}/${item["file-name"]}.png`}
-                alt={item.name["name-USen"]}
-              />
-            </th>
-          </tr>
-        </thead>
-        <Blathers item={item} />
-      </table>
-    );
-  };
-
   renderDetails = (item) => {
     if (item.collapsed === false) {
       return (
@@ -114,9 +94,10 @@ class Creatures extends React.Component {
           <tr>
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
-              {this.tableInfo(item)}
+              <Details item={item} activeItem={this.props.activeItem} />
+              {/* {this.tableInfo(item)}
               <Pricing item={item} />
-              {this.tableAvailability(item)}
+              {this.tableAvailability(item)} */}
             </td>
           </tr>
         </>

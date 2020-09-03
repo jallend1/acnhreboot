@@ -4,6 +4,11 @@ const Months = ({ item }) => {
   return (
     <>
       <tr>
+        <th colSpan="2" className="center">
+          Months
+        </th>
+      </tr>
+      <tr>
         <td>Northern Hempishere:</td>
         <td>
           {item.availability.isAllYear
