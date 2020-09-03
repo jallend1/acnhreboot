@@ -1,7 +1,5 @@
 import React from "react";
 import { properCase } from "../utils";
-import Blathers from "./Creature/Blathers";
-import Pricing from "./Creature/Pricing";
 import Location from "./Creature/Location";
 import Months from "./Creature/Months";
 import Details from "./Creature/Details";
@@ -95,9 +93,6 @@ class Creatures extends React.Component {
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
               <Details item={item} activeItem={this.props.activeItem} />
-              {/* {this.tableInfo(item)}
-              <Pricing item={item} />
-              {this.tableAvailability(item)} */}
             </td>
           </tr>
         </>

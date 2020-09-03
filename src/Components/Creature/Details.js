@@ -2,8 +2,7 @@ import React from "react";
 import DetailsHeader from "./DetailsHeader";
 import Blathers from "./Blathers";
 import Pricing from "./Pricing";
-import Location from "./Location";
-import Months from "./Months";
+import Availability from "./Availability";
 
 const Details = ({ item, activeItem }) => {
   return (
@@ -17,8 +16,7 @@ const Details = ({ item, activeItem }) => {
           <Blathers item={item} />
           <Pricing item={item} />
           {/* TODO Add Table Availability Here */}
-          <Location item={item} />
-          <Months item={item} />
+          {activeItem !== "fossils" ? <Availability item={item} /> : null}
         </tbody>
       </table>
     </>
