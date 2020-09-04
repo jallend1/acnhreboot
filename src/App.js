@@ -17,10 +17,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: "fish",
+      activeItem: "home",
       activeItems: [],
       activeSong: "",
       allItems: {
+        home: [],
         fish: [],
         bugs: [],
         sea: [],
@@ -63,7 +64,7 @@ class App extends React.Component {
   }
 
   populateData = (dataType) => {
-    if (dataType !== "completed") {
+    if (dataType !== "completed" && dataType !== "home") {
       let jsonPath = `../${dataType}.json`;
       fetch(jsonPath)
         .then((data) => data.json())
@@ -298,22 +299,26 @@ class App extends React.Component {
             types={Object.keys(this.state.allItems)}
           />
           <div className="main-content">
-            <Filter
-              activeItem={this.state.activeItem}
-              searchField={this.searchField}
-              changeSort={this.changeSort}
-              collapseAll={this.collapseAll}
-              expandAll={this.expandAll}
-              toggleAvailable={this.toggleAvailable}
-              toggleDescending={this.toggleDescending}
-              descending={this.props.descending}
-            />
-            <button
-              className="btn green accent-4"
-              onClick={this.clearCollected}
-            >
-              Clear ALL completed items
-            </button>
+            {this.state.activeItem !== "home" ? (
+              <>
+                <Filter
+                  activeItem={this.state.activeItem}
+                  searchField={this.searchField}
+                  changeSort={this.changeSort}
+                  collapseAll={this.collapseAll}
+                  expandAll={this.expandAll}
+                  toggleAvailable={this.toggleAvailable}
+                  toggleDescending={this.toggleDescending}
+                  descending={this.props.descending}
+                />
+                <button
+                  className="btn green accent-4"
+                  onClick={this.clearCollected}
+                >
+                  Clear ALL completed items
+                </button>
+              </>
+            ) : null}
             <Route
               path="/music"
               render={(props) => (

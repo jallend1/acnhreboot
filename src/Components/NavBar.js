@@ -13,7 +13,7 @@ const NavBar = (props) => {
       return (
         <li className={type === props.activeItem ? "active" : null} key={type}>
           <NavLink
-            to={url}
+            to={type !== "home" ? url : "/"}
             key={type}
             data-id={type}
             onClick={props.changeToNew}
