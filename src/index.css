@@ -39,14 +39,9 @@ h3 {
   justify-content: space-between;
 }
 
-ul {
+nav ul {
   display: flex;
   justify-content: space-evenly;
-}
-
-li {
-  list-style: none;
-  display: inline;
 }
 
 .player {
@@ -203,4 +198,8 @@ audio {
 .collapse-toggle {
   box-sizing: border-box;
   width: 100%;
+}
+
+#features {
+  list-style-type: circle;
 }
