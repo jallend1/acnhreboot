@@ -7,7 +7,7 @@ const Player = (props) => {
         <img
           id="songposter"
           src={`./images/music/${props.activeSong}.png`}
-          alt="Cover album"
+          alt="Album cover"
         />
       </div>
       <audio

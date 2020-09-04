@@ -297,105 +297,110 @@ class App extends React.Component {
             changeToNew={this.changeToNew}
             types={Object.keys(this.state.allItems)}
           />
-          <Filter
-            activeItem={this.state.activeItem}
-            searchField={this.searchField}
-            changeSort={this.changeSort}
-            collapseAll={this.collapseAll}
-            expandAll={this.expandAll}
-            toggleAvailable={this.toggleAvailable}
-            toggleDescending={this.toggleDescending}
-            descending={this.props.descending}
-          />
-          <button className="btn" onClick={this.clearCollected}>
-            Clear ALL completed items
-          </button>
-          <Route
-            path="/music"
-            render={(props) => (
-              <Music
-                activeItem="music"
-                activeItems={this.state.activeItems}
-                searchValue={this.state.searchValue}
-                changeActiveItem={this.changeActiveItem}
-                playSong={this.playSong}
-                toggleCollapse={this.toggleCollapse}
-                markComplete={this.markComplete}
-                completed={this.state.completed}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/villagers"
-            render={(props) => (
-              <Villagers
-                activeItem="villagers"
-                activeItems={this.state.activeItems}
-                allItems={this.state.allItems}
-                searchValue={this.state.searchValue}
-                changeActiveItem={this.changeActiveItem}
-                filtered={this.state.filtered}
-                toggleCollapse={this.toggleCollapse}
-                time={this.state.time}
-                markComplete={this.markComplete}
-                completed={this.state.completed}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/art"
-            render={(props) => (
-              <Art
-                activeItem="art"
-                searchValue={this.state.searchValue}
-                changeActiveItem={this.changeActiveItem}
-                toggleCollapse={this.toggleCollapse}
-                markComplete={this.markComplete}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/completed"
-            render={(props) => (
-              <Completed
-                activeItem="completed"
-                changeActiveItem={this.changeActiveItem}
-                completed={this.state.completed}
-                allItems={this.state.allItems}
-                populateComplete={this.populateComplete}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/creatures/:creature"
-            render={(props) => {
-              return (
-                <Creatures
-                  activeItem={props.match.params.creature}
+          <div className="main-content">
+            <Filter
+              activeItem={this.state.activeItem}
+              searchField={this.searchField}
+              changeSort={this.changeSort}
+              collapseAll={this.collapseAll}
+              expandAll={this.expandAll}
+              toggleAvailable={this.toggleAvailable}
+              toggleDescending={this.toggleDescending}
+              descending={this.props.descending}
+            />
+            <button
+              className="btn green accent-4"
+              onClick={this.clearCollected}
+            >
+              Clear ALL completed items
+            </button>
+            <Route
+              path="/music"
+              render={(props) => (
+                <Music
+                  activeItem="music"
                   activeItems={this.state.activeItems}
+                  searchValue={this.state.searchValue}
                   changeActiveItem={this.changeActiveItem}
+                  playSong={this.playSong}
                   toggleCollapse={this.toggleCollapse}
-                  time={this.state.time}
-                  availableToday={this.state.availableToday}
                   markComplete={this.markComplete}
-                  sortBy={this.state.sortBy}
                   completed={this.state.completed}
-                  allItems={this.state.allItems}
-                  showAvailable={this.showAvailable}
                   {...props}
                 />
-              );
-            }}
-          />
-          <Route path="/">
-            <Welcome />
-          </Route>
+              )}
+            />
+            <Route
+              path="/villagers"
+              render={(props) => (
+                <Villagers
+                  activeItem="villagers"
+                  activeItems={this.state.activeItems}
+                  allItems={this.state.allItems}
+                  searchValue={this.state.searchValue}
+                  changeActiveItem={this.changeActiveItem}
+                  filtered={this.state.filtered}
+                  toggleCollapse={this.toggleCollapse}
+                  time={this.state.time}
+                  markComplete={this.markComplete}
+                  completed={this.state.completed}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/art"
+              render={(props) => (
+                <Art
+                  activeItem="art"
+                  searchValue={this.state.searchValue}
+                  changeActiveItem={this.changeActiveItem}
+                  toggleCollapse={this.toggleCollapse}
+                  markComplete={this.markComplete}
+                  completed={this.state.completed}
+                  allItems={this.state.allItems}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/completed"
+              render={(props) => (
+                <Completed
+                  activeItem="completed"
+                  changeActiveItem={this.changeActiveItem}
+                  completed={this.state.completed}
+                  allItems={this.state.allItems}
+                  populateComplete={this.populateComplete}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/creatures/:creature"
+              render={(props) => {
+                return (
+                  <Creatures
+                    activeItem={props.match.params.creature}
+                    activeItems={this.state.activeItems}
+                    changeActiveItem={this.changeActiveItem}
+                    toggleCollapse={this.toggleCollapse}
+                    time={this.state.time}
+                    availableToday={this.state.availableToday}
+                    markComplete={this.markComplete}
+                    sortBy={this.state.sortBy}
+                    completed={this.state.completed}
+                    allItems={this.state.allItems}
+                    showAvailable={this.showAvailable}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route exact path="/">
+              <Welcome />
+            </Route>
+          </div>
         </div>
       </BrowserRouter>
     );

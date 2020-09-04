@@ -7,7 +7,7 @@ class Filter extends React.Component {
         <div>
           <div className="collapse-toggle">
             <button
-              className="btn collapse-toggle"
+              className="btn collapse-toggle green accent-4"
               onClick={() => this.props.collapseAll(this.props.activeItem)}
             >
               Collapse All
@@ -15,7 +15,7 @@ class Filter extends React.Component {
           </div>
           <div className="collapse-toggle">
             <button
-              className="btn collapse-toggle"
+              className="btn collapse-toggle green accent-4"
               onClick={() => this.props.expandAll(this.props.activeItem)}
             >
               Expand All

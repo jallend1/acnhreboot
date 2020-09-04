@@ -1,7 +1,7 @@
 import React from "react";
 
 const Attributes = ({ item }) => {
-  // Only sea creatures and fish have shadow
+  // Only sea creatures and fish have
   const shadowSize = () => {
     if (item.shadow) {
       return (

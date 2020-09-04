@@ -89,11 +89,7 @@ class Creatures extends React.Component {
           <tr>
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
-              <Details
-                item={item}
-                activeItem={this.props.activeItem}
-                key={item}
-              />
+              <Details item={item} activeItem={this.props.activeItem} />
             </td>
           </tr>
         </>
@@ -106,9 +102,7 @@ class Creatures extends React.Component {
   renderHeader = (item) => {
     return (
       <>
-        <td key={item.name["name-USen"] + "header"}>
-          {this.renderComplete(item)}
-        </td>
+        <td>{this.renderComplete(item)}</td>
 
         <td>
           <h5>{properCase(item.name["name-USen"])}</h5>
