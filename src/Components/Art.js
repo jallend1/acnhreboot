@@ -6,9 +6,9 @@ class Art extends React.Component {
     this.props.changeActiveItem(this.props.activeItem);
   }
   componentDidUpdate(prevProps) {
-    if (this.props.searchValue !== prevProps.searchValue) {
-      this.filterArt();
-    }
+    // if (this.props.searchValue !== prevProps.searchValue) {
+    //   this.filterArt();
+    // }
   }
   displayArt = (art) => {
     const {

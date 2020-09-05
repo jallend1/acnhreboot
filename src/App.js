@@ -64,9 +64,11 @@ class App extends React.Component {
     if (localStorage.getItem("completed") !== null) {
       //If any completed items exist in localStorage, makes them active
       const savedCompleted = localStorage.getItem("completed");
-      this.setState({ completed: JSON.parse(savedCompleted) });
+      this.setState(
+        { completed: JSON.parse(savedCompleted) },
+        this.populateComplete()
+      );
     }
-    this.populateComplete();
   };
 
   populateData = (dataType) => {
@@ -145,6 +147,7 @@ class App extends React.Component {
   };
 
   markComplete = (e) => {
+    // TODO Instead of just dumping the item name into a weird array, why not just dump all of the details at the same time?
     const currentState = this.state.completed;
     if (e.target.checked) {
       currentState[this.state.activeItem].push(e.target.value);
@@ -170,21 +173,22 @@ class App extends React.Component {
     const currentState = this.state.allItems;
     const completed = this.state.completed;
     const itemArrays = Object.keys(completed); // Extracts all the item types from the completed object list
+    console.log(itemArrays);
     itemArrays.forEach((itemArray) => {
       //Runs through item types, and retrieves full item details
-      console.log(itemArray);
-      console.log(itemArrays);
+
       if (itemArray !== "home") {
         currentState.completed[itemArray] = [];
         if (completed[itemArray].length > 0) {
           // If this item type has anything in it, process it
-          console.log(completed[itemArray]);
+
           completed[itemArray].forEach((item) => {
-            console.log(item, itemArray);
             const itemDeets = this.state.allItems[itemArray].find(
               (element) => element.name["name-USen"] === item
             ); // All the JSON info on this current item
             console.log(itemDeets);
+            console.log(this.state.allItems[itemArray]);
+            console.log(itemArray);
             const fileLocation =
               itemArray === "fossils" ||
               itemArray === "music" ||
@@ -208,15 +212,13 @@ class App extends React.Component {
     });
   };
 
+  // When the search field receives input, update state and call function to filter results
   searchField = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    if (this.state.activeItem !== "villagers") {
-      this.setState({ searchValue }, this.searchResults());
-    } else {
-      this.setState({ searchValue });
-    }
+    this.setState({ searchValue }, this.searchResults());
   };
 
+  //
   searchResults = () => {
     const currentData = this.state.allItems[this.state.activeItem];
     const activeItems = currentData.filter((item) =>
@@ -224,26 +226,31 @@ class App extends React.Component {
     );
     this.setState({ activeItems }, this.showAvailable);
   };
-  showAvailable = () => {
+
+  compareAvailabilityToTime = () => {
+    // Called under showAvailable to determine if current active items have limited availability
     const currentState = this.state.activeItems;
-    let activeItems = [];
-    // If only looking at today, filters it so
-    if (this.state.availableToday) {
-      //If a living creature, compare their availability to the current time
-      if (
-        this.state.activeItem === "fish" ||
-        this.state.activeItem === "bugs" ||
-        this.state.activeItem === "sea"
-      ) {
-        activeItems = currentState.filter((item) => {
-          return this.calculateAvailability(item.availability);
-        });
-        // Everything else has full availability
-      } else {
-        activeItems = this.state.allItems[this.state.activeItem];
-      }
-      // If not, checks to see if search field has value, and restores array matching that criteria
+    // Only these creatures have limited availability
+    if (
+      this.state.activeItem === "fish" ||
+      this.state.activeItem === "bugs" ||
+      this.state.activeItem === "sea"
+    ) {
+      return currentState.filter((item) => {
+        return this.calculateAvailability(item.availability);
+      });
+      // Everything else has full availability
     } else {
+      return this.state.allItems[this.state.activeItem];
+    }
+  };
+  showAvailable = () => {
+    let activeItems = [];
+    // If show only available was just clicked, filters it so
+    if (this.state.availableToday) {
+      activeItems = this.compareAvailabilityToTime();
+    } else {
+      // If unclicked, checks to see if search field has value, and restores array matching that criteria
       if (this.state.searchValue) {
         activeItems = this.state.allItems[
           this.state.activeItem
@@ -261,25 +268,26 @@ class App extends React.Component {
   sortAlpha = () => {
     const activeItems = this.state.activeItems;
     const criteria = this.state.sortBy;
+    // If alphabetical is clicked, convert to lowercase and sort alphabetically
     if (criteria === "alpha") {
       activeItems.sort((a, b) =>
         a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
           ? 1
           : -1
       );
+      // If not alpha, sort numerically by either Nook's price or special purhcaser price
     } else {
       activeItems.sort((a, b) => (a[criteria] > b[criteria] ? 1 : -1));
     }
+    // If descending is active, reverse the order
     if (this.state.descending) activeItems.reverse();
     this.setState({ activeItems }, this.showAvailable);
   };
 
   toggleAvailable = (e) => {
-    if (e.target.checked) {
-      this.setState({ availableToday: true }, this.showAvailable);
-    } else {
-      this.setState({ availableToday: false }, this.showAvailable);
-    }
+    e.target.checked
+      ? this.setState({ availableToday: true }, this.showAvailable)
+      : this.setState({ availableToday: false }, this.showAvailable);
   };
 
   toggleCollapse = (item, creatureType) => {
