@@ -2,15 +2,17 @@ import React from "react";
 import { properCase } from "../utils";
 
 class Completed extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      completedDetails: []
-    };
-  }
   componentDidMount() {
+    this.props.changeActiveItem("completed");
     this.props.populateComplete();
   }
+
+  componentDidUpdate() {
+    console.log(this.props.allItems.completed);
+    // TODO The below line breaks it, but Completed items are not being loaded when going directly to /completed. The problem lies in populateComplete!
+    // this.props.populateComplete();
+  }
+
   displayCompleted = () => {
     return this.props.allItems.completed.map((item) => {
       return (
@@ -28,7 +30,7 @@ class Completed extends React.Component {
   render() {
     return (
       <>
-        <div className="item">{this.displayCompleted()}</div>
+        <div className="item center">{this.displayCompleted()}</div>
       </>
     );
   }

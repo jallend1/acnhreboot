@@ -53,15 +53,20 @@ class App extends React.Component {
     const types = Object.keys(this.state.allItems);
     types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
+    this.extractLocalStorage();
+    this.setState({
+      time: now
+    });
+  }
+
+  extractLocalStorage = () => {
     if (localStorage.getItem("completed") !== null) {
       //If any completed items exist in localStorage, makes them active
       const savedCompleted = localStorage.getItem("completed");
       this.setState({ completed: JSON.parse(savedCompleted) });
     }
-    this.setState({
-      time: now
-    });
-  }
+    this.populateComplete();
+  };
 
   populateData = (dataType) => {
     if (dataType !== "completed" && dataType !== "home") {
@@ -82,6 +87,7 @@ class App extends React.Component {
           );
         });
     }
+    this.extractLocalStorage();
   };
 
   calculateAvailability = (availability) => {
@@ -377,6 +383,7 @@ class App extends React.Component {
                   completed={this.state.completed}
                   allItems={this.state.allItems}
                   populateComplete={this.populateComplete}
+                  extractLocalStorage={this.extractLocalStorage}
                   {...props}
                 />
               )}
