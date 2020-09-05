@@ -42,7 +42,8 @@ class App extends React.Component {
         fossils: [],
         villagers: [],
         music: [],
-        art: []
+        art: [],
+        home: []
       },
       searchValue: ""
     };
@@ -171,30 +172,37 @@ class App extends React.Component {
     const itemArrays = Object.keys(completed); // Extracts all the item types from the completed object list
     itemArrays.forEach((itemArray) => {
       //Runs through item types, and retrieves full item details
-      currentState.completed[itemArray] = [];
-      if (completed[itemArray]) {
-        // If this item type has anything in it, process it
-        completed[itemArray].forEach((item) => {
-          const itemDeets = this.state.allItems[itemArray].find(
-            (element) => element.name["name-USen"] === item
-          ); // All the JSON info on this current item
-          const fileLocation =
-            itemArray === "fossils" ||
-            itemArray === "music" ||
-            itemArray === "art"
-              ? `./images/${itemArray}/${itemDeets["file-name"]}.png`
-              : `images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
-          itemDeets.fileLocation = fileLocation;
-          itemDeets.key = `completed${itemDeets.name["name-USen"]}`;
-          itemDeets.type = itemArray;
-          if (
-            !currentState.completed.find(
-              (item) => item.name["name-USen"] === itemDeets.name["name-USen"]
-            )
-          ) {
-            currentState.completed.push(itemDeets);
-          }
-        });
+      console.log(itemArray);
+      console.log(itemArrays);
+      if (itemArray !== "home") {
+        currentState.completed[itemArray] = [];
+        if (completed[itemArray].length > 0) {
+          // If this item type has anything in it, process it
+          console.log(completed[itemArray]);
+          completed[itemArray].forEach((item) => {
+            console.log(item, itemArray);
+            const itemDeets = this.state.allItems[itemArray].find(
+              (element) => element.name["name-USen"] === item
+            ); // All the JSON info on this current item
+            console.log(itemDeets);
+            const fileLocation =
+              itemArray === "fossils" ||
+              itemArray === "music" ||
+              itemArray === "art"
+                ? `./images/${itemArray}/${itemDeets["file-name"]}.png`
+                : `images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
+            itemDeets.fileLocation = fileLocation;
+            itemDeets.key = `completed${itemDeets.name["name-USen"]}`;
+            itemDeets.type = itemArray;
+            if (
+              !currentState.completed.find(
+                (item) => item.name["name-USen"] === itemDeets.name["name-USen"]
+              )
+            ) {
+              currentState.completed.push(itemDeets);
+            }
+          });
+        }
       }
       this.setState({ allItems: currentState });
     });
@@ -383,7 +391,6 @@ class App extends React.Component {
                   completed={this.state.completed}
                   allItems={this.state.allItems}
                   populateComplete={this.populateComplete}
-                  extractLocalStorage={this.extractLocalStorage}
                   {...props}
                 />
               )}

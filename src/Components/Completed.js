@@ -4,11 +4,11 @@ import { properCase } from "../utils";
 class Completed extends React.Component {
   componentDidMount() {
     this.props.changeActiveItem("completed");
+    // Populates items when page is linked to, but not when going directly to URL
     this.props.populateComplete();
   }
 
   componentDidUpdate() {
-    console.log(this.props.allItems.completed);
     // TODO The below line breaks it, but Completed items are not being loaded when going directly to /completed. The problem lies in populateComplete!
     // this.props.populateComplete();
   }
