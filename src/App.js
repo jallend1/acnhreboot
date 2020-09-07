@@ -1,4 +1,8 @@
-// TODO Villager Birthdays no longer populate UNLESS you go to /Villagers FIRST
+// TODO Possibility: Single page to list _all_ items?
+// TODO Possibility: Universal search?
+// TODO Possibility: Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
+// TODO Possibility: Randomly pick song to have loaded into player on pageload (If there is no activeSong)
+// TODO Possibility: What is going on with my routes. It is too ugly to bear.
 
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -134,6 +138,24 @@ class App extends React.Component {
     this.setState({ completed: clearedState });
   };
 
+  compareAvailabilityToTime = () => {
+    // Called under showAvailable to determine if current active items have limited availability
+    const currentState = this.state.activeItems;
+    // Only these creatures have limited availability
+    if (
+      this.state.activeItem === "fish" ||
+      this.state.activeItem === "bugs" ||
+      this.state.activeItem === "sea"
+    ) {
+      return currentState.filter((item) => {
+        return this.calculateAvailability(item.availability);
+      });
+      // Everything else has full availability
+    } else {
+      return this.state.allItems[this.state.activeItem];
+    }
+  };
+
   collapseAll = (activeItem) => {
     const activeItemList = this.state.allItems;
     activeItemList[activeItem].forEach((item) => (item.collapsed = true));
@@ -223,30 +245,13 @@ class App extends React.Component {
     this.setState({ activeItems }, this.showAvailable);
   };
 
-  compareAvailabilityToTime = () => {
-    // Called under showAvailable to determine if current active items have limited availability
-    const currentState = this.state.activeItems;
-    // Only these creatures have limited availability
-    if (
-      this.state.activeItem === "fish" ||
-      this.state.activeItem === "bugs" ||
-      this.state.activeItem === "sea"
-    ) {
-      return currentState.filter((item) => {
-        return this.calculateAvailability(item.availability);
-      });
-      // Everything else has full availability
-    } else {
-      return this.state.allItems[this.state.activeItem];
-    }
-  };
   showAvailable = () => {
     let activeItems = [];
     // If show only available was just clicked, filters it so
     if (this.state.availableToday) {
       activeItems = this.compareAvailabilityToTime();
     } else {
-      // If unclicked, checks to see if search field has value, and restores array matching that criteria
+      // If just unclicked, checks to see if search field has value, and restores array matching that criteria
       if (this.state.searchValue) {
         activeItems = this.state.allItems[
           this.state.activeItem
@@ -302,7 +307,6 @@ class App extends React.Component {
     descending = !descending;
     this.setState({ descending }, this.sortAlpha);
   };
-  // TODO : Universal active state? Allow filtering from main page, drying out code pretty dramatically; Routes in own file?
   render() {
     return (
       <BrowserRouter>

@@ -188,7 +188,7 @@ class Villagers extends React.Component {
               </label>
             </div>
             <i
-              className="material-icons"
+              className="material-icons pointer"
               onClick={() => this.activateCard(fileName)}
             >
               more_horiz
