@@ -8,7 +8,7 @@ class Completed extends React.Component {
     this.props.populateComplete();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     // TODO The below line breaks it, but Completed items are not being loaded when going directly to /completed. The problem lies in populateComplete!
     // this.props.populateComplete();
   }
