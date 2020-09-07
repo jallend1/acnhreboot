@@ -189,6 +189,8 @@ audio {
 
 .villager {
   margin: 2rem;
+  padding: 2rem;
+  background-color: #f5eac7;
 }
 
 .collapse-toggle button {

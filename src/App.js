@@ -173,7 +173,6 @@ class App extends React.Component {
     const currentState = this.state.allItems;
     const completed = this.state.completed;
     const itemArrays = Object.keys(completed); // Extracts all the item types from the completed object list
-    console.log(itemArrays);
     itemArrays.forEach((itemArray) => {
       //Runs through item types, and retrieves full item details
 
@@ -186,9 +185,6 @@ class App extends React.Component {
             const itemDeets = this.state.allItems[itemArray].find(
               (element) => element.name["name-USen"] === item
             ); // All the JSON info on this current item
-            console.log(itemDeets);
-            console.log(this.state.allItems[itemArray]);
-            console.log(itemArray);
             const fileLocation =
               itemArray === "fossils" ||
               itemArray === "music" ||
