@@ -3,10 +3,38 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+const toggleComplete = () => {
+  return {
+    type: 'TOGGLE_COMPLETE'
+  };
+};
+
+// My very first original reducer!
+const completer = (state = false, action) => {
+  switch (action.type) {
+    case 'TOGGLE_COMPLETE':
+      return (state = !state);
+    default:
+      return state;
+  }
+};
+
+const store = createStore(
+  completer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+store.subscribe(() => console.log(store.getState()));
+store.dispatch(toggleComplete());
+store.dispatch(toggleComplete());
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

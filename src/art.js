@@ -1,8 +1,8 @@
-{
-  "academic_painting": {
-    "id": 1,
+const art = {
+  academic_painting: {
+    id: 1,
     "file-name": "academic_painting",
-    "name": {
+    name: {
       "name-USen": "academic painting",
       "name-EUen": "academic painting",
       "name-EUde": "Wissenschaftsgemälde",
@@ -18,16 +18,17 @@
       "name-KRko": "아카데믹한 명화",
       "name-EUru": "академическая картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/academic_painting",
-    "museum-desc": "This drawing is based on the \"ideal\" human-body ratio, as stated in \"De architectura.\" \"De architectura\" was a treatise by Vitruvius, an architect from the early 1st century BCE."
+    image_uri: "https://acnhapi.com/v1/images/art/academic_painting",
+    "museum-desc":
+      'This drawing is based on the "ideal" human-body ratio, as stated in "De architectura." "De architectura" was a treatise by Vitruvius, an architect from the early 1st century BCE.'
   },
-  "amazing_painting": {
-    "id": 2,
+  amazing_painting: {
+    id: 2,
     "file-name": "amazing_painting",
-    "name": {
+    name: {
       "name-USen": "amazing painting",
       "name-EUen": "amazing painting",
       "name-EUde": "Enormgemälde",
@@ -43,16 +44,17 @@
       "name-KRko": "대단한 명화",
       "name-EUru": "потрясающая картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/amazing_painting",
-    "museum-desc": "This masterpiece, painted by 17th century Dutch artist Rembrandt, depicts a military gathering. At the time, portraits usually showed their subjects standing still. So this was a leap forward in technique. For many years, art scholars thought the painting was set at night, but a restoration revealed a dark varnish. We can now see the dynamic poses and lighting as they were meant to be seen—in the daytime!"
+    image_uri: "https://acnhapi.com/v1/images/art/amazing_painting",
+    "museum-desc":
+      "This masterpiece, painted by 17th century Dutch artist Rembrandt, depicts a military gathering. At the time, portraits usually showed their subjects standing still. So this was a leap forward in technique. For many years, art scholars thought the painting was set at night, but a restoration revealed a dark varnish. We can now see the dynamic poses and lighting as they were meant to be seen—in the daytime!"
   },
-  "ancient_statue": {
-    "id": 3,
+  ancient_statue: {
+    id: 3,
     "file-name": "ancient_statue",
-    "name": {
+    name: {
       "name-USen": "ancient statue",
       "name-EUen": "ancient statue",
       "name-EUde": "Uraltstatue",
@@ -68,16 +70,17 @@
       "name-KRko": "태고의 조각",
       "name-EUru": "древняя статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/ancient_statue",
-    "museum-desc": "A mysterious, riveting doll made from kneaded, unglazed dirt during the Jōmon period. Its large round eyes resemble goggles that intercept light, so its name should come as no surprise. \"Shakōki\" means \"light-intercepting goggles,\" and a dogū is a small animal figurine."
+    image_uri: "https://acnhapi.com/v1/images/art/ancient_statue",
+    "museum-desc":
+      'A mysterious, riveting doll made from kneaded, unglazed dirt during the Jōmon period. Its large round eyes resemble goggles that intercept light, so its name should come as no surprise. "Shakōki" means "light-intercepting goggles," and a dogū is a small animal figurine.'
   },
-  "basic_painting": {
-    "id": 4,
+  basic_painting: {
+    id: 4,
     "file-name": "basic_painting",
-    "name": {
+    name: {
       "name-USen": "basic painting",
       "name-EUen": "basic painting",
       "name-EUde": "Einfachgemälde",
@@ -93,16 +96,17 @@
       "name-KRko": "용감한 명화",
       "name-EUru": "обычная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/basic_painting",
-    "museum-desc": "Gainsborough was known for his innovative use of colors in his traditional portraits, like this one. Although he preferred painting landscapes, his portraits would be the defining work of his career."
+    image_uri: "https://acnhapi.com/v1/images/art/basic_painting",
+    "museum-desc":
+      "Gainsborough was known for his innovative use of colors in his traditional portraits, like this one. Although he preferred painting landscapes, his portraits would be the defining work of his career."
   },
-  "beautiful_statue": {
-    "id": 5,
+  beautiful_statue: {
+    id: 5,
     "file-name": "beautiful_statue",
-    "name": {
+    name: {
       "name-USen": "beautiful statue",
       "name-EUen": "beautiful statue",
       "name-EUde": "Eleganzstatue",
@@ -118,16 +122,17 @@
       "name-KRko": "아름다운 조각",
       "name-EUru": "прекрасная статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/beautiful_statue",
-    "museum-desc": "A statue of the Roman goddess of love and beauty, Venus was found on the island of Milos. This beautiful sculpture makes many wonder what her original pose might have been."
+    image_uri: "https://acnhapi.com/v1/images/art/beautiful_statue",
+    "museum-desc":
+      "A statue of the Roman goddess of love and beauty, Venus was found on the island of Milos. This beautiful sculpture makes many wonder what her original pose might have been."
   },
-  "calm_painting": {
-    "id": 6,
+  calm_painting: {
+    id: 6,
     "file-name": "calm_painting",
-    "name": {
+    name: {
       "name-USen": "calm painting",
       "name-EUen": "calm painting",
       "name-EUde": "Ruhegemälde",
@@ -143,16 +148,17 @@
       "name-KRko": "평온한 명화",
       "name-EUru": "спокойная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/calm_painting",
-    "museum-desc": "Seurat, known as the founder of neo-impressionism, invented the use of brightly colored dots. His method, which does not involve mixing pigments, took time. This piece, for instance, took two years. It shows a crowd enjoying a day off at the river Seine in France."
+    image_uri: "https://acnhapi.com/v1/images/art/calm_painting",
+    "museum-desc":
+      "Seurat, known as the founder of neo-impressionism, invented the use of brightly colored dots. His method, which does not involve mixing pigments, took time. This piece, for instance, took two years. It shows a crowd enjoying a day off at the river Seine in France."
   },
-  "common_painting": {
-    "id": 7,
+  common_painting: {
+    id: 7,
     "file-name": "common_painting",
-    "name": {
+    name: {
       "name-USen": "common painting",
       "name-EUen": "common painting",
       "name-EUde": "Bekanntgemälde",
@@ -168,16 +174,17 @@
       "name-KRko": "평범한 명화",
       "name-EUru": "сельская картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/common_painting",
-    "museum-desc": "The signature piece from Millet, who was known for depicting the lives of commoners in the 19th century.Notice the abundant crops visible in the background relative to the meager wheat remaining for workers.This art served as social commentary in a time of great inequality."
+    image_uri: "https://acnhapi.com/v1/images/art/common_painting",
+    "museum-desc":
+      "The signature piece from Millet, who was known for depicting the lives of commoners in the 19th century.Notice the abundant crops visible in the background relative to the meager wheat remaining for workers.This art served as social commentary in a time of great inequality."
   },
-  "detailed_painting": {
-    "id": 8,
+  detailed_painting: {
+    id: 8,
     "file-name": "detailed_painting",
-    "name": {
+    name: {
       "name-USen": "detailed painting",
       "name-EUen": "detailed painting",
       "name-EUde": "Detailgemälde",
@@ -193,16 +200,17 @@
       "name-KRko": "섬세한 명화",
       "name-EUru": "детальная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/detailed_painting",
-    "museum-desc": "A detailed, colorful, and dynamic piece by Itō Jakuchū, a successful Kyoto artist in the mid-Edo period. High-quality paints on silk help it maintain its brilliant color even now, 200 years after its creation."
+    image_uri: "https://acnhapi.com/v1/images/art/detailed_painting",
+    "museum-desc":
+      "A detailed, colorful, and dynamic piece by Itō Jakuchū, a successful Kyoto artist in the mid-Edo period. High-quality paints on silk help it maintain its brilliant color even now, 200 years after its creation."
   },
-  "dynamic_painting": {
-    "id": 9,
+  dynamic_painting: {
+    id: 9,
     "file-name": "dynamic_painting",
-    "name": {
+    name: {
       "name-USen": "dynamic painting",
       "name-EUen": "dynamic painting",
       "name-EUde": "Wellengemälde",
@@ -218,16 +226,17 @@
       "name-KRko": "멋들어진 명화",
       "name-EUru": "волнительная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/dynamic_painting",
-    "museum-desc": "The signature piece of ukiyo-e artist Katsushika Hokusai, painted as part of a series when he was in his 60s. Although it is dubbed \"Thirty-Six Views,\" he eventually added 10 more to make 46 in total."
+    image_uri: "https://acnhapi.com/v1/images/art/dynamic_painting",
+    "museum-desc":
+      'The signature piece of ukiyo-e artist Katsushika Hokusai, painted as part of a series when he was in his 60s. Although it is dubbed "Thirty-Six Views," he eventually added 10 more to make 46 in total.'
   },
-  "familiar_statue": {
-    "id": 10,
+  familiar_statue: {
+    id: 10,
     "file-name": "familiar_statue",
-    "name": {
+    name: {
       "name-USen": "familiar statue",
       "name-EUen": "familiar statue",
       "name-EUde": "Vertrautstatue",
@@ -243,16 +252,17 @@
       "name-KRko": "익숙한 조각",
       "name-EUru": "знакомая статуя"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/familiar_statue",
-    "museum-desc": "This bronze sculpture was crafted by the French sculptor Rodin, known as the father of modern sculpture. The incredibly famous original is located in France. The sculpture was casted over 20 times. As such, authentic pieces can be found all around the world."
+    image_uri: "https://acnhapi.com/v1/images/art/familiar_statue",
+    "museum-desc":
+      "This bronze sculpture was crafted by the French sculptor Rodin, known as the father of modern sculpture. The incredibly famous original is located in France. The sculpture was casted over 20 times. As such, authentic pieces can be found all around the world."
   },
-  "famous_painting": {
-    "id": 11,
+  famous_painting: {
+    id: 11,
     "file-name": "famous_painting",
-    "name": {
+    name: {
       "name-USen": "famous painting",
       "name-EUen": "famous painting",
       "name-EUde": "Berühmtgemälde",
@@ -268,16 +278,17 @@
       "name-KRko": "유명한 명화",
       "name-EUru": "знаменитая картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/famous_painting",
-    "museum-desc": "The world's most famous smile. It's said that da Vinci kept this painting for himself until the very end...Given its power to beguile visitors all these years later, it's easy to see why."
+    image_uri: "https://acnhapi.com/v1/images/art/famous_painting",
+    "museum-desc":
+      "The world's most famous smile. It's said that da Vinci kept this painting for himself until the very end...Given its power to beguile visitors all these years later, it's easy to see why."
   },
-  "flowery_painting": {
-    "id": 12,
+  flowery_painting: {
+    id: 12,
     "file-name": "flowery_painting",
-    "name": {
+    name: {
       "name-USen": "flowery painting",
       "name-EUen": "flowery painting",
       "name-EUde": "Blumengemälde",
@@ -293,16 +304,17 @@
       "name-KRko": "진귀한 명화",
       "name-EUru": "цветочная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/flowery_painting",
-    "museum-desc": "Van Gogh painted this piece when he moved to the south of France in search of more vibrant colors. Yellow was Van Gogh's favorite color, and he made seven paintings that featured sunflowers during this time."
+    image_uri: "https://acnhapi.com/v1/images/art/flowery_painting",
+    "museum-desc":
+      "Van Gogh painted this piece when he moved to the south of France in search of more vibrant colors. Yellow was Van Gogh's favorite color, and he made seven paintings that featured sunflowers during this time."
   },
-  "gallant_statue": {
-    "id": 13,
+  gallant_statue: {
+    id: 13,
     "file-name": "gallant_statue",
-    "name": {
+    name: {
       "name-USen": "gallant statue",
       "name-EUen": "gallant statue",
       "name-EUde": "Galantstatue",
@@ -318,16 +330,17 @@
       "name-KRko": "늠름한 조각",
       "name-EUru": "доблестная статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/gallant_statue",
-    "museum-desc": "Young David glares at his enemies, sling slung over his shoulder. It took Michelangelo more than three years to sculpt this piece. Close inspection shows heart- shaped eyes, but that's probably meant to depict light hitting them. Hearts didn't have the lovey-dovey symbolism back then that they do today."
+    image_uri: "https://acnhapi.com/v1/images/art/gallant_statue",
+    "museum-desc":
+      "Young David glares at his enemies, sling slung over his shoulder. It took Michelangelo more than three years to sculpt this piece. Close inspection shows heart- shaped eyes, but that's probably meant to depict light hitting them. Hearts didn't have the lovey-dovey symbolism back then that they do today."
   },
-  "glowing_painting": {
-    "id": 14,
+  glowing_painting: {
+    id: 14,
     "file-name": "glowing_painting",
-    "name": {
+    name: {
       "name-USen": "glowing painting",
       "name-EUen": "glowing painting",
       "name-EUde": "Lichtgemälde",
@@ -343,16 +356,17 @@
       "name-KRko": "빛의 명화",
       "name-EUru": "сияющая картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/glowing_painting",
-    "museum-desc": "A famous piece by Turner, a \"master of light. \"It shows an English Navy ship commanded by Admiral Nelson as it's being tugged toward its dismantling."
+    image_uri: "https://acnhapi.com/v1/images/art/glowing_painting",
+    "museum-desc":
+      'A famous piece by Turner, a "master of light. "It shows an English Navy ship commanded by Admiral Nelson as it\'s being tugged toward its dismantling.'
   },
-  "graceful_painting": {
-    "id": 15,
+  graceful_painting: {
+    id: 15,
     "file-name": "graceful_painting",
-    "name": {
+    name: {
       "name-USen": "graceful painting",
       "name-EUen": "graceful painting",
       "name-EUde": "Anmutsgemälde",
@@ -368,16 +382,17 @@
       "name-KRko": "절제된 명화",
       "name-EUru": "изящная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/graceful_painting",
-    "museum-desc": "A hand-painted piece by Hishikawa Moronobu, an artist known for popularizing the ukiyo-e style. This stirring painting depicts a fashionable woman glancing back over her shoulder."
+    image_uri: "https://acnhapi.com/v1/images/art/graceful_painting",
+    "museum-desc":
+      "A hand-painted piece by Hishikawa Moronobu, an artist known for popularizing the ukiyo-e style. This stirring painting depicts a fashionable woman glancing back over her shoulder."
   },
-  "great_statue": {
-    "id": 16,
+  great_statue: {
+    id: 16,
     "file-name": "great_statue",
-    "name": {
+    name: {
       "name-USen": "great statue",
       "name-EUen": "great statue",
       "name-EUde": "Würdestatue",
@@ -393,16 +408,17 @@
       "name-KRko": "위대한 조각",
       "name-EUru": "великая статуя"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/great_statue",
-    "museum-desc": "A bronze sculpture of King Kamehameha I, who founded the Kingdom of Hawaii in 1810. Traditionally, the sculpture is draped with many leis every year on June 11th."
+    image_uri: "https://acnhapi.com/v1/images/art/great_statue",
+    "museum-desc":
+      "A bronze sculpture of King Kamehameha I, who founded the Kingdom of Hawaii in 1810. Traditionally, the sculpture is draped with many leis every year on June 11th."
   },
-  "informative_statue": {
-    "id": 17,
+  informative_statue: {
+    id: 17,
     "file-name": "informative_statue",
-    "name": {
+    name: {
       "name-USen": "informative statue",
       "name-EUen": "informative statue",
       "name-EUde": "Hinweisskulptur",
@@ -418,16 +434,17 @@
       "name-KRko": "단서가 되는 조각",
       "name-EUru": "образовательная статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/informative_statue",
-    "museum-desc": "A stone slab found in Rosetta, Egypt in 1799. Helped efforts to decipher ancient Egyptian hieroglyphs. Almost identical text is written in hieroglyphs at the top, then Demotic script, and lastly Greek script."
+    image_uri: "https://acnhapi.com/v1/images/art/informative_statue",
+    "museum-desc":
+      "A stone slab found in Rosetta, Egypt in 1799. Helped efforts to decipher ancient Egyptian hieroglyphs. Almost identical text is written in hieroglyphs at the top, then Demotic script, and lastly Greek script."
   },
-  "jolly_painting": {
-    "id": 18,
+  jolly_painting: {
+    id: 18,
     "file-name": "jolly_painting",
-    "name": {
+    name: {
       "name-USen": "jolly painting",
       "name-EUen": "jolly painting",
       "name-EUde": "Gemüsegemälde",
@@ -443,16 +460,17 @@
       "name-KRko": "재미있는 명화",
       "name-EUru": "веселая картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/jolly_painting",
-    "museum-desc": "A curious portrait by Giuseppe Arcimboldo, an Italian painter from the late 16th century. It doesn't take a particularly sharp eye to see that the entire portrait is composed of fresh produce."
+    image_uri: "https://acnhapi.com/v1/images/art/jolly_painting",
+    "museum-desc":
+      "A curious portrait by Giuseppe Arcimboldo, an Italian painter from the late 16th century. It doesn't take a particularly sharp eye to see that the entire portrait is composed of fresh produce."
   },
-  "moody_painting": {
-    "id": 19,
+  moody_painting: {
+    id: 19,
     "file-name": "moody_painting",
-    "name": {
+    name: {
       "name-USen": "moody painting",
       "name-EUen": "moody painting",
       "name-EUde": "Kraftgemälde",
@@ -468,16 +486,17 @@
       "name-KRko": "힘찬 명화",
       "name-EUru": "энергичная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/moody_painting",
-    "museum-desc": "Millet painted this piece of a farmer sowing wheat seeds in a field after moving to the countryside from Paris. If the piece reminds you of Van Gogh, that's likely because Van Gogh himself was inspired by it!"
+    image_uri: "https://acnhapi.com/v1/images/art/moody_painting",
+    "museum-desc":
+      "Millet painted this piece of a farmer sowing wheat seeds in a field after moving to the countryside from Paris. If the piece reminds you of Van Gogh, that's likely because Van Gogh himself was inspired by it!"
   },
-  "motherly_statue": {
-    "id": 20,
+  motherly_statue: {
+    id: 20,
     "file-name": "motherly_statue",
-    "name": {
+    name: {
       "name-USen": "motherly statue",
       "name-EUen": "motherly statue",
       "name-EUde": "Wölfinnenstatue",
@@ -493,16 +512,17 @@
       "name-KRko": "모성이 느껴지는 조각",
       "name-EUru": "материнская статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/motherly_statue",
-    "museum-desc": "This wolf from Roman mythology raises a pair of twins, along with some controversy. The original bronze sculpture of the wolf is a masterpiece that dates back to 5th century BCE. The twins were added during the 15th century...or so it was thought.Recent research has given rise to speculation that the original piece may be from the 11th or 12th century. (We will, however, stick with the 5th century BCE estimate for now.)"
+    image_uri: "https://acnhapi.com/v1/images/art/motherly_statue",
+    "museum-desc":
+      "This wolf from Roman mythology raises a pair of twins, along with some controversy. The original bronze sculpture of the wolf is a masterpiece that dates back to 5th century BCE. The twins were added during the 15th century...or so it was thought.Recent research has given rise to speculation that the original piece may be from the 11th or 12th century. (We will, however, stick with the 5th century BCE estimate for now.)"
   },
-  "moving_painting": {
-    "id": 21,
+  moving_painting: {
+    id: 21,
     "file-name": "moving_painting",
-    "name": {
+    name: {
       "name-USen": "moving painting",
       "name-EUen": "moving painting",
       "name-EUde": "Schöngemälde",
@@ -518,16 +538,17 @@
       "name-KRko": "예쁜 명화",
       "name-EUru": "трогательная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/moving_painting",
-    "museum-desc": "A painting of the Roman goddess Venus riding a scallop shell after being born in the ocean. The name Botticelli is said to actually be a nickname given to the artist's brother, who was built like a barrel. Why this nickname was transferred between siblings is a mystery lost to the ages."
+    image_uri: "https://acnhapi.com/v1/images/art/moving_painting",
+    "museum-desc":
+      "A painting of the Roman goddess Venus riding a scallop shell after being born in the ocean. The name Botticelli is said to actually be a nickname given to the artist's brother, who was built like a barrel. Why this nickname was transferred between siblings is a mystery lost to the ages."
   },
-  "mysterious_painting": {
-    "id": 22,
+  mysterious_painting: {
+    id: 22,
     "file-name": "mysterious_painting",
-    "name": {
+    name: {
       "name-USen": "mysterious painting",
       "name-EUen": "mysterious painting",
       "name-EUde": "Rätselgemälde",
@@ -543,16 +564,17 @@
       "name-KRko": "미스터리한 명화",
       "name-EUru": "загадочная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/mysterious_painting",
-    "museum-desc": "A small boat carrying a corpse glides quietly over a still sea to an island of graves surrounded by cliffs. The air of this piece by symbolist painter Böcklin is chilling, but also somehow calm. Böcklin worked here to capture not what he could see, but some of humanity's inner contemplations."
+    image_uri: "https://acnhapi.com/v1/images/art/mysterious_painting",
+    "museum-desc":
+      "A small boat carrying a corpse glides quietly over a still sea to an island of graves surrounded by cliffs. The air of this piece by symbolist painter Böcklin is chilling, but also somehow calm. Böcklin worked here to capture not what he could see, but some of humanity's inner contemplations."
   },
-  "mystic_statue": {
-    "id": 23,
+  mystic_statue: {
+    id: 23,
     "file-name": "mystic_statue",
-    "name": {
+    name: {
       "name-USen": "mystic statue",
       "name-EUen": "mystic statue",
       "name-EUde": "Geheimnisbüste",
@@ -568,16 +590,17 @@
       "name-KRko": "신비로운 조각",
       "name-EUru": "загадочная статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/mystic_statue",
-    "museum-desc": "A bust of Nefertiti, whose name means \"the beautiful one has come.\" A \"royal wife,\" she was known as one of the three most beautiful women in ancient Egypt. It is not known whether the left eye is missing because it fell out, or because it was never completed."
+    image_uri: "https://acnhapi.com/v1/images/art/mystic_statue",
+    "museum-desc":
+      'A bust of Nefertiti, whose name means "the beautiful one has come." A "royal wife," she was known as one of the three most beautiful women in ancient Egypt. It is not known whether the left eye is missing because it fell out, or because it was never completed.'
   },
-  "nice_painting": {
-    "id": 24,
+  nice_painting: {
+    id: 24,
     "file-name": "nice_painting",
-    "name": {
+    name: {
       "name-USen": "nice painting",
       "name-EUen": "nice painting",
       "name-EUde": "Hübschgemälde",
@@ -593,16 +616,17 @@
       "name-KRko": "좋은 명화",
       "name-EUru": "приятная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/nice_painting",
-    "museum-desc": "One of Manet's earlier works, this painting depicts a young flautist dressed in military uniform. Manet's works are notable for their lack of linear perspective and strong color contrast. These attributes led some to call him \"The Father of Impressionism\" and make comparisons to Vélazquez. Fun fact-flautists can determine what note the boy is playing just by studying the painting closely."
+    image_uri: "https://acnhapi.com/v1/images/art/nice_painting",
+    "museum-desc":
+      "One of Manet's earlier works, this painting depicts a young flautist dressed in military uniform. Manet's works are notable for their lack of linear perspective and strong color contrast. These attributes led some to call him \"The Father of Impressionism\" and make comparisons to Vélazquez. Fun fact-flautists can determine what note the boy is playing just by studying the painting closely."
   },
-  "perfect_painting": {
-    "id": 25,
+  perfect_painting: {
+    id: 25,
     "file-name": "perfect_painting",
-    "name": {
+    name: {
       "name-USen": "perfect painting",
       "name-EUen": "perfect painting",
       "name-EUde": "Perfektgemälde",
@@ -618,16 +642,17 @@
       "name-KRko": "훌륭한 명화",
       "name-EUru": "совершенная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/perfect_painting",
-    "museum-desc": "This still life is known to have inspired the work of many other artists, including Pablo Picasso. Rather than trying to recreate an image, Cézanne captured the beauty of shapes from many angles. With this work, Cézanne draws on both the atmosphere of his subjects and the spirit of its beholders."
+    image_uri: "https://acnhapi.com/v1/images/art/perfect_painting",
+    "museum-desc":
+      "This still life is known to have inspired the work of many other artists, including Pablo Picasso. Rather than trying to recreate an image, Cézanne captured the beauty of shapes from many angles. With this work, Cézanne draws on both the atmosphere of his subjects and the spirit of its beholders."
   },
-  "proper_painting": {
-    "id": 26,
+  proper_painting: {
+    id: 26,
     "file-name": "proper_painting",
-    "name": {
+    name: {
       "name-USen": "proper painting",
       "name-EUen": "proper painting",
       "name-EUde": "Strenggemälde",
@@ -643,16 +668,17 @@
       "name-KRko": "활기 넘치는 명화",
       "name-EUru": "строгая картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/proper_painting",
-    "museum-desc": "Close inspection of the mirror behind this painting's subject reveals many mysteries and paradoxes... In fact, the painting is based on multiple perspectives, which explains the unusual placement of some items. Sadly, this is Manet's last major work. He passed away a year after it was complete, at age 51."
+    image_uri: "https://acnhapi.com/v1/images/art/proper_painting",
+    "museum-desc":
+      "Close inspection of the mirror behind this painting's subject reveals many mysteries and paradoxes... In fact, the painting is based on multiple perspectives, which explains the unusual placement of some items. Sadly, this is Manet's last major work. He passed away a year after it was complete, at age 51."
   },
-  "quaint_painting": {
-    "id": 27,
+  quaint_painting: {
+    id: 27,
     "file-name": "quaint_painting",
-    "name": {
+    name: {
       "name-USen": "quaint painting",
       "name-EUen": "quaint painting",
       "name-EUde": "Altertumsgemälde",
@@ -668,16 +694,17 @@
       "name-KRko": "침착한 명화",
       "name-EUru": "старинная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/quaint_painting",
-    "museum-desc": "This piece earned Vermeer the nickname \"Master of Light\" thanks to its exquisite contrast and depth. Vermeer painted this masterpiece at only 25 years of age. Many note that it is surprisingly small in real life."
+    image_uri: "https://acnhapi.com/v1/images/art/quaint_painting",
+    "museum-desc":
+      'This piece earned Vermeer the nickname "Master of Light" thanks to its exquisite contrast and depth. Vermeer painted this masterpiece at only 25 years of age. Many note that it is surprisingly small in real life.'
   },
-  "robust_statue": {
-    "id": 28,
+  robust_statue: {
+    id: 28,
     "file-name": "robust_statue",
-    "name": {
+    name: {
       "name-USen": "robust statue",
       "name-EUen": "robust statue",
       "name-EUde": "Athletenstatue",
@@ -693,16 +720,17 @@
       "name-KRko": "듬직한 조각",
       "name-EUru": "атлетическая статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/robust_statue",
-    "museum-desc": "This ancient Roman statue is based on the ancient Greek statue crafted by Myron. It's a piece that shows the grandeur of the human body, beautiful from any angle."
+    image_uri: "https://acnhapi.com/v1/images/art/robust_statue",
+    "museum-desc":
+      "This ancient Roman statue is based on the ancient Greek statue crafted by Myron. It's a piece that shows the grandeur of the human body, beautiful from any angle."
   },
   "rock-head_statue": {
-    "id": 29,
+    id: 29,
     "file-name": "rock-head_statue",
-    "name": {
+    name: {
       "name-USen": "rock-head statue",
       "name-EUen": "rock-head statue",
       "name-EUde": "Dickkopfskulptur",
@@ -718,16 +746,17 @@
       "name-KRko": "돌 머리의 조각",
       "name-EUru": "твердолобая статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/rock-head_statue",
-    "museum-desc": "Giant stone head thought to be from the ancient Mesoamerican Olmec civilization. The larger ones can reach three meters in height. Scholars think they only crafted heads, no bodies."
+    image_uri: "https://acnhapi.com/v1/images/art/rock-head_statue",
+    "museum-desc":
+      "Giant stone head thought to be from the ancient Mesoamerican Olmec civilization. The larger ones can reach three meters in height. Scholars think they only crafted heads, no bodies."
   },
-  "scary_painting": {
-    "id": 30,
+  scary_painting: {
+    id: 30,
     "file-name": "scary_painting",
-    "name": {
+    name: {
       "name-USen": "scary painting",
       "name-EUen": "scary painting",
       "name-EUde": "Furchtgemälde",
@@ -743,16 +772,17 @@
       "name-KRko": "씩씩한 명화",
       "name-EUru": "страшная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/scary_painting",
-    "museum-desc": "A print from the mid-Edo period by Tōshūsai Sharaku depicting a famous actor of the time. Sharaku made roughly 140 ukiyo-e prints in his career, even though it only spanned around 10 months!"
+    image_uri: "https://acnhapi.com/v1/images/art/scary_painting",
+    "museum-desc":
+      "A print from the mid-Edo period by Tōshūsai Sharaku depicting a famous actor of the time. Sharaku made roughly 140 ukiyo-e prints in his career, even though it only spanned around 10 months!"
   },
-  "scenic_painting": {
-    "id": 31,
+  scenic_painting: {
+    id: 31,
     "file-name": "scenic_painting",
-    "name": {
+    name: {
       "name-USen": "scenic painting",
       "name-EUen": "scenic painting",
       "name-EUde": "Wintergemälde",
@@ -768,16 +798,17 @@
       "name-KRko": "뛰어난 명화",
       "name-EUru": "живописная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/scenic_painting",
-    "museum-desc": "A landscape artist from the late Renaissance period, Brueghel was known as the \"Peasant Artist.\" He earned the title for depicting scenes from common peasant life, such as the moment captured here. Note the contrast between the weary hunters and the people frolicking below on icy ponds."
+    image_uri: "https://acnhapi.com/v1/images/art/scenic_painting",
+    "museum-desc":
+      'A landscape artist from the late Renaissance period, Brueghel was known as the "Peasant Artist." He earned the title for depicting scenes from common peasant life, such as the moment captured here. Note the contrast between the weary hunters and the people frolicking below on icy ponds.'
   },
-  "serene_painting": {
-    "id": 32,
+  serene_painting: {
+    id: 32,
     "file-name": "serene_painting",
-    "name": {
+    name: {
       "name-USen": "serene painting",
       "name-EUen": "serene painting",
       "name-EUde": "Edelgemälde",
@@ -793,16 +824,17 @@
       "name-KRko": "아늑한 명화",
       "name-EUru": "безмятежная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/serene_painting",
-    "museum-desc": "One of only four portraits of women painted by da Vinci, one of which is the \"Mona Lisa. \"Some believe that the \"ermine\" is not actually an ermine, but rather a white ferret!"
+    image_uri: "https://acnhapi.com/v1/images/art/serene_painting",
+    "museum-desc":
+      'One of only four portraits of women painted by da Vinci, one of which is the "Mona Lisa. "Some believe that the "ermine" is not actually an ermine, but rather a white ferret!'
   },
-  "sinking_painting": {
-    "id": 33,
+  sinking_painting: {
+    id: 33,
     "file-name": "sinking_painting",
-    "name": {
+    name: {
       "name-USen": "sinking painting",
       "name-EUen": "sinking painting",
       "name-EUde": "Versinkgemälde",
@@ -818,16 +850,17 @@
       "name-KRko": "가라앉는 명화",
       "name-EUru": "речная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/sinking_painting",
-    "museum-desc": "Ophelia is a tragic figure in the Shakespearean play \"Hamlet.\" There is an otherworldly expression on her face as she lies unconscious in a river. She is surrounded by the beauty of nature as she floats between life and death."
+    image_uri: "https://acnhapi.com/v1/images/art/sinking_painting",
+    "museum-desc":
+      'Ophelia is a tragic figure in the Shakespearean play "Hamlet." There is an otherworldly expression on her face as she lies unconscious in a river. She is surrounded by the beauty of nature as she floats between life and death.'
   },
-  "solemn_painting": {
-    "id": 34,
+  solemn_painting: {
+    id: 34,
     "file-name": "solemn_painting",
-    "name": {
+    name: {
       "name-USen": "solemn painting",
       "name-EUen": "solemn painting",
       "name-EUde": "Feierlichgemälde",
@@ -843,16 +876,17 @@
       "name-KRko": "엄숙한 명화",
       "name-EUru": "торжественная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/solemn_painting",
-    "museum-desc": "This famous piece by Velázquez, who served the Spanish court, shows us something about perspective. It depicts a young princess with her \"ladies-in-waiting.\" The artist himself is seen to the left. The king and queen are reflected in the mirror to the artist's right, so the perspective is that of the king. The king...watching the artist...paint the king and the queen..."
+    image_uri: "https://acnhapi.com/v1/images/art/solemn_painting",
+    "museum-desc":
+      'This famous piece by Velázquez, who served the Spanish court, shows us something about perspective. It depicts a young princess with her "ladies-in-waiting." The artist himself is seen to the left. The king and queen are reflected in the mirror to the artist\'s right, so the perspective is that of the king. The king...watching the artist...paint the king and the queen...'
   },
-  "tremendous_statue": {
-    "id": 35,
+  tremendous_statue: {
+    id: 35,
     "file-name": "tremendous_statue",
-    "name": {
+    name: {
       "name-USen": "tremendous statue",
       "name-EUen": "tremendous statue",
       "name-EUde": "Prachtskulptur",
@@ -868,16 +902,17 @@
       "name-KRko": "어마어마한 조각",
       "name-EUru": "массивная статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/tremendous_statue",
-    "museum-desc": "This bronze ding from ancient China is the largest and heaviest ever found. The script on the inside suggests it was created to honor the king's mother."
+    image_uri: "https://acnhapi.com/v1/images/art/tremendous_statue",
+    "museum-desc":
+      "This bronze ding from ancient China is the largest and heaviest ever found. The script on the inside suggests it was created to honor the king's mother."
   },
-  "twinkling_painting": {
-    "id": 36,
+  twinkling_painting: {
+    id: 36,
     "file-name": "twinkling_painting",
-    "name": {
+    name: {
       "name-USen": "twinkling painting",
       "name-EUen": "twinkling painting",
       "name-EUde": "Funkelgemälde",
@@ -893,16 +928,17 @@
       "name-KRko": "반짝이는 명화",
       "name-EUru": "звездная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/twinkling_painting",
-    "museum-desc": "Van Gogh's signature piece, painted while he was hospitalized at an asylum. This view from his room includes memories and imaginations. In letters to friends, the artist called it a failure."
+    image_uri: "https://acnhapi.com/v1/images/art/twinkling_painting",
+    "museum-desc":
+      "Van Gogh's signature piece, painted while he was hospitalized at an asylum. This view from his room includes memories and imaginations. In letters to friends, the artist called it a failure."
   },
-  "valiant_statue": {
-    "id": 37,
+  valiant_statue: {
+    id: 37,
     "file-name": "valiant_statue",
-    "name": {
+    name: {
       "name-USen": "valiant statue",
       "name-EUen": "valiant statue",
       "name-EUde": "Erhabenstatue",
@@ -918,16 +954,17 @@
       "name-KRko": "거룩한 조각",
       "name-EUru": "героическая статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/valiant_statue",
-    "museum-desc": "A statue of the goddess of victory, Nike, found on Samothrace. It shows Nike alighting on the prow of a ship. Originally found in separate pieces, it has largely been restored, but the arms and head are still missing."
+    image_uri: "https://acnhapi.com/v1/images/art/valiant_statue",
+    "museum-desc":
+      "A statue of the goddess of victory, Nike, found on Samothrace. It shows Nike alighting on the prow of a ship. Originally found in separate pieces, it has largely been restored, but the arms and head are still missing."
   },
-  "warm_painting": {
-    "id": 38,
+  warm_painting: {
+    id: 38,
     "file-name": "warm_painting",
-    "name": {
+    name: {
       "name-USen": "warm painting",
       "name-EUen": "warm painting",
       "name-EUde": "Warmgemälde",
@@ -943,16 +980,17 @@
       "name-KRko": "느낌이 좋은 명화",
       "name-EUru": "романтичная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/warm_painting",
-    "museum-desc": "It is said that this painting is a more discreet version of an earlier work known as \"The Nude Maja.\" It is also known that Francisco de Goya was quite popular in his own time. Could these facts be related? A third, unrelated fact-the word \"maja\" refers to a \"stylish young lady of Madrid.\""
+    image_uri: "https://acnhapi.com/v1/images/art/warm_painting",
+    "museum-desc":
+      'It is said that this painting is a more discreet version of an earlier work known as "The Nude Maja." It is also known that Francisco de Goya was quite popular in his own time. Could these facts be related? A third, unrelated fact-the word "maja" refers to a "stylish young lady of Madrid."'
   },
-  "warrior_statue": {
-    "id": 39,
+  warrior_statue: {
+    id: 39,
     "file-name": "warrior_statue",
-    "name": {
+    name: {
       "name-USen": "warrior statue",
       "name-EUen": "warrior statue",
       "name-EUde": "Kriegerstatue",
@@ -968,16 +1006,17 @@
       "name-KRko": "무사의 조각",
       "name-EUru": "воинственная статуя"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/warrior_statue",
-    "museum-desc": "These terracotta warriors were buried with the first Qin emperor to protect him in the afterlife. Nearly 2,000 years later, in 1974, about 8,000 of them were found. Each life-sized statue is said to have been handmade with different poses, expressions, and clothing."
+    image_uri: "https://acnhapi.com/v1/images/art/warrior_statue",
+    "museum-desc":
+      "These terracotta warriors were buried with the first Qin emperor to protect him in the afterlife. Nearly 2,000 years later, in 1974, about 8,000 of them were found. Each life-sized statue is said to have been handmade with different poses, expressions, and clothing."
   },
-  "wild_painting_left_half": {
-    "id": 40,
+  wild_painting_left_half: {
+    id: 40,
     "file-name": "wild_painting_left_half",
-    "name": {
+    name: {
       "name-USen": "wild painting left half",
       "name-EUen": "wild painting left half",
       "name-EUde": "Ungestümgemälde (links)",
@@ -993,16 +1032,17 @@
       "name-KRko": "혼란스러운 명화의 왼쪽",
       "name-EUru": "лев. часть дикой картины"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/wild_painting_left_half",
-    "museum-desc": "This folding screen shows dynamic brushwork of Fūjin and Raijin on a gold-leaf background. It is thought to be the masterpiece of Tawaraya Sōtatsu, an early-Edo- period artist. The simplification of the subjects is a style that was carried on by Ogata Kōrin. It's a style still in use today in the Rinpa school of Japanese painting."
+    image_uri: "https://acnhapi.com/v1/images/art/wild_painting_left_half",
+    "museum-desc":
+      "This folding screen shows dynamic brushwork of Fūjin and Raijin on a gold-leaf background. It is thought to be the masterpiece of Tawaraya Sōtatsu, an early-Edo- period artist. The simplification of the subjects is a style that was carried on by Ogata Kōrin. It's a style still in use today in the Rinpa school of Japanese painting."
   },
-  "wild_painting_right_half": {
-    "id": 41,
+  wild_painting_right_half: {
+    id: 41,
     "file-name": "wild_painting_right_half",
-    "name": {
+    name: {
       "name-USen": "wild painting right half",
       "name-EUen": "wild painting right half",
       "name-EUde": "Ungestümgemälde (rechts)",
@@ -1018,16 +1058,17 @@
       "name-KRko": "혼란스러운 명화의 오른쪽",
       "name-EUru": "прав. часть дикой картины"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/wild_painting_right_half",
-    "museum-desc": "This folding screen shows dynamic brushwork of Fūjin and Raijin on a gold-leaf background. It is thought to be the masterpiece of Tawaraya Sōtatsu, an early-Edo- period artist. The simplification of the subjects is a style that was carried on by Ogata Kōrin. It's a style still in use today in the Rinpa school of Japanese painting."
+    image_uri: "https://acnhapi.com/v1/images/art/wild_painting_right_half",
+    "museum-desc":
+      "This folding screen shows dynamic brushwork of Fūjin and Raijin on a gold-leaf background. It is thought to be the masterpiece of Tawaraya Sōtatsu, an early-Edo- period artist. The simplification of the subjects is a style that was carried on by Ogata Kōrin. It's a style still in use today in the Rinpa school of Japanese painting."
   },
-  "wistful_painting": {
-    "id": 42,
+  wistful_painting: {
+    id: 42,
     "file-name": "wistful_painting",
-    "name": {
+    name: {
       "name-USen": "wistful painting",
       "name-EUen": "wistful painting",
       "name-EUde": "Perlengemälde",
@@ -1043,16 +1084,17 @@
       "name-KRko": "근사한 명화",
       "name-EUru": "мечтательная картина"
     },
-    "hasFake": true,
+    hasFake: true,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/wistful_painting",
-    "museum-desc": "Also known as \"Girl with a Turban,\" this piece uses ultramarine paint, which was expensive at the time. It seems the expense was worth it, as the vivid blue colors draw the eye and help make the piece a classic. The only question is... Is that a real pearl earring? Or something else..."
+    image_uri: "https://acnhapi.com/v1/images/art/wistful_painting",
+    "museum-desc":
+      'Also known as "Girl with a Turban," this piece uses ultramarine paint, which was expensive at the time. It seems the expense was worth it, as the vivid blue colors draw the eye and help make the piece a classic. The only question is... Is that a real pearl earring? Or something else...'
   },
-  "worthy_painting": {
-    "id": 43,
+  worthy_painting: {
+    id: 43,
     "file-name": "worthy_painting",
-    "name": {
+    name: {
       "name-USen": "worthy painting",
       "name-EUen": "worthy painting",
       "name-EUde": "Wahrgemälde",
@@ -1068,10 +1110,13 @@
       "name-KRko": "가치 있는 명화",
       "name-EUru": "достойная картина"
     },
-    "hasFake": false,
+    hasFake: false,
     "buy-price": 4980,
     "sell-price": 1245,
-    "image_uri": "https://acnhapi.com/v1/images/art/worthy_painting",
-    "museum-desc": "Painted by leading 19th century Romantic artist Delacroix in the same year as a French revolution. The woman in the center is often mistaken for Joan of Arc, but she is actually the fictional \"Marianne.\""
+    image_uri: "https://acnhapi.com/v1/images/art/worthy_painting",
+    "museum-desc":
+      'Painted by leading 19th century Romantic artist Delacroix in the same year as a French revolution. The woman in the center is often mistaken for Joan of Arc, but she is actually the fictional "Marianne."'
   }
-}
+};
+
+export default art;
