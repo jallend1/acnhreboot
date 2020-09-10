@@ -4,26 +4,26 @@
 // TODO Possibility: Randomly pick song to have loaded into player on pageload (If there is no activeSong)
 // TODO Possibility: What is going on with my routes. It is too ugly to bear.
 
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import Header from "./Components/Header";
-import Creatures from "./Components/Creatures";
-import Music from "./Components/Music";
-import Villagers from "./Components/Villagers";
-import Art from "./Components/Art";
-import Completed from "./Components/Completed";
-import Welcome from "./Components/Welcome";
-import Filter from "./Components/Filter";
-import NavBar from "./Components/NavBar";
-import Player from "./Components/Player";
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Header from './Components/Header';
+import Creatures from './Components/Creatures';
+import Music from './Components/Music';
+import Villagers from './Components/Villagers';
+import Art from './Components/Art';
+import Completed from './Components/Completed';
+import Welcome from './Components/Welcome';
+import Filter from './Components/Filter';
+import NavBar from './Components/NavBar';
+import Player from './Components/Player';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: "home",
+      activeItem: 'home',
       activeItems: [],
-      activeSong: "",
+      activeSong: '',
       allItems: {
         home: [],
         fish: [],
@@ -37,8 +37,8 @@ class App extends React.Component {
       },
       descending: false,
       availableToday: false,
-      sortBy: "alpha",
-      time: "",
+      sortBy: 'alpha',
+      time: '',
       completed: {
         fish: [],
         bugs: [],
@@ -49,7 +49,7 @@ class App extends React.Component {
         art: [],
         home: []
       },
-      searchValue: ""
+      searchValue: ''
     };
   }
 
@@ -65,9 +65,9 @@ class App extends React.Component {
   }
 
   extractLocalStorage = () => {
-    if (localStorage.getItem("completed") !== null) {
+    if (localStorage.getItem('completed') !== null) {
       //If any completed items exist in localStorage, makes them active
-      const savedCompleted = localStorage.getItem("completed");
+      const savedCompleted = localStorage.getItem('completed');
       this.setState(
         { completed: JSON.parse(savedCompleted) },
         this.populateComplete()
@@ -76,7 +76,7 @@ class App extends React.Component {
   };
 
   populateData = (dataType) => {
-    if (dataType !== "completed" && dataType !== "home") {
+    if (dataType !== 'completed' && dataType !== 'home') {
       let jsonPath = `../${dataType}.json`;
       fetch(jsonPath)
         .then((data) => data.json())
@@ -98,7 +98,7 @@ class App extends React.Component {
   };
 
   calculateAvailability = (availability) => {
-    const northernMonths = availability["month-array-northern"];
+    const northernMonths = availability['month-array-northern'];
     const currentMonth = this.state.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
@@ -134,7 +134,7 @@ class App extends React.Component {
       music: [],
       art: []
     };
-    localStorage.removeItem("completed");
+    localStorage.removeItem('completed');
     this.setState({ completed: clearedState });
   };
 
@@ -143,9 +143,9 @@ class App extends React.Component {
     const currentState = this.state.activeItems;
     // Only these creatures have limited availability
     if (
-      this.state.activeItem === "fish" ||
-      this.state.activeItem === "bugs" ||
-      this.state.activeItem === "sea"
+      this.state.activeItem === 'fish' ||
+      this.state.activeItem === 'bugs' ||
+      this.state.activeItem === 'sea'
     ) {
       return currentState.filter((item) => {
         return this.calculateAvailability(item.availability);
@@ -175,14 +175,14 @@ class App extends React.Component {
       currentState[this.state.activeItem].push(e.target.value);
       this.setState(
         { completed: currentState },
-        localStorage.setItem("completed", JSON.stringify(this.state.completed))
+        localStorage.setItem('completed', JSON.stringify(this.state.completed))
       );
     } else {
       const index = currentState[this.state.activeItem].indexOf(e.target.value);
       currentState[this.state.activeItem].splice(index, 1);
       this.setState(
         { completed: currentState },
-        localStorage.setItem("completed", JSON.stringify(this.state.completed))
+        localStorage.setItem('completed', JSON.stringify(this.state.completed))
       );
     }
   };
@@ -198,27 +198,27 @@ class App extends React.Component {
     itemArrays.forEach((itemArray) => {
       //Runs through item types, and retrieves full item details
 
-      if (itemArray !== "home") {
+      if (itemArray !== 'home') {
         currentState.completed[itemArray] = [];
         if (completed[itemArray].length > 0) {
           // If this item type has anything in it, process it
 
           completed[itemArray].forEach((item) => {
             const itemDeets = this.state.allItems[itemArray].find(
-              (element) => element.name["name-USen"] === item
+              (element) => element.name['name-USen'] === item
             ); // All the JSON info on this current item
             const fileLocation =
-              itemArray === "fossils" ||
-              itemArray === "music" ||
-              itemArray === "art"
-                ? `./images/${itemArray}/${itemDeets["file-name"]}.png`
-                : `images/icons/${itemArray}/${itemDeets["file-name"]}.png`;
+              itemArray === 'fossils' ||
+              itemArray === 'music' ||
+              itemArray === 'art'
+                ? `./images/${itemArray}/${itemDeets['file-name']}.png`
+                : `images/icons/${itemArray}/${itemDeets['file-name']}.png`;
             itemDeets.fileLocation = fileLocation;
-            itemDeets.key = `completed${itemDeets.name["name-USen"]}`;
+            itemDeets.key = `completed${itemDeets.name['name-USen']}`;
             itemDeets.type = itemArray;
             if (
               !currentState.completed.find(
-                (item) => item.name["name-USen"] === itemDeets.name["name-USen"]
+                (item) => item.name['name-USen'] === itemDeets.name['name-USen']
               )
             ) {
               currentState.completed.push(itemDeets);
@@ -240,7 +240,7 @@ class App extends React.Component {
   searchResults = () => {
     const currentData = this.state.allItems[this.state.activeItem];
     const activeItems = currentData.filter((item) =>
-      item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
+      item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
     );
     this.setState({ activeItems }, this.showAvailable);
   };
@@ -256,7 +256,7 @@ class App extends React.Component {
         activeItems = this.state.allItems[
           this.state.activeItem
         ].filter((item) =>
-          item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
+          item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
         );
         // If no filtering criteria, restores the original item list
       } else {
@@ -270,9 +270,9 @@ class App extends React.Component {
     const activeItems = this.state.activeItems;
     const criteria = this.state.sortBy;
     // If alphabetical is clicked, convert to lowercase and sort alphabetically
-    if (criteria === "alpha") {
+    if (criteria === 'alpha') {
       activeItems.sort((a, b) =>
-        a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
+        a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
           ? 1
           : -1
       );
@@ -294,7 +294,7 @@ class App extends React.Component {
   toggleCollapse = (item, creatureType) => {
     const currentState = this.state.allItems;
     const itemIndex = currentState[creatureType].findIndex(
-      (creature) => creature["file-name"] === item
+      (creature) => creature['file-name'] === item
     );
     let isCollapsed = currentState[creatureType][itemIndex].collapsed;
     isCollapsed = !isCollapsed;
@@ -321,7 +321,7 @@ class App extends React.Component {
             types={Object.keys(this.state.allItems)}
           />
           <div className="main-content">
-            {this.state.activeItem !== "home" ? (
+            {this.state.activeItem !== 'home' ? (
               <>
                 <Filter
                   activeItem={this.state.activeItem}
