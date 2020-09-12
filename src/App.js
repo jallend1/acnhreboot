@@ -16,6 +16,7 @@ import Welcome from './Components/Welcome';
 import Filter from './Components/Filter';
 import NavBar from './Components/NavBar';
 import Player from './Components/Player';
+import { ItemContext } from './contexts/ItemContext';
 
 class App extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class App extends React.Component {
     };
   }
 
+  static contextType = ItemContext;
   componentDidMount() {
     // Extracts the types of objects from State
     const types = Object.keys(this.state.allItems);

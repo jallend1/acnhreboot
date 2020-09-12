@@ -1,7 +1,9 @@
-import React from "react";
-import { properCase } from "../utils";
+import React from 'react';
+import { properCase } from '../utils';
+import { ItemContext } from '../contexts/ItemContext';
 
 class Art extends React.Component {
+  static contextType = ItemContext;
   componentDidMount() {
     this.props.changeActiveItem(this.props.activeItem);
   }
@@ -12,8 +14,8 @@ class Art extends React.Component {
   }
   displayArt = (art) => {
     const {
-      "file-name": fileName,
-      name: { "name-USen": name },
+      'file-name': fileName,
+      name: { 'name-USen': name },
       hasFake
     } = art;
     return (
@@ -37,7 +39,7 @@ class Art extends React.Component {
             <span>Mark Complete</span>
           </label>
         </div>
-        <p>Has a fake version? {hasFake ? "Yes" : "No"}</p>
+        <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
       </div>
     );
   };
@@ -45,7 +47,7 @@ class Art extends React.Component {
   filterArt = () => {
     const searchValue = this.props.searchValue;
     const displayedArt = this.props.allItems.art.filter((art) =>
-      art.name["name-USen"].includes(searchValue)
+      art.name['name-USen'].includes(searchValue)
     );
     return displayedArt.map((art) => this.displayArt(art));
   };
