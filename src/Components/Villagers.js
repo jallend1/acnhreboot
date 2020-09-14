@@ -8,7 +8,7 @@ class Villagers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filtered: this.props.activeItems,
+      filtered: [],
       species: [],
       personalities: [],
       searchSpecies: [],
@@ -19,23 +19,23 @@ class Villagers extends React.Component {
     };
   }
   static contextType = ItemContext;
+
   componentDidMount = () => {
-    const currentTime = new Date();
-    this.props.changeActiveItem('villagers');
-    this.setState({ time: currentTime });
+    this.context.changeActiveItem('villagers');
+    this.setState({ filtered: this.context.activeItems });
     this.birthdayCheck();
     this.compileDropdowns();
   };
 
-  componentDidUpdate = (prevProps) => {
-    if (this.props.searchValue !== prevProps.searchValue) {
-      this.filterVillagers();
-    }
-    if (this.props.activeItems !== prevProps.activeItems) {
-      this.birthdayCheck();
-      this.compileDropdowns();
-    }
-  };
+  // componentDidUpdate = (prevProps) => {
+  //   if (this.props.searchValue !== prevProps.searchValue) {
+  //     this.filterVillagers();
+  //   }
+  //   if (this.props.activeItems !== prevProps.activeItems) {
+  //     this.birthdayCheck();
+  //     this.compileDropdowns();
+  //   }
+  // };
 
   activateCard = (cardID) => {
     this.setState({ activeCard: cardID });
@@ -129,7 +129,7 @@ class Villagers extends React.Component {
 
   displaySelection = () => {
     if (
-      this.props.searchValue ||
+      this.context.searchValue ||
       this.state.searchSpecies.length > 0 ||
       this.state.searchPersonality.length > 0 ||
       this.state.searchBirthday.length > 0
@@ -140,7 +140,7 @@ class Villagers extends React.Component {
       );
     } else {
       // If not, go with the original state
-      return this.props.activeItems.map((villager) =>
+      return this.context.activeItems.map((villager) =>
         this.displayVillagers(villager)
       );
     }
@@ -153,15 +153,16 @@ class Villagers extends React.Component {
       name: { 'name-USen': name }
     } = villager;
     villager.isBirthday = false;
+    const currentTime = new Date();
     const birthDate = this.fixBirthday(villager);
     if (
-      birthDate.getMonth() === this.props.time.getMonth() &&
-      birthDate.getDate() === this.props.time.getDate()
+      birthDate.getMonth() === currentTime.getMonth() &&
+      birthDate.getDate() === currentTime.getDate()
     ) {
       villager.isBirthday = true;
     }
     villager.birthdayDaysAway = Math.ceil(
-      (birthDate - this.props.time) / (1000 * 3600 * 24)
+      (birthDate - currentTime.time) / (1000 * 3600 * 24)
     );
     if (villager.birthdayDaysAway < 0) {
       villager.birthdayDaysAway += 365;
@@ -172,7 +173,7 @@ class Villagers extends React.Component {
           <header>
             <h3>{villager.isBirthday ? `🎉${name}🎉` : name}</h3>
             <img
-              src={`./images/icons/${this.props.activeItem}/${fileName}.png`}
+              src={`./images/icons/${this.context.activeItem}/${fileName}.png`}
               alt={name}
             />
             <h4>"{properCase(catchPhrase)}"</h4>
@@ -205,8 +206,8 @@ class Villagers extends React.Component {
   };
 
   filterVillagers = () => {
-    let newResults = this.props.activeItems;
-    const searchValue = this.props.searchValue;
+    let newResults = this.context.activeItems;
+    const searchValue = this.context.searchValue;
     let searchSpecies = this.state.searchSpecies;
     let searchPersonality = this.state.searchPersonality;
     let searchBirthday = this.state.searchBirthday;
@@ -237,7 +238,7 @@ class Villagers extends React.Component {
       searchPersonality.length === 0 &&
       searchBirthday.length === 0
     ) {
-      newResults = this.props.activeItems;
+      newResults = this.context.activeItems;
     }
     this.setState({ filtered: newResults });
   };
@@ -245,7 +246,7 @@ class Villagers extends React.Component {
   fixBirthday = (villager) => {
     // Changes birthday from DD//MM into YYYY/MM/DD
     const originalBirthdayFormat = villager.birthday.split('/');
-    const currentTime = this.props.time;
+    const currentTime = new Date();
     const fixedBirthDate =
       currentTime.getFullYear() +
       ' ' +
@@ -255,11 +256,12 @@ class Villagers extends React.Component {
   };
 
   render() {
+    console.log(this.props, this.context);
     return (
       <>
-        <h2>{this.props.activeItem.toUpperCase()}</h2>
+        <h2>{this.context.activeItem.toUpperCase()}</h2>
         <div id="birthdays">
-          {this.props.activeItems.length > 0 ? (
+          {this.context.activeItems.length > 0 ? (
             this.celebrateBirthday()
           ) : (
             <h5>Running through the calendar looking for birthdays</h5>
@@ -272,7 +274,7 @@ class Villagers extends React.Component {
           checkboxChange={this.checkboxChange}
         />
         <div id="villagers">
-          {this.props.activeItems.length > 0 ? (
+          {this.context.activeItems.length > 0 ? (
             this.displaySelection()
           ) : (
             <h3>Gathering all the villagers...</h3>
@@ -280,7 +282,7 @@ class Villagers extends React.Component {
         </div>
         {this.state.activeCard ? (
           <Popup
-            villagers={this.props.activeItems}
+            villagers={this.context.activeItems}
             activeCard={this.state.activeCard}
             closeDetails={this.closeDetails}
           />

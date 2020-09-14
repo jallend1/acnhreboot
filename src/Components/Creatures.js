@@ -6,7 +6,7 @@ import { ItemContext } from '../contexts/ItemContext';
 class Creatures extends React.Component {
   static contextType = ItemContext;
   componentDidMount() {
-    this.props.changeActiveItem(this.props.match.params.creature);
+    this.context.changeActiveItem(this.props.match.params.creature);
   }
 
   calculateAvailability = (availability) => {
@@ -24,9 +24,9 @@ class Creatures extends React.Component {
     );
   };
   displayPrice = (item) => {
-    if (this.props.sortBy === 'cj') {
+    if (this.context.sortBy === 'cj') {
       return <h6>{item['price-cj']} bells</h6>;
-    } else if (this.props.sortBy === 'flick') {
+    } else if (this.context.sortBy === 'flick') {
       return <h6>{item['price-flick']} bells</h6>;
     } else {
       return <h6>{item.price} bells</h6>;
@@ -49,7 +49,10 @@ class Creatures extends React.Component {
       <i
         className="material-icons"
         onClick={() =>
-          this.props.toggleCollapse(item['file-name'], this.context.activeItem)
+          this.context.toggleCollapse(
+            item['file-name'],
+            this.context.activeItem
+          )
         }
       >
         expand_more
@@ -58,7 +61,10 @@ class Creatures extends React.Component {
       <i
         className="material-icons"
         onClick={() =>
-          this.props.toggleCollapse(item['file-name'], this.context.activeItem)
+          this.context.toggleCollapse(
+            item['file-name'],
+            this.context.activeItem
+          )
         }
       >
         expand_less
@@ -148,10 +154,7 @@ class Creatures extends React.Component {
                 <th>Available Now</th>
               </tr>
             </thead>
-            <tbody>
-              {this.tableBody()}
-              {/* {this.props.activeItems.map((item) => this.displayItems(item))} */}
-            </tbody>
+            <tbody>{this.tableBody()}</tbody>
           </table>
         </div>
       </>

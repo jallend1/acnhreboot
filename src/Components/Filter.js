@@ -4,13 +4,13 @@ class Filter extends React.Component {
   // Shows collapse/expand details on only creatures and fossils
   static contextType = ItemContext;
   showCollapse = (isCreature) => {
-    if (isCreature || this.props.activeItem === 'fossils') {
+    if (isCreature || this.context.activeItem === 'fossils') {
       return (
         <div>
           <div className="collapse-toggle">
             <button
               className="btn collapse-toggle green accent-4"
-              onClick={() => this.context.collapseAll(this.props.activeItem)}
+              onClick={() => this.context.collapseAll(this.context.activeItem)}
             >
               Collapse All
             </button>
@@ -18,7 +18,7 @@ class Filter extends React.Component {
           <div className="collapse-toggle">
             <button
               className="btn collapse-toggle green accent-4"
-              onClick={() => this.context.expandAll(this.props.activeItem)}
+              onClick={() => this.context.expandAll(this.context.activeItem)}
             >
               Expand All
             </button>
@@ -112,14 +112,14 @@ class Filter extends React.Component {
     );
   };
   determineSearchFields() {
-    if (this.props.activeItem === 'fish') {
+    if (this.context.activeItem === 'fish') {
       return (
         <>
           {this.filterNook()}
           {this.filterCJ()}
         </>
       );
-    } else if (this.props.activeItem === 'bugs') {
+    } else if (this.context.activeItem === 'bugs') {
       return (
         <>
           {this.filterNook()}
@@ -127,11 +127,11 @@ class Filter extends React.Component {
         </>
       );
     } else if (
-      this.props.activeItem === 'fossils' ||
-      this.props.activeItem === 'sea'
+      this.context.activeItem === 'fossils' ||
+      this.context.activeItem === 'sea'
     ) {
       return this.filterNook();
-    } else if (this.props.activeItem === 'villagers') {
+    } else if (this.context.activeItem === 'villagers') {
       return this.filterBirthday();
     }
   }
@@ -143,7 +143,7 @@ class Filter extends React.Component {
           type="checkbox"
           id="descending"
           name="descending"
-          onChange={this.props.toggleDescending}
+          onChange={this.context.toggleDescending}
         />
         <span>Descending order</span>
       </label>
@@ -155,9 +155,9 @@ class Filter extends React.Component {
         <div className="input-field">
           <i className="material-icons prefix">search</i>
           <label htmlFor="search" className="active">
-            Search the {this.props.activeItem}...
+            Search the {this.context.activeItem}...
           </label>
-          <input id="search" type="text" onChange={this.props.searchField} />
+          <input id="search" type="text" onChange={this.context.searchField} />
         </div>
       </form>
     );
@@ -165,14 +165,14 @@ class Filter extends React.Component {
   render() {
     // Creatures boolean because fish, bugs, sea creatures all have overlapping filters
     const isCreature =
-      this.props.activeItem === 'fish' ||
-      this.props.activeItem === 'bugs' ||
-      this.props.activeItem === 'sea';
+      this.context.activeItem === 'fish' ||
+      this.context.activeItem === 'bugs' ||
+      this.context.activeItem === 'sea';
     return (
       <>
         {this.renderSearchBar()}
         <div id="filters">
-          <form onChange={this.props.changeSort}>
+          <form onChange={this.context.changeSort}>
             {this.filterAlpha()}
             {this.determineSearchFields()}
           </form>

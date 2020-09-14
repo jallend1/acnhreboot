@@ -1,8 +1,10 @@
+// ! App breaks on MarkComplete as it hasn't been moved over to the Context component yet
+// TODO Expand context to include Completed component
+
 // TODO Possibility: Single page to list _all_ items?
 // TODO Possibility: Universal search?
 // TODO Possibility: Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
 // TODO Possibility: Randomly pick song to have loaded into player on pageload (If there is no activeSong)
-// TODO Possibility: What is going on with my routes. It is too ugly to bear.
 
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -22,14 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: 'home',
-      activeItems: [],
       activeSong: '',
-
-      descending: false,
-      availableToday: false,
-      sortBy: 'alpha',
-      time: '',
       completed: {
         fish: [],
         bugs: [],
@@ -39,21 +34,14 @@ class App extends Component {
         music: [],
         art: [],
         home: []
-      },
-      searchValue: ''
+      }
     };
   }
 
   static contextType = ItemContext;
   componentDidMount() {
     // Extracts the types of objects from State
-    const types = Object.keys(this.context.allItems);
-    // types.forEach((item) => this.populateData(item)); //Populates all items into state on load
-    const now = new Date();
     this.extractLocalStorage();
-    this.setState({
-      time: now
-    });
   }
 
   extractLocalStorage = () => {
@@ -65,55 +53,6 @@ class App extends Component {
         this.populateComplete()
       );
     }
-  };
-
-  populateData = (dataType) => {
-    if (dataType !== 'completed' && dataType !== 'home') {
-      let jsonPath = `../${dataType}.json`;
-      fetch(jsonPath)
-        .then((data) => data.json())
-        .then((results) => {
-          const itemList = Object.values(results);
-          itemList.forEach((item) => (item.collapsed = true));
-          const currentState = this.state.allItems;
-          currentState[dataType] = itemList;
-          this.setState(
-            {
-              allItems: currentState,
-              activeItems: currentState[this.state.activeItem]
-            },
-            this.sortAlpha
-          );
-        });
-    }
-    this.extractLocalStorage();
-  };
-
-  calculateAvailability = (availability) => {
-    const northernMonths = availability['month-array-northern'];
-    const currentMonth = this.state.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
-    return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
-  };
-
-  changeActiveItem = (newType) => {
-    this.setState({
-      activeItem: newType,
-      activeItems: this.context.allItems[newType]
-    });
-  };
-
-  changeSort = (change) => {
-    const target = change.target.value;
-    this.setState({ sortBy: target }, this.sortAlpha);
-  };
-
-  changeToNew = (e) => {
-    const newType = e.target.dataset.id; // Takes the type of creature from the dataset name included in HTML
-    const newCreatures = this.context.allItems[newType];
-    this.setState(
-      { activeItem: newType, activeItems: newCreatures },
-      this.sortAlpha
-    ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
   };
 
   clearCollected = () => {
@@ -128,24 +67,6 @@ class App extends Component {
     };
     localStorage.removeItem('completed');
     this.setState({ completed: clearedState });
-  };
-
-  compareAvailabilityToTime = () => {
-    // Called under showAvailable to determine if current active items have limited availability
-    const currentState = this.state.activeItems;
-    // Only these creatures have limited availability
-    if (
-      this.state.activeItem === 'fish' ||
-      this.state.activeItem === 'bugs' ||
-      this.state.activeItem === 'sea'
-    ) {
-      return currentState.filter((item) => {
-        return this.calculateAvailability(item.availability);
-      });
-      // Everything else has full availability
-    } else {
-      return this.context.allItems[this.state.activeItem];
-    }
   };
 
   markComplete = (e) => {
@@ -210,83 +131,6 @@ class App extends Component {
     });
   };
 
-  // When the search field receives input, update state and call function to filter results
-  searchField = (e) => {
-    const searchValue = e.target.value.toLowerCase();
-    this.setState({ searchValue }, this.searchResults());
-  };
-
-  //
-  searchResults = () => {
-    const currentData = this.context.allItems[this.state.activeItem];
-    const activeItems = currentData.filter((item) =>
-      item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
-    );
-    this.setState({ activeItems }, this.context.showAvailable);
-  };
-
-  showAvailable = () => {
-    let activeItems = [];
-    // If show only available was just clicked, filters it so
-    if (this.state.availableToday) {
-      activeItems = this.compareAvailabilityToTime();
-    } else {
-      // If just unclicked, checks to see if search field has value, and restores array matching that criteria
-      if (this.state.searchValue) {
-        activeItems = this.context.allItems[
-          this.state.activeItem
-        ].filter((item) =>
-          item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
-        );
-        // If no filtering criteria, restores the original item list
-      } else {
-        activeItems = this.context.allItems[this.state.activeItem];
-      }
-    }
-    this.setState({ activeItems });
-  };
-
-  sortAlpha = () => {
-    const activeItems = this.state.activeItems;
-    const criteria = this.state.sortBy;
-    // If alphabetical is clicked, convert to lowercase and sort alphabetically
-    if (criteria === 'alpha') {
-      activeItems.sort((a, b) =>
-        a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
-          ? 1
-          : -1
-      );
-      // If not alpha, sort numerically by either Nook's price or special purhcaser price
-    } else {
-      activeItems.sort((a, b) => (a[criteria] > b[criteria] ? 1 : -1));
-    }
-    // If descending is active, reverse the order
-    if (this.state.descending) activeItems.reverse();
-    this.setState({ activeItems }, this.context.showAvailable);
-  };
-
-  // toggleAvailable = (e) => {
-  //   e.target.checked
-  //     ? this.setState({ availableToday: true }, this.context.showAvailable)
-  //     : this.setState({ availableToday: false }, this.context.showAvailable);
-  // };
-
-  toggleCollapse = (item, creatureType) => {
-    const currentState = this.context.allItems;
-    const itemIndex = currentState[creatureType].findIndex(
-      (creature) => creature['file-name'] === item
-    );
-    let isCollapsed = currentState[creatureType][itemIndex].collapsed;
-    isCollapsed = !isCollapsed;
-    currentState[creatureType][itemIndex].collapsed = isCollapsed;
-    this.setState({ [creatureType]: currentState });
-  };
-
-  toggleDescending = (e) => {
-    let descending = this.state.descending;
-    descending = !descending;
-    this.setState({ descending }, this.sortAlpha);
-  };
   render() {
     return (
       <BrowserRouter>
@@ -295,21 +139,11 @@ class App extends Component {
           {this.state.activeSong ? (
             <Player activeSong={this.state.activeSong} />
           ) : null}
-          <NavBar
-            activeItem={this.state.activeItem}
-            changeToNew={this.changeToNew}
-            types={Object.keys(this.context.allItems)}
-          />
+          <NavBar />
           <div className="main-content">
-            {this.state.activeItem !== 'home' ? (
+            {this.context.activeItem !== 'home' ? (
               <>
-                <Filter
-                  activeItem={this.state.activeItem}
-                  searchField={this.searchField}
-                  changeSort={this.changeSort}
-                  toggleDescending={this.toggleDescending}
-                  descending={this.props.descending}
-                />
+                <Filter />
                 <button
                   className="btn green accent-4"
                   onClick={this.clearCollected}
@@ -322,12 +156,7 @@ class App extends Component {
               path="/music"
               render={(props) => (
                 <Music
-                  activeItem="music"
-                  activeItems={this.state.activeItems}
-                  searchValue={this.state.searchValue}
-                  changeActiveItem={this.changeActiveItem}
                   playSong={this.playSong}
-                  toggleCollapse={this.toggleCollapse}
                   markComplete={this.markComplete}
                   completed={this.state.completed}
                   {...props}
@@ -338,13 +167,6 @@ class App extends Component {
               path="/villagers"
               render={(props) => (
                 <Villagers
-                  activeItem="villagers"
-                  activeItems={this.state.activeItems}
-                  searchValue={this.state.searchValue}
-                  changeActiveItem={this.changeActiveItem}
-                  filtered={this.state.filtered}
-                  toggleCollapse={this.toggleCollapse}
-                  time={this.state.time}
                   markComplete={this.markComplete}
                   completed={this.state.completed}
                   {...props}
@@ -355,10 +177,6 @@ class App extends Component {
               path="/art"
               render={(props) => (
                 <Art
-                  activeItem="art"
-                  searchValue={this.state.searchValue}
-                  changeActiveItem={this.changeActiveItem}
-                  toggleCollapse={this.toggleCollapse}
                   markComplete={this.markComplete}
                   completed={this.state.completed}
                   {...props}
@@ -383,14 +201,8 @@ class App extends Component {
               render={(props) => {
                 return (
                   <Creatures
-                    activeItem={props.match.params.creature}
-                    activeItems={this.state.activeItems}
-                    changeActiveItem={this.changeActiveItem}
-                    toggleCollapse={this.toggleCollapse}
                     time={this.state.time}
-                    availableToday={this.state.availableToday}
                     markComplete={this.markComplete}
-                    sortBy={this.state.sortBy}
                     completed={this.state.completed}
                     {...props}
                   />

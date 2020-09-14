@@ -20,18 +20,19 @@ export default class ItemContextProvider extends Component {
     availableToday: false,
     completed: [],
     searchValue: '',
-    time: ''
+    time: '',
+    descending: false,
+    sortBy: 'alpha'
   };
 
   componentDidMount() {
     const types = Object.keys(this.state.allItems);
     types.forEach((item) => this.populateData(item)); //Populates all items into state on load
-    const now = new Date();
     this.extractLocalStorage();
+    const now = new Date();
     this.setState({
       time: now
     });
-    this.extractLocalStorage();
   }
 
   // Called under showAvailable to determine if current active items have limited availability
@@ -39,6 +40,30 @@ export default class ItemContextProvider extends Component {
     const northernMonths = availability['month-array-northern'];
     const currentMonth = this.state.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
+  };
+
+  changeActiveItem = (newType) => {
+    this.setState({
+      activeItem: newType,
+      activeItems: this.state.allItems[newType]
+    });
+  };
+
+  changeSort = (change) => {
+    const target = change.target.value;
+    this.setState({ sortBy: target }, this.sortAlpha);
+  };
+
+  changeToNew = (e) => {
+    console.log('changing!');
+    const newType = e.target.dataset.id; // Takes the type of creature from the dataset name included in HTML
+    const newCreatures = this.state.allItems[newType];
+    this.setState(
+      { activeItem: newType, activeItems: newCreatures },
+      console.log(this.state.activeItems)
+      // ,
+      // this.sortAlpha
+    ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
   };
   compareAvailabilityToTime = () => {
     const currentState = this.state.activeItems;
@@ -98,6 +123,21 @@ export default class ItemContextProvider extends Component {
     }
   };
 
+  // When the search field receives input, update state and call function to filter results
+  searchField = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    this.setState({ searchValue }, this.searchResults());
+  };
+
+  //
+  searchResults = () => {
+    const currentData = this.state.allItems[this.state.activeItem];
+    const activeItems = currentData.filter((item) =>
+      item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
+    );
+    this.setState({ activeItems }, this.showAvailable);
+  };
+
   showAvailable = () => {
     let activeItems = [];
     // If show only available was just clicked, filters it so
@@ -119,10 +159,46 @@ export default class ItemContextProvider extends Component {
     this.setState({ activeItems });
   };
 
+  sortAlpha = () => {
+    const activeItems = this.state.activeItems;
+    const criteria = this.state.sortBy;
+    // If alphabetical is clicked, convert to lowercase and sort alphabetically
+    if (criteria === 'alpha') {
+      activeItems.sort((a, b) =>
+        a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
+          ? 1
+          : -1
+      );
+      // If not alpha, sort numerically by either Nook's price or special purhcaser price
+    } else {
+      activeItems.sort((a, b) => (a[criteria] > b[criteria] ? 1 : -1));
+    }
+    // If descending is active, reverse the order
+    if (this.state.descending) activeItems.reverse();
+    this.setState({ activeItems }, this.showAvailable);
+  };
+
   toggleAvailable = (e) => {
     e.target.checked
       ? this.setState({ availableToday: true }, this.showAvailable)
       : this.setState({ availableToday: false }, this.showAvailable);
+  };
+
+  toggleCollapse = (item, creatureType) => {
+    const currentState = this.state.allItems;
+    const itemIndex = currentState[creatureType].findIndex(
+      (creature) => creature['file-name'] === item
+    );
+    let isCollapsed = currentState[creatureType][itemIndex].collapsed;
+    isCollapsed = !isCollapsed;
+    currentState[creatureType][itemIndex].collapsed = isCollapsed;
+    this.setState({ [creatureType]: currentState });
+  };
+
+  toggleDescending = (e) => {
+    let descending = this.state.descending;
+    descending = !descending;
+    this.setState({ descending }, this.sortAlpha);
   };
   render() {
     return (
@@ -132,7 +208,12 @@ export default class ItemContextProvider extends Component {
           expandAll: this.expandAll,
           collapseAll: this.collapseAll,
           showAvailable: this.showAvailable,
-          toggleAvailable: this.toggleAvailable
+          toggleAvailable: this.toggleAvailable,
+          changeToNew: this.changeToNew,
+          changeActiveItem: this.changeActiveItem,
+          changeSort: this.changeSort,
+          toggleCollapse: this.toggleCollapse,
+          toggleDescending: this.toggleDescending
         }}
       >
         {this.props.children}

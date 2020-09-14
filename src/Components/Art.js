@@ -4,15 +4,10 @@ import { ItemContext } from '../contexts/ItemContext';
 
 class Art extends React.Component {
   static contextType = ItemContext;
+
   componentDidMount() {
-    this.props.changeActiveItem(this.props.activeItem);
+    this.context.changeActiveItem(this.context.activeItem);
   }
-  componentDidUpdate(prevProps) {
-    // if (this.props.searchValue !== prevProps.searchValue) {
-    //   this.filterArt();
-    // }
-  }
-  static contextType = ItemContext;
   displayArt = (art) => {
     const {
       'file-name': fileName,
@@ -23,7 +18,7 @@ class Art extends React.Component {
       <div className="song center" id="artwork" key={name}>
         <h3>{properCase(name)}</h3>
         <img
-          src={`./images/${this.props.activeItem}/${fileName}.png`}
+          src={`./images/${this.context.activeItem}/${fileName}.png`}
           alt={name}
         />
         <div>
@@ -33,7 +28,7 @@ class Art extends React.Component {
               type="checkbox"
               value={name}
               onChange={this.props.markComplete}
-              checked={this.props.completed[this.props.activeItem].includes(
+              checked={this.props.completed[this.context.activeItem].includes(
                 name
               )}
             />
@@ -46,7 +41,7 @@ class Art extends React.Component {
   };
 
   filterArt = () => {
-    const searchValue = this.props.searchValue;
+    const searchValue = this.context.searchValue;
     const displayedArt = this.context.allItems.art.filter((art) =>
       art.name['name-USen'].includes(searchValue)
     );
