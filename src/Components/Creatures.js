@@ -1,31 +1,33 @@
-import React from "react";
-import { properCase } from "../utils";
-import Details from "./Creature/Details";
+import React from 'react';
+import { properCase } from '../utils';
+import Details from './Creature/Details';
+import { ItemContext } from '../contexts/ItemContext';
 
 class Creatures extends React.Component {
+  static contextType = ItemContext;
   componentDidMount() {
     this.props.changeActiveItem(this.props.match.params.creature);
   }
 
   calculateAvailability = (availability) => {
-    const northernMonths = availability["month-array-northern"];
-    const currentMonth = this.props.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
+    const northernMonths = availability['month-array-northern'];
+    const currentMonth = this.context.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
 
   displayItems = (item) => {
     return (
-      <React.Fragment key={item["file-name"]}>
+      <React.Fragment key={item['file-name']}>
         <tr>{this.renderHeader(item)}</tr>
         {this.renderDetails(item)}
       </React.Fragment>
     );
   };
   displayPrice = (item) => {
-    if (this.props.sortBy === "cj") {
-      return <h6>{item["price-cj"]} bells</h6>;
-    } else if (this.props.sortBy === "flick") {
-      return <h6>{item["price-flick"]} bells</h6>;
+    if (this.props.sortBy === 'cj') {
+      return <h6>{item['price-cj']} bells</h6>;
+    } else if (this.props.sortBy === 'flick') {
+      return <h6>{item['price-flick']} bells</h6>;
     } else {
       return <h6>{item.price} bells</h6>;
     }
@@ -33,7 +35,7 @@ class Creatures extends React.Component {
 
   renderAvailability = ({ availability }) => {
     let availableToday;
-    this.props.activeItem === "fossils"
+    this.context.activeItem === 'fossils'
       ? (availableToday = true)
       : (availableToday = this.calculateAvailability(availability));
     return availableToday ? (
@@ -47,7 +49,7 @@ class Creatures extends React.Component {
       <i
         className="material-icons"
         onClick={() =>
-          this.props.toggleCollapse(item["file-name"], this.props.activeItem)
+          this.props.toggleCollapse(item['file-name'], this.context.activeItem)
         }
       >
         expand_more
@@ -56,7 +58,7 @@ class Creatures extends React.Component {
       <i
         className="material-icons"
         onClick={() =>
-          this.props.toggleCollapse(item["file-name"], this.props.activeItem)
+          this.props.toggleCollapse(item['file-name'], this.context.activeItem)
         }
       >
         expand_less
@@ -70,11 +72,11 @@ class Creatures extends React.Component {
         <input
           type="checkbox"
           name="markcomplete"
-          value={item.name["name-USen"]}
+          value={item.name['name-USen']}
           onChange={this.props.markComplete}
           // If item included in Completed, renders the box to the page already checked
-          checked={this.props.completed[this.props.activeItem].includes(
-            item.name["name-USen"]
+          checked={this.props.completed[this.context.activeItem].includes(
+            item.name['name-USen']
           )}
         />
         <span>Mark Complete</span>
@@ -89,7 +91,7 @@ class Creatures extends React.Component {
           <tr>
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
-              <Details item={item} activeItem={this.props.activeItem} />
+              <Details item={item} activeItem={this.context.activeItem} />
             </td>
           </tr>
         </>
@@ -105,7 +107,7 @@ class Creatures extends React.Component {
         <td>{this.renderComplete(item)}</td>
 
         <td>
-          <h5>{properCase(item.name["name-USen"])}</h5>
+          <h5>{properCase(item.name['name-USen'])}</h5>
         </td>
         <td>{this.displayPrice(item)}</td>
         <td>{this.renderIcon(item)}</td>
@@ -118,20 +120,23 @@ class Creatures extends React.Component {
     return (
       <img
         src={
-          this.props.activeItem === "fossils"
+          this.context.activeItem === 'fossils'
             ? `../images/icons/fossil.png`
-            : `../images/icons/${this.props.activeItem}/${item["file-name"]}.png`
+            : `../images/icons/${this.context.activeItem}/${item['file-name']}.png`
         }
-        alt={item.name["name-USen"]}
+        alt={item.name['name-USen']}
       />
     );
+  };
+  tableBody = () => {
+    return this.context.activeItems.map((item) => this.displayItems(item));
   };
 
   render() {
     return (
       <>
         <div className="container">
-          <h5>{this.props.activeItem.toUpperCase()}</h5>
+          <h5>{this.context.activeItem.toUpperCase()}</h5>
           <table className="highlight">
             <thead>
               <tr>
@@ -144,7 +149,8 @@ class Creatures extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.activeItems.map((item) => this.displayItems(item))}
+              {this.tableBody()}
+              {/* {this.props.activeItems.map((item) => this.displayItems(item))} */}
             </tbody>
           </table>
         </div>

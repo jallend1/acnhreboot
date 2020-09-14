@@ -1,14 +1,16 @@
-import React from "react";
+import React from 'react';
+import { ItemContext } from '../contexts/ItemContext';
 class Filter extends React.Component {
   // Shows collapse/expand details on only creatures and fossils
+  static contextType = ItemContext;
   showCollapse = (isCreature) => {
-    if (isCreature || this.props.activeItem === "fossils") {
+    if (isCreature || this.props.activeItem === 'fossils') {
       return (
         <div>
           <div className="collapse-toggle">
             <button
               className="btn collapse-toggle green accent-4"
-              onClick={() => this.props.collapseAll(this.props.activeItem)}
+              onClick={() => this.context.collapseAll(this.props.activeItem)}
             >
               Collapse All
             </button>
@@ -16,7 +18,7 @@ class Filter extends React.Component {
           <div className="collapse-toggle">
             <button
               className="btn collapse-toggle green accent-4"
-              onClick={() => this.props.expandAll(this.props.activeItem)}
+              onClick={() => this.context.expandAll(this.props.activeItem)}
             >
               Expand All
             </button>
@@ -37,7 +39,7 @@ class Filter extends React.Component {
               type="checkbox"
               id="available"
               name="available"
-              onClick={this.props.toggleAvailable}
+              onClick={this.context.toggleAvailable}
             />
             <span>Limit to creatures available today</span>
           </label>
@@ -110,14 +112,14 @@ class Filter extends React.Component {
     );
   };
   determineSearchFields() {
-    if (this.props.activeItem === "fish") {
+    if (this.props.activeItem === 'fish') {
       return (
         <>
           {this.filterNook()}
           {this.filterCJ()}
         </>
       );
-    } else if (this.props.activeItem === "bugs") {
+    } else if (this.props.activeItem === 'bugs') {
       return (
         <>
           {this.filterNook()}
@@ -125,11 +127,11 @@ class Filter extends React.Component {
         </>
       );
     } else if (
-      this.props.activeItem === "fossils" ||
-      this.props.activeItem === "sea"
+      this.props.activeItem === 'fossils' ||
+      this.props.activeItem === 'sea'
     ) {
       return this.filterNook();
-    } else if (this.props.activeItem === "villagers") {
+    } else if (this.props.activeItem === 'villagers') {
       return this.filterBirthday();
     }
   }
@@ -163,9 +165,9 @@ class Filter extends React.Component {
   render() {
     // Creatures boolean because fish, bugs, sea creatures all have overlapping filters
     const isCreature =
-      this.props.activeItem === "fish" ||
-      this.props.activeItem === "bugs" ||
-      this.props.activeItem === "sea";
+      this.props.activeItem === 'fish' ||
+      this.props.activeItem === 'bugs' ||
+      this.props.activeItem === 'sea';
     return (
       <>
         {this.renderSearchBar()}

@@ -12,6 +12,7 @@ class Art extends React.Component {
     //   this.filterArt();
     // }
   }
+  static contextType = ItemContext;
   displayArt = (art) => {
     const {
       'file-name': fileName,
@@ -46,7 +47,7 @@ class Art extends React.Component {
 
   filterArt = () => {
     const searchValue = this.props.searchValue;
-    const displayedArt = this.props.allItems.art.filter((art) =>
+    const displayedArt = this.context.allItems.art.filter((art) =>
       art.name['name-USen'].includes(searchValue)
     );
     return displayedArt.map((art) => this.displayArt(art));

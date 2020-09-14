@@ -4,7 +4,7 @@
 // TODO Possibility: Randomly pick song to have loaded into player on pageload (If there is no activeSong)
 // TODO Possibility: What is going on with my routes. It is too ugly to bear.
 
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './Components/Header';
 import Creatures from './Components/Creatures';
@@ -18,24 +18,14 @@ import NavBar from './Components/NavBar';
 import Player from './Components/Player';
 import { ItemContext } from './contexts/ItemContext';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeItem: 'home',
       activeItems: [],
       activeSong: '',
-      allItems: {
-        home: [],
-        fish: [],
-        bugs: [],
-        sea: [],
-        fossils: [],
-        villagers: [],
-        music: [],
-        art: [],
-        completed: []
-      },
+
       descending: false,
       availableToday: false,
       sortBy: 'alpha',
@@ -57,8 +47,8 @@ class App extends React.Component {
   static contextType = ItemContext;
   componentDidMount() {
     // Extracts the types of objects from State
-    const types = Object.keys(this.state.allItems);
-    types.forEach((item) => this.populateData(item)); //Populates all items into state on load
+    const types = Object.keys(this.context.allItems);
+    // types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     const now = new Date();
     this.extractLocalStorage();
     this.setState({
@@ -108,7 +98,7 @@ class App extends React.Component {
   changeActiveItem = (newType) => {
     this.setState({
       activeItem: newType,
-      activeItems: this.state.allItems[newType]
+      activeItems: this.context.allItems[newType]
     });
   };
 
@@ -119,7 +109,7 @@ class App extends React.Component {
 
   changeToNew = (e) => {
     const newType = e.target.dataset.id; // Takes the type of creature from the dataset name included in HTML
-    const newCreatures = this.state.allItems[newType];
+    const newCreatures = this.context.allItems[newType];
     this.setState(
       { activeItem: newType, activeItems: newCreatures },
       this.sortAlpha
@@ -154,20 +144,8 @@ class App extends React.Component {
       });
       // Everything else has full availability
     } else {
-      return this.state.allItems[this.state.activeItem];
+      return this.context.allItems[this.state.activeItem];
     }
-  };
-
-  collapseAll = (activeItem) => {
-    const activeItemList = this.state.allItems;
-    activeItemList[activeItem].forEach((item) => (item.collapsed = true));
-    this.setState({ allItems: activeItemList });
-  };
-
-  expandAll = (activeItem) => {
-    const activeItemList = this.state.allItems;
-    activeItemList[activeItem].forEach((item) => (item.collapsed = false));
-    this.setState({ allItems: activeItemList });
   };
 
   markComplete = (e) => {
@@ -194,7 +172,7 @@ class App extends React.Component {
     this.setState({ activeSong });
   };
   populateComplete = () => {
-    const currentState = this.state.allItems;
+    const currentState = this.context.allItems;
     const completed = this.state.completed;
     const itemArrays = Object.keys(completed); // Extracts all the item types from the completed object list
     itemArrays.forEach((itemArray) => {
@@ -206,7 +184,7 @@ class App extends React.Component {
           // If this item type has anything in it, process it
 
           completed[itemArray].forEach((item) => {
-            const itemDeets = this.state.allItems[itemArray].find(
+            const itemDeets = this.context.allItems[itemArray].find(
               (element) => element.name['name-USen'] === item
             ); // All the JSON info on this current item
             const fileLocation =
@@ -240,11 +218,11 @@ class App extends React.Component {
 
   //
   searchResults = () => {
-    const currentData = this.state.allItems[this.state.activeItem];
+    const currentData = this.context.allItems[this.state.activeItem];
     const activeItems = currentData.filter((item) =>
       item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
     );
-    this.setState({ activeItems }, this.showAvailable);
+    this.setState({ activeItems }, this.context.showAvailable);
   };
 
   showAvailable = () => {
@@ -255,14 +233,14 @@ class App extends React.Component {
     } else {
       // If just unclicked, checks to see if search field has value, and restores array matching that criteria
       if (this.state.searchValue) {
-        activeItems = this.state.allItems[
+        activeItems = this.context.allItems[
           this.state.activeItem
         ].filter((item) =>
           item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
         );
         // If no filtering criteria, restores the original item list
       } else {
-        activeItems = this.state.allItems[this.state.activeItem];
+        activeItems = this.context.allItems[this.state.activeItem];
       }
     }
     this.setState({ activeItems });
@@ -284,17 +262,17 @@ class App extends React.Component {
     }
     // If descending is active, reverse the order
     if (this.state.descending) activeItems.reverse();
-    this.setState({ activeItems }, this.showAvailable);
+    this.setState({ activeItems }, this.context.showAvailable);
   };
 
-  toggleAvailable = (e) => {
-    e.target.checked
-      ? this.setState({ availableToday: true }, this.showAvailable)
-      : this.setState({ availableToday: false }, this.showAvailable);
-  };
+  // toggleAvailable = (e) => {
+  //   e.target.checked
+  //     ? this.setState({ availableToday: true }, this.context.showAvailable)
+  //     : this.setState({ availableToday: false }, this.context.showAvailable);
+  // };
 
   toggleCollapse = (item, creatureType) => {
-    const currentState = this.state.allItems;
+    const currentState = this.context.allItems;
     const itemIndex = currentState[creatureType].findIndex(
       (creature) => creature['file-name'] === item
     );
@@ -320,7 +298,7 @@ class App extends React.Component {
           <NavBar
             activeItem={this.state.activeItem}
             changeToNew={this.changeToNew}
-            types={Object.keys(this.state.allItems)}
+            types={Object.keys(this.context.allItems)}
           />
           <div className="main-content">
             {this.state.activeItem !== 'home' ? (
@@ -329,9 +307,6 @@ class App extends React.Component {
                   activeItem={this.state.activeItem}
                   searchField={this.searchField}
                   changeSort={this.changeSort}
-                  collapseAll={this.collapseAll}
-                  expandAll={this.expandAll}
-                  toggleAvailable={this.toggleAvailable}
                   toggleDescending={this.toggleDescending}
                   descending={this.props.descending}
                 />
@@ -365,7 +340,6 @@ class App extends React.Component {
                 <Villagers
                   activeItem="villagers"
                   activeItems={this.state.activeItems}
-                  allItems={this.state.allItems}
                   searchValue={this.state.searchValue}
                   changeActiveItem={this.changeActiveItem}
                   filtered={this.state.filtered}
@@ -387,7 +361,6 @@ class App extends React.Component {
                   toggleCollapse={this.toggleCollapse}
                   markComplete={this.markComplete}
                   completed={this.state.completed}
-                  allItems={this.state.allItems}
                   {...props}
                 />
               )}
@@ -399,7 +372,7 @@ class App extends React.Component {
                   activeItem="completed"
                   changeActiveItem={this.changeActiveItem}
                   completed={this.state.completed}
-                  allItems={this.state.allItems}
+                  allItems={this.context.allItems}
                   populateComplete={this.populateComplete}
                   {...props}
                 />
@@ -419,8 +392,6 @@ class App extends React.Component {
                     markComplete={this.markComplete}
                     sortBy={this.state.sortBy}
                     completed={this.state.completed}
-                    allItems={this.state.allItems}
-                    showAvailable={this.showAvailable}
                     {...props}
                   />
                 );
