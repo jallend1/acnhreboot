@@ -184,7 +184,11 @@ class Villagers extends React.Component {
                   name="markcomplete"
                   value={name}
                   onChange={this.context.markComplete}
-                  checked={this.props.completed.villagers.includes(name)}
+                  checked={
+                    this.context.allItems.completed.findIndex(
+                      (item) => item.name['name-USen'] === name
+                    ) !== -1
+                  }
                 />
                 <span>Mark Complete</span>
               </label>

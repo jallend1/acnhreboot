@@ -6,7 +6,7 @@ class Art extends React.Component {
   static contextType = ItemContext;
 
   componentDidMount() {
-    this.context.changeActiveItem(this.context.activeItem);
+    this.context.changeActiveItem('art');
   }
   displayArt = (art) => {
     const {
@@ -27,10 +27,12 @@ class Art extends React.Component {
               name="markcomplete"
               type="checkbox"
               value={name}
-              onChange={this.props.markComplete}
-              checked={this.props.completed[this.context.activeItem].includes(
-                name
-              )}
+              onChange={this.context.markComplete}
+              checked={
+                this.context.allItems.completed.findIndex(
+                  (item) => item.name['name-USen'] === name
+                ) !== -1
+              }
             />
             <span>Mark Complete</span>
           </label>

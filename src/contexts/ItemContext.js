@@ -125,6 +125,7 @@ export default class ItemContextProvider extends Component {
       );
       currentState.completed.splice(index, 1);
     }
+    console.log(currentState.completed);
     this.setState(
       { allItems: currentState },
       localStorage.setItem(
