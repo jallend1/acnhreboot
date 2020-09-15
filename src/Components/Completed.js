@@ -1,26 +1,21 @@
-import React from "react";
-import { properCase } from "../utils";
+import React from 'react';
+import { properCase } from '../utils';
+import { ItemContext } from '../contexts/ItemContext';
 
 class Completed extends React.Component {
+  static contextType = ItemContext;
   componentDidMount() {
-    this.props.changeActiveItem("completed");
-    // Populates items when page is linked to, but not when going directly to URL
-    this.props.populateComplete();
-  }
-
-  componentDidUpdate(prevProps) {
-    // TODO The below line breaks it, but Completed items are not being loaded when going directly to /completed. The problem lies in populateComplete!
-    // this.props.populateComplete();
+    this.context.changeActiveItem('completed');
   }
 
   displayCompleted = () => {
-    return this.props.allItems.completed.map((item) => {
+    return this.context.allItems.completed.map((item) => {
       return (
-        <div key={item.key}>
-          <p>{properCase(item.name["name-USen"])}</p>
+        <div key={item['file-name']}>
+          <p>{properCase(item.name['name-USen'])}</p>
           <img
-            src={item.fileLocation}
-            alt={`Icon of ${item.name["name-USen"]}`}
+            src={item.imageLocation}
+            alt={`Icon of ${item.name['name-USen']}`}
           ></img>
         </div>
       );
