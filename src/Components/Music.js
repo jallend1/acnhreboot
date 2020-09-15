@@ -57,10 +57,12 @@ class Music extends React.Component {
               type="checkbox"
               name="markcomplete"
               value={name}
-              checked={this.props.completed[this.context.activeItem].includes(
-                name
-              )}
-              onChange={this.props.markComplete}
+              checked={
+                this.context.allItems.completed.filter(
+                  (item) => item.name['name-USen'] === name
+                ).length > 0
+              }
+              onChange={this.context.markComplete}
             />
             <span>Mark Complete</span>
           </label>

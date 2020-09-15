@@ -98,9 +98,40 @@ export default class ItemContextProvider extends Component {
   //If any completed items exist in localStorage, makes them active
   extractLocalStorage = () => {
     if (localStorage.getItem('completed') !== null) {
+      const currentState = this.state.allItems;
       const savedCompleted = localStorage.getItem('completed');
-      this.setState({ completed: JSON.parse(savedCompleted) });
+      currentState.completed = JSON.parse(savedCompleted);
+      this.setState({ allItems: currentState });
     }
+  };
+
+  markComplete = (e) => {
+    const currentState = this.state.allItems;
+    const itemType = this.state.activeItem;
+    if (e.target.checked) {
+      const itemDetails = currentState[itemType].find(
+        (item) => item.name['name-USen'] === e.target.value
+      );
+      const imageLocation =
+        itemType === 'fossils' || itemType === 'music' || itemType === 'art'
+          ? `./images/${itemType}/${itemDetails['file-name']}.png`
+          : `images/icons/${itemType}/${itemDetails['file-name']}.png`;
+      itemDetails.type = itemType;
+      itemDetails.imageLocation = imageLocation;
+      currentState.completed.push(itemDetails);
+    } else {
+      const index = currentState.completed.findIndex(
+        (item) => item.name['name-USen'] === e.target.value
+      );
+      currentState.completed.splice(index, 1);
+    }
+    this.setState(
+      { allItems: currentState },
+      localStorage.setItem(
+        'completed',
+        JSON.stringify(this.state.allItems.completed)
+      )
+    );
   };
 
   playSong = (e) => {
@@ -220,7 +251,8 @@ export default class ItemContextProvider extends Component {
           changeSort: this.changeSort,
           toggleCollapse: this.toggleCollapse,
           toggleDescending: this.toggleDescending,
-          playSong: this.playSong
+          playSong: this.playSong,
+          markComplete: this.markComplete
         }}
       >
         {this.props.children}

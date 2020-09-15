@@ -70,6 +70,7 @@ class App extends Component {
 
   markComplete = (e) => {
     // TODO Instead of just dumping the item name into a weird array, why not just dump all of the details at the same time?
+    console.log(e.target.value);
     const currentState = this.state.completed;
     if (e.target.checked) {
       currentState[this.state.activeItem].push(e.target.value);

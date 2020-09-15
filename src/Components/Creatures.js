@@ -79,11 +79,14 @@ class Creatures extends React.Component {
           type="checkbox"
           name="markcomplete"
           value={item.name['name-USen']}
-          onChange={this.props.markComplete}
+          onChange={this.context.markComplete}
           // If item included in Completed, renders the box to the page already checked
-          checked={this.props.completed[this.context.activeItem].includes(
-            item.name['name-USen']
-          )}
+          checked={
+            this.context.allItems.completed.filter(
+              (creature) =>
+                creature.name['name-USen'] === item.name['name-USen']
+            ).length > 0
+          }
         />
         <span>Mark Complete</span>
       </label>

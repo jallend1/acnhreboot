@@ -183,7 +183,7 @@ class Villagers extends React.Component {
                   type="checkbox"
                   name="markcomplete"
                   value={name}
-                  onChange={this.props.markComplete}
+                  onChange={this.context.markComplete}
                   checked={this.props.completed.villagers.includes(name)}
                 />
                 <span>Mark Complete</span>
@@ -256,7 +256,6 @@ class Villagers extends React.Component {
   };
 
   render() {
-    console.log(this.props, this.context);
     return (
       <>
         <h2>{this.context.activeItem.toUpperCase()}</h2>
