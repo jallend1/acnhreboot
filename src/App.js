@@ -18,22 +18,6 @@ import Player from './Components/Player';
 import { ItemContext } from './contexts/ItemContext';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      completed: {
-        fish: [],
-        bugs: [],
-        sea: [],
-        fossils: [],
-        villagers: [],
-        music: [],
-        art: [],
-        home: []
-      }
-    };
-  }
-
   static contextType = ItemContext;
 
   render() {
@@ -57,61 +41,14 @@ class App extends Component {
                 </button>
               </>
             ) : null}
-            <Route
-              path="/music"
-              render={(props) => (
-                <Music
-                  playSong={this.playSong}
-                  markComplete={this.markComplete}
-                  completed={this.state.completed}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/villagers"
-              render={(props) => (
-                <Villagers
-                  markComplete={this.markComplete}
-                  completed={this.state.completed}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/art"
-              render={(props) => (
-                <Art
-                  markComplete={this.markComplete}
-                  completed={this.state.completed}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/completed"
-              render={(props) => (
-                <Completed
-                  activeItem="completed"
-                  changeActiveItem={this.changeActiveItem}
-                  completed={this.state.completed}
-                  allItems={this.context.allItems}
-                  populateComplete={this.populateComplete}
-                  {...props}
-                />
-              )}
-            />
+            <Route path="/music" component={Music} />
+            <Route path="/villagers" component={Villagers} />
+            <Route path="/art" component={Art} />
+            <Route path="/completed" component={Completed} />
             <Route
               path="/creatures/:creature"
               render={(props) => {
-                return (
-                  <Creatures
-                    time={this.state.time}
-                    markComplete={this.markComplete}
-                    completed={this.state.completed}
-                    {...props}
-                  />
-                );
+                return <Creatures {...props} />;
               }}
             />
             <Route exact path="/">
