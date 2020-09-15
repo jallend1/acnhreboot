@@ -56,7 +56,6 @@ export default class ItemContextProvider extends Component {
   };
 
   changeToNew = (e) => {
-    console.log('changing!');
     const newType = e.target.dataset.id; // Takes the type of creature from the dataset name included in HTML
     const newCreatures = this.state.allItems[newType];
     this.setState(
@@ -66,6 +65,14 @@ export default class ItemContextProvider extends Component {
       // this.sortAlpha
     ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
   };
+
+  clearCollected = () => {
+    const currentState = this.state.allItems;
+    currentState.completed = [];
+    localStorage.removeItem('completed');
+    this.setState({ allItems: currentState });
+  };
+
   compareAvailabilityToTime = () => {
     const currentState = this.state.activeItems;
     // Only these creatures have limited availability
@@ -253,7 +260,8 @@ export default class ItemContextProvider extends Component {
           toggleCollapse: this.toggleCollapse,
           toggleDescending: this.toggleDescending,
           playSong: this.playSong,
-          markComplete: this.markComplete
+          markComplete: this.markComplete,
+          clearCollected: this.clearCollected
         }}
       >
         {this.props.children}
