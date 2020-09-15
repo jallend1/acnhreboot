@@ -22,7 +22,8 @@ export default class ItemContextProvider extends Component {
     searchValue: '',
     time: '',
     descending: false,
-    sortBy: 'alpha'
+    sortBy: 'alpha',
+    activeSong: ''
   };
 
   componentDidMount() {
@@ -100,6 +101,11 @@ export default class ItemContextProvider extends Component {
       const savedCompleted = localStorage.getItem('completed');
       this.setState({ completed: JSON.parse(savedCompleted) });
     }
+  };
+
+  playSong = (e) => {
+    const activeSong = e.target.dataset.song;
+    this.setState({ activeSong });
   };
 
   populateData = (dataType) => {
@@ -213,7 +219,8 @@ export default class ItemContextProvider extends Component {
           changeActiveItem: this.changeActiveItem,
           changeSort: this.changeSort,
           toggleCollapse: this.toggleCollapse,
-          toggleDescending: this.toggleDescending
+          toggleDescending: this.toggleDescending,
+          playSong: this.playSong
         }}
       >
         {this.props.children}

@@ -24,7 +24,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeSong: '',
       completed: {
         fish: [],
         bugs: [],
@@ -88,10 +87,6 @@ class App extends Component {
     }
   };
 
-  playSong = (e) => {
-    const activeSong = e.target.dataset.song;
-    this.setState({ activeSong });
-  };
   populateComplete = () => {
     const currentState = this.context.allItems;
     const completed = this.state.completed;
@@ -136,8 +131,8 @@ class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Header />
-          {this.state.activeSong ? (
-            <Player activeSong={this.state.activeSong} />
+          {this.context.activeSong ? (
+            <Player activeSong={this.context.activeSong} />
           ) : null}
           <NavBar />
           <div className="main-content">

@@ -39,7 +39,7 @@ class Music extends React.Component {
             src={`./images/${this.context.activeItem}/${fileName}.png`}
             data-song={fileName}
             alt={name}
-            onClick={this.props.playSong}
+            onClick={this.context.playSong}
           />
           <div className="clicktoplay">Click to play</div>
         </div>
