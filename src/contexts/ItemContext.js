@@ -31,10 +31,18 @@ export default class ItemContextProvider extends Component {
     types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     this.extractLocalStorage();
     const now = new Date();
+
     this.setState({
       time: now
     });
   }
+
+  pickSong = (songList) => {
+    if (this.state.activeSong === '') {
+      const randomNum = Math.floor(Math.random() * songList.length);
+      this.setState({ activeSong: songList[randomNum]['file-name'] });
+    }
+  };
 
   // Called under showAvailable to determine if current active items have limited availability
   calculateAvailability = (availability) => {
@@ -155,6 +163,9 @@ export default class ItemContextProvider extends Component {
           itemList.forEach((item) => (item.collapsed = true));
           const currentState = this.state.allItems;
           currentState[dataType] = itemList;
+          if (dataType === 'music') {
+            this.pickSong(itemList);
+          }
           this.setState(
             {
               allItems: currentState,
