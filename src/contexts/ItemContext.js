@@ -66,7 +66,8 @@ export default class ItemContextProvider extends Component {
     const newType = e.target.dataset.id; // Takes the type of creature from the dataset name included in HTML
     const newCreatures = this.state.allItems[newType];
     this.setState(
-      { activeItem: newType, activeItems: newCreatures }
+      { activeItem: newType, activeItems: newCreatures },
+      this.sortAlpha
       // ,
       // this.sortAlpha
     ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available

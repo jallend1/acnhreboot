@@ -157,7 +157,13 @@ class Filter extends React.Component {
           <label htmlFor="search" className="active">
             Search the {this.context.activeItem}...
           </label>
-          <input id="search" type="text" onChange={this.context.searchField} />
+          <input
+            id="search"
+            type="text"
+            // Populates the field with the search value, persisting it across item types
+            value={this.context.searchValue}
+            onChange={this.context.searchField}
+          />
         </div>
       </form>
     );
