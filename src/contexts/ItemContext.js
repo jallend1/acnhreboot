@@ -31,7 +31,6 @@ export default class ItemContextProvider extends Component {
     types.forEach((item) => this.populateData(item)); //Populates all items into state on load
     this.extractLocalStorage();
     const now = new Date();
-
     this.setState({
       time: now
     });
@@ -270,7 +269,8 @@ export default class ItemContextProvider extends Component {
           toggleDescending: this.toggleDescending,
           playSong: this.playSong,
           markComplete: this.markComplete,
-          clearCollected: this.clearCollected
+          clearCollected: this.clearCollected,
+          searchField: this.searchField
         }}
       >
         {this.props.children}

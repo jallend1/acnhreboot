@@ -1,7 +1,6 @@
 // TODO Possibility: Single page to list _all_ items?
 // TODO Possibility: Universal search?
 // TODO Possibility: Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
-// TODO Possibility: Randomly pick song to have loaded into player on pageload (If there is no activeSong)
 
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
