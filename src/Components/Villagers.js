@@ -162,7 +162,7 @@ class Villagers extends React.Component {
       villager.isBirthday = true;
     }
     villager.birthdayDaysAway = Math.ceil(
-      (birthDate - currentTime.time) / (1000 * 3600 * 24)
+      (birthDate - currentTime) / (1000 * 3600 * 24)
     );
     if (villager.birthdayDaysAway < 0) {
       villager.birthdayDaysAway += 365;

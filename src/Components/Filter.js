@@ -50,91 +50,6 @@ class Filter extends React.Component {
     }
   };
 
-  filterAlpha = () => {
-    return (
-      <p>
-        <label>
-          <input
-            type="radio"
-            id="alpha"
-            name="sortby"
-            value="alpha"
-            defaultChecked
-          />
-          <span>Alphabetical</span>
-        </label>
-      </p>
-    );
-  };
-  filterBirthday = () => {
-    return (
-      <p>
-        <label>
-          <input
-            type="radio"
-            id="births"
-            name="sortby"
-            value="birthdayDaysAway"
-          />
-          <span>Days Until Birthday</span>
-        </label>
-      </p>
-    );
-  };
-  filterCJ = () => {
-    return (
-      <p>
-        <label>
-          <input type="radio" id="cj" name="sortby" value="price-cj" />
-          <span>CJ's Price</span>
-        </label>
-      </p>
-    );
-  };
-  filterFlick = () => {
-    return (
-      <p>
-        <label>
-          <input type="radio" id="flick" name="sortby" value="price-flick" />
-          <span>Flick's Price</span>
-        </label>
-      </p>
-    );
-  };
-  filterNook = () => {
-    return (
-      <p>
-        <label>
-          <input type="radio" id="nook" name="sortby" value="price" />
-          <span>Nook's Price</span>
-        </label>
-      </p>
-    );
-  };
-  determineSearchFields() {
-    if (this.context.activeItem === 'fish') {
-      return (
-        <>
-          {this.filterNook()}
-          {this.filterCJ()}
-        </>
-      );
-    } else if (this.context.activeItem === 'bugs') {
-      return (
-        <>
-          {this.filterNook()}
-          {this.filterFlick()}
-        </>
-      );
-    } else if (
-      this.context.activeItem === 'fossils' ||
-      this.context.activeItem === 'sea'
-    ) {
-      return this.filterNook();
-    } else if (this.context.activeItem === 'villagers') {
-      return this.filterBirthday();
-    }
-  }
   //The search bar (The same across all types)
   renderDescending = () => {
     return (
@@ -168,6 +83,43 @@ class Filter extends React.Component {
       </form>
     );
   };
+
+  showBirthdays = () => {
+    if (this.context.activeItem === 'villagers') {
+      return <option value="birthdayDaysAway">Days Until Birthday</option>;
+    }
+  };
+  showCJ = () => {
+    if (this.context.activeItem === 'fish') {
+      return <option value="price-cj">CJ's Price</option>;
+    }
+  };
+  showFlick = () => {
+    if (this.context.activeItem === 'bugs') {
+      return <option value="price-flick">Flick's Price</option>;
+    }
+  };
+  showNook = () => {
+    // Allow sorting by Nook's price for everything other than Villagers
+    if (this.context.activeItem !== 'villagers') {
+      return <option value="price">Nook's Price</option>;
+    }
+  };
+
+  renderSelectMenu = () => {
+    return (
+      <label>
+        <span>Sort By:</span>
+        <select name="sortby" className="browser-default">
+          <option value="alpha">Alphabetical</option>
+          {this.showNook()}
+          {this.showCJ()}
+          {this.showFlick()}
+          {this.showBirthdays()}
+        </select>
+      </label>
+    );
+  };
   render() {
     // Creatures boolean because fish, bugs, sea creatures all have overlapping filters
     const isCreature =
@@ -179,8 +131,7 @@ class Filter extends React.Component {
         {this.renderSearchBar()}
         <div id="filters">
           <form onChange={this.context.changeSort}>
-            {this.filterAlpha()}
-            {this.determineSearchFields()}
+            {this.renderSelectMenu()}
           </form>
           {this.renderDescending()}
           {this.showCollapse(isCreature)}
