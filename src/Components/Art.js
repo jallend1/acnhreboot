@@ -12,15 +12,21 @@ class Art extends React.Component {
     const {
       'file-name': fileName,
       name: { 'name-USen': name },
-      hasFake
+      hasFake,
+      'museum-desc': desc
     } = art;
     return (
-      <div className="song center" id="artwork" key={name}>
-        <h3>{properCase(name)}</h3>
+      <div className="center artwork yellow lighten-3" key={name}>
         <img
           src={`./images/${this.context.activeItem}/${fileName}.png`}
           alt={name}
         />
+        <h4>{properCase(name)}</h4>
+        <div>
+          <h6>Museum Description</h6>
+          <p>{desc}</p>
+        </div>
+        <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
         <div>
           <label>
             <input
@@ -37,7 +43,6 @@ class Art extends React.Component {
             <span>Mark Complete</span>
           </label>
         </div>
-        <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
       </div>
     );
   };

@@ -116,9 +116,16 @@ nav ul {
 }
 
 #artdisplay {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-evenly;
+}
+
+.artwork {
+  margin-top: 1em;
+  padding-top: 1.2em;
+  border: 1px solid gray;
 }
 
 #artretail {

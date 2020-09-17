@@ -169,7 +169,7 @@ class Villagers extends React.Component {
     }
     return (
       <React.Fragment key={fileName}>
-        <div className="card villager center" key={fileName}>
+        <div className="card villager center yellow lighten-3" key={fileName}>
           <header>
             <h3>{villager.isBirthday ? `🎉${name}🎉` : name}</h3>
             <img

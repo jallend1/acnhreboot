@@ -100,8 +100,12 @@ class Filter extends React.Component {
     }
   };
   showNook = () => {
-    // Allow sorting by Nook's price for everything other than Villagers
-    if (this.context.activeItem !== 'villagers') {
+    // Allow sorting by Nook's price for everything other than Villagers, art, and music
+    if (
+      this.context.activeItem !== 'villagers' &&
+      this.context.activeItem !== 'art' &&
+      this.context.activeItem !== 'music'
+    ) {
       return <option value="price">Nook's Price</option>;
     }
   };
