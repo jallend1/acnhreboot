@@ -115,6 +115,10 @@ nav ul {
   text-align: center;
 }
 
+.icon {
+  max-height: 100px;
+}
+
 #artdisplay {
   display: grid;
   gap: 1em;

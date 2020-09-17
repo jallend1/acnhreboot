@@ -59,8 +59,22 @@ class Art extends React.Component {
       <>
         <h2>Art</h2>
         <div id="artretail">
-          <p>Redd sells all art for 4980 bells</p>
-          <p>Nook buys all art for 1245 bells</p>
+          <p>
+            <img
+              className="icon"
+              src="./images/Redd.png"
+              alt="Our Foxy Friend Redd"
+            />
+            Redd sells all art for 4980 bells
+          </p>
+          <p>
+            <img
+              className="icon"
+              src="./images/TomNook.png"
+              alt="Our Boy Tom Nook"
+            />{' '}
+            Nook buys all art for 1245 bells
+          </p>
         </div>
         <div id="artdisplay">{this.filterArt()}</div>
       </>
