@@ -6,7 +6,7 @@ class Filter extends React.Component {
   showCollapse = (isCreature) => {
     if (isCreature || this.context.activeItem === 'fossils') {
       return (
-        <div>
+        <>
           <div className="collapse-toggle">
             <button
               className="btn collapse-toggle green accent-4"
@@ -23,7 +23,7 @@ class Filter extends React.Component {
               Expand All
             </button>
           </div>
-        </div>
+        </>
       );
     } else {
       return null;
@@ -133,9 +133,19 @@ class Filter extends React.Component {
           <form onChange={this.context.changeSort}>
             {this.renderSelectMenu()}
           </form>
-          {this.renderDescending()}
-          {this.showCollapse(isCreature)}
-          {this.showToday(isCreature)}
+          <div>
+            {this.renderDescending()}
+            {this.showToday(isCreature)}
+          </div>
+          <div>
+            {this.showCollapse(isCreature)}
+            <button
+              className="btn red accent-4"
+              onClick={this.context.clearCollected}
+            >
+              Clear ALL completed items
+            </button>
+          </div>
         </div>
       </>
     );

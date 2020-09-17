@@ -32,12 +32,6 @@ class App extends Component {
             {this.context.activeItem !== 'home' ? (
               <>
                 <Filter />
-                <button
-                  className="btn green accent-4"
-                  onClick={this.context.clearCollected}
-                >
-                  Clear ALL completed items
-                </button>
               </>
             ) : null}
             <Route path="/music" component={Music} />

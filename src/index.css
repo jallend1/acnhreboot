@@ -30,6 +30,12 @@ h2,
 h3 {
   text-align: center;
 }
+
+th,
+td {
+  text-align: center;
+}
+
 .main-content {
   padding: 1em;
 }
