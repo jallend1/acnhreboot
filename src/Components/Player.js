@@ -30,25 +30,28 @@ const Player = () => {
   const currentStatus = useContext(ItemContext);
 
   return (
-    <div id="player">
-      <div>
-        <img
-          id="songposter"
-          src={posterPath(currentStatus)}
-          alt="Album cover"
-        />
+    <div className="player">
+      <img id="kk-poster" src="../images/kk.png" alt="Our boy KK Slider" />
+      <div id="audiobox">
+        <div>
+          <img
+            id="songposter"
+            src={posterPath(currentStatus)}
+            alt="Album cover"
+          />
+        </div>
+        {/* Autoplays if on the Music tab, otherwise load silently */}
+        {currentStatus.activeItem === 'music' ? (
+          <audio
+            controls
+            src={songPath(currentStatus)}
+            type="audio/mpeg"
+            autoPlay
+          />
+        ) : (
+          <audio controls src={songPath(currentStatus)} type="audio/mpeg" />
+        )}
       </div>
-      {/* Autoplays if on the Music tab, otherwise load silently */}
-      {currentStatus.activeItem === 'music' ? (
-        <audio
-          controls
-          src={songPath(currentStatus)}
-          type="audio/mpeg"
-          autoPlay
-        />
-      ) : (
-        <audio controls src={songPath(currentStatus)} type="audio/mpeg" />
-      )}
     </div>
   );
 };
