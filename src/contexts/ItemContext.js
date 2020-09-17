@@ -4,7 +4,7 @@ export const ItemContext = createContext();
 
 export default class ItemContextProvider extends Component {
   state = {
-    activeItem: 'fish',
+    activeItem: 'home',
     activeItems: [],
     allItems: {
       home: [],

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Welcome = (props) => {
   return (
@@ -9,7 +9,7 @@ const Welcome = (props) => {
       </header>
       <main>
         <h3>What Can I Do?</h3>
-        <ul className="collection with-header">
+        <ul className="collection with-header center">
           <li className="collection-header">
             <h4>Creature Features</h4>
           </li>
@@ -33,7 +33,7 @@ const Welcome = (props) => {
             High-altitude lakes?
           </li>
         </ul>
-        <ul className="collection with-header">
+        <ul className="collection with-header center">
           <li className="collection-header">
             <h4>Explore the nearly 400 villagers:</h4>
           </li>
@@ -50,7 +50,7 @@ const Welcome = (props) => {
             Show only Villagers of a certain animal type
           </li>
         </ul>
-        <ul className="collection with-header">
+        <ul className="collection with-header center">
           <li className="collection-header">
             <h4>Other Tasks</h4>
           </li>
