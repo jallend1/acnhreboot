@@ -145,7 +145,7 @@ class Creatures extends React.Component {
     return (
       <>
         <div className="container">
-          <h5>{this.context.activeItem.toUpperCase()}</h5>
+          <h3>{this.context.activeItem.toUpperCase()}</h3>
           <table className="highlight">
             <thead>
               <tr>

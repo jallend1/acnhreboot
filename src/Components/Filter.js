@@ -127,7 +127,7 @@ class Filter extends React.Component {
       this.context.activeItem === 'bugs' ||
       this.context.activeItem === 'sea';
     return (
-      <>
+      <div className="filterbar">
         {this.renderSearchBar()}
         <div id="filters">
           <form onChange={this.context.changeSort}>
@@ -140,14 +140,14 @@ class Filter extends React.Component {
           <div>
             {this.showCollapse(isCreature)}
             <button
-              className="btn red accent-4"
+              className="btn red lighten-2"
               onClick={this.context.clearCollected}
             >
               Clear ALL completed items
             </button>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

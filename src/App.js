@@ -1,6 +1,9 @@
+//! Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
+//TODO: Fish tab has active status on page load, even when going to Home
+
+// TODO Possibility: Add icons to the header of each page
 // TODO Possibility: Single page to list _all_ items?
 // TODO Possibility: Universal search?
-// TODO Possibility: Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
 
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
