@@ -1,7 +1,6 @@
 //! Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
-//TODO: Fish tab has active status on page load, even when going to Home
+// TODO Loading /villagers directly does NOT load Villager birthday
 
-// TODO Possibility: Add icons to the header of each page
 // TODO Possibility: Single page to list _all_ items?
 // TODO Possibility: Universal search?
 

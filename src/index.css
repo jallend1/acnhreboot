@@ -73,6 +73,12 @@ nav ul {
   justify-content: space-evenly;
 }
 
+.pagehead {
+  display: flex;
+  justify-content: space-between;
+  margin: 2em 0 2em 0;
+}
+
 .image {
   width: 60%;
   text-align: center;
@@ -147,12 +153,6 @@ audio {
   transform: scale(1.1);
 }
 
-#songdisplay {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 .villagerdetails {
   position: fixed;
   top: 0;
@@ -191,11 +191,11 @@ audio {
   border-radius: 10%;
 }
 
-.card.song {
+/* .card.song {
   max-width: 25%;
   position: relative;
   margin: 2em;
-}
+} */
 
 .card.song img {
   margin: auto;

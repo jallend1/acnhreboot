@@ -1,5 +1,6 @@
 import React from 'react';
 import { ItemContext } from '../contexts/ItemContext';
+import { properCase } from '../utils';
 
 class Music extends React.Component {
   static contextType = ItemContext;
@@ -74,10 +75,14 @@ class Music extends React.Component {
   render() {
     return (
       <>
-        <h2>{this.context.activeItem.toUpperCase()}</h2>
-        <div className="container" id="songdisplay">
-          {this.displaySelection()}
+        <div>
+          <h2>
+            <i className="material-icons orange-text">music_note</i>
+            {properCase(this.context.activeItem)}
+            <i className="material-icons orange-text">music_note</i>
+          </h2>
         </div>
+        <div id="artdisplay">{this.displaySelection()}</div>
       </>
     );
   }

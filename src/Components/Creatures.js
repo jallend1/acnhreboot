@@ -145,7 +145,17 @@ class Creatures extends React.Component {
     return (
       <>
         <div className="container">
-          <h3>{this.context.activeItem.toUpperCase()}</h3>
+          <div className="pagehead">
+            <img
+              src={`../images/${this.context.activeItem}.png`}
+              alt={`${this.context.activeItem} icon`}
+            />
+            <h3>{properCase(this.context.activeItem)}</h3>
+            <img
+              src={`../images/${this.context.activeItem}.png`}
+              alt={`${this.context.activeItem} icon`}
+            />
+          </div>
           <table className="highlight">
             <thead>
               <tr>

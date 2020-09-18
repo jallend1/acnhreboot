@@ -262,7 +262,11 @@ class Villagers extends React.Component {
   render() {
     return (
       <>
-        <h2>{this.context.activeItem.toUpperCase()}</h2>
+        <div className="pagehead">
+          <img src="./images/villagers.png" alt="Little villager faces" />
+          <h2>{properCase(this.context.activeItem)}</h2>
+          <img src="./images/villagers.png" alt="Little villager faces" />
+        </div>
         <div id="birthdays">
           {this.context.activeItems.length > 0 ? (
             this.celebrateBirthday()
