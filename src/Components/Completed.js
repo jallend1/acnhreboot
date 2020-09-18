@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { properCase } from '../utils';
 import { ItemContext } from '../contexts/ItemContext';
 
@@ -17,6 +18,11 @@ class Completed extends React.Component {
             src={item.imageLocation}
             alt={`Icon of ${item.name['name-USen']}`}
           ></img>
+          <p>
+            <Link to={`./details/${item['file-name']}`}>
+              ...{properCase(item.name['name-USen'])} details
+            </Link>
+          </p>
         </div>
       );
     });

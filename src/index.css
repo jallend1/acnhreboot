@@ -191,19 +191,13 @@ audio {
   border-radius: 10%;
 }
 
-/* .card.song {
-  max-width: 25%;
-  position: relative;
-  margin: 2em;
-} */
-
 .card.song img {
   margin: auto;
   transition: transform 0.3s;
 }
 
 .card img:hover {
-  transform: scale(1.5);
+  transform: scale(1.2);
   z-index: 1;
 }
 

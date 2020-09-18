@@ -1,5 +1,6 @@
 //! Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
 // TODO Loading /villagers directly does NOT load Villager birthday
+// TODO Add loading page to Villagers and details page
 
 // TODO Possibility: Single page to list _all_ items?
 // TODO Possibility: Universal search?
@@ -16,6 +17,7 @@ import Welcome from './Components/Welcome';
 import Filter from './Components/Filter';
 import NavBar from './Components/NavBar';
 import Player from './Components/Player';
+import Details from './Components/Details';
 import { ItemContext } from './contexts/ItemContext';
 
 class App extends Component {
@@ -46,6 +48,7 @@ class App extends Component {
                 return <Creatures {...props} />;
               }}
             />
+            <Route path="/details/:filename" component={Details} />
             <Route exact path="/">
               <Welcome />
             </Route>
