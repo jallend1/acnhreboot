@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { properCase } from '../utils';
 import { ItemContext } from '../contexts/ItemContext';
 import DetailsArt from './DetailsArt';
+import DetailsVillager from './DetailsVillager';
 
 const Details = (props) => {
   const { allItems } = useContext(ItemContext);
@@ -13,6 +14,8 @@ const Details = (props) => {
       const [type, item] = itemDetails;
       if (type === 'art') {
         return <DetailsArt art={item} type={type} />;
+      } else if (type === 'villagers') {
+        return <DetailsVillager villager={item} type={type} />;
       }
       return (
         <div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { properCase } from '../utils';
 import { ItemContext } from '../contexts/ItemContext';
 import DetailsArt from './DetailsArt';
 

@@ -3,6 +3,7 @@ import FilterVillagers from './FilterVillagers';
 import { properCase } from '../utils';
 import Popup from './Popup';
 import { ItemContext } from '../contexts/ItemContext';
+import DetailsVillager from './DetailsVillager';
 
 class Villagers extends React.Component {
   constructor(props) {
@@ -147,62 +148,7 @@ class Villagers extends React.Component {
   };
 
   displayVillagers = (villager) => {
-    const {
-      'file-name': fileName,
-      'catch-phrase': catchPhrase,
-      name: { 'name-USen': name }
-    } = villager;
-    villager.isBirthday = false;
-    const currentTime = new Date();
-    const birthDate = this.fixBirthday(villager);
-    if (
-      birthDate.getMonth() === currentTime.getMonth() &&
-      birthDate.getDate() === currentTime.getDate()
-    ) {
-      villager.isBirthday = true;
-    }
-    villager.birthdayDaysAway = Math.ceil(
-      (birthDate - currentTime) / (1000 * 3600 * 24)
-    );
-    if (villager.birthdayDaysAway < 0) {
-      villager.birthdayDaysAway += 365;
-    }
-    return (
-      <React.Fragment key={fileName}>
-        <div className="card villager center yellow lighten-3" key={fileName}>
-          <header>
-            <h3>{villager.isBirthday ? `🎉${name}🎉` : name}</h3>
-            <img
-              src={`./images/icons/${this.context.activeItem}/${fileName}.png`}
-              alt={name}
-            />
-            <h4>"{properCase(catchPhrase)}"</h4>
-            <div>
-              <label>
-                <input
-                  type="checkbox"
-                  name="markcomplete"
-                  value={name}
-                  onChange={this.context.markComplete}
-                  checked={
-                    this.context.allItems.completed.findIndex(
-                      (item) => item.name['name-USen'] === name
-                    ) !== -1
-                  }
-                />
-                <span>Mark Complete</span>
-              </label>
-            </div>
-            <i
-              className="material-icons pointer"
-              onClick={() => this.activateCard(fileName)}
-            >
-              more_horiz
-            </i>
-          </header>
-        </div>
-      </React.Fragment>
-    );
+    return <DetailsVillager villager={villager} key={villager['file-name']} />;
   };
 
   closeDetails = () => {
@@ -245,18 +191,6 @@ class Villagers extends React.Component {
       newResults = this.context.activeItems;
     }
     this.setState({ filtered: newResults });
-  };
-
-  fixBirthday = (villager) => {
-    // Changes birthday from DD//MM into YYYY/MM/DD
-    const originalBirthdayFormat = villager.birthday.split('/');
-    const currentTime = new Date();
-    const fixedBirthDate =
-      currentTime.getFullYear() +
-      ' ' +
-      originalBirthdayFormat.reverse().join(' ');
-    const birthDate = new Date(fixedBirthDate);
-    return birthDate;
   };
 
   render() {
