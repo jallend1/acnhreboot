@@ -3,6 +3,7 @@ import { properCase } from '../utils';
 import { ItemContext } from '../contexts/ItemContext';
 import DetailsArt from './DetailsArt';
 import DetailsVillager from './DetailsVillager';
+import DetailsSong from './DetailsSong';
 
 const Details = (props) => {
   const { allItems } = useContext(ItemContext);
@@ -16,6 +17,8 @@ const Details = (props) => {
         return <DetailsArt art={item} type={type} />;
       } else if (type === 'villagers') {
         return <DetailsVillager villager={item} type={type} />;
+      } else if (type === 'music') {
+        return <DetailsSong song={item} type={type} />;
       }
       return (
         <div>

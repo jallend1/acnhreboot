@@ -68,8 +68,6 @@ export default class ItemContextProvider extends Component {
     this.setState(
       { activeItem: newType, activeItems: newCreatures },
       this.sortAlpha
-      // ,
-      // this.sortAlpha
     ); //Sets the new type as active, loads appropriate array, and checks to see if display should be limited to available
   };
 

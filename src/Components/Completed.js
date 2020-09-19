@@ -20,7 +20,7 @@ class Completed extends React.Component {
           ></img>
           <p>
             <Link to={`./details/${item['file-name']}`}>
-              ...{properCase(item.name['name-USen'])} details
+              ...Visit {properCase(item.name['name-USen'])} page
             </Link>
           </p>
         </div>
