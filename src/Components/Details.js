@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
 import { properCase } from '../utils';
 import { ItemContext } from '../contexts/ItemContext';
+import DetailsArt from './DetailsArt';
 
 const Details = (props) => {
   const { allItems } = useContext(ItemContext);
   const displayItem = () => {
-    // Locates the item details in the allItems context
-    const item = findItem();
+    // Locates the item details in the allItems context and returns array including item type and item object itself
+    const itemDetails = findItem();
     // Waits until there's a match, then returns that item
-    if (item) {
+    if (itemDetails) {
+      const [type, item] = itemDetails;
+      if (type === 'art') {
+        return <DetailsArt art={item} type={type} />;
+      }
       return (
         <div>
           <h4>{properCase(item.name['name-USen'])}</h4>
@@ -31,7 +36,7 @@ const Details = (props) => {
         );
         // If it finds a match, returns it
         if (desiredItem.length > 0) {
-          return desiredItem[0];
+          return [types[i], desiredItem[0]];
         }
       }
     }

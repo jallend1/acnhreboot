@@ -1,6 +1,7 @@
 import React from 'react';
 import { properCase } from '../utils';
 import { ItemContext } from '../contexts/ItemContext';
+import DetailsArt from './DetailsArt';
 
 class Art extends React.Component {
   static contextType = ItemContext;
@@ -8,51 +9,15 @@ class Art extends React.Component {
   componentDidMount() {
     this.context.changeActiveItem('art');
   }
-  displayArt = (art) => {
-    const {
-      'file-name': fileName,
-      name: { 'name-USen': name },
-      hasFake,
-      'museum-desc': desc
-    } = art;
-    return (
-      <div className="center artwork yellow lighten-3" key={name}>
-        <img
-          src={`./images/${this.context.activeItem}/${fileName}.png`}
-          alt={name}
-        />
-        <h4>{properCase(name)}</h4>
-        <div>
-          <h6>Museum Description</h6>
-          <p>{desc}</p>
-        </div>
-        <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
-        <div>
-          <label>
-            <input
-              name="markcomplete"
-              type="checkbox"
-              value={name}
-              onChange={this.context.markComplete}
-              checked={
-                this.context.allItems.completed.findIndex(
-                  (item) => item.name['name-USen'] === name
-                ) !== -1
-              }
-            />
-            <span>Mark Complete</span>
-          </label>
-        </div>
-      </div>
-    );
-  };
 
   filterArt = () => {
     const searchValue = this.context.searchValue;
     const displayedArt = this.context.allItems.art.filter((art) =>
       art.name['name-USen'].includes(searchValue)
     );
-    return displayedArt.map((art) => this.displayArt(art));
+    return displayedArt.map((art) => (
+      <DetailsArt art={art} type={this.context.activeItem} />
+    ));
   };
   render() {
     return (

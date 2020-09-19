@@ -119,9 +119,30 @@ export default class ItemContextProvider extends Component {
     }
   };
 
+  // Used in MarkComplete to accommodate 'Marking an item complete' from within different components
+  locateItemType = (name) => {
+    const types = Object.keys(this.state.allItems);
+    for (let i = 0; i < types.length; i++) {
+      //   If the item type isn't home or completed, search the array
+      if (
+        (this.state.allItems[types[i]] !== 'home') &
+        (this.state.allItems[types[i]] !== 'completed')
+      ) {
+        if (
+          this.state.allItems[types[i]].some(
+            (item) => item.name['name-USen'] === name
+          )
+        ) {
+          return types[i];
+        }
+      }
+    }
+  };
+
   markComplete = (e) => {
     const currentState = this.state.allItems;
-    const itemType = this.state.activeItem;
+    // Determines item type
+    const itemType = this.locateItemType(e.target.value);
     if (e.target.checked) {
       const itemDetails = currentState[itemType].find(
         (item) => item.name['name-USen'] === e.target.value
