@@ -2,6 +2,7 @@ import React from 'react';
 import { properCase } from '../utils';
 import Details from './Creature/Details';
 import { ItemContext } from '../contexts/ItemContext';
+import DetailsCreature from './DetailsCreature';
 
 class Creatures extends React.Component {
   static contextType = ItemContext;
@@ -20,6 +21,7 @@ class Creatures extends React.Component {
       <React.Fragment key={item['file-name']}>
         <tr>{this.renderHeader(item)}</tr>
         {this.renderDetails(item)}
+        <DetailsCreature creature={item} />
       </React.Fragment>
     );
   };

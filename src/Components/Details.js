@@ -4,6 +4,7 @@ import { ItemContext } from '../contexts/ItemContext';
 import DetailsArt from './DetailsArt';
 import DetailsVillager from './DetailsVillager';
 import DetailsSong from './DetailsSong';
+import DetailsCreature from './DetailsCreature';
 
 const Details = (props) => {
   const { allItems } = useContext(ItemContext);
@@ -19,6 +20,13 @@ const Details = (props) => {
         return <DetailsVillager villager={item} type={type} />;
       } else if (type === 'music') {
         return <DetailsSong song={item} type={type} />;
+      } else if (
+        type === 'fish' ||
+        type === 'bugs' ||
+        type === 'sea' ||
+        type === 'fossils'
+      ) {
+        return <DetailsCreature creature={item} type={type} />;
       }
       return (
         <div>
