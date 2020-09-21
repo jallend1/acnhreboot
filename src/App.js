@@ -1,4 +1,3 @@
-//! Dedicated page for each item; Linked to from Completed Page for expanded details unique to each type
 // TODO Loading /villagers directly does NOT load Villager birthday
 // TODO Add loading page to Villagers and details page
 
@@ -18,6 +17,7 @@ import Filter from './Components/Filter';
 import NavBar from './Components/NavBar';
 import Player from './Components/Player';
 import Details from './Components/Details';
+import AllItems from './Components/AllItems';
 import { ItemContext } from './contexts/ItemContext';
 
 class App extends Component {
@@ -49,6 +49,7 @@ class App extends Component {
               }}
             />
             <Route path="/details/:filename" component={Details} />
+            <Route path="/allitems" component={AllItems} />
             <Route exact path="/">
               <Welcome />
             </Route>
