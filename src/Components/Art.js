@@ -15,7 +15,11 @@ class Art extends React.Component {
       art.name['name-USen'].includes(searchValue)
     );
     return displayedArt.map((art) => (
-      <DetailsArt art={art} type={this.context.activeItem} />
+      <DetailsArt
+        art={art}
+        type={this.context.activeItem}
+        key={art['file-name']}
+      />
     ));
   };
   render() {

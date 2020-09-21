@@ -28,7 +28,7 @@ class Music extends React.Component {
   };
 
   displaySongs = (song) => {
-    return <DetailsSong song={song} />;
+    return <DetailsSong song={song} key={song['file-name']} />;
   };
 
   render() {

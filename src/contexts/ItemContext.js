@@ -23,7 +23,8 @@ export default class ItemContextProvider extends Component {
     time: '',
     descending: false,
     sortBy: 'alpha',
-    activeSong: ''
+    activeSong: '',
+    everything: []
   };
 
   componentDidMount() {
