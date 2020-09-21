@@ -2,7 +2,7 @@ import React from 'react';
 import { properCase } from '../utils';
 import Details from './Creature/Details';
 import { ItemContext } from '../contexts/ItemContext';
-import DetailsCreature from './DetailsCreature';
+import { Link } from 'react-router-dom';
 
 class Creatures extends React.Component {
   static contextType = ItemContext;
@@ -21,7 +21,6 @@ class Creatures extends React.Component {
       <React.Fragment key={item['file-name']}>
         <tr>{this.renderHeader(item)}</tr>
         {this.renderDetails(item)}
-        <DetailsCreature creature={item} />
       </React.Fragment>
     );
   };
@@ -118,7 +117,11 @@ class Creatures extends React.Component {
         <td>{this.renderComplete(item)}</td>
 
         <td>
-          <h5>{properCase(item.name['name-USen'])}</h5>
+          <h5>
+            <Link to={`/details/${item['file-name']}`}>
+              {properCase(item.name['name-USen'])}
+            </Link>
+          </h5>
         </td>
         <td>{this.displayPrice(item)}</td>
         <td>{this.renderIcon(item)}</td>

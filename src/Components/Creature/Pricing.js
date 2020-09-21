@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Pricing = ({ item }) => {
   return (
@@ -8,6 +8,9 @@ const Pricing = ({ item }) => {
           <thead>
             <tr>
               <th colSpan="2" className="center">
+                <div>
+                  <i className="material-icons">store</i>
+                </div>
                 Selling Price
               </th>
             </tr>
@@ -18,9 +21,9 @@ const Pricing = ({ item }) => {
               <td>{item.price} bells</td>
             </tr>
             <tr>
-              <td>{item["price-cj"] ? "CJ's Price:" : "Flick's Price"}</td>
+              <td>{item['price-cj'] ? "CJ's Price:" : "Flick's Price"}</td>
               <td>
-                {item["price-cj"] ? item["price-cj"] : item["price-flick"]}{" "}
+                {item['price-cj'] ? item['price-cj'] : item['price-flick']}{' '}
                 bells
               </td>
             </tr>

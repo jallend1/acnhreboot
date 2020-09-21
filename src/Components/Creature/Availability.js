@@ -1,6 +1,6 @@
-import React from "react";
-import Attributes from "./Attributes";
-import Months from "./Months";
+import React from 'react';
+import Attributes from './Attributes';
+import Months from './Months';
 
 const Availability = ({ item }) => {
   return (
@@ -9,7 +9,12 @@ const Availability = ({ item }) => {
         <table className="detailsTable centered">
           <thead>
             <tr>
-              <th colSpan="2">Attributes</th>
+              <th colSpan="2">
+                <div>
+                  <i className="material-icons">fact_check</i>
+                </div>
+                Attributes
+              </th>
             </tr>
           </thead>
           <tbody>
