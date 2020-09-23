@@ -12,6 +12,7 @@ class AllItems extends React.Component {
     console.log(this.context);
     this.populateAll();
   }
+  componentDidUpdate(prevProps) {}
 
   //   TODO Yeah, none of this working
   populateAll = () => {
@@ -23,6 +24,7 @@ class AllItems extends React.Component {
         if (type !== 'home') {
           console.log('hello');
           console.log(type);
+          console.log(this.context.allItems);
           this.context.allItems[type].forEach((item) => {
             console.log(item);
             const itemDetails = {
@@ -40,7 +42,13 @@ class AllItems extends React.Component {
   };
 
   render() {
-    return <p>Hello</p>;
+    console.log(this.context.allItems);
+    return (
+      <>
+        {this.context.allItems.fish.length > 0 ? this.populateAll() : 'Nothing'}
+        <p>Hello</p>
+      </>
+    );
   }
 }
 
