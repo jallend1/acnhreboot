@@ -12,7 +12,6 @@ const Attributes = ({ item }) => {
       );
     }
   };
-  console.log(item);
   return (
     <>
       <tr>

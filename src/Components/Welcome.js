@@ -35,7 +35,7 @@ const Welcome = (props) => {
         </ul>
         <ul className="collection with-header center">
           <li className="collection-header">
-            <h4>Explore the nearly 400 villagers:</h4>
+            <h4>Explore the nearly 400 villagers</h4>
           </li>
           <li className="collection-item">
             See if you share a birthday with any Animal Crossing villagers!
@@ -57,7 +57,6 @@ const Welcome = (props) => {
           <li className="collection-item">
             Listen to all of K.K. Slider's sweet jams!
           </li>
-
           <li className="collection-item">
             Find out which of K.K.'s songs are <em>not</em> available for
             purchase!
