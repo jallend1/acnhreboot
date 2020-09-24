@@ -185,7 +185,7 @@ export default class ItemContextProvider extends Component {
           itemList.forEach((item) => {
             item.collapsed = true;
             const newItem = {
-              name: properCase(item.name['name-USen']),
+              name: item.name,
               type: typeInProperCase,
               fileName: item['file-name']
             };
@@ -260,18 +260,14 @@ export default class ItemContextProvider extends Component {
   sortAlpha = () => {
     const activeItems = this.state.activeItems;
     const criteria = this.state.sortBy;
-
     // If alphabetical is clicked, convert to lowercase and sort alphabetically
     if (criteria === 'alpha') {
-      if (this.state.activeItem === 'everything') {
-        activeItems.sort((a, b) => (a.name > b.name ? 1 : -1));
-      } else {
-        activeItems.sort((a, b) =>
-          a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
-            ? 1
-            : -1
-        );
-      }
+      activeItems.sort((a, b) =>
+        a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
+          ? 1
+          : -1
+      );
+
       // If not alpha, sort numerically by either Nook's price or special purhcaser price
     } else {
       activeItems.sort((a, b) => (a[criteria] > b[criteria] ? 1 : -1));
