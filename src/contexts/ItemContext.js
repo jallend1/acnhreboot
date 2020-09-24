@@ -284,6 +284,25 @@ export default class ItemContextProvider extends Component {
     this.setState({ activeItems }, this.showAvailable);
   };
 
+  sortEverything = (e) => {
+    let descending = this.state.descending;
+    let sortBy = this.state.sortBy;
+
+    // If name was clicked and already sorted by name, alternates descending
+    if (e.target.dataset.sort === 'name') {
+      if (sortBy === 'alpha') {
+        descending = !descending;
+      }
+      // If it isn't yet sorted by name, switches it to sort by alpha
+      else {
+        sortBy = 'alpha';
+      }
+    }
+    this.setState({ sortBy, descending }, this.sortAlpha);
+  };
+
+  sortType = () => {};
+
   toggleAvailable = (e) => {
     e.target.checked
       ? this.setState({ availableToday: true }, this.showAvailable)
@@ -323,7 +342,8 @@ export default class ItemContextProvider extends Component {
           playSong: this.playSong,
           markComplete: this.markComplete,
           clearCollected: this.clearCollected,
-          searchField: this.searchField
+          searchField: this.searchField,
+          sortEverything: this.sortEverything
         }}
       >
         {this.props.children}

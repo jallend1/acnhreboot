@@ -28,9 +28,15 @@ class Everything extends React.Component {
         <table>
           <thead>
             <tr>
-              <th>Item Name</th>
-              <th>Item Type</th>
-              <th>Item Price</th>
+              <th onClick={this.context.sortEverything} data-sort="name">
+                Item Name
+              </th>
+              <th onClick={this.context.sortEverything} data-sort="type">
+                Item Type
+              </th>
+              <th onClick={this.context.sortEverything} data-sort="price">
+                Item Price
+              </th>
             </tr>
           </thead>
           <tbody>
