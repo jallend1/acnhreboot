@@ -6,6 +6,7 @@ import Availability from './Availability';
 
 const Details = ({ item, activeItem }) => {
   // Returns quote if creature isn't a fossil (Fossils don't have catch phrases!)
+
   const catchPhrase = () => {
     return item['catch-phrase'] ? (
       <caption>

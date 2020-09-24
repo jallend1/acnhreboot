@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const DetailsHeader = ({ item, activeItem }) => {
   return (
@@ -7,8 +7,8 @@ const DetailsHeader = ({ item, activeItem }) => {
         <tr>
           <th colSpan="2" className="image">
             <img
-              src={`../images/${activeItem}/${item["file-name"]}.png`}
-              alt={item.name["name-USen"]}
+              src={`../images/${activeItem}/${item['file-name']}.png`}
+              alt={item.name['name-USen']}
             />
           </th>
         </tr>
