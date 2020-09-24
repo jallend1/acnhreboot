@@ -1,8 +1,6 @@
 // TODO Loading /villagers directly does NOT load Villager birthday
 // TODO Add loading page to Villagers and details page
-
-// TODO Possibility: Single page to list _all_ items?
-// TODO Possibility: Universal search?
+// TODO Sort filters on Everything page need some work! -- **Convert to clickable headings to sort**
 
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';

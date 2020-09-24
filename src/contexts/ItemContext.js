@@ -173,40 +173,47 @@ export default class ItemContextProvider extends Component {
     this.setState({ activeSong });
   };
 
+  // Extracts basic item details to add to Everything array
+  addToEverything = (dataType, item) => {
+    const newItem = {
+      name: item.name,
+      type: dataType,
+      fileName: item['file-name']
+    };
+    if (
+      dataType === 'fish' ||
+      dataType === 'bugs' ||
+      dataType === 'sea' ||
+      dataType === 'fossils'
+    ) {
+      newItem.price = item.price;
+    } else if (dataType === 'music') {
+      newItem.price = 800;
+    } else if (dataType === 'art') {
+      newItem.price = 1245;
+    }
+    return newItem;
+  };
   populateData = (dataType) => {
     if (dataType !== 'completed' && dataType !== 'home') {
       let jsonPath = `../${dataType}.json`;
       fetch(jsonPath)
         .then((data) => data.json())
         .then((results) => {
+          // Converts data type to propercase once per run
           const typeInProperCase = properCase(dataType);
           const everything = this.state.allItems.everything;
           const itemList = Object.values(results);
           itemList.forEach((item) => {
-            item.collapsed = true;
-            const newItem = {
-              name: item.name,
-              type: typeInProperCase,
-              fileName: item['file-name']
-            };
-            if (
-              dataType === 'fish' ||
-              dataType === 'bugs' ||
-              dataType === 'sea' ||
-              dataType === 'fossils'
-            ) {
-              newItem.price = item.price;
-            } else if (dataType === 'music') {
-              newItem.price = 800;
-            } else if (dataType === 'art') {
-              newItem.price = 1245;
-            }
+            item.collapsed = true; // Sets all items to collapsed by default
+            //Adds each item to Everything array
+            const newItem = this.addToEverything(typeInProperCase, item);
             everything.push(newItem);
           });
-
           const currentState = this.state.allItems;
           currentState[dataType] = itemList;
           currentState.everything = everything;
+          // If it's music, picks a random song to populate in the player
           if (dataType === 'music') {
             this.pickSong(itemList);
           }

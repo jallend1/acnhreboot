@@ -1,5 +1,6 @@
 import React from 'react';
 import { ItemContext } from '../contexts/ItemContext';
+import { Link } from 'react-router-dom';
 import { properCase } from '../utils';
 
 class Everything extends React.Component {
@@ -11,7 +12,11 @@ class Everything extends React.Component {
   displayItem = (item) => {
     return (
       <tr key={item.fileName}>
-        <td>{properCase(item.name['name-USen'])}</td>
+        <td>
+          <Link to={`/details/${item.fileName}`}>
+            {properCase(item.name['name-USen'])}
+          </Link>
+        </td>
         <td>{item.type}</td>
         <td>{item.price ? item.price : 'N/A'}</td>
       </tr>
