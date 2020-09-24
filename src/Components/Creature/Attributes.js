@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Attributes = ({ item }) => {
   // Only sea creatures and fish have
@@ -12,6 +12,7 @@ const Attributes = ({ item }) => {
       );
     }
   };
+  console.log(item);
   return (
     <>
       <tr>
@@ -26,7 +27,7 @@ const Attributes = ({ item }) => {
         <td>Time:</td>
         <td>
           {item.availability.isAllDay
-            ? "Available all day"
+            ? 'Available all day'
             : item.availability.time}
         </td>
       </tr>

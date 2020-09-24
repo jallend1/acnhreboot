@@ -12,7 +12,7 @@ const Months = ({ item }) => {
         </th>
       </tr>
       <tr>
-        <td>Northern Hempishere:</td>
+        <td>Northern Hemisphere:</td>
         <td>
           {item.availability.isAllYear
             ? 'Available year-round'
