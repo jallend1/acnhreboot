@@ -17,7 +17,7 @@ import Filter from './Components/Filter';
 import NavBar from './Components/NavBar';
 import Player from './Components/Player';
 import Details from './Components/Details';
-import AllItems from './Components/AllItems';
+import Everything from './Components/Everything';
 import { ItemContext } from './contexts/ItemContext';
 
 class App extends Component {
@@ -49,7 +49,7 @@ class App extends Component {
               }}
             />
             <Route path="/details/:filename" component={Details} />
-            <Route path="/allitems" component={AllItems} />
+            <Route path="/everything" component={Everything} />
             <Route exact path="/">
               <Welcome />
             </Route>

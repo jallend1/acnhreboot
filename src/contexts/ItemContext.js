@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-
+import { properCase } from '../utils';
 export const ItemContext = createContext();
 
 export default class ItemContextProvider extends Component {
@@ -15,7 +15,8 @@ export default class ItemContextProvider extends Component {
       villagers: [],
       music: [],
       art: [],
-      completed: []
+      completed: [],
+      everything: []
     },
     availableToday: false,
     completed: [],
@@ -23,8 +24,7 @@ export default class ItemContextProvider extends Component {
     time: '',
     descending: false,
     sortBy: 'alpha',
-    activeSong: '',
-    everything: []
+    activeSong: ''
   };
 
   componentDidMount() {
@@ -179,10 +179,34 @@ export default class ItemContextProvider extends Component {
       fetch(jsonPath)
         .then((data) => data.json())
         .then((results) => {
+          const typeInProperCase = properCase(dataType);
+          const everything = this.state.allItems.everything;
           const itemList = Object.values(results);
-          itemList.forEach((item) => (item.collapsed = true));
+          itemList.forEach((item) => {
+            item.collapsed = true;
+            const newItem = {
+              name: properCase(item.name['name-USen']),
+              type: typeInProperCase,
+              fileName: item['file-name']
+            };
+            if (
+              dataType === 'fish' ||
+              dataType === 'bugs' ||
+              dataType === 'sea' ||
+              dataType === 'fossils'
+            ) {
+              newItem.price = item.price;
+            } else if (dataType === 'music') {
+              newItem.price = 800;
+            } else if (dataType === 'art') {
+              newItem.price = 1245;
+            }
+            everything.push(newItem);
+          });
+
           const currentState = this.state.allItems;
           currentState[dataType] = itemList;
+          currentState.everything = everything;
           if (dataType === 'music') {
             this.pickSong(itemList);
           }
@@ -236,13 +260,18 @@ export default class ItemContextProvider extends Component {
   sortAlpha = () => {
     const activeItems = this.state.activeItems;
     const criteria = this.state.sortBy;
+
     // If alphabetical is clicked, convert to lowercase and sort alphabetically
     if (criteria === 'alpha') {
-      activeItems.sort((a, b) =>
-        a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
-          ? 1
-          : -1
-      );
+      if (this.state.activeItem === 'everything') {
+        activeItems.sort((a, b) => (a.name > b.name ? 1 : -1));
+      } else {
+        activeItems.sort((a, b) =>
+          a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
+            ? 1
+            : -1
+        );
+      }
       // If not alpha, sort numerically by either Nook's price or special purhcaser price
     } else {
       activeItems.sort((a, b) => (a[criteria] > b[criteria] ? 1 : -1));
