@@ -181,21 +181,25 @@ export default class ItemContextProvider extends Component {
       fileName: item['file-name']
     };
     if (
-      dataType === 'fish' ||
-      dataType === 'bugs' ||
-      dataType === 'sea' ||
-      dataType === 'fossils'
+      dataType === 'Fish' ||
+      dataType === 'Bugs' ||
+      dataType === 'Sea' ||
+      dataType === 'Fossils'
     ) {
       newItem.price = item.price;
-    } else if (dataType === 'music') {
+    } else if (dataType === 'Music') {
       newItem.price = 800;
-    } else if (dataType === 'art') {
+    } else if (dataType === 'Art') {
       newItem.price = 1245;
     }
     return newItem;
   };
   populateData = (dataType) => {
-    if (dataType !== 'completed' && dataType !== 'home') {
+    if (
+      dataType !== 'completed' &&
+      dataType !== 'home' &&
+      dataType !== 'everything'
+    ) {
       let jsonPath = `../${dataType}.json`;
       fetch(jsonPath)
         .then((data) => data.json())
