@@ -102,6 +102,11 @@ class Creatures extends React.Component {
             {/* Makes the single cell containing the new table span the width of the parent table  */}
             <td colSpan="6">
               <Details item={item} activeItem={this.context.activeItem} />
+              <div>
+                <Link to={`/details/${item['file-name']}`}>
+                  View {properCase(item.name['name-USen'])} details on own page
+                </Link>
+              </div>
             </td>
           </tr>
         </>

@@ -2,6 +2,8 @@
 // TODO Add loading page to Villagers and details page
 // TODO Sort filters on Everything page need some work! -- **Convert to clickable headings to sort**
 
+// ! All villagers start out with details fully expanded? Was that intentional?!
+
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './Components/Header';

@@ -221,7 +221,7 @@ class Villagers extends React.Component {
             <h3>Gathering all the villagers...</h3>
           )}
         </div>
-        {this.state.activeCard ? (
+        {this.state.activeCard.length > 0 ? (
           <Popup
             villagers={this.context.activeItems}
             activeCard={this.state.activeCard}
