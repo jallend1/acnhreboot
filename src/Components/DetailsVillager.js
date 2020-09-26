@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ItemContext } from '../contexts/ItemContext';
 import { properCase } from '../utils';
 
-const DetailsVillager = ({ villager }) => {
+const DetailsVillager = ({ villager, activateCard }) => {
   const { markComplete, allItems } = useContext(ItemContext);
   const {
     'file-name': fileName,
@@ -18,14 +18,14 @@ const DetailsVillager = ({ villager }) => {
           <img src={`../images/icons/villagers/${fileName}.png`} alt={name} />
           <h4>"{properCase(catchPhrase)}"</h4>
         </header>
-        <main>
+        {/* <main>
           <img src={`../images/villagers/${fileName}.png`} alt={name} />
           <p>Personality: {villager.personality}</p>
           <p>Gender: {villager.gender}</p>
           <p>Species: {villager.species}</p>
           <p>Birthday: {villager['birthday-string']}</p>
           <p>Days until birthday: {villager.birthdayDaysAway}</p>
-        </main>
+        </main> */}
         <div>
           <label>
             <input
@@ -42,6 +42,9 @@ const DetailsVillager = ({ villager }) => {
             <span>Mark Complete</span>
           </label>
         </div>
+        <button onClick={() => activateCard(villager['file-name'])}>
+          View Details
+        </button>
       </div>
     </React.Fragment>
   );

@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Popup = ({ villagers, activeCard, closeDetails }) => {
   const villager = villagers.find(
-    (villager) => villager["file-name"] === activeCard
+    (villager) => villager['file-name'] === activeCard
   );
   const {
-    "file-name": fileName,
-    name: { "name-USen": name },
-    "birthday-string": birthday
+    'file-name': fileName,
+    name: { 'name-USen': name },
+    'birthday-string': birthday
   } = villager;
   return (
     <>
@@ -23,7 +24,11 @@ const Popup = ({ villagers, activeCard, closeDetails }) => {
           <p>Species: {villager.species}</p>
           <p>Birthday: {birthday}</p>
           <p>Days until birthday: {villager.birthdayDaysAway}</p>
+          <Link to={`/details/${fileName}`}>
+            <button>Go to {name}'s personal page</button>
+          </Link>
         </div>
+        <div></div>
       </div>
     </>
   );

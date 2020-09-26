@@ -148,7 +148,13 @@ class Villagers extends React.Component {
   };
 
   displayVillagers = (villager) => {
-    return <DetailsVillager villager={villager} key={villager['file-name']} />;
+    return (
+      <DetailsVillager
+        villager={villager}
+        key={villager['file-name']}
+        activateCard={this.activateCard}
+      />
+    );
   };
 
   closeDetails = () => {
@@ -221,6 +227,7 @@ class Villagers extends React.Component {
             <h3>Gathering all the villagers...</h3>
           )}
         </div>
+
         {this.state.activeCard.length > 0 ? (
           <Popup
             villagers={this.context.activeItems}
