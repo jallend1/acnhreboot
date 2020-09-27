@@ -153,6 +153,7 @@ class Villagers extends React.Component {
         villager={villager}
         key={villager['file-name']}
         activateCard={this.activateCard}
+        match={this.props.match}
       />
     );
   };

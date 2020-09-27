@@ -17,7 +17,9 @@ const Details = (props) => {
       if (type === 'art') {
         return <DetailsArt art={item} type={type} />;
       } else if (type === 'villagers') {
-        return <DetailsVillager villager={item} type={type} />;
+        return (
+          <DetailsVillager villager={item} type={type} match={props.match} />
+        );
       } else if (type === 'music') {
         return <DetailsSong song={item} type={type} />;
       } else if (

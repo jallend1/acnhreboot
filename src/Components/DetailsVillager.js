@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import { ItemContext } from '../contexts/ItemContext';
 import { properCase } from '../utils';
 
-const DetailsVillager = ({ villager, activateCard }) => {
+const DetailsVillager = ({ villager, activateCard, match }) => {
+  console.log(match);
   const { markComplete, allItems } = useContext(ItemContext);
   const {
     'file-name': fileName,
     'catch-phrase': catchPhrase,
+    'birthday-string': birthday,
     name: { 'name-USen': name }
   } = villager;
   birthdayCalculations(villager);
@@ -18,14 +20,7 @@ const DetailsVillager = ({ villager, activateCard }) => {
           <img src={`../images/icons/villagers/${fileName}.png`} alt={name} />
           <h4>"{properCase(catchPhrase)}"</h4>
         </header>
-        {/* <main>
-          <img src={`../images/villagers/${fileName}.png`} alt={name} />
-          <p>Personality: {villager.personality}</p>
-          <p>Gender: {villager.gender}</p>
-          <p>Species: {villager.species}</p>
-          <p>Birthday: {villager['birthday-string']}</p>
-          <p>Days until birthday: {villager.birthdayDaysAway}</p>
-        </main> */}
+
         <div>
           <label>
             <input
@@ -42,9 +37,20 @@ const DetailsVillager = ({ villager, activateCard }) => {
             <span>Mark Complete</span>
           </label>
         </div>
-        <button onClick={() => activateCard(villager['file-name'])}>
-          View Details
-        </button>
+        {match.url.includes('details') ? (
+          <>
+            <img src={`../images/villagers/${fileName}.png`} alt={name} />
+            <p>Personality: {villager.personality}</p>
+            <p>Gender: {villager.gender}</p>
+            <p>Species: {villager.species}</p>
+            <p>Birthday: {birthday}</p>
+            <p>Days until birthday: {villager.birthdayDaysAway}</p>
+          </>
+        ) : (
+          <button onClick={() => activateCard(villager['file-name'])}>
+            View Details
+          </button>
+        )}
       </div>
     </React.Fragment>
   );

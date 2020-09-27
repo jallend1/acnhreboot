@@ -49,6 +49,10 @@ class App extends Component {
               }}
             />
             <Route path="/details/:filename" component={Details} />
+            {/* <Route
+              path="/details:filename"
+              render={(props) => <Details {...props} />}
+            /> */}
             <Route path="/everything" component={Everything} />
             <Route exact path="/">
               <Welcome />
