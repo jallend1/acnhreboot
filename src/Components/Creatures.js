@@ -46,7 +46,7 @@ class Creatures extends React.Component {
     );
   };
   renderCollapse = (item) => {
-    return item.collapsed ? (
+    return item.expanded ? (
       <i
         className="material-icons"
         onClick={() =>
@@ -56,7 +56,7 @@ class Creatures extends React.Component {
           )
         }
       >
-        expand_more
+        expand_less
       </i>
     ) : (
       <i
@@ -68,7 +68,7 @@ class Creatures extends React.Component {
           )
         }
       >
-        expand_less
+        expand_more
       </i>
     );
   };
@@ -95,7 +95,7 @@ class Creatures extends React.Component {
   };
 
   renderDetails = (item) => {
-    if (item.collapsed === false) {
+    if (item.expanded === true) {
       return (
         <>
           <tr>

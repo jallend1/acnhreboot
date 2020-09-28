@@ -98,13 +98,13 @@ export default class ItemContextProvider extends Component {
 
   collapseAll = (activeItem) => {
     const activeItemList = this.state.allItems;
-    activeItemList[activeItem].forEach((item) => (item.collapsed = true));
+    activeItemList[activeItem].forEach((item) => (item.expanded = false));
     this.setState({ allItems: activeItemList });
   };
 
   expandAll = (activeItem) => {
     const activeItemList = this.state.allItems;
-    activeItemList[activeItem].forEach((item) => (item.collapsed = false));
+    activeItemList[activeItem].forEach((item) => (item.expanded = true));
     this.setState({ allItems: activeItemList });
   };
 
@@ -209,7 +209,7 @@ export default class ItemContextProvider extends Component {
           const everything = this.state.allItems.everything;
           const itemList = Object.values(results);
           itemList.forEach((item) => {
-            item.collapsed = true; // Sets all items to collapsed by default
+            // item.collapsed = true; // Sets all items to collapsed by default
             //Adds each item to Everything array
             const newItem = this.addToEverything(typeInProperCase, item);
             everything.push(newItem);
@@ -318,9 +318,9 @@ export default class ItemContextProvider extends Component {
     const itemIndex = currentState[creatureType].findIndex(
       (creature) => creature['file-name'] === item
     );
-    let isCollapsed = currentState[creatureType][itemIndex].collapsed;
-    isCollapsed = !isCollapsed;
-    currentState[creatureType][itemIndex].collapsed = isCollapsed;
+    let isExpanded = currentState[creatureType][itemIndex].expanded;
+    isExpanded = !isExpanded;
+    currentState[creatureType][itemIndex].expanded = isExpanded;
     this.setState({ [creatureType]: currentState });
   };
 
