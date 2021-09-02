@@ -1,24 +1,24 @@
-import React from 'react';
-import { ItemContext } from '../contexts/ItemContext';
-import { Link } from 'react-router-dom';
-import { properCase } from '../utils';
+import React from "react";
+import { ItemContext } from "../contexts/ItemContext";
+import { Link } from "react-router-dom";
+import { properCase } from "../utils";
 
 class Everything extends React.Component {
   static contextType = ItemContext;
 
   componentDidMount() {
-    this.context.changeActiveItem('everything');
+    this.context.changeActiveItem("everything");
   }
   displayItem = (item) => {
     return (
       <tr key={item.fileName}>
         <td>
           <Link to={`/details/${item.fileName}`}>
-            {properCase(item.name['name-USen'])}
+            {properCase(item.name["name-USen"])}
           </Link>
         </td>
         <td>{item.type}</td>
-        <td>{item.price ? item.price : 'N/A'}</td>
+        <td>{item.price ? item.price : "N/A"}</td>
       </tr>
     );
   };

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { ItemContext } from '../contexts/ItemContext';
+import React, { useContext } from "react";
+import { ItemContext } from "../contexts/ItemContext";
 
 const posterPath = (currentStatus) => {
   if (
-    currentStatus.activeItem === 'fish' ||
-    currentStatus.activeItem === 'bugs' ||
-    currentStatus.activeItem === 'sea' ||
-    currentStatus.activeItem === 'fossils'
+    currentStatus.activeItem === "fish" ||
+    currentStatus.activeItem === "bugs" ||
+    currentStatus.activeItem === "sea" ||
+    currentStatus.activeItem === "fossils"
   ) {
     return `../images/music/${currentStatus.activeSong}.png`;
   } else {
@@ -16,10 +16,10 @@ const posterPath = (currentStatus) => {
 
 const songPath = (currentStatus) => {
   if (
-    currentStatus.activeItem === 'fish' ||
-    currentStatus.activeItem === 'bugs' ||
-    currentStatus.activeItem === 'sea' ||
-    currentStatus.activeItem === 'fossils'
+    currentStatus.activeItem === "fish" ||
+    currentStatus.activeItem === "bugs" ||
+    currentStatus.activeItem === "sea" ||
+    currentStatus.activeItem === "fossils"
   ) {
     return `../kk/${currentStatus.activeSong}.mp3`;
   } else {
@@ -41,7 +41,7 @@ const Player = () => {
           />
         </div>
         {/* Autoplays if on the Music tab, otherwise load silently */}
-        {currentStatus.activeItem === 'music' ? (
+        {currentStatus.activeItem === "music" ? (
           <audio
             controls
             src={songPath(currentStatus)}

@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
-import { ItemContext } from '../contexts/ItemContext';
-import { properCase } from '../utils';
+import React, { useContext } from "react";
+import { ItemContext } from "../contexts/ItemContext";
+import { properCase } from "../utils";
 
 const DetailsArt = ({ art, type }) => {
   const { markComplete, allItems } = useContext(ItemContext);
   const {
-    'file-name': fileName,
-    name: { 'name-USen': name },
+    "file-name": fileName,
+    name: { "name-USen": name },
     hasFake,
-    'museum-desc': desc
+    "museum-desc": desc,
   } = art;
   return (
     <div className="center artwork yellow lighten-3" key={name}>
@@ -18,7 +18,7 @@ const DetailsArt = ({ art, type }) => {
         <h6>Museum Description</h6>
         <p>{desc}</p>
       </div>
-      <p>Has a fake version? {hasFake ? 'Yes' : 'No'}</p>
+      <p>Has a fake version? {hasFake ? "Yes" : "No"}</p>
       <div>
         <label>
           <input
@@ -28,7 +28,7 @@ const DetailsArt = ({ art, type }) => {
             onChange={markComplete}
             checked={
               allItems.completed.findIndex(
-                (item) => item.name['name-USen'] === name
+                (item) => item.name["name-USen"] === name
               ) !== -1
             }
           />

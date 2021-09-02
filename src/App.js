@@ -1,24 +1,18 @@
-// TODO Loading /villagers directly does NOT load Villager birthday
-// TODO Add loading page to Villagers and details page
-// TODO Sort filters on Everything page need some work! -- **Convert to clickable headings to sort**
-
-// ! All villagers start out with details fully expanded? Was that intentional?!
-
-import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Header from './Components/Header';
-import Creatures from './Components/Creatures';
-import Music from './Components/Music';
-import Villagers from './Components/Villagers';
-import Art from './Components/Art';
-import Completed from './Components/Completed';
-import Welcome from './Components/Welcome';
-import Filter from './Components/Filter';
-import NavBar from './Components/NavBar';
-import Player from './Components/Player';
-import Details from './Components/Details';
-import Everything from './Components/Everything';
-import { ItemContext } from './contexts/ItemContext';
+import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Header from "./Components/Header";
+import Creatures from "./Components/Creatures";
+import Music from "./Components/Music";
+import Villagers from "./Components/Villagers";
+import Art from "./Components/Art";
+import Completed from "./Components/Completed";
+import Welcome from "./Components/Welcome";
+import Filter from "./Components/Filter";
+import NavBar from "./Components/NavBar";
+import Player from "./Components/Player";
+import Details from "./Components/Details";
+import Everything from "./Components/Everything";
+import { ItemContext } from "./contexts/ItemContext";
 
 class App extends Component {
   static contextType = ItemContext;
@@ -33,7 +27,7 @@ class App extends Component {
           ) : null}
           <NavBar />
           <div className="main-content">
-            {this.context.activeItem !== 'home' ? (
+            {this.context.activeItem !== "home" ? (
               <>
                 <Filter />
               </>

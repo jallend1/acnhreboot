@@ -1,9 +1,9 @@
-import React from 'react';
-import FilterVillagers from './FilterVillagers';
-import { properCase } from '../utils';
-import Popup from './Popup';
-import { ItemContext } from '../contexts/ItemContext';
-import DetailsVillager from './DetailsVillager';
+import React from "react";
+import FilterVillagers from "./FilterVillagers";
+import { properCase } from "../utils";
+import Popup from "./Popup";
+import { ItemContext } from "../contexts/ItemContext";
+import DetailsVillager from "./DetailsVillager";
 
 class Villagers extends React.Component {
   constructor(props) {
@@ -16,13 +16,13 @@ class Villagers extends React.Component {
       searchPersonality: [],
       searchBirthday: [],
       birthdayBoys: [],
-      activeCard: ''
+      activeCard: "",
     };
   }
   static contextType = ItemContext;
 
   componentDidMount = () => {
-    this.context.changeActiveItem('villagers');
+    this.context.changeActiveItem("villagers");
     this.setState({ filtered: this.context.activeItems });
     this.birthdayCheck();
     this.compileDropdowns();
@@ -48,10 +48,10 @@ class Villagers extends React.Component {
         // If that matches local time, push them into birthday array
         birthdayBoys.push([
           villager.personality,
-          villager.name['name-USen'],
-          villager['catch-phrase'],
-          villager['file-name'],
-          villager['birthday-string']
+          villager.name["name-USen"],
+          villager["catch-phrase"],
+          villager["file-name"],
+          villager["birthday-string"],
         ]);
       }
     });
@@ -70,8 +70,8 @@ class Villagers extends React.Component {
               alt={birthdayBoy[1]}
             />
             <p>
-              Happy birthday to the always {birthdayBoy[0]} {birthdayBoy[1]}!{' '}
-              {properCase(birthdayBoy[2])}!{' '}
+              Happy birthday to the always {birthdayBoy[0]} {birthdayBoy[1]}!{" "}
+              {properCase(birthdayBoy[2])}!{" "}
             </p>
           </div>
         );
@@ -79,7 +79,7 @@ class Villagers extends React.Component {
   };
   checkboxChange = (e) => {
     // Adds or removes advanced search options from search criteria
-    if (e.target.name === 'species') {
+    if (e.target.name === "species") {
       const params = this.state.searchSpecies;
       const type = e.target.value;
       if (e.target.checked === true) {
@@ -89,7 +89,7 @@ class Villagers extends React.Component {
         params.splice(index, 1);
       }
       this.setState({ searchSpecies: params }, this.filterVillagers);
-    } else if (e.target.name === 'personality') {
+    } else if (e.target.name === "personality") {
       const params = this.state.searchPersonality;
       const type = e.target.value;
       if (e.target.checked === true) {
@@ -99,7 +99,7 @@ class Villagers extends React.Component {
         params.splice(index, 1);
       }
       this.setState({ searchPersonality: params }, this.filterVillagers);
-    } else if (e.target.name === 'birthday') {
+    } else if (e.target.name === "birthday") {
       const params = this.state.searchBirthday;
       const month = e.target.value;
       if (e.target.checked === true) {
@@ -151,7 +151,7 @@ class Villagers extends React.Component {
     return (
       <DetailsVillager
         villager={villager}
-        key={villager['file-name']}
+        key={villager["file-name"]}
         activateCard={this.activateCard}
         match={this.props.match}
       />
@@ -159,7 +159,7 @@ class Villagers extends React.Component {
   };
 
   closeDetails = () => {
-    this.setState({ activeCard: '' });
+    this.setState({ activeCard: "" });
   };
 
   filterVillagers = () => {
@@ -170,7 +170,7 @@ class Villagers extends React.Component {
     let searchBirthday = this.state.searchBirthday;
     if (searchValue) {
       newResults = newResults.filter((villager) =>
-        villager.name['name-USen'].toLowerCase().includes(searchValue)
+        villager.name["name-USen"].toLowerCase().includes(searchValue)
       );
     }
     if (searchSpecies.length > 0) {
@@ -185,12 +185,12 @@ class Villagers extends React.Component {
     }
     if (searchBirthday.length > 0) {
       newResults = newResults.filter((villager) => {
-        const birthday = villager['birthday-string'].split(' ');
+        const birthday = villager["birthday-string"].split(" ");
         return searchBirthday.includes(birthday[0]);
       });
     }
     if (
-      searchValue === '' &&
+      searchValue === "" &&
       searchSpecies.length === 0 &&
       searchPersonality.length === 0 &&
       searchBirthday.length === 0

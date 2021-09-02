@@ -1,24 +1,24 @@
-import React from 'react';
-import { ItemContext } from '../contexts/ItemContext';
-import DetailsArt from './DetailsArt';
+import React from "react";
+import { ItemContext } from "../contexts/ItemContext";
+import DetailsArt from "./DetailsArt";
 
 class Art extends React.Component {
   static contextType = ItemContext;
 
   componentDidMount() {
-    this.context.changeActiveItem('art');
+    this.context.changeActiveItem("art");
   }
 
   filterArt = () => {
     const searchValue = this.context.searchValue;
     const displayedArt = this.context.allItems.art.filter((art) =>
-      art.name['name-USen'].includes(searchValue)
+      art.name["name-USen"].includes(searchValue)
     );
     return displayedArt.map((art) => (
       <DetailsArt
         art={art}
         type={this.context.activeItem}
-        key={art['file-name']}
+        key={art["file-name"]}
       />
     ));
   };
@@ -40,7 +40,7 @@ class Art extends React.Component {
               className="icon"
               src="./images/TomNook.png"
               alt="Our Boy Tom Nook"
-            />{' '}
+            />{" "}
             Nook buys all art for 1245 bells
           </p>
         </div>

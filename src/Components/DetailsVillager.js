@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { ItemContext } from '../contexts/ItemContext';
-import { properCase } from '../utils';
+import React, { useContext } from "react";
+import { ItemContext } from "../contexts/ItemContext";
+import { properCase } from "../utils";
 
 const DetailsVillager = ({ villager, activateCard, match }) => {
   console.log(match);
   const { markComplete, allItems } = useContext(ItemContext);
   const {
-    'file-name': fileName,
-    'catch-phrase': catchPhrase,
-    'birthday-string': birthday,
-    name: { 'name-USen': name }
+    "file-name": fileName,
+    "catch-phrase": catchPhrase,
+    "birthday-string": birthday,
+    name: { "name-USen": name },
   } = villager;
   birthdayCalculations(villager);
   return (
@@ -30,14 +30,14 @@ const DetailsVillager = ({ villager, activateCard, match }) => {
               onChange={markComplete}
               checked={
                 allItems.completed.findIndex(
-                  (item) => item.name['name-USen'] === name
+                  (item) => item.name["name-USen"] === name
                 ) !== -1
               }
             />
             <span>Mark Complete</span>
           </label>
         </div>
-        {match.url.includes('details') ? (
+        {match.url.includes("details") ? (
           <>
             <img src={`../images/villagers/${fileName}.png`} alt={name} />
             <p>Personality: {villager.personality}</p>
@@ -47,7 +47,7 @@ const DetailsVillager = ({ villager, activateCard, match }) => {
             <p>Days until birthday: {villager.birthdayDaysAway}</p>
           </>
         ) : (
-          <button onClick={() => activateCard(villager['file-name'])}>
+          <button onClick={() => activateCard(villager["file-name"])}>
             View Details
           </button>
         )}
@@ -76,12 +76,12 @@ function birthdayCalculations(villager) {
 
 function fixBirthday(villager) {
   // Changes birthday from DD//MM into YYYY/MM/DD
-  const originalBirthdayFormat = villager.birthday.split('/');
+  const originalBirthdayFormat = villager.birthday.split("/");
   const currentTime = new Date();
   const fixedBirthDate =
     currentTime.getFullYear() +
-    ' ' +
-    originalBirthdayFormat.reverse().join(' ');
+    " " +
+    originalBirthdayFormat.reverse().join(" ");
   const birthDate = new Date(fixedBirthDate);
   return birthDate;
 }

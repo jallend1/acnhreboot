@@ -14,7 +14,7 @@ class FilterVillagers extends React.Component {
       "September",
       "October",
       "November",
-      "December"
+      "December",
     ];
     return months.map((month) => {
       return (

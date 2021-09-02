@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { properCase } from '../utils';
-import { ItemContext } from '../contexts/ItemContext';
-import DetailsArt from './DetailsArt';
-import DetailsVillager from './DetailsVillager';
-import DetailsSong from './DetailsSong';
-import DetailsCreature from './DetailsCreature';
+import React, { useContext } from "react";
+import { properCase } from "../utils";
+import { ItemContext } from "../contexts/ItemContext";
+import DetailsArt from "./DetailsArt";
+import DetailsVillager from "./DetailsVillager";
+import DetailsSong from "./DetailsSong";
+import DetailsCreature from "./DetailsCreature";
 
 const Details = (props) => {
   const { allItems } = useContext(ItemContext);
@@ -14,25 +14,25 @@ const Details = (props) => {
     // Waits until there's a match, then returns that item
     if (itemDetails) {
       const [type, item] = itemDetails;
-      if (type === 'art') {
+      if (type === "art") {
         return <DetailsArt art={item} type={type} />;
-      } else if (type === 'villagers') {
+      } else if (type === "villagers") {
         return (
           <DetailsVillager villager={item} type={type} match={props.match} />
         );
-      } else if (type === 'music') {
+      } else if (type === "music") {
         return <DetailsSong song={item} type={type} />;
       } else if (
-        type === 'fish' ||
-        type === 'bugs' ||
-        type === 'sea' ||
-        type === 'fossils'
+        type === "fish" ||
+        type === "bugs" ||
+        type === "sea" ||
+        type === "fossils"
       ) {
         return <DetailsCreature creature={item} type={type} />;
       }
       return (
         <div>
-          <h4>{properCase(item.name['name-USen'])}</h4>
+          <h4>{properCase(item.name["name-USen"])}</h4>
         </div>
       );
     } else {
@@ -46,9 +46,9 @@ const Details = (props) => {
     const types = Object.keys(allItems);
     for (let i = 0; i < types.length; i++) {
       //   If the item type isn't home or completed, search the array
-      if ((types[i] !== 'home') & (types[i] !== 'completed')) {
+      if ((types[i] !== "home") & (types[i] !== "completed")) {
         const desiredItem = allItems[types[i]].filter(
-          (item) => item['file-name'] === fileName
+          (item) => item["file-name"] === fileName
         );
         // If it finds a match, returns it
         if (desiredItem.length > 0) {

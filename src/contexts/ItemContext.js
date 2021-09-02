@@ -1,10 +1,10 @@
-import React, { Component, createContext } from 'react';
-import { properCase } from '../utils';
+import React, { Component, createContext } from "react";
+import { properCase } from "../utils";
 export const ItemContext = createContext();
 
 export default class ItemContextProvider extends Component {
   state = {
-    activeItem: 'home',
+    activeItem: "home",
     activeItems: [],
     allItems: {
       home: [],
@@ -16,15 +16,15 @@ export default class ItemContextProvider extends Component {
       music: [],
       art: [],
       completed: [],
-      everything: []
+      everything: [],
     },
     availableToday: false,
     completed: [],
-    searchValue: '',
-    time: '',
+    searchValue: "",
+    time: "",
     descending: false,
-    sortBy: 'alpha',
-    activeSong: ''
+    sortBy: "alpha",
+    activeSong: "",
   };
 
   componentDidMount() {
@@ -33,20 +33,20 @@ export default class ItemContextProvider extends Component {
     this.extractLocalStorage();
     const now = new Date();
     this.setState({
-      time: now
+      time: now,
     });
   }
 
   pickSong = (songList) => {
-    if (this.state.activeSong === '') {
+    if (this.state.activeSong === "") {
       const randomNum = Math.floor(Math.random() * songList.length);
-      this.setState({ activeSong: songList[randomNum]['file-name'] });
+      this.setState({ activeSong: songList[randomNum]["file-name"] });
     }
   };
 
   // Called under showAvailable to determine if current active items have limited availability
   calculateAvailability = (availability) => {
-    const northernMonths = availability['month-array-northern'];
+    const northernMonths = availability["month-array-northern"];
     const currentMonth = this.state.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
@@ -54,7 +54,7 @@ export default class ItemContextProvider extends Component {
   changeActiveItem = (newType) => {
     this.setState({
       activeItem: newType,
-      activeItems: this.state.allItems[newType]
+      activeItems: this.state.allItems[newType],
     });
   };
 
@@ -75,7 +75,7 @@ export default class ItemContextProvider extends Component {
   clearCollected = () => {
     const currentState = this.state.allItems;
     currentState.completed = [];
-    localStorage.removeItem('completed');
+    localStorage.removeItem("completed");
     this.setState({ allItems: currentState });
   };
 
@@ -83,9 +83,9 @@ export default class ItemContextProvider extends Component {
     const currentState = this.state.activeItems;
     // Only these creatures have limited availability
     if (
-      this.state.activeItem === 'fish' ||
-      this.state.activeItem === 'bugs' ||
-      this.state.activeItem === 'sea'
+      this.state.activeItem === "fish" ||
+      this.state.activeItem === "bugs" ||
+      this.state.activeItem === "sea"
     ) {
       return currentState.filter((item) => {
         return this.calculateAvailability(item.availability);
@@ -110,9 +110,9 @@ export default class ItemContextProvider extends Component {
 
   //If any completed items exist in localStorage, makes them active
   extractLocalStorage = () => {
-    if (localStorage.getItem('completed') !== null) {
+    if (localStorage.getItem("completed") !== null) {
       const currentState = this.state.allItems;
-      const savedCompleted = localStorage.getItem('completed');
+      const savedCompleted = localStorage.getItem("completed");
       currentState.completed = JSON.parse(savedCompleted);
       this.setState({ allItems: currentState });
     }
@@ -124,12 +124,12 @@ export default class ItemContextProvider extends Component {
     for (let i = 0; i < types.length; i++) {
       //   If the item type isn't home or completed, search the array
       if (
-        (this.state.allItems[types[i]] !== 'home') &
-        (this.state.allItems[types[i]] !== 'completed')
+        (this.state.allItems[types[i]] !== "home") &
+        (this.state.allItems[types[i]] !== "completed")
       ) {
         if (
           this.state.allItems[types[i]].some(
-            (item) => item.name['name-USen'] === name
+            (item) => item.name["name-USen"] === name
           )
         ) {
           return types[i];
@@ -144,25 +144,25 @@ export default class ItemContextProvider extends Component {
     const itemType = this.locateItemType(e.target.value);
     if (e.target.checked) {
       const itemDetails = currentState[itemType].find(
-        (item) => item.name['name-USen'] === e.target.value
+        (item) => item.name["name-USen"] === e.target.value
       );
       const imageLocation =
-        itemType === 'fossils' || itemType === 'music' || itemType === 'art'
-          ? `./images/${itemType}/${itemDetails['file-name']}.png`
-          : `images/icons/${itemType}/${itemDetails['file-name']}.png`;
+        itemType === "fossils" || itemType === "music" || itemType === "art"
+          ? `./images/${itemType}/${itemDetails["file-name"]}.png`
+          : `images/icons/${itemType}/${itemDetails["file-name"]}.png`;
       itemDetails.type = itemType;
       itemDetails.imageLocation = imageLocation;
       currentState.completed.push(itemDetails);
     } else {
       const index = currentState.completed.findIndex(
-        (item) => item.name['name-USen'] === e.target.value
+        (item) => item.name["name-USen"] === e.target.value
       );
       currentState.completed.splice(index, 1);
     }
     this.setState(
       { allItems: currentState },
       localStorage.setItem(
-        'completed',
+        "completed",
         JSON.stringify(this.state.allItems.completed)
       )
     );
@@ -178,27 +178,27 @@ export default class ItemContextProvider extends Component {
     const newItem = {
       name: item.name,
       type: dataType,
-      fileName: item['file-name']
+      fileName: item["file-name"],
     };
     if (
-      dataType === 'Fish' ||
-      dataType === 'Bugs' ||
-      dataType === 'Sea' ||
-      dataType === 'Fossils'
+      dataType === "Fish" ||
+      dataType === "Bugs" ||
+      dataType === "Sea" ||
+      dataType === "Fossils"
     ) {
       newItem.price = item.price;
-    } else if (dataType === 'Music') {
+    } else if (dataType === "Music") {
       newItem.price = 800;
-    } else if (dataType === 'Art') {
+    } else if (dataType === "Art") {
       newItem.price = 1245;
     }
     return newItem;
   };
   populateData = (dataType) => {
     if (
-      dataType !== 'completed' &&
-      dataType !== 'home' &&
-      dataType !== 'everything'
+      dataType !== "completed" &&
+      dataType !== "home" &&
+      dataType !== "everything"
     ) {
       let jsonPath = `../${dataType}.json`;
       fetch(jsonPath)
@@ -218,13 +218,13 @@ export default class ItemContextProvider extends Component {
           currentState[dataType] = itemList;
           currentState.everything = everything;
           // If it's music, picks a random song to populate in the player
-          if (dataType === 'music') {
+          if (dataType === "music") {
             this.pickSong(itemList);
           }
           this.setState(
             {
               allItems: currentState,
-              activeItems: currentState[this.state.activeItem]
+              activeItems: currentState[this.state.activeItem],
             },
             this.sortAlpha
           );
@@ -242,7 +242,7 @@ export default class ItemContextProvider extends Component {
   searchResults = () => {
     const currentData = this.state.allItems[this.state.activeItem];
     const activeItems = currentData.filter((item) =>
-      item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
+      item.name["name-USen"].toLowerCase().includes(this.state.searchValue)
     );
     this.setState({ activeItems }, this.showAvailable);
   };
@@ -255,10 +255,11 @@ export default class ItemContextProvider extends Component {
     } else {
       // If just unclicked, checks to see if search field has value, and restores array matching that criteria
       if (this.state.searchValue) {
-        activeItems = this.state.allItems[
-          this.state.activeItem
-        ].filter((item) =>
-          item.name['name-USen'].toLowerCase().includes(this.state.searchValue)
+        activeItems = this.state.allItems[this.state.activeItem].filter(
+          (item) =>
+            item.name["name-USen"]
+              .toLowerCase()
+              .includes(this.state.searchValue)
         );
         // If no filtering criteria, restores the original item list
       } else {
@@ -272,9 +273,9 @@ export default class ItemContextProvider extends Component {
     const activeItems = this.state.activeItems;
     const criteria = this.state.sortBy;
     // If alphabetical is clicked, convert to lowercase and sort alphabetically
-    if (criteria === 'alpha') {
+    if (criteria === "alpha") {
       activeItems.sort((a, b) =>
-        a.name['name-USen'].toLowerCase() > b.name['name-USen'].toLowerCase()
+        a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()
           ? 1
           : -1
       );
@@ -293,13 +294,13 @@ export default class ItemContextProvider extends Component {
     let sortBy = this.state.sortBy;
 
     // If name was clicked and already sorted by name, alternates descending
-    if (e.target.dataset.sort === 'name') {
-      if (sortBy === 'alpha') {
+    if (e.target.dataset.sort === "name") {
+      if (sortBy === "alpha") {
         descending = !descending;
       }
       // If it isn't yet sorted by name, switches it to sort by alpha
       else {
-        sortBy = 'alpha';
+        sortBy = "alpha";
       }
     }
     this.setState({ sortBy, descending }, this.sortAlpha);
@@ -316,7 +317,7 @@ export default class ItemContextProvider extends Component {
   toggleCollapse = (item, creatureType) => {
     const currentState = this.state.allItems;
     const itemIndex = currentState[creatureType].findIndex(
-      (creature) => creature['file-name'] === item
+      (creature) => creature["file-name"] === item
     );
     let isExpanded = currentState[creatureType][itemIndex].expanded;
     isExpanded = !isExpanded;
@@ -347,7 +348,7 @@ export default class ItemContextProvider extends Component {
           markComplete: this.markComplete,
           clearCollected: this.clearCollected,
           searchField: this.searchField,
-          sortEverything: this.sortEverything
+          sortEverything: this.sortEverything,
         }}
       >
         {this.props.children}

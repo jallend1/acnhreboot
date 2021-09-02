@@ -1,12 +1,12 @@
-import React from 'react';
-import { ItemContext } from '../contexts/ItemContext';
-import { properCase } from '../utils';
-import DetailsSong from './DetailsSong';
+import React from "react";
+import { ItemContext } from "../contexts/ItemContext";
+import { properCase } from "../utils";
+import DetailsSong from "./DetailsSong";
 
 class Music extends React.Component {
   static contextType = ItemContext;
   componentDidMount() {
-    this.context.changeActiveItem('music');
+    this.context.changeActiveItem("music");
   }
   componentDidUpdate(prevProps) {
     if (this.context.searchValue !== prevProps.searchValue) {
@@ -18,7 +18,7 @@ class Music extends React.Component {
       // If there's a search term, return the filtered array
       return this.context.activeItems
         .filter((song) =>
-          song.name['name-USen'].includes(this.context.searchValue)
+          song.name["name-USen"].includes(this.context.searchValue)
         )
         .map((item) => this.displaySongs(item));
     } else {
@@ -28,7 +28,7 @@ class Music extends React.Component {
   };
 
   displaySongs = (song) => {
-    return <DetailsSong song={song} key={song['file-name']} />;
+    return <DetailsSong song={song} key={song["file-name"]} />;
   };
 
   render() {

@@ -1,8 +1,8 @@
-import React from 'react';
-import { properCase } from '../utils';
-import Details from './Creature/Details';
-import { ItemContext } from '../contexts/ItemContext';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { properCase } from "../utils";
+import Details from "./Creature/Details";
+import { ItemContext } from "../contexts/ItemContext";
+import { Link } from "react-router-dom";
 
 class Creatures extends React.Component {
   static contextType = ItemContext;
@@ -11,24 +11,24 @@ class Creatures extends React.Component {
   }
 
   calculateAvailability = (availability) => {
-    const northernMonths = availability['month-array-northern'];
+    const northernMonths = availability["month-array-northern"];
     const currentMonth = this.context.time.getMonth() + 1; // API keeps months according to calendar, JS starts at 0;
     return northernMonths.includes(currentMonth); // If current month is incluced in array of availibility, true
   };
 
   displayItems = (item) => {
     return (
-      <React.Fragment key={item['file-name']}>
+      <React.Fragment key={item["file-name"]}>
         <tr>{this.renderHeader(item)}</tr>
         {this.renderDetails(item)}
       </React.Fragment>
     );
   };
   displayPrice = (item) => {
-    if (this.context.sortBy === 'cj') {
-      return <h6>{item['price-cj']} bells</h6>;
-    } else if (this.context.sortBy === 'flick') {
-      return <h6>{item['price-flick']} bells</h6>;
+    if (this.context.sortBy === "cj") {
+      return <h6>{item["price-cj"]} bells</h6>;
+    } else if (this.context.sortBy === "flick") {
+      return <h6>{item["price-flick"]} bells</h6>;
     } else {
       return <h6>{item.price} bells</h6>;
     }
@@ -36,7 +36,7 @@ class Creatures extends React.Component {
 
   renderAvailability = ({ availability }) => {
     let availableToday;
-    this.context.activeItem === 'fossils'
+    this.context.activeItem === "fossils"
       ? (availableToday = true)
       : (availableToday = this.calculateAvailability(availability));
     return availableToday ? (
@@ -51,7 +51,7 @@ class Creatures extends React.Component {
         className="material-icons"
         onClick={() =>
           this.context.toggleCollapse(
-            item['file-name'],
+            item["file-name"],
             this.context.activeItem
           )
         }
@@ -63,7 +63,7 @@ class Creatures extends React.Component {
         className="material-icons"
         onClick={() =>
           this.context.toggleCollapse(
-            item['file-name'],
+            item["file-name"],
             this.context.activeItem
           )
         }
@@ -79,13 +79,13 @@ class Creatures extends React.Component {
         <input
           type="checkbox"
           name="markcomplete"
-          value={item.name['name-USen']}
+          value={item.name["name-USen"]}
           onChange={this.context.markComplete}
           // If item included in Completed, renders the box to the page already checked
           checked={
             this.context.allItems.completed.filter(
               (creature) =>
-                creature.name['name-USen'] === item.name['name-USen']
+                creature.name["name-USen"] === item.name["name-USen"]
             ).length > 0
           }
         />
@@ -103,8 +103,8 @@ class Creatures extends React.Component {
             <td colSpan="6">
               <Details item={item} activeItem={this.context.activeItem} />
               <div>
-                <Link to={`/details/${item['file-name']}`}>
-                  View {properCase(item.name['name-USen'])} details on own page
+                <Link to={`/details/${item["file-name"]}`}>
+                  View {properCase(item.name["name-USen"])} details on own page
                 </Link>
               </div>
             </td>
@@ -123,8 +123,8 @@ class Creatures extends React.Component {
 
         <td>
           <h5>
-            <Link to={`/details/${item['file-name']}`}>
-              {properCase(item.name['name-USen'])}
+            <Link to={`/details/${item["file-name"]}`}>
+              {properCase(item.name["name-USen"])}
             </Link>
           </h5>
         </td>
@@ -139,11 +139,11 @@ class Creatures extends React.Component {
     return (
       <img
         src={
-          this.context.activeItem === 'fossils'
+          this.context.activeItem === "fossils"
             ? `../images/icons/fossil.png`
-            : `../images/icons/${this.context.activeItem}/${item['file-name']}.png`
+            : `../images/icons/${this.context.activeItem}/${item["file-name"]}.png`
         }
-        alt={item.name['name-USen']}
+        alt={item.name["name-USen"]}
       />
     );
   };

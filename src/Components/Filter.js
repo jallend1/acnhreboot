@@ -1,10 +1,10 @@
-import React from 'react';
-import { ItemContext } from '../contexts/ItemContext';
+import React from "react";
+import { ItemContext } from "../contexts/ItemContext";
 class Filter extends React.Component {
   // Shows collapse/expand details on only creatures and fossils
   static contextType = ItemContext;
   showCollapse = (isCreature) => {
-    if (isCreature || this.context.activeItem === 'fossils') {
+    if (isCreature || this.context.activeItem === "fossils") {
       return (
         <>
           <div className="collapse-toggle">
@@ -85,26 +85,26 @@ class Filter extends React.Component {
   };
 
   showBirthdays = () => {
-    if (this.context.activeItem === 'villagers') {
+    if (this.context.activeItem === "villagers") {
       return <option value="birthdayDaysAway">Days Until Birthday</option>;
     }
   };
   showCJ = () => {
-    if (this.context.activeItem === 'fish') {
+    if (this.context.activeItem === "fish") {
       return <option value="price-cj">CJ's Price</option>;
     }
   };
   showFlick = () => {
-    if (this.context.activeItem === 'bugs') {
+    if (this.context.activeItem === "bugs") {
       return <option value="price-flick">Flick's Price</option>;
     }
   };
   showNook = () => {
     // Allow sorting by Nook's price for everything other than Villagers, art, and music
     if (
-      this.context.activeItem !== 'villagers' &&
-      this.context.activeItem !== 'art' &&
-      this.context.activeItem !== 'music'
+      this.context.activeItem !== "villagers" &&
+      this.context.activeItem !== "art" &&
+      this.context.activeItem !== "music"
     ) {
       return <option value="price">Nook's Price</option>;
     }
@@ -127,9 +127,9 @@ class Filter extends React.Component {
   render() {
     // Creatures boolean because fish, bugs, sea creatures all have overlapping filters
     const isCreature =
-      this.context.activeItem === 'fish' ||
-      this.context.activeItem === 'bugs' ||
-      this.context.activeItem === 'sea';
+      this.context.activeItem === "fish" ||
+      this.context.activeItem === "bugs" ||
+      this.context.activeItem === "sea";
     return (
       <div className="filterbar">
         {this.renderSearchBar()}

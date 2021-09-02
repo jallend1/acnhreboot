@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { ItemContext } from '../contexts/ItemContext';
+import React, { useContext } from "react";
+import { ItemContext } from "../contexts/ItemContext";
 
 const DetailsSong = ({ song }) => {
   const { playSong, allItems, markComplete } = useContext(ItemContext);
   const {
-    'file-name': fileName,
-    'buy-price': buyPrice,
-    'sell-price': sellPrice,
-    name: { 'name-USen': name }
+    "file-name": fileName,
+    "buy-price": buyPrice,
+    "sell-price": sellPrice,
+    name: { "name-USen": name },
   } = song;
   return (
     <div className="card song center" key={fileName}>
@@ -23,8 +23,8 @@ const DetailsSong = ({ song }) => {
       <span className="card-title">{name}</span>
       <div className="card-content">
         <p>
-          Purchase Price:{' '}
-          {buyPrice ? `${buyPrice} bells` : 'Not available for purchase.'}
+          Purchase Price:{" "}
+          {buyPrice ? `${buyPrice} bells` : "Not available for purchase."}
         </p>
         <p>Sell Value: {sellPrice} bells</p>
       </div>
@@ -36,7 +36,7 @@ const DetailsSong = ({ song }) => {
             value={name}
             checked={
               allItems.completed.filter(
-                (item) => item.name['name-USen'] === name
+                (item) => item.name["name-USen"] === name
               ).length > 0
             }
             onChange={markComplete}
