@@ -9,12 +9,13 @@ body {
 }
 
 .container {
-  background: #feffc1;
+  background-color: #eee;
+  margin: 1.5em auto;
 }
 
 #logo {
-  font-family: "Coming Soon", cursive;
-  background-image: url("./wood.jpg");
+  font-family: "Poppins", sans-serif;
+  background-color: #eee;
   padding-top: 1em;
   text-align: center;
 }
@@ -48,6 +49,11 @@ td {
   justify-content: space-between;
 }
 
+nav {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+}
+
 nav ul {
   display: flex;
   justify-content: space-evenly;
@@ -62,7 +68,8 @@ nav ul {
   text-align: center;
   display: flex;
   justify-content: space-evenly;
-  background-color: #81f1f7;
+  background-color: #68388f;
+  padding: 1em;
 }
 
 #audiobox {

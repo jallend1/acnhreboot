@@ -20,12 +20,12 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <NavBar />
         <div className="container">
           <Header />
           {this.context.activeSong ? (
             <Player activeSong={this.context.activeSong} />
           ) : null}
-          <NavBar />
           <div className="main-content">
             {this.context.activeItem !== "home" ? (
               <>

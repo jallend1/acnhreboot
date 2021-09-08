@@ -30,7 +30,7 @@ const NavBar = (props) => {
   return (
     <nav>
       <div className="nav-wrapper">
-        <ul className="green accent-4">{renderTypes(types)}</ul>
+        <ul>{renderTypes(types)}</ul>
       </div>
     </nav>
   );
