@@ -8,9 +8,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main-container {
+  background-color: #eee;
+  margin: 1.5em auto;
+  display: flex;
+  width: 90%;
+  padding: 0 1.25em;
+}
+
 .container {
   background-color: #eee;
   margin: 1.5em auto;
+}
+
+.sidebar {
+  flex: 0 1 auto;
+  max-width: 500px;
 }
 
 #logo {
@@ -46,7 +59,8 @@ td {
 
 #filters {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 nav {
@@ -113,6 +127,10 @@ nav ul {
 
 .options {
   padding: 2em 2em 0 0;
+}
+
+.welcome {
+  padding: 1.25em;
 }
 
 #birthdays {

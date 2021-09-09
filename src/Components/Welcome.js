@@ -2,7 +2,7 @@ import React from "react";
 
 const Welcome = (props) => {
   return (
-    <>
+    <div className="welcome">
       <header className="center">
         <h2>Welcome!</h2>
         <img src="../images/TomNook.png" alt="My boy Tom Nook"></img>
@@ -66,7 +66,7 @@ const Welcome = (props) => {
           </li>
         </ul>
       </main>
-    </>
+    </div>
   );
 };
 

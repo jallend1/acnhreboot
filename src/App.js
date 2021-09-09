@@ -21,17 +21,19 @@ class App extends Component {
     return (
       <BrowserRouter>
         <NavBar />
-        <div className="container">
-          <Header />
-          {this.context.activeSong ? (
-            <Player activeSong={this.context.activeSong} />
-          ) : null}
-          <div className="main-content">
+        <div className="main-container">
+          <div className="sidebar">
+            <Header />
+            {this.context.activeSong ? (
+              <Player activeSong={this.context.activeSong} />
+            ) : null}
             {this.context.activeItem !== "home" ? (
               <>
                 <Filter />
               </>
             ) : null}
+          </div>
+          <div className="main-content">
             <Route path="/music" component={Music} />
             <Route path="/villagers" component={Villagers} />
             <Route path="/art" component={Art} />
