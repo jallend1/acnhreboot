@@ -13,12 +13,10 @@ body {
   margin: 1.5em auto;
   width: 90%;
   padding: 0 1.25em;
-  /* display: flex;
-  justify-content: space-between; */
-  display: grid;
-  /* grid-template-columns: minmax(400px, 1fr) 2fr; */
-  /* grid-template-columns: repeat(auto-fill, 400px minmax(500px, 1fr)); */
-  grid-template-columns: repeat(auto-fit, 400px);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .container {
@@ -55,6 +53,7 @@ td {
 
 .main-content {
   padding: 1em;
+  flex: 3 0 auto;
 }
 
 .filterbar {
