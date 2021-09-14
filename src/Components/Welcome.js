@@ -4,11 +4,11 @@ const Welcome = (props) => {
   return (
     <div className="welcome">
       <header className="center">
-        <h2>Welcome!</h2>
-        <img src="../images/TomNook.png" alt="My boy Tom Nook"></img>
+        <h2>The Features</h2>
+        <img className="tom-nook" src="../images/TomNook.png" alt="My boy Tom Nook"></img>
       </header>
       <main>
-        <h3>What Can I Do?</h3>
+        <div className="feature-list">
         <ul className="collection with-header center">
           <li className="collection-header">
             <h4>Creature Features</h4>
@@ -65,6 +65,7 @@ const Welcome = (props) => {
             Scope out which art has fake versions
           </li>
         </ul>
+        </div>
       </main>
     </div>
   );

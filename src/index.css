@@ -53,7 +53,7 @@ td {
 
 .main-content {
   padding: 1em;
-  flex: 3 0 auto;
+  flex: 3;
 }
 
 .filterbar {
@@ -135,6 +135,23 @@ nav ul {
 
 .welcome {
   padding: 1.25em;
+}
+
+.welcome header {
+  display: flex;
+  justify-content: center;
+}
+
+.tom-nook {
+  max-height: 100px;
+  margin-left: 2em;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  column-gap: 1em;
+  justify-content: center;
 }
 
 #birthdays {
