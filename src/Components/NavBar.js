@@ -30,6 +30,9 @@ const NavBar = (props) => {
   return (
     <nav>
       <div className="nav-wrapper">
+        <div class="logo">
+          <p>ACNH Collectible Guide</p>
+        </div>
         <ul>{renderTypes(types)}</ul>
       </div>
     </nav>
