@@ -1,6 +1,7 @@
 import React from "react";
 import { properCase } from "../utils";
 import Details from "./Creature/Details";
+import Filter from "./Filter";
 import { ItemContext } from "../contexts/ItemContext";
 import { Link } from "react-router-dom";
 
@@ -166,6 +167,7 @@ class Creatures extends React.Component {
               alt={`${this.context.activeItem} icon`}
             />
           </div>
+          <Filter />
           <table className="highlight">
             <thead>
               <tr>

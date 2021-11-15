@@ -1,6 +1,7 @@
 import React from "react";
 import { ItemContext } from "../contexts/ItemContext";
 import DetailsArt from "./DetailsArt";
+import Filter from "./Filter";
 
 class Art extends React.Component {
   static contextType = ItemContext;
@@ -44,6 +45,7 @@ class Art extends React.Component {
             Nook buys all art for 1245 bells
           </p>
         </div>
+        <Filter />
         <div id="artdisplay">{this.filterArt()}</div>
       </>
     );

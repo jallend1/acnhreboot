@@ -4,6 +4,7 @@ import { properCase } from "../utils";
 import Popup from "./Popup";
 import { ItemContext } from "../contexts/ItemContext";
 import DetailsVillager from "./DetailsVillager";
+import Filter from "./Filter";
 
 class Villagers extends React.Component {
   constructor(props) {
@@ -215,6 +216,7 @@ class Villagers extends React.Component {
             <h5>Running through the calendar looking for birthdays</h5>
           )}
         </div>
+        <Filter />
         <FilterVillagers
           filterVillagers={this.filterVillagers}
           species={this.state.species}
