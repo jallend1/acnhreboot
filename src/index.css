@@ -24,20 +24,21 @@ body {
   margin: 1.5em auto;
 }
 
-.sidebar {
+/* .sidebar {
   flex: 0 1 auto;
   max-width: 500px;
-}
+} */
 
 #logo {
   font-family: "Poppins", sans-serif;
   background-color: #eee;
-  padding-top: 1em;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-#logo img {
-  max-width: 100px;
+#logo h1 {
+  margin: 0;
 }
 
 h1,
@@ -158,7 +159,7 @@ nav ul {
 
 .feature-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
+  grid-template-columns: repeat(auto-fit, 300px);
   column-gap: 1em;
   justify-content: center;
 }

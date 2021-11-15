@@ -22,7 +22,7 @@ class App extends Component {
       <BrowserRouter>
         <NavBar />
         <div className="main-container">
-          <div className="sidebar">
+          {/* <div className="sidebar">
             <Header />
             {this.context.activeSong ? (
               <Player activeSong={this.context.activeSong} />
@@ -32,7 +32,7 @@ class App extends Component {
                 <Filter />
               </>
             ) : null}
-          </div>
+          </div> */}
           <div className="main-content">
             <Route path="/music" component={Music} />
             <Route path="/villagers" component={Villagers} />
