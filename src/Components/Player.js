@@ -41,7 +41,7 @@ const Player = () => {
           />
         </div>
         {/* Autoplays if on the Music tab, otherwise load silently */}
-        {currentStatus.activeItem === "music" ? (
+        {/* {currentStatus.activeItem === "music" ? (
           <audio
             controls
             src={songPath(currentStatus)}
@@ -49,8 +49,8 @@ const Player = () => {
             autoPlay
           />
         ) : (
-          <audio controls src={songPath(currentStatus)} type="audio/mpeg" />
-        )}
+          )} */}
+        <audio controls src={songPath(currentStatus)} type="audio/mpeg" />
       </div>
     </div>
   );

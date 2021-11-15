@@ -3,6 +3,7 @@ import { ItemContext } from "../contexts/ItemContext";
 import { properCase } from "../utils";
 import DetailsSong from "./DetailsSong";
 import Filter from "./Filter";
+import Player from "./Player";
 
 class Music extends React.Component {
   static contextType = ItemContext;
@@ -43,6 +44,7 @@ class Music extends React.Component {
           </h2>
         </div>
         <Filter />
+        <Player />
         <div id="artdisplay">{this.displaySelection()}</div>
       </>
     );
