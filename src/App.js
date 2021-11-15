@@ -1,3 +1,11 @@
+// TODO
+// - Shift use of local JSON files to only if ANCHAPI server is non-responsive
+// - Restore functionality to Player on Music page when user clicks album cover
+// - Shift sorting of items from select menu into clicking on headings
+// - Add Furniture / Misc items that have since been added to API
+// - Redeisgn art layout
+// - Shift images out of public and src
+
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Creatures from "./Components/Creatures";
