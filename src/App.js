@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import Header from "./Components/Header";
 import Creatures from "./Components/Creatures";
 import Music from "./Components/Music";
 import Villagers from "./Components/Villagers";
 import Art from "./Components/Art";
 import Completed from "./Components/Completed";
 import Welcome from "./Components/Welcome";
-import Filter from "./Components/Filter";
 import NavBar from "./Components/NavBar";
-import Player from "./Components/Player";
 import Details from "./Components/Details";
 import Everything from "./Components/Everything";
 import { ItemContext } from "./contexts/ItemContext";
