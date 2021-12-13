@@ -3,6 +3,8 @@ import { ItemContext } from "../contexts/ItemContext";
 import DetailsArt from "./DetailsArt";
 import Filter from "./Filter";
 
+// TODO: One single component for listing the items, unique components for detail view?
+
 class Art extends React.Component {
   static contextType = ItemContext;
 
